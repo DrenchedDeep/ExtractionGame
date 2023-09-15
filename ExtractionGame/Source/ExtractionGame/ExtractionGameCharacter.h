@@ -45,58 +45,28 @@ class AExtractionGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
 
-	bool bSprintPressed;
-	bool bCrouchPressed;
-
-	float LocalVerticalMovement;
-	float LocalHorizontalMovement;
-	
 public:
-	UPROPERTY(EditAnywhere, Category=Movement)
-	float WalkMovementSpeed;
-	UPROPERTY(EditAnywhere, Category=Movement)
-	float SprintMovementSpeed;
-	UPROPERTY(EditAnywhere, Category=Movement)
-	float CrouchMovementSpeed;
+	AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer);
 
-	UPROPERTY(EditAnywhere, Category=Crouching)
-	FVector DefaultCameraLocation = FVector(-10.f, 0.f, 60.f);
-	UPROPERTY(EditAnywhere, Category=Crouching)
-	FVector CrouchCameraLocation;
-	UPROPERTY(EditAnywhere, Category=Crouching)
-	float CrouchCameraOffsetSmoothing = 0.5f;
-
-	
-public:
-	AExtractionGameCharacter();
-
-	UPROPERTY(Replicated, BlueprintReadOnly)
-	bool IsSprinting;
-	UPROPERTY(Replicated, BlueprintReadOnly)
-	bool IsCrouching;
-	UPROPERTY(Replicated, BlueprintReadOnly)
-	bool IsSliding;
-	
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float VerticalMovement;
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float HorizontalMovement;
-	
+
 protected:
 	virtual void BeginPlay();
-	virtual void Tick(float DeltaSeconds) override;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Movement)
+	class UPlayerMovementComponent* PlayerMovementComponent;
 
 public:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
-	void StartSprintPressed();
-	void StopSprintPressed();
+	void SprintPressed();
+	void SprintReleased();
+
 	void CrouchPressed();
-
-	UFUNCTION(Server, Unreliable)
-	void Server_SendInput(float LocVerticalMovement, float LocHorizontalMovement, bool LocSprintPressed, bool LocCrouchPressed);
-
 	
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -106,7 +76,7 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
-private:
-	float GetMovementSpeed() const;
+	FCollisionQueryParams GetIgnoreCharacterParams() const;
+
 };
 

@@ -1,4 +1,7 @@
 #include "ExtractionGameCharacter.h"
+
+#include <filesystem>
+
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -6,14 +9,18 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "PlayerMovementComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Net/UnrealNetwork.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-AExtractionGameCharacter::AExtractionGameCharacter()
+AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
+	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
+	
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
@@ -41,46 +48,8 @@ void AExtractionGameCharacter::BeginPlay()
 		}
 	}
 
-}
+	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 
-void AExtractionGameCharacter::Tick(float DeltaSeconds)
-{
-	Super::Tick(DeltaSeconds);
-
-
-
-	if(IsLocallyControlled())
-	{
-		GEngine->AddOnScreenDebugMessage(-10, 1.f, FColor::Yellow, bCrouchPressed ? "True" : "False");
-
-		//predict it
-		IsSprinting = bSprintPressed;
-		IsCrouching = bCrouchPressed;
-
-		//send values to server
-		Server_SendInput(LocalVerticalMovement, LocalHorizontalMovement, bSprintPressed, bCrouchPressed);
-
-		bSprintPressed = false;
-	}
-
-	if(HasAuthority() || IsLocallyControlled())
-	{
-		GetCharacterMovement()->MaxWalkSpeed = GetMovementSpeed();
-
-		if(IsLocallyControlled())
-		{
-			const FVector ToLocation = IsCrouching ? CrouchCameraLocation : DefaultCameraLocation;
-			const FVector CameraLocation = FMath::Lerp(FirstPersonCameraComponent->GetRelativeLocation(), ToLocation,DeltaSeconds * CrouchCameraOffsetSmoothing);
-			
-			FirstPersonCameraComponent->SetRelativeLocation(CameraLocation);
-		}
-
-	
-		if(IsSprinting && IsCrouching)
-		{
-			
-		}
-	}
 }
 
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -93,9 +62,9 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Look);
 		
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::StartSprintPressed);
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::None, this, &AExtractionGameCharacter::StopSprintPressed);
-
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::SprintPressed);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::None, this, &AExtractionGameCharacter::SprintReleased);
+		
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::CrouchPressed);
 	}
 }
@@ -104,28 +73,20 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
-	DOREPLIFETIME(AExtractionGameCharacter, IsSprinting);
-	DOREPLIFETIME(AExtractionGameCharacter, IsCrouching);
-	DOREPLIFETIME(AExtractionGameCharacter, IsSliding);
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalMovement);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalMovement);
 }
 
-float AExtractionGameCharacter::GetMovementSpeed() const
+FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
 {
-	float Speed = WalkMovementSpeed;
+	FCollisionQueryParams Params;
 
-	if(IsSprinting)
-	{
-		Speed = SprintMovementSpeed;
-	}
+	TArray<AActor*> CharacterChildren;
+	GetAllChildActors(CharacterChildren);
+	Params.AddIgnoredActors(CharacterChildren);
+	Params.AddIgnoredActor(this);
 
-	if(IsCrouching)
-	{
-		Speed = CrouchMovementSpeed;
-	}
-
-	return Speed;
+	return Params;
 }
 
 
@@ -133,7 +94,7 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr && !PlayerMovementComponent->IsSliding)
 	{
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
@@ -151,27 +112,27 @@ void AExtractionGameCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void AExtractionGameCharacter::StartSprintPressed()
+void AExtractionGameCharacter::SprintPressed()
 {
-	bSprintPressed = true;
+	if(PlayerMovementComponent == nullptr)
+	{
+		return;
+	}
+	
+	PlayerMovementComponent->SprintPressed();
 }
 
-void AExtractionGameCharacter::StopSprintPressed()
+void AExtractionGameCharacter::SprintReleased()
 {
-	bSprintPressed = false;
+	if(PlayerMovementComponent == nullptr)
+	{
+		return;
+	}
+	
+	PlayerMovementComponent->SprintReleased();
 }
 
 void AExtractionGameCharacter::CrouchPressed()
 {
-	bCrouchPressed = !bCrouchPressed;
-}
-
-void AExtractionGameCharacter::Server_SendInput_Implementation(float LocVerticalMovement, float LocHorizontalMovement,
-	bool LocSprintPressed, bool LocCrouchPressed)
-{
-	VerticalMovement = LocVerticalMovement;
-	HorizontalMovement = LocHorizontalMovement;
-
-	IsSprinting = LocSprintPressed;
-	IsCrouching = LocCrouchPressed;
+	PlayerMovementComponent->CrouchPressed();
 }
