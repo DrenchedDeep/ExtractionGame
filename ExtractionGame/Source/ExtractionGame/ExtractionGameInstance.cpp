@@ -9,6 +9,23 @@
 #include "OnlineSessionSettings.h"
 #include "Kismet/GameplayStatics.h"
 
+
+void UExtractionGameInstance::SetupOnlineSubsystem()
+{
+	if(IOnlineSubsystem* SubSystem = Online::GetSubsystem(GetWorld()); SubSystem != nullptr)
+	{
+		OnlineSubSystem = SubSystem;
+
+		const IOnlineIdentityPtr Identity = SubSystem->GetIdentityInterface();
+		
+		if(Identity != nullptr)
+		{
+			UserIdentity = Identity;
+		}
+	}
+}
+
+
 void UExtractionGameInstance::LoginEOS(FString ID, FString Token, FString LoginType)
 {
 	if(OnlineSubSystem == nullptr || UserIdentity == nullptr)
@@ -50,6 +67,8 @@ bool UExtractionGameInstance::IsLoggedIn()
 	return UserIdentity->GetLoginStatus(0) == ELoginStatus::LoggedIn;
 }
 
+
+#pragma region Sessions
 void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 {
 	if(OnlineSubSystem == nullptr || UserIdentity == nullptr)
@@ -73,17 +92,18 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 
 	//will have to change when we add in dedicated server support
 	SessionSettings.bIsDedicated = false;
-	SessionSettings.bIsLANMatch = true;
 	SessionSettings.bAllowInvites = true;
-	SessionSettings.NumPublicConnections = PlayerCount;
+	SessionSettings.bIsLANMatch = false;
+	SessionSettings.NumPublicConnections = 5;
 	SessionSettings.bUseLobbiesIfAvailable = false;
+	SessionSettings.bUsesPresence = false;
 	SessionSettings.bShouldAdvertise = true;
 
 	SessionSettings.Settings.Add(
 FName(TEXT("SessionSetting")),
 FOnlineSessionSetting(FString(TEXT("SettingValue")), EOnlineDataAdvertisementType::ViaOnlineService));
 
-	if(!Session->CreateSession(0, FName(TEXT("Session1")), SessionSettings))
+	if(!Session->CreateSession(0, FName(TEXT("MainSession")), SessionSettings))
 	{
 		GLog->Log("Error creating session");
 		//error
@@ -97,51 +117,29 @@ void UExtractionGameInstance::JoinSession()
 		Session = OnlineSubSystem->GetSessionInterface();
 	}
 
-
 	TSharedRef<FOnlineSessionSearch> SessionSearch = MakeShared<FOnlineSessionSearch>();
-
-	/*/
-	//search for listen servers and dedicated servers
+	
 	SessionSearch->QuerySettings.Set(
 		FName(TEXT("__EOS_bListening")),
 		false,
 		EOnlineComparisonOp::Equals);
 
-	/*/
+	
 	SessionSearch->MaxSearchResults = 20;
 	SessionSearch->bIsLanQuery = false;
-	SessionSearch->QuerySettings.SearchParams.Empty();
+	Session->FindSessions(0, SessionSearch);
 
 	Session->AddOnFindSessionsCompleteDelegate_Handle(FOnFindSessionsComplete::FDelegate::CreateUObject(
 		this,
-		&UExtractionGameInstance::OnFindSessionCompleted, SessionSearch.Get()));
-
-	Session->FindSessions(0, SessionSearch);
-}
-
-
-
-
-void UExtractionGameInstance::SetupOnlineSubsystem()
-{
-	if(IOnlineSubsystem* SubSystem = Online::GetSubsystem(GetWorld()); SubSystem != nullptr)
-	{
-		OnlineSubSystem = SubSystem;
-
-		const IOnlineIdentityPtr Identity = SubSystem->GetIdentityInterface();
+		&UExtractionGameInstance::OnFindSessionCompleted, SessionSearch));
 		
-		if(Identity != nullptr)
-		{
-			UserIdentity = Identity;
-		}
-	}
 }
 
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
 	if(bWasSuccess)
 	{
-		GetWorld()->ServerTravel("SessionMap");
+		GetWorld()->ServerTravel("SessionMap?listen");
 	}
 }
 
@@ -163,18 +161,24 @@ void UExtractionGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSe
 	}
 }
 
-void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, FOnlineSessionSearch Search)
+void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search)
 {
 	if(bWasSuccess)
 	{
-		if(Search.SearchResults[0].IsValid())
+		if(Search->SearchResults.Num() <= 0)
+		{
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Found No Sessions!"));	
+			return;
+		}
+		
+		if(Search->SearchResults[0].IsValid())
 		{
 			Session->AddOnJoinSessionCompleteDelegate_Handle(FOnJoinSessionComplete::FDelegate::CreateUObject(
 					  this,
 					  &UExtractionGameInstance::OnJoinSessionComplete));
 		
 			//join first session from search results
-			Session->JoinSession(0, FName("Session1"), Search.SearchResults[0]);
+			Session->JoinSession(0, FName("MainSession"), Search->SearchResults[0]);
 		}
 		else
 		{
@@ -188,6 +192,10 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, FOnlineSe
 		CreateSession(2);
 	}
 }
+
+
+#pragma endregion
+
 
 
 void UExtractionGameInstance::OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID,

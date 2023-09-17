@@ -48,5 +48,5 @@ public:
 
 	void OnCreateSessionCompleted(FName SessionName, bool bWasSuccess);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
-	void OnFindSessionCompleted(bool bWasSuccess, FOnlineSessionSearch Search);
+	void OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search);
 };
