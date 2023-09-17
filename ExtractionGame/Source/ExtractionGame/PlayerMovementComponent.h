@@ -60,7 +60,6 @@ class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementCom
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
 
 	bool bWantsToSprint;
-	bool bPrevWantsToCrouch;
 
 public:
 	UPlayerMovementComponent();
@@ -70,6 +69,7 @@ public:
 	UPROPERTY(Replicated)
 	uint8 IsSliding;
 
+	
 protected:
 	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
 	virtual void OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation, const FVector& OldVelocity) override;

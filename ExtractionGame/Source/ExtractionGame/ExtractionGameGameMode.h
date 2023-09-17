@@ -15,9 +15,11 @@ class AExtractionGameGameMode : public AGameModeBase
 
 public:
 	AExtractionGameGameMode();
-
-
+	
 	virtual void PostLogin(APlayerController* NewPlayer) override;
+
+private:
+	bool bAllExistingPlayersRegistered;
 };
 
 

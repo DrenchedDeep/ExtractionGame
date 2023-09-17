@@ -49,7 +49,6 @@ void UPlayerMovementComponent::FSavedMove_Player::SetMoveFor(ACharacter* C, floa
 	const UPlayerMovementComponent* PlayerMovement = Cast<UPlayerMovementComponent>(C->GetCharacterMovement());
 
 	Saved_bWantsToSprint = PlayerMovement->bWantsToSprint;
-	Saved_bPrevWantsToCrouch = PlayerMovement->bPrevWantsToCrouch;
 }
 
 //take data from saved move and apply it
@@ -60,7 +59,6 @@ void UPlayerMovementComponent::FSavedMove_Player::PrepMoveFor(ACharacter* C)
 	UPlayerMovementComponent* PlayerMovement = Cast<UPlayerMovementComponent>(C->GetCharacterMovement());
 
 	PlayerMovement->bWantsToSprint = Saved_bWantsToSprint;
-	PlayerMovement->bPrevWantsToCrouch = Saved_bPrevWantsToCrouch;
 }
 
 UPlayerMovementComponent::FNetworkPredictionData_Client_Player::FNetworkPredictionData_Client_Player(
@@ -111,9 +109,6 @@ void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVect
 			MaxWalkSpeed = Walk_MaxWalkSpeed;
 		}
 	}
-
-
-	bPrevWantsToCrouch = bWantsToCrouch;
 }
 
 void UPlayerMovementComponent::InitializeComponent()
@@ -125,10 +120,8 @@ void UPlayerMovementComponent::InitializeComponent()
 
 void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSeconds)
 {
-
 	if(MovementMode == MOVE_Walking && bWantsToCrouch && Character->GetVelocity().Size() >= 500)
 	{
-		FHitResult PotentialSlideSurface;
 		EnterSlide();
 	}
 
@@ -203,7 +196,6 @@ void UPlayerMovementComponent::EnterSlide()
 
 void UPlayerMovementComponent::ExitSlide()
 {
-//	bWantsToCrouch = false;
 	IsSliding = false;
 
 	FQuat NewRotation = FRotationMatrix::MakeFromXZ(UpdatedComponent->GetForwardVector().GetSafeNormal2D(), FVector::UpVector).ToQuat();
@@ -233,10 +225,9 @@ void UPlayerMovementComponent::PhysSlide(float DeltaTime, int32 Iterations)
 
 	Velocity += Slide_GravityForce * FVector::DownVector * DeltaTime;
 
-	//strafe
 	if(FMath::Abs(FVector::DotProduct(Acceleration.GetSafeNormal(), UpdatedComponent->GetRightVector())) > .5)
 	{
-	//	Acceleration = Acceleration.ProjectOnTo(UpdatedComponent->GetRightVector());
+		Acceleration = Acceleration.ProjectOnTo(UpdatedComponent->GetRightVector());
 	}
 	else
 	{
@@ -249,7 +240,6 @@ void UPlayerMovementComponent::PhysSlide(float DeltaTime, int32 Iterations)
 	bJustTeleported = false;
 
 	FVector OldLocation = UpdatedComponent->GetComponentLocation();
-	FQuat OldRotation = UpdatedComponent->GetComponentRotation().Quaternion();
 
 	FHitResult Hit(1.f);
 	FVector Adjusted = Velocity * DeltaTime;
