@@ -17,6 +17,7 @@ public:
 	AExtractionGameGameMode();
 	
 	virtual void PostLogin(APlayerController* NewPlayer) override;
+	virtual void BeginPlay() override;
 
 private:
 	bool bAllExistingPlayersRegistered;

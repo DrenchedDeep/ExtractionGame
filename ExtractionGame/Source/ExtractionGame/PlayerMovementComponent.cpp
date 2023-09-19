@@ -1,9 +1,14 @@
 #include "PlayerMovementComponent.h"
-
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
 #include "Net/UnrealNetwork.h"
-#include "Rendering/SlateDrawBuffer.h"
+
+
+UPlayerMovementComponent::UPlayerMovementComponent()
+{
+	//	NavAgentProps.bCanCrouch = true;
+}
+
 
 
 //checks two moves, the current move and new move and checks if we can combine them to save bandwidth
@@ -100,7 +105,7 @@ void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVect
 
 	if(MovementMode == MOVE_Walking)
 	{
-		if(bWantsToSprint && IsSliding == 0)
+		if(bWantsToSprint)
 		{
 			MaxWalkSpeed = Sprint_MaxWalkSpeed;
 		}
@@ -120,14 +125,20 @@ void UPlayerMovementComponent::InitializeComponent()
 
 void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSeconds)
 {
-	if(MovementMode == MOVE_Walking && bWantsToCrouch && Character->GetVelocity().Size() >= 500)
+	if(CharacterOwner->GetLocalRole() != ROLE_SimulatedProxy)
 	{
-		EnterSlide();
-	}
+		if(MovementMode == MOVE_Walking && bWantsToCrouch && Character->GetVelocity().Size() >= 500 && CanSlideInCurrentState())
+		{
+			EnterSlide();
+		}
 
-	if(IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
-	{
-		ExitSlide();
+		if(IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
+		{
+			ExitSlide();
+		}
+
+		//bad
+		Character->IsSprinting = MaxWalkSpeed == Sprint_MaxWalkSpeed;
 	}
 	
 	Super::UpdateCharacterStateBeforeMovement(DeltaSeconds);
@@ -153,13 +164,6 @@ bool UPlayerMovementComponent::CanCrouchInCurrentState() const
 	return Super::CanCrouchInCurrentState() && IsMovingOnGround();
 }
 
-void UPlayerMovementComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(UPlayerMovementComponent, IsSliding);
-}
-
 void UPlayerMovementComponent::SprintPressed()
 {
 	bWantsToSprint = true;
@@ -180,27 +184,20 @@ bool UPlayerMovementComponent::IsPlayerMovementMode(EPlayerMovementMode MoveMode
 	return MovementMode == MOVE_Custom && CustomMovementMode == MoveMode;
 }
 
-UPlayerMovementComponent::UPlayerMovementComponent()
-{
-//	NavAgentProps.bCanCrouch = true;
-}
-
-
 void UPlayerMovementComponent::EnterSlide()
 {
 	bWantsToCrouch = true;
-	IsSliding = true;
+	Character->IsSliding = true;
 	Velocity += Velocity.GetSafeNormal2D() * Slide_EnterImpulse;
 	SetMovementMode(MOVE_Custom, PMOVE_Slide);
 }
 
 void UPlayerMovementComponent::ExitSlide()
 {
-	IsSliding = false;
-
-	FQuat NewRotation = FRotationMatrix::MakeFromXZ(UpdatedComponent->GetForwardVector().GetSafeNormal2D(), FVector::UpVector).ToQuat();
-
+	Character->IsSliding = false;
+	const FQuat NewRotation = FRotationMatrix::MakeFromXZ(UpdatedComponent->GetForwardVector().GetSafeNormal2D(), FVector::UpVector).ToQuat();
 	FHitResult Hit;
+	
 	SafeMoveUpdatedComponent(FVector::ZeroVector, NewRotation, true, Hit);
 	SetMovementMode(MOVE_Walking);
 }
@@ -275,4 +272,8 @@ bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 	return GetWorld()->LineTraceSingleByProfile(Hit, Start, End, ProfileName, Character->GetIgnoreCharacterParams());
 }
 
+bool UPlayerMovementComponent::CanSlideInCurrentState()
+{
+	return IsFalling() || IsMovingOnGround();
+}
 

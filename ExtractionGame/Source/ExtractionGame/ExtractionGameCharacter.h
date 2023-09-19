@@ -53,6 +53,12 @@ public:
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float HorizontalMovement;
 
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	bool IsSliding;
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	bool IsSprinting;
+	
+
 protected:
 	virtual void BeginPlay();
 

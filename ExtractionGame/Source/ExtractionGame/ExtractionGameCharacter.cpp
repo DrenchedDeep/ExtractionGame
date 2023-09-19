@@ -75,6 +75,8 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalMovement);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalMovement);
+	DOREPLIFETIME(AExtractionGameCharacter, IsSliding);
+	DOREPLIFETIME(AExtractionGameCharacter, IsSprinting);
 }
 
 FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
@@ -94,7 +96,7 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr && !PlayerMovementComponent->IsSliding)
+	if (Controller != nullptr)
 	{
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);

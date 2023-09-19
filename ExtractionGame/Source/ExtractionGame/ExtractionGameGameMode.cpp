@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ExtractionGameGameMode.h"
+
+#include "ExtractionGameInstance.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
 #include "Interfaces/OnlineSessionInterface.h"
@@ -63,5 +65,17 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 				GLog->Log("Succesfully registered");
 			}
 		}
+	}
+}
+
+void AExtractionGameGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+
+	if(GameInstance != nullptr)
+	{
+		GameInstance->CreateSession(5);
 	}
 }

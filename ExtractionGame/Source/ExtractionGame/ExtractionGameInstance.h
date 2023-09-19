@@ -37,7 +37,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	bool IsLoggedIn();
 
-	UFUNCTION(BlueprintCallable)
 	void CreateSession(int32 PlayerCount);
 
 	UFUNCTION(BlueprintCallable)

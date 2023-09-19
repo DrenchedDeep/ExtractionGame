@@ -66,10 +66,6 @@ public:
 	
 	virtual FNetworkPredictionData_Client* GetPredictionData_Client() const override;
 
-	UPROPERTY(Replicated)
-	uint8 IsSliding;
-
-	
 protected:
 	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
 	virtual void OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation, const FVector& OldVelocity) override;
@@ -79,8 +75,6 @@ protected:
 
 	virtual bool IsMovingOnGround() const override;
 	virtual bool CanCrouchInCurrentState() const override;
-
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 public:
 	void SprintPressed();
@@ -96,4 +90,6 @@ private:
 	void ExitSlide();
 	void PhysSlide(float DeltaTime, int32 Iterations);
 	bool GetSlideSurface(FHitResult& Hit) const;
+
+	bool CanSlideInCurrentState();
 };
