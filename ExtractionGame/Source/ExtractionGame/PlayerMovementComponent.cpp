@@ -101,7 +101,10 @@ void UPlayerMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
 void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation,
 	const FVector& OldVelocity)
 {
-	Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
+	if (!Character->IsSliding) 
+	{
+		Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
+	}
 
 	if(MovementMode == MOVE_Walking)
 	{
@@ -127,14 +130,15 @@ void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSec
 {
 	if(CharacterOwner->GetLocalRole() != ROLE_SimulatedProxy)
 	{
+		if (IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
+		{
+			ExitSlide();
+		}
+
+
 		if(MovementMode == MOVE_Walking && bWantsToCrouch && Character->GetVelocity().Size() >= 500 && CanSlideInCurrentState())
 		{
 			EnterSlide();
-		}
-
-		if(IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
-		{
-			ExitSlide();
 		}
 
 		//bad
