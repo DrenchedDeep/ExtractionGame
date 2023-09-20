@@ -4,5 +4,5 @@
 
 UPlayerHealthComponent::UPlayerHealthComponent()
 {
-	SetIsReplicated(true);
+	//SetIsReplicated(true);
 }

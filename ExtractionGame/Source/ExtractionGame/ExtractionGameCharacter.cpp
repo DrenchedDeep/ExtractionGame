@@ -96,6 +96,7 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
+	//bad solution, clients can get rid of issliding check and move while sliding (do we want the player to move while sliding??)
 	if (Controller != nullptr && !IsSliding)
 	{
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);

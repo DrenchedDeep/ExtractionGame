@@ -128,14 +128,14 @@ void UPlayerMovementComponent::InitializeComponent()
 
 void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSeconds)
 {
+	//proxies will recieve state from replicated vars
 	if(CharacterOwner->GetLocalRole() != ROLE_SimulatedProxy)
 	{
 		if (IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
 		{
 			ExitSlide();
 		}
-
-
+		
 		if(MovementMode == MOVE_Walking && bWantsToCrouch && Character->GetVelocity().Size() >= 500 && CanSlideInCurrentState())
 		{
 			EnterSlide();
@@ -278,6 +278,7 @@ bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 
 bool UPlayerMovementComponent::CanSlideInCurrentState()
 {
-	return IsFalling() || IsMovingOnGround();
+	return !IsFalling() || IsMovingOnGround();
+
 }
 

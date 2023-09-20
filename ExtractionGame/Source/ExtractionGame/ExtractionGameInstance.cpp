@@ -65,7 +65,9 @@ bool UExtractionGameInstance::IsLoggedIn()
 }
 
 
+
 #pragma region Sessions
+
 void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 {
 	if(OnlineSubSystem == nullptr || UserIdentity == nullptr)
@@ -96,7 +98,6 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	SessionSettings.bAllowJoinViaPresenceFriendsOnly = false;
 	SessionSettings.bAllowJoinViaPresence = false;
 	SessionSettings.bAntiCheatProtected = true;
-
 	SessionSettings.Settings.Add(
 		FName(TEXT("SessionSetting")),
 		FOnlineSessionSetting(FString(TEXT("SettingValue")), EOnlineDataAdvertisementType::ViaOnlineService));
@@ -152,7 +153,6 @@ void UExtractionGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSe
 {
 	if(Result == EOnJoinSessionCompleteResult::Success)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Joined Session"));
 		if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
 		{		
 			FString ServerAddress;
@@ -160,8 +160,7 @@ void UExtractionGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSe
 			
 			if(!ServerAddress.IsEmpty())
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Client Travelling"));
-				PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Absolute);
+				PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Relative, true);
 			}
 		}
 	}
@@ -177,15 +176,17 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 
 	if(bWasSuccess)
 	{
-		if (Search->SearchResults[0].IsValid())
+		if(!Search->SearchResults[0].IsValid())
 		{
-			Session->AddOnJoinSessionCompleteDelegate_Handle(FOnJoinSessionComplete::FDelegate::CreateUObject(
-				this,
-				&UExtractionGameInstance::OnJoinSessionComplete));
-
-			//join first session from search results
-			Session->JoinSession(0, FName("MainSession"), Search->SearchResults[0]);
+			UE_LOG(LogTemp, Warning, TEXT("Results r invalid"));
 		}
+		
+		Session->AddOnJoinSessionCompleteDelegate_Handle(FOnJoinSessionComplete::FDelegate::CreateUObject(
+			this,
+			&UExtractionGameInstance::OnJoinSessionComplete));
+
+		
+		Session->JoinSession(0, FName("MainSession"), Search->SearchResults[0]);
 	}
 }
 

@@ -14,13 +14,15 @@
 AExtractionGameGameMode::AExtractionGameGameMode()
 	: Super()
 {
-
+	bUseSeamlessTravel = true;
 }
 
 void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 
+	GLog->Log("Hello");
+	
 	if(NewPlayer != nullptr)
 	{
 		FUniqueNetIdRepl NetID;
@@ -72,10 +74,17 @@ void AExtractionGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
-
-	if(GameInstance != nullptr)
+	if(!SessionCreated)
 	{
-		GameInstance->CreateSession(5);
+		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+
+		GameInstance->CreateSession(4);
+		
+		SessionCreated = true;
 	}
+}
+
+void AExtractionGameGameMode::ServerLoad()
+{
+	GetWorld()->ServerTravel("SessionMap");
 }
