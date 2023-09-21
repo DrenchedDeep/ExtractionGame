@@ -6,5 +6,4 @@
 
 AMainMenuGameModeBase::AMainMenuGameModeBase()
 {
-	bUseSeamlessTravel = true;
 }

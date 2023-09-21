@@ -89,7 +89,7 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	
 	FOnlineSessionSettings SessionSettings;
 
-	SessionSettings.bIsDedicated = true;
+	SessionSettings.bIsDedicated = false;
 	SessionSettings.bAllowInvites = false;
 	SessionSettings.NumPublicConnections = PlayerCount;
 	SessionSettings.bUseLobbiesIfAvailable = false;
@@ -97,7 +97,7 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	SessionSettings.bShouldAdvertise = true;
 	SessionSettings.bAllowJoinViaPresenceFriendsOnly = false;
 	SessionSettings.bAllowJoinViaPresence = false;
-	SessionSettings.bAntiCheatProtected = true;
+	SessionSettings.bAntiCheatProtected = false;
 	SessionSettings.Settings.Add(
 		FName(TEXT("SessionSetting")),
 		FOnlineSessionSetting(FString(TEXT("SettingValue")), EOnlineDataAdvertisementType::ViaOnlineService));
@@ -145,7 +145,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 {
 	if(bWasSuccess)
 	{
-		GetWorld()->ServerTravel("SessionMap");
+		GetWorld()->ServerTravel("SessionMap?listen");
 	}
 }
 
@@ -160,7 +160,9 @@ void UExtractionGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSe
 			
 			if(!ServerAddress.IsEmpty())
 			{
-				PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Relative, true);
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+					FString::Printf(TEXT("%s = StringVariable"), *ServerAddress));
+				PlayerController->ClientTravel(ServerAddress + "?listen", ETravelType::TRAVEL_Absolute);
 			}
 		}
 	}
@@ -193,10 +195,16 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 
 #pragma endregion
 
+void UExtractionGameInstance::HandleNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString)
+{
+	GLog->Log("Network Error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+}
+
 
 
 void UExtractionGameInstance::OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID,
                                                const FString& Error)
 {
+	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
 	OnLoginComplete.Broadcast(bWasSuccess);
 }

@@ -14,7 +14,7 @@
 AExtractionGameGameMode::AExtractionGameGameMode()
 	: Super()
 {
-	bUseSeamlessTravel = true;
+	//bUseSeamlessTravel = true;
 }
 
 void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)

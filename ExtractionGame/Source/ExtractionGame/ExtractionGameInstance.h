@@ -37,6 +37,8 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	bool IsLoggedIn();
 
+
+	UFUNCTION(BlueprintCallable)
 	void CreateSession(int32 PlayerCount);
 
 	UFUNCTION(BlueprintCallable)
@@ -48,4 +50,6 @@ public:
 	void OnCreateSessionCompleted(FName SessionName, bool bWasSuccess);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 	void OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search);
+	void HandleNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 };
+
