@@ -56,6 +56,8 @@ public:
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool IsSliding;
 	UPROPERTY(Replicated, BlueprintReadOnly)
+	float SlideTimer;
+	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool IsSprinting;
 	
 
@@ -73,6 +75,13 @@ public:
 	void SprintReleased();
 
 	void CrouchPressed();
+
+	//useful for sfx/cam shake/etc
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSlideStart();
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSlideEnd();
+	
 	
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;

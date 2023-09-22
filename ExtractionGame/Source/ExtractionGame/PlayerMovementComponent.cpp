@@ -1,12 +1,12 @@
 #include "PlayerMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/GameStateBase.h"
 #include "Net/UnrealNetwork.h"
 
 
 UPlayerMovementComponent::UPlayerMovementComponent()
 {
-	//	NavAgentProps.bCanCrouch = true;
 }
 
 
@@ -90,7 +90,7 @@ FNetworkPredictionData_Client* UPlayerMovementComponent::GetPredictionData_Clien
 	return ClientPredictionData;
 }
 
-//pass in compressed flags and set state based on flags
+//set state based on flags
 void UPlayerMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
 {
 	Super::UpdateFromCompressedFlags(Flags);
@@ -131,6 +131,19 @@ void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSec
 	//proxies will recieve state from replicated vars
 	if(CharacterOwner->GetLocalRole() != ROLE_SimulatedProxy)
 	{
+		if(!Character->IsSliding)
+		{
+			//dont want to use local delta seconds because tick rate between clients/server will be different
+			Character->SlideTimer += GetWorld()->GetGameState()->GetServerWorldTimeSeconds();
+		}
+
+				
+		if(CharacterOwner->bIsCrouched && Character->IsSprinting && !Character->IsSliding)
+		{
+			bWantsToCrouch = false;
+			UnCrouch();
+		}
+		
 		if (IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
 		{
 			ExitSlide();
@@ -170,6 +183,12 @@ bool UPlayerMovementComponent::CanCrouchInCurrentState() const
 
 void UPlayerMovementComponent::SprintPressed()
 {
+	if(Character->IsSliding)
+	{
+		bWantsToSprint = false;
+		return;
+	}
+	
 	bWantsToSprint = true;
 }
 
@@ -192,6 +211,7 @@ void UPlayerMovementComponent::EnterSlide()
 {
 	bWantsToCrouch = true;
 	Character->IsSliding = true;
+	Character->OnSlideStart();
 	Velocity += Velocity.GetSafeNormal2D() * Slide_EnterImpulse;
 	SetMovementMode(MOVE_Custom, PMOVE_Slide);
 }
@@ -199,6 +219,8 @@ void UPlayerMovementComponent::EnterSlide()
 void UPlayerMovementComponent::ExitSlide()
 {
 	Character->IsSliding = false;
+	Character->SlideTimer = 0.0f;
+	Character->OnSlideEnd();
 	const FQuat NewRotation = FRotationMatrix::MakeFromXZ(UpdatedComponent->GetForwardVector().GetSafeNormal2D(), FVector::UpVector).ToQuat();
 	FHitResult Hit;
 	
@@ -276,9 +298,9 @@ bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 	return GetWorld()->LineTraceSingleByProfile(Hit, Start, End, ProfileName, Character->GetIgnoreCharacterParams());
 }
 
-bool UPlayerMovementComponent::CanSlideInCurrentState()
+bool UPlayerMovementComponent::CanSlideInCurrentState() const
 {
-	return !IsFalling() || IsMovingOnGround();
+	return !IsFalling() && IsMovingOnGround() && !Character->IsSliding && Character->SlideTimer >= Slide_Timer && !Character->bIsCrouched;
 
 }
 

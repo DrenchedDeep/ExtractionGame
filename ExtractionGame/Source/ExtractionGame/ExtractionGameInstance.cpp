@@ -35,6 +35,11 @@ void UExtractionGameInstance::LoginEOS(FString ID, FString Token, FString LoginT
 	UserAccount.Token = Token;
 	UserAccount.Type = LoginType;
 
+	if(Token.IsEmpty())
+	{
+		UserAccount.Type = "accountportal";
+	}
+
 	UserIdentity->OnLoginCompleteDelegates->AddUObject(this, &UExtractionGameInstance::OnLoginCompleted);
 	UserIdentity->Login(0, UserAccount);
 }

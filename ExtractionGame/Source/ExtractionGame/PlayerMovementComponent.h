@@ -55,6 +55,7 @@ class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementCom
 	UPROPERTY(EditDefaultsOnly) float Slide_EnterImpulse = 500;
 	UPROPERTY(EditDefaultsOnly) float Slide_GravityForce = 5000;
 	UPROPERTY(EditDefaultsOnly) float Slide_Friction = 1.3;
+	UPROPERTY(EditDefaultsOnly) float Slide_Timer = .5f;
 
 
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
@@ -91,5 +92,5 @@ private:
 	void PhysSlide(float DeltaTime, int32 Iterations);
 	bool GetSlideSurface(FHitResult& Hit) const;
 
-	bool CanSlideInCurrentState();
+	bool CanSlideInCurrentState() const;
 };

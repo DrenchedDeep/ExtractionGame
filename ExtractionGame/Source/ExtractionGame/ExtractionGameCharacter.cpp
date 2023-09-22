@@ -77,6 +77,7 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalMovement);
 	DOREPLIFETIME(AExtractionGameCharacter, IsSliding);
 	DOREPLIFETIME(AExtractionGameCharacter, IsSprinting);
+	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
 }
 
 FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
