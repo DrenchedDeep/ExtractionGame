@@ -75,6 +75,7 @@ public:
 	void SprintReleased();
 
 	void CrouchPressed();
+	void CrouchReleased();
 
 	//useful for sfx/cam shake/etc
 	UFUNCTION(BlueprintImplementableEvent)

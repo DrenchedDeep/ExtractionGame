@@ -62,10 +62,11 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Look);
 		
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::SprintPressed);
-		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::None, this, &AExtractionGameCharacter::SprintReleased);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::SprintPressed);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::SprintReleased);
 		
-		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::CrouchPressed);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::CrouchPressed);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::CrouchReleased);
 	}
 }
 
@@ -139,4 +140,9 @@ void AExtractionGameCharacter::SprintReleased()
 void AExtractionGameCharacter::CrouchPressed()
 {
 	PlayerMovementComponent->CrouchPressed();
+}
+
+void AExtractionGameCharacter::CrouchReleased()
+{
+	PlayerMovementComponent->CrouchReleased();
 }

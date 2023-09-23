@@ -202,6 +202,11 @@ void UPlayerMovementComponent::CrouchPressed()
 	bWantsToCrouch = !bWantsToCrouch;
 }
 
+void UPlayerMovementComponent::CrouchReleased()
+{
+	bWantsToCrouch = bToggleCrouch && bWantsToCrouch;
+}
+
 bool UPlayerMovementComponent::IsPlayerMovementMode(EPlayerMovementMode MoveMode) const
 {
 	return MovementMode == MOVE_Custom && CustomMovementMode == MoveMode;

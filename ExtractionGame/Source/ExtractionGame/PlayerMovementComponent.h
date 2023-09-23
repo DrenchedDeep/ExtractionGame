@@ -58,12 +58,16 @@ class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementCom
 	UPROPERTY(EditDefaultsOnly) float Slide_Timer = .5f;
 
 
+
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
 
 	bool bWantsToSprint;
+	
 
 public:
 	UPlayerMovementComponent();
+	
+	UPROPERTY(EditDefaultsOnly) bool bToggleCrouch;
 	
 	virtual FNetworkPredictionData_Client* GetPredictionData_Client() const override;
 
@@ -82,6 +86,7 @@ public:
 	void SprintReleased();
 
 	void CrouchPressed();
+	void CrouchReleased();
 
 	UFUNCTION(BlueprintPure)
 	bool IsPlayerMovementMode(EPlayerMovementMode MoveMode) const;
