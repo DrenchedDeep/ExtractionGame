@@ -101,11 +101,6 @@ void UPlayerMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
 void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation,
 	const FVector& OldVelocity)
 {
-	if (!Character->IsSliding) 
-	{
-		Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
-	}
-
 	if(MovementMode == MOVE_Walking)
 	{
 		if(bWantsToSprint)
@@ -117,6 +112,8 @@ void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVect
 			MaxWalkSpeed = Walk_MaxWalkSpeed;
 		}
 	}
+	
+	Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
 }
 
 void UPlayerMovementComponent::InitializeComponent()
@@ -128,20 +125,13 @@ void UPlayerMovementComponent::InitializeComponent()
 
 void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSeconds)
 {
-	//proxies will recieve state from replicated vars
+	//proxies will receive state from replicated vars
 	if(CharacterOwner->GetLocalRole() != ROLE_SimulatedProxy)
 	{
 		if(!Character->IsSliding)
 		{
 			//dont want to use local delta seconds because tick rate between clients/server will be different
 			Character->SlideTimer += GetWorld()->GetGameState()->GetServerWorldTimeSeconds();
-		}
-
-				
-		if(CharacterOwner->bIsCrouched && Character->IsSprinting && !Character->IsSliding)
-		{
-			bWantsToCrouch = false;
-			UnCrouch();
 		}
 		
 		if (IsPlayerMovementMode(PMOVE_Slide) && !bWantsToCrouch)
@@ -155,10 +145,21 @@ void UPlayerMovementComponent::UpdateCharacterStateBeforeMovement(float DeltaSec
 		}
 
 		//bad
-		Character->IsSprinting = MaxWalkSpeed == Sprint_MaxWalkSpeed;
+		Character->IsSprinting = MaxWalkSpeed == Sprint_MaxWalkSpeed && !Character->IsSliding;
 	}
 	
 	Super::UpdateCharacterStateBeforeMovement(DeltaSeconds);
+}
+
+void UPlayerMovementComponent::UpdateCharacterStateAfterMovement(float DeltaSeconds)
+{
+	if(CharacterOwner->bIsCrouched && Character->IsSprinting && !Character->IsSliding)
+	{
+		bWantsToCrouch = false;
+		UnCrouch();
+	}
+		
+	Super::UpdateCharacterStateAfterMovement(DeltaSeconds);
 }
 
 void UPlayerMovementComponent::PhysCustom(float deltaTime, int32 Iterations)
@@ -183,6 +184,7 @@ bool UPlayerMovementComponent::CanCrouchInCurrentState() const
 
 void UPlayerMovementComponent::SprintPressed()
 {
+	//get rid of local check if we keep developing 
 	if(Character->IsSliding)
 	{
 		bWantsToSprint = false;
@@ -217,7 +219,13 @@ void UPlayerMovementComponent::EnterSlide()
 	bWantsToCrouch = true;
 	Character->IsSliding = true;
 	Character->OnSlideStart();
-	Velocity += Velocity.GetSafeNormal2D() * Slide_EnterImpulse;
+
+	FHitResult SurfaceHit;
+	GetSlideSurface(SurfaceHit);
+	
+	FVector VelPlaneDir = FVector::VectorPlaneProject(Velocity, SurfaceHit.Normal).GetSafeNormal();
+	
+	Velocity += VelPlaneDir + Velocity.GetSafeNormal2D() * Slide_EnterImpulse;
 	SetMovementMode(MOVE_Custom, PMOVE_Slide);
 }
 
@@ -244,23 +252,7 @@ void UPlayerMovementComponent::PhysSlide(float DeltaTime, int32 Iterations)
 
 	FHitResult SurfaceHit;
 	GetSlideSurface(SurfaceHit);
-	if(Velocity.SizeSquared() < pow(Slide_MinSpeed, 2))
-	{
-		ExitSlide();
-		StartNewPhysics(DeltaTime, Iterations);
-		return;
-	}
-
 	Velocity += Slide_GravityForce * FVector::DownVector * DeltaTime;
-
-	if(FMath::Abs(FVector::DotProduct(Acceleration.GetSafeNormal(), UpdatedComponent->GetRightVector())) > .5)
-	{
-		Acceleration = Acceleration.ProjectOnTo(UpdatedComponent->GetRightVector());
-	}
-	else
-	{
-		Acceleration = FVector::ZeroVector;
-	}
 
 	CalcVelocity(DeltaTime, Slide_Friction, true, GetMaxBrakingDeceleration());
 
@@ -270,6 +262,7 @@ void UPlayerMovementComponent::PhysSlide(float DeltaTime, int32 Iterations)
 	FVector OldLocation = UpdatedComponent->GetComponentLocation();
 
 	FHitResult Hit(1.f);
+	GetSlideSurface(SurfaceHit);
 	FVector Adjusted = Velocity * DeltaTime;
 	FVector VelPlaneDir = FVector::VectorPlaneProject(Velocity, SurfaceHit.Normal).GetSafeNormal();
 	FQuat NewRotation = FRotationMatrix::MakeFromXZ(VelPlaneDir, SurfaceHit.Normal).ToQuat();
@@ -296,9 +289,9 @@ void UPlayerMovementComponent::PhysSlide(float DeltaTime, int32 Iterations)
 
 bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 {
-	FVector Start = UpdatedComponent->GetComponentLocation();
-	FVector End = Start + Character->GetCapsuleComponent()->GetScaledCapsuleHalfHeight() * 2.f * FVector::DownVector;
-	FName ProfileName = TEXT("BlockAll");
+	const FVector Start = UpdatedComponent->GetComponentLocation();
+	const FVector End = Start + Character->GetCapsuleComponent()->GetScaledCapsuleHalfHeight() * 2.f * FVector::DownVector;
+	const FName ProfileName = TEXT("BlockAll");
 
 	return GetWorld()->LineTraceSingleByProfile(Hit, Start, End, ProfileName, Character->GetIgnoreCharacterParams());
 }
@@ -306,6 +299,5 @@ bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 bool UPlayerMovementComponent::CanSlideInCurrentState() const
 {
 	return !IsFalling() && IsMovingOnGround() && !Character->IsSliding && Character->SlideTimer >= Slide_Timer && !Character->bIsCrouched;
-
 }
 

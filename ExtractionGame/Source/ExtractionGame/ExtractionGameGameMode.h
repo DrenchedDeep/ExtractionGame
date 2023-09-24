@@ -22,9 +22,9 @@ public:
 	
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
-	
-	void ServerLoad();
 
+	void RegisterPlayerEOS(APlayerController* NewPlayer);
+	
 private:
 	bool bAllExistingPlayersRegistered;
 };

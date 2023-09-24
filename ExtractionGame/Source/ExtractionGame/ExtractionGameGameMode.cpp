@@ -21,8 +21,26 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 
-	GLog->Log("Hello");
-	
+	RegisterPlayerEOS(NewPlayer);
+}
+
+void AExtractionGameGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if(!SessionCreated)
+	{
+		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+
+		GameInstance->CreateSession(4);
+		
+		SessionCreated = true;
+	}
+}
+
+void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)
+{
+		
 	if(NewPlayer != nullptr)
 	{
 		FUniqueNetIdRepl NetID;
@@ -62,29 +80,10 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 			const IOnlineSubsystem *OnlineSubSystem = Online::GetSubsystem(NewPlayer->GetWorld());
 			const IOnlineSessionPtr Session = OnlineSubSystem->GetSessionInterface();
 
-			if(Session->RegisterPlayer(FName("Session1"), *UniqueNetId, false))
+			if(Session->RegisterPlayer(FName("MainSession"), *UniqueNetId, false))
 			{
 				GLog->Log("Succesfully registered");
 			}
 		}
 	}
-}
-
-void AExtractionGameGameMode::BeginPlay()
-{
-	Super::BeginPlay();
-
-	if(!SessionCreated)
-	{
-		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
-
-		GameInstance->CreateSession(4);
-		
-		SessionCreated = true;
-	}
-}
-
-void AExtractionGameGameMode::ServerLoad()
-{
-	GetWorld()->ServerTravel("SessionMap");
 }

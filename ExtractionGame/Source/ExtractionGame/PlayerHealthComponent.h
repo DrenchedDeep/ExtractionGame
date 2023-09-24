@@ -1,23 +1,26 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
+#include "HealthComponent.h"
 #include "Components/ActorComponent.h"
 #include "PlayerHealthComponent.generated.h"
 
+class AExtractionGameCharacter;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class EXTRACTIONGAME_API UPlayerHealthComponent : public UActorComponent
+class EXTRACTIONGAME_API UPlayerHealthComponent : public UHealthComponent
 {
 	GENERATED_BODY()
 
-	float CurrentHealth;
-	
-	float Health;
+	UPROPERTY(Transient) AExtractionGameCharacter* Character;
 	
 public:	
 	UPlayerHealthComponent();
-	
 
-	float GetCurrentHealth() const { return CurrentHealth; }
+	virtual void InitializeComponent() override;
+	virtual void ApplyDamage(FDamageData DamageInfo, bool bClientSimulation) override;
+	virtual void OnDeath() override;
+
+	UFUNCTION(Client, Unreliable)
+	void Client_ApplyDamage();
 };

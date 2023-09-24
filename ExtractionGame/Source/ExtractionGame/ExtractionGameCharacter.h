@@ -66,6 +66,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Movement)
 	class UPlayerMovementComponent* PlayerMovementComponent;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Health)
+	class UPlayerHealthComponent* PlayerHealthComponent;
 
 public:
 	void Move(const FInputActionValue& Value);

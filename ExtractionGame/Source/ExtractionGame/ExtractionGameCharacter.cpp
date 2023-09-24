@@ -9,6 +9,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -20,7 +21,7 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
-	
+	PlayerHealthComponent = CreateDefaultSubobject<UPlayerHealthComponent>(TEXT("HealthComponent"));
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
