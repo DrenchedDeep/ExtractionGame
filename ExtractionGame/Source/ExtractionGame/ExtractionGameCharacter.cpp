@@ -53,6 +53,26 @@ void AExtractionGameCharacter::BeginPlay()
 
 }
 
+void AExtractionGameCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if(IsLocallyControlled())
+	{
+		Server_SetInput(LocalVerticalMovement, LocalHorizontalMovement, LocalVerticalLook, LocalHorizontalLook);
+	}
+}
+
+void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove, float HorizontalMove,
+                                                              float VertLook, float HorLook)
+{
+	VerticalMovement = FMathf::Lerp(VerticalMovement, VerticalMove, GetWorld()->GetDeltaSeconds() * 5.f);
+	HorizontalMovement = FMathf::Lerp(HorizontalMovement, HorizontalMove, GetWorld()->GetDeltaSeconds() * 5.f);
+
+	VerticalLook = VertLook;
+	HorizontalLook = HorLook;
+}
+
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
@@ -61,6 +81,8 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 		
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::None, this, &AExtractionGameCharacter::ResetMove);
+
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Look);
 		
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::SprintPressed);
@@ -70,6 +92,13 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::CrouchReleased);
 	}
 }
+
+void AExtractionGameCharacter::ResetMove()
+{
+	LocalVerticalMovement = 0.0f;
+	LocalHorizontalMovement = 0.0f;
+}
+
 
 void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -102,6 +131,9 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 	//bad solution, clients can get rid of issliding check and move while sliding (do we want the player to move while sliding??)
 	if (Controller != nullptr && !IsSliding)
 	{
+		LocalVerticalMovement = MovementVector.Y;
+		LocalHorizontalMovement = MovementVector.X;
+
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
 	}
@@ -113,6 +145,9 @@ void AExtractionGameCharacter::Look(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
+		LocalVerticalLook = LookAxisVector.Y;
+		LocalHorizontalLook = LookAxisVector.X;
+
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}

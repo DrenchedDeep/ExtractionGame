@@ -45,6 +45,12 @@ class AExtractionGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
 
+	float LocalVerticalMovement;
+	float LocalHorizontalMovement;
+	float LocalVerticalLook;
+	float LocalHorizontalLook;
+
+
 public:
 	AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer);
 
@@ -52,6 +58,10 @@ public:
 	float VerticalMovement;
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float HorizontalMovement;
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	float VerticalLook;
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	float HorizontalLook;
 
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool IsSliding;
@@ -63,6 +73,7 @@ public:
 
 protected:
 	virtual void BeginPlay();
+	virtual void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Movement)
 	class UPlayerMovementComponent* PlayerMovementComponent;
@@ -71,6 +82,7 @@ protected:
 
 public:
 	void Move(const FInputActionValue& Value);
+	void ResetMove();
 	void Look(const FInputActionValue& Value);
 
 	void SprintPressed();
@@ -84,6 +96,9 @@ public:
 	void OnSlideStart();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSlideEnd();
+
+	UFUNCTION(Server, Unreliable)
+	void Server_SetInput(float VerticalMove, float HorizontalMove, float VertLook, float HorLook);
 	
 	
 protected:
@@ -97,4 +112,3 @@ public:
 	FCollisionQueryParams GetIgnoreCharacterParams() const;
 
 };
-
