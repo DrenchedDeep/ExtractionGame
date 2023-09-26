@@ -14,11 +14,10 @@
 
 UENUM(BlueprintType)
 enum class EGemType : uint8 {
-	None = 0      UMETA(DisplayName="None"),
-	Red = 1      UMETA(DisplayName="Red"),
-	Blue = 2       UMETA(DisplayName="Blue"),
-	Yellow = 4       UMETA(DisplayName="Yellow"),
-	Green  = 8    UMETA(DisplayName="Green"),
+	Fire     UMETA(DisplayName="Red"),
+	Water       UMETA(DisplayName="Blue"),
+	Light        UMETA(DisplayName="Yellow"),
+	Dark    UMETA(DisplayName="Green"),
 };
 
 UCLASS()

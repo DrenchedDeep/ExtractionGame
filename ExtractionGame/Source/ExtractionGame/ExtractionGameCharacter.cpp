@@ -191,17 +191,20 @@ void AExtractionGameCharacter::CrouchReleased()
 
 void AExtractionGameCharacter::LeftFirePressed()
 {
+	UE_LOG(LogTemp, Warning, TEXT("StartLfire"));
 }
 
 void AExtractionGameCharacter::LeftFireReleased()
 {
+	UE_LOG(LogTemp, Warning, TEXT("StopLfire"));
 }
 
 void AExtractionGameCharacter::RightFirePressed()
 {
+	UE_LOG(LogTemp, Warning, TEXT("StartRfire"));
 }
 
 void AExtractionGameCharacter::RightFireReleased()
 {
-	GemController->
+	UE_LOG(LogTemp, Warning, TEXT("StopRfire"));
 }
