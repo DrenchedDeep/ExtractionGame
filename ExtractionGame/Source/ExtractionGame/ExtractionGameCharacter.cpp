@@ -90,6 +90,12 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::CrouchPressed);
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::CrouchReleased);
+
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::LeftFirePressed);
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::LeftFireReleased);
+		
+		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::RightFirePressed);
+		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::RightFireReleased);
 	}
 }
 
@@ -181,4 +187,21 @@ void AExtractionGameCharacter::CrouchPressed()
 void AExtractionGameCharacter::CrouchReleased()
 {
 	PlayerMovementComponent->CrouchReleased();
+}
+
+void AExtractionGameCharacter::LeftFirePressed()
+{
+}
+
+void AExtractionGameCharacter::LeftFireReleased()
+{
+}
+
+void AExtractionGameCharacter::RightFirePressed()
+{
+}
+
+void AExtractionGameCharacter::RightFireReleased()
+{
+	GemController->
 }

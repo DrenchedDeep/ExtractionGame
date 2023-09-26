@@ -3,7 +3,7 @@
 #include "ExtractionGameCharacter.h"
 
 
-UPlayerHealthComponent::UPlayerHealthComponent()
+UPlayerHealthComponent::UPlayerHealthComponent(): Character(nullptr)
 {
 }
 

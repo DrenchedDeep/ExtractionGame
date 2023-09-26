@@ -7,8 +7,7 @@
 
 
 // Sets default values for this component's properties
-UGemController::UGemController(): Mind(), Body(), LeftOne(nullptr), LeftTwo(nullptr), RightOne(nullptr),
-                                  RightTwo(nullptr)
+UGemController::UGemController(): Mind(), Body()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -27,7 +26,7 @@ void UGemController::BeginPlay()
 	
 }
 //Honestly a bit lazy...
-void UGemController::HandleArm(UGem* a, UGem* b, UGem* chest, FAttackSignature** delegate) const
+/*void UGemController::HandleArm(UGem* a, UGem* b, UGem* chest, FAttackSignature** delegate) const
 {
 	float TotalPolish = 0;
 	const EGemType ChestType = chest->GetGemType();
@@ -40,18 +39,18 @@ void UGemController::HandleArm(UGem* a, UGem* b, UGem* chest, FAttackSignature**
 
 	
 	//Select attack based on all types combines.
-	FAttackSignature attack = UGemAbilities::FindAbility(GemCombo, TotalPolish);
+	//FAttackSignature attack = UGemAbilities::FindAbility(GemCombo, TotalPolish);
 
 	
 	
-	(*delegate)->BindLambda([TotalPolish, GemCombo, attack]
-	{
+	//(*delegate)->BindLambda([TotalPolish, GemCombo, attack]
+	//{
 		UE_LOG(LogTemp, Warning, TEXT("Firing with type(s): %d, and total polish of: %f"), GemCombo, TotalPolish);
-		attack.Execute();
+		//attack.Execute();
 		//We don't want to be finding out what the ability is here every time...
-	});
+	//});
 	
-}
+}*/
 
 
 void UGemController::RecompileGems()
@@ -63,12 +62,12 @@ void UGemController::RecompileGems()
 
 void UGemController::LeftAttack()
 {
-	LeftAttackFunc->Execute();
+	//leftArm->Invoke();
 }
 
 void UGemController::RightAttack()
 {
-	RightAttackFunc->Execute();
+	//RightAttackFunc->Execute();
 }
 
 

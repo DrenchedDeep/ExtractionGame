@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GemController.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "ExtractionGameCharacter.generated.h"
@@ -45,10 +46,19 @@ class AExtractionGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* LeftAttackAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* RightAttackAction;
+
 	float LocalVerticalMovement;
 	float LocalHorizontalMovement;
 	float LocalVerticalLook;
 	float LocalHorizontalLook;
+
+	UPROPERTY(EditAnywhere)
+	UGemController *GemController;
 
 
 public:
@@ -81,6 +91,8 @@ protected:
 	class UPlayerHealthComponent* PlayerHealthComponent;
 
 public:
+
+	// -- Why are any of these public -- //
 	void Move(const FInputActionValue& Value);
 	void ResetMove();
 	void Look(const FInputActionValue& Value);
@@ -91,6 +103,13 @@ public:
 	void CrouchPressed();
 	void CrouchReleased();
 
+	void LeftFirePressed();
+	void LeftFireReleased();
+	
+	void RightFirePressed();
+	void RightFireReleased();
+	// -- Why are any of these public -- //
+	
 	//useful for sfx/cam shake/etc
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSlideStart();

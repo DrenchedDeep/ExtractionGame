@@ -3,20 +3,39 @@
 
 #include "GemAbilities.h"
 
-
-FAttackSignature UGemAbilities::FindAbility(int GemCombo, float TotalPolish)
+//It'd be faster to pre-convert it manually, but it'd be so minute im not sure it's worth it...
+int UGemAbilities::convertToInteger(int fire, int water, int light, int dark)
 {
+	return (fire << 6) | (water << 4) | (light << 2) | dark;
+}
 
-	//How can I stack an int and a float together...? What if i reserve the first 3 bits for polish?
+void UGemAbilities::FireBolt(float pow)
+{
+	UE_LOG(LogTemp, Warning, TEXT("FireBolt and total polish of: %f"), pow);
+}
 
-	//Then we pass the polish through to the selected function.
+void UGemAbilities::WaterStream(float pow)
+{
+	UE_LOG(LogTemp, Warning, TEXT("WaterStream and total polish of: %f"), pow);
+}
 
-	//But just having a set of unordered integers doesn't help... each integer has to have a function meaning
+void UGemAbilities::SmokeSpray(float pow)
+{
+	UE_LOG(LogTemp, Warning, TEXT("SmokeSpray and total polish of: %f"), pow);
+}
 
-	//Iterate through a bunch of objects, if they have the right combo, iterate through their functions and take the correct polish.
+UGemAbilities::AbilityPtr* UGemAbilities::FindAbility(int GemCombo)
+{
+	return abilities.Find(GemCombo);
+}
 
+UGemAbilities::UGemAbilities()
+{
+	//It's a packed 2 bit int. (This technically means we can support up to 16 types before increasing net/cpu load)
+	//Next, is order --> Fire, Water, Light, Dark
 
-	//abilities.Find(GemCombo, )
-	return nullptr;
-	
+	//For example: 11 00 10 01 is Dark 3, Light 0, Water 2, Fire 1
+	abilities.Add(convertToInteger(1,0,0,0), &UGemAbilities::FireBolt);
+	abilities.Add(convertToInteger(0,1,0,0), &UGemAbilities::WaterStream);
+	abilities.Add(convertToInteger(1,1,0,0), &UGemAbilities::SmokeSpray);
 }

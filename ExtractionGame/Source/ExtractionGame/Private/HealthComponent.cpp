@@ -3,7 +3,7 @@
 
 #include "HealthComponent.h"
 
-#include "../../../../../../../UE_5.3_Source/UnrealEngine-release/Engine/Source/Runtime/Engine/Public/Net/UnrealNetwork.h"
+//#include "../../../../../../../UE_5.3_Source/UnrealEngine-release/Engine/Source/Runtime/Engine/Public/Net/UnrealNetwork.h"
 
 UHealthComponent::UHealthComponent()
 {
@@ -14,7 +14,7 @@ void UHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(UHealthComponent, CurrentHealth);
+	//DOREPLIFETIME(UHealthComponent, CurrentHealth);
 }
 
 void UHealthComponent::ApplyDamage(FDamageData DamageInfo, bool bClientSimulation)

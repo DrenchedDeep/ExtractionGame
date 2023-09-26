@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GemController.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GemAbilities.generated.h"
 
@@ -14,25 +13,38 @@
 UCLASS()
 class UGemAbilities : public UBlueprintFunctionLibrary
 {
+	
+public:
+	typedef static void (*AbilityPtr)(float);
+private:
+
+	
 	GENERATED_BODY()
 
+	static TMap<int, AbilityPtr> abilities;
+
+	
+	UFUNCTION(BlueprintPure)
+	static void FireBolt(float pow);
+	
+	UFUNCTION(BlueprintPure)
+	static void WaterStream(float pow);
+
+	UFUNCTION(BlueprintPure)
+	static void SmokeSpray(float pow);
+	
 public:
-	/*
-	UFUNCTION(Reliable, NetMulticast, BlueprintSetter)
-	void FireBolt();
 	
-	UFUNCTION(Reliable, NetMulticast, BlueprintSetter)
-	void WaterJet();
 
-	UFUNCTION(Reliable, NetMulticast, BlueprintSetter)
-	void SmokeSpray();
-	*/
+	
+	static int convertToInteger(int fire, int water, int light, int dark);
+
 	
 	
-	UPROPERTY(Category = "Abilities", EditAnywhere, BlueprintReadWrite)
-	TMap<int, UFunction*> abilities;
 
 
-	static FAttackSignature FindAbility(int GemCombo, float TotalPolish);
+	static AbilityPtr* FindAbility(int GemCombo);
+
+	UGemAbilities();
 };
 
