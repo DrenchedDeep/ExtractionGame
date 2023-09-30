@@ -30,14 +30,37 @@ void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
 		}
 	}
 
-	for(auto PlayerStand : PlayerStands)
+	for(int32 i = 0; i < PlayerStands.Num(); i++)
 	{
-		if(PlayerStand->bIsOccupied)
+		if(PlayerStands[i]->bIsOccupied)
 		{
-			return;
+			continue;
 		}
-		PlayerStand->bIsOccupied = true;
-		PlayerStand->OnRep_IsOccupied();
+		PlayerStands[i]->bIsOccupied = true;
+		PlayerStands[i]->OwningClient = NewPlayer;
+		PlayerStands[i]->OnRep_IsOccupied();
 		break;
+	}
+}
+
+void AMainMenuGameModeBase::Logout(AController* Exiting)
+{
+	Super::Logout(Exiting);
+
+	UE_LOG(LogTemp, Warning, TEXT("log out"));
+	for(int32 i = 0; i < PlayerStands.Num(); i++)
+	{
+		if(!PlayerStands[i]->OwningClient)
+		{
+			continue;
+		}
+		
+		if(Exiting == PlayerStands[i]->OwningClient)
+		{
+			PlayerStands[i]->bIsOccupied = false;
+			PlayerStands[i]->OwningClient = nullptr;
+			PlayerStands[i]->OnRep_IsOccupied();
+			break;
+		}
 	}
 }

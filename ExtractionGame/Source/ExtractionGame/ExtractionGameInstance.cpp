@@ -287,19 +287,6 @@ bool UExtractionGameInstance::CreateLobby()
 	return Session->CreateSession(0, FName(TEXT("Lobby")), SessionSettings);
 }
 
-bool UExtractionGameInstance::CreateParty()
-{
-	IOnlinePartyPtr Party = OnlineSubSystem->GetPartyInterface();
-	TSharedRef<FPartyConfiguration> Config = MakeShared<FPartyConfiguration>();
-	Config->bIsAcceptingMembers = true;
-	Config->MaxMembers = 4;
-
-	bool bSuccess =  Party->CreateParty(*UserIdentity->GetUniquePlayerId(0).Get(),
-	IOnlinePartySystem::GetPrimaryPartyTypeId(), *Config);
-
-	return bSuccess;
-}
-
 void UExtractionGameInstance::DestroySession()
 {
 	if(!CurrentSession)

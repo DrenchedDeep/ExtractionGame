@@ -37,13 +37,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	bool IsLoggedIn();
-
-
+	
 	void CreateSession(int32 PlayerCount);
 
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) bool CreateLobby();
-	UFUNCTION(BlueprintCallable) bool CreateParty();
 	UFUNCTION(BlueprintCallable) void DestroySession();
 
 	void OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID, const FString& Error);
