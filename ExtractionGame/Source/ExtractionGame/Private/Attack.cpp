@@ -3,7 +3,7 @@
 
 #include "Attack.h"
 
-Attack::Attack(): ptr(nullptr), totalPolish(0)
+Attack::Attack()
 {
 }
 
@@ -11,7 +11,7 @@ void Attack::Invoke() const
 {
 	//Erm no error handling on this one?
 	UE_LOG(LogTemp, Warning, TEXT("Invoked!"));
-	&ptr(totalPolish);
+	//&ptr(totalPolish);
 }
 
 void Attack::Recompile()
@@ -53,7 +53,7 @@ void Attack::Recompile()
 
 	UE_LOG(LogTemp, Warning, TEXT("Creating ability with score: %d"), ability);
 	
-	ptr = UGemAbilities::FindAbility(ability);
+//	ptr = UGemAbilities::FindAbility(ability);
 }
 
 UGem* Attack::RemoveGem(int id)

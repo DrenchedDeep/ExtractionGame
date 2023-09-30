@@ -27,15 +27,6 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 void AExtractionGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
-	if(!SessionCreated)
-	{
-		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
-
-		GameInstance->CreateSession(4);
-		
-		SessionCreated = true;
-	}
 }
 
 void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)

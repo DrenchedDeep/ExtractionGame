@@ -1,10 +1,17 @@
 #include "ExtractionGameInstance.h"
+
+#include "EOSLobbyClientBeacon.h"
+#include "EOSLobbyHostBeacon.h"
+#include "EOSLobbyHostObjectBeacon.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "OnlineSubsystemUtils.h"
 #include "OnlineSubsystem.h"
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSessionSettings.h"
 #include "Kismet/GameplayStatics.h"
+#include "OnlineLobbyInterface.h"
+#include "Interfaces/OnlinePartyInterface.h"
+#include "Online/OnlineSessionNames.h"
 
 
 void UExtractionGameInstance::SetupOnlineSubsystem()
@@ -86,7 +93,7 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	Session->AddOnCreateSessionCompleteDelegate_Handle(FOnCreateSessionComplete::FDelegate::CreateUObject(
 		this,
 		&UExtractionGameInstance::OnCreateSessionCompleted));
-	
+
 	if(Session == nullptr)
 	{
 		return;
@@ -103,6 +110,7 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	SessionSettings.bAllowJoinViaPresenceFriendsOnly = false;
 	SessionSettings.bAllowJoinViaPresence = false;
 	SessionSettings.bAntiCheatProtected = false;
+	
 	SessionSettings.Settings.Add(
 		FName(TEXT("SessionSetting")),
 		FOnlineSessionSetting(FString(TEXT("SettingValue")), EOnlineDataAdvertisementType::ViaOnlineService));
@@ -140,6 +148,7 @@ void UExtractionGameInstance::JoinSession()
 	Session->AddOnFindSessionsCompleteDelegate_Handle(FOnFindSessionsComplete::FDelegate::CreateUObject(
 		this,
 		&UExtractionGameInstance::OnFindSessionCompleted, SessionSearch));
+
 	
 	if (!Session->FindSessions(0, SessionSearch))
 	{
@@ -148,27 +157,39 @@ void UExtractionGameInstance::JoinSession()
 
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
-	if(bWasSuccess)
+	const FOnlineSessionSettings* SessionSettings = Session->GetSessionSettings(SessionName);
+	
+	if(!SessionSettings || !bWasSuccess)
 	{
-		GetWorld()->ServerTravel("SessionMap?listen");
+		return;
 	}
+	GetWorld()->ServerTravel("LVL_MainMenu?listen");
+
+	//session is a lobby, dont load gameplay map
+	if(SessionSettings->bUseLobbiesIfAvailable)
+	{
+	//	GetWorld()->ServerTravel("LVL_MainMenu?listen");
+	}
+	else
+	{
+	//	GetWorld()->ServerTravel("LVL_SessionTransition?listen?NetMode=ForceIP");
+	}
+
+	CurrentSession = Session->GetNamedSession(SessionName);
 }
+
 
 void UExtractionGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
 	if(Result == EOnJoinSessionCompleteResult::Success)
 	{
 		if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
-		{		
+		{
 			FString ServerAddress;
 			Session->GetResolvedConnectString(SessionName, ServerAddress);
-			
-			if(!ServerAddress.IsEmpty())
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-					FString::Printf(TEXT("%s = StringVariable"), *ServerAddress));
-				PlayerController->ClientTravel(ServerAddress + "?listen", ETravelType::TRAVEL_Absolute);
-			}
+			CurrentSession = Session->GetNamedSession(SessionName);
+
+			PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Absolute);
 		}
 	}
 }
@@ -177,13 +198,14 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 {
 	if (Search->SearchResults.Num() <= 0)
 	{
+		CreateSession(2);
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Found No Sessions!"));
 		return;
 	}
 
 	if(bWasSuccess)
 	{
-		if(!Search->SearchResults[0].IsValid())
+		if(!Search->SearchResults[0].IsSessionInfoValid())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Results r invalid"));
 		}
@@ -195,21 +217,104 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 		
 		Session->JoinSession(0, FName("MainSession"), Search->SearchResults[0]);
 	}
+	else
+	{
+		CreateSession(2);
+	}
 }
-
-
 #pragma endregion
 
-void UExtractionGameInstance::HandleNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString)
+
+void UExtractionGameInstance::HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId,
+	FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult)
 {
-	GLog->Log("Network Error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	if(bWasSuccessful)
+	{
+		Session->AddOnJoinSessionCompleteDelegate_Handle(FOnJoinSessionComplete::FDelegate::CreateUObject(
+	this,
+	&UExtractionGameInstance::OnJoinSessionComplete));
+
+		FName SessionID = FName(*InviteResult.GetSessionIdStr());
+		Session->JoinSession(0, SessionID, InviteResult);
+	}
 }
 
+
+
+void UExtractionGameInstance::Shutdown()
+{
+	Super::Shutdown();
+
+	DestroySession();
+}
+
+bool UExtractionGameInstance::CreateLobby()
+{
+	if(OnlineSubSystem == nullptr || UserIdentity == nullptr)
+	{
+		SetupOnlineSubsystem();
+	}
+
+
+	Session = OnlineSubSystem->GetSessionInterface();
+	Session->AddOnCreateSessionCompleteDelegate_Handle(FOnCreateSessionComplete::FDelegate::CreateUObject(
+		this,
+		&UExtractionGameInstance::OnCreateSessionCompleted));
+	
+	Session->AddOnSessionUserInviteAcceptedDelegate_Handle(FOnSessionUserInviteAccepted::FDelegate::CreateUObject(
+		this,
+		&UExtractionGameInstance::HandleSessionInviteAccepted));
+
+	if(Session == nullptr)
+	{
+		return false;
+	}
+	
+	FOnlineSessionSettings SessionSettings;
+
+	SessionSettings.bIsDedicated = false;
+	SessionSettings.bAllowInvites = true;
+	SessionSettings.NumPublicConnections = 2;
+	SessionSettings.bUsesPresence = true;
+	SessionSettings.bShouldAdvertise = true;
+	SessionSettings.bAllowJoinViaPresenceFriendsOnly = false;
+	SessionSettings.bAllowJoinViaPresence = true;
+	SessionSettings.bAntiCheatProtected = false;
+	SessionSettings.bUseLobbiesIfAvailable = false;
+
+	SessionSettings.Set(SEARCH_KEYWORDS, FString("LOBBY"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
+
+	return Session->CreateSession(0, FName(TEXT("Lobby")), SessionSettings);
+}
+
+bool UExtractionGameInstance::CreateParty()
+{
+	IOnlinePartyPtr Party = OnlineSubSystem->GetPartyInterface();
+	TSharedRef<FPartyConfiguration> Config = MakeShared<FPartyConfiguration>();
+	Config->bIsAcceptingMembers = true;
+	Config->MaxMembers = 4;
+
+	bool bSuccess =  Party->CreateParty(*UserIdentity->GetUniquePlayerId(0).Get(),
+	IOnlinePartySystem::GetPrimaryPartyTypeId(), *Config);
+
+	return bSuccess;
+}
+
+void UExtractionGameInstance::DestroySession()
+{
+	if(!CurrentSession)
+	{
+		return;
+	}
+
+	Session->DestroySession(CurrentSession->SessionName);
+	CurrentSession = nullptr;
+}
 
 
 void UExtractionGameInstance::OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID,
                                                const FString& Error)
 {
-	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
+//	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
 	OnLoginComplete.Broadcast(bWasSuccess);
 }

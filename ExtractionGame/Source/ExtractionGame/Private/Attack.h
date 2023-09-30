@@ -13,7 +13,6 @@ class Attack
 {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<UGem*> Gems; // Not sure why there's a warning here..
-	UGemAbilities::AbilityPtr *ptr;
 	float totalPolish;
 	void Recompile();
 public:

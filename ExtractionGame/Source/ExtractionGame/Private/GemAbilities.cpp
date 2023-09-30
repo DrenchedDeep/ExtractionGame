@@ -24,10 +24,6 @@ void UGemAbilities::SmokeSpray(float pow)
 	UE_LOG(LogTemp, Warning, TEXT("SmokeSpray and total polish of: %f"), pow);
 }
 
-UGemAbilities::AbilityPtr* UGemAbilities::FindAbility(int GemCombo)
-{
-	return abilities.Find(GemCombo);
-}
 
 UGemAbilities::UGemAbilities()
 {
@@ -35,7 +31,7 @@ UGemAbilities::UGemAbilities()
 	//Next, is order --> Fire, Water, Light, Dark
 
 	//For example: 11 00 10 01 is Dark 3, Light 0, Water 2, Fire 1
-	abilities.Add(convertToInteger(1,0,0,0), &UGemAbilities::FireBolt);
-	abilities.Add(convertToInteger(0,1,0,0), &UGemAbilities::WaterStream);
-	abilities.Add(convertToInteger(1,1,0,0), &UGemAbilities::SmokeSpray);
+//	abilities.Add(convertToInteger(1,0,0,0), &UGemAbilities::FireBolt);
+//	abilities.Add(convertToInteger(0,1,0,0), &UGemAbilities::WaterStream);
+//	abilities.Add(convertToInteger(1,1,0,0), &UGemAbilities::SmokeSpray);
 }

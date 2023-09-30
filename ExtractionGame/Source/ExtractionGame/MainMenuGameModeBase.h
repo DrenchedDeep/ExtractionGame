@@ -3,12 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PlayerStand.h"
 #include "GameFramework/GameModeBase.h"
 #include "MainMenuGameModeBase.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class EXTRACTIONGAME_API AMainMenuGameModeBase : public AGameModeBase
 {
@@ -17,6 +16,11 @@ class EXTRACTIONGAME_API AMainMenuGameModeBase : public AGameModeBase
 	UPROPERTY(EditDefaultsOnly)
 	bool IsServer;
 
+	TArray<APlayerStand*> PlayerStands;
+	
 public:
 	AMainMenuGameModeBase();
+
+	virtual void BeginPlay() override;
+	virtual void PostLogin(APlayerController* NewPlayer) override;
 };
