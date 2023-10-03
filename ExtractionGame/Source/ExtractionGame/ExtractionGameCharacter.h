@@ -34,6 +34,7 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
+	/*------------------- Input actions -----------------------*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 
@@ -57,7 +58,27 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* RightAttackAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* HeadAbilityAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* InteractAction;
 
+	void Move(const FInputActionValue& Value);
+	void ResetMove();
+	void Look(const FInputActionValue& Value);
+
+	void SprintPressed();
+	void SprintReleased();
+
+	void CrouchPressed();
+	void CrouchReleased();
+
+	void Interact();
+	
+	
+	/*--------------------------------------------------------*/
 	float LocalVerticalMovement;
 	float LocalHorizontalMovement;
 	float LocalVerticalLook;
@@ -99,23 +120,8 @@ protected:
 
 public:
 
-	// -- Why are any of these public -- //
-	void Move(const FInputActionValue& Value);
-	void ResetMove();
-	void Look(const FInputActionValue& Value);
-
-	void SprintPressed();
-	void SprintReleased();
-
-	void CrouchPressed();
-	void CrouchReleased();
-
 	
-	void LeftFirePressed();
-	void LeftFireReleased();
-	
-	void RightFirePressed();
-	void RightFireReleased();
+
 	// -- Why are any of these public -- //
 	
 	//useful for sfx/cam shake/etc

@@ -113,11 +113,8 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::CrouchPressed);
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::CrouchReleased);
 
-		//EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::LeftFirePressed);
-		//EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::LeftFireReleased);
-		
-		//EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::RightFirePressed);
-		//EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::RightFireReleased);
+		//When you release it does something...
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::Interact);
 	}
 
 }
@@ -265,7 +262,7 @@ void AExtractionGameCharacter::SprintPressed()
 	PlayerMovementComponent->SprintPressed();
 }
 
-void AExtractionGameCharacter::SprintReleased()
+void AExtractionGameCharacter::SprintReleased() 
 {
 	if(PlayerMovementComponent == nullptr)
 	{
@@ -275,32 +272,19 @@ void AExtractionGameCharacter::SprintReleased()
 	PlayerMovementComponent->SprintReleased();
 }
 
-void AExtractionGameCharacter::CrouchPressed()
+void AExtractionGameCharacter::CrouchPressed() 
 {
 	PlayerMovementComponent->CrouchPressed();
 }
 
-void AExtractionGameCharacter::CrouchReleased()
+void AExtractionGameCharacter::CrouchReleased() 
 {
 	PlayerMovementComponent->CrouchReleased();
 }
 
-void AExtractionGameCharacter::LeftFirePressed()
+void AExtractionGameCharacter::Interact()
 {
-	UE_LOG(LogTemp, Warning, TEXT("StartLfire"));
-}
-
-void AExtractionGameCharacter::LeftFireReleased()
-{
-	UE_LOG(LogTemp, Warning, TEXT("StopLfire"));
-}
-
-void AExtractionGameCharacter::RightFirePressed()
-{
-	UE_LOG(LogTemp, Warning, TEXT("StartRfire"));
-}
-
-void AExtractionGameCharacter::RightFireReleased()
-{
-	UE_LOG(LogTemp, Warning, TEXT("StopRfire"));
+	//Check if what you're colliding with is interactable... then invoke a function based on if it is... Some blueprint implementable class Ufunc
+	//That'd function exactly like an interface.
+	UE_LOG(LogTemp, Warning, TEXT("IMPLEMENT INTERACTIONS"));	
 }
