@@ -33,6 +33,18 @@ void UExtractionGameInstance::DelaySessionJoin(const FClientConnectionInfo Conne
 }
 
 
+
+void UExtractionGameInstance::Init()
+{
+	Super::Init();
+
+	AbilityHandlerSubSystem = GetSubsystem<UAbilityHandlerSubSystem>();
+	if (!AbilityHandlerSubSystem)
+	{
+		AbilityHandlerSubSystem = NewObject<UAbilityHandlerSubSystem>(this);
+	}
+}
+
 void UExtractionGameInstance::LoginEOS(FString ID, FString Token, FString LoginType)
 {
 	if(OnlineSubSystem == nullptr || UserIdentity == nullptr)

@@ -161,14 +161,34 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> Abilities;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
-	TSubclassOf<UGameplayAbility> LeftAbility;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
-	TSubclassOf<UGameplayAbility> RightAbility;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int LeftEarth;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int LeftFire;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int LeftWater;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int LeftShadow;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int RightEarth;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int RightFire;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int RightWater;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
+	int RightShadow;
 	
 	UPROPERTY()
 	uint8 bAbilitiesInitialized:1;
+
 
 public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }

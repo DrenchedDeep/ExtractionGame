@@ -8,12 +8,14 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "ExtractionGameInstance.h"
 #include "InputActionValue.h"
 #include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
 #include "Abilities/GameplayAbility.h"
 #include "Abilities/ExtractionAttributeSet.h"
 #include "Components/ExtractionAbilitySystemComponent.h"
+#include "Core/AbilityHandlerSubSystem.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "Net/UnrealNetwork.h"
@@ -60,12 +62,16 @@ void AExtractionGameCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-
-	AbilitySystemComponent->SetInputBinding(LeftAttackAction, AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(LeftAbility, 1, -1, this)));
-	AbilitySystemComponent->SetInputBinding(RightAttackAction,AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(RightAbility, 1, -1, this)));
-		
+	
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
+
+	UAbilityHandlerSubSystem* MyGameInstance = GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	const TSubclassOf<UGameplayAbility> left = MyGameInstance->GetAbilityByIndex(MyGameInstance->ConvertToIntID(LeftEarth, LeftFire, LeftShadow, LeftWater));
+	const TSubclassOf<UGameplayAbility> right = MyGameInstance->GetAbilityByIndex(MyGameInstance->ConvertToIntID(RightEarth, RightFire, RightShadow, RightWater));
+	AbilitySystemComponent->SetInputBinding(LeftAttackAction, AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(left, 1, -1, this)));
+	AbilitySystemComponent->SetInputBinding(RightAttackAction,AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(right, 1, -1, this)));
+		
 
 }
 

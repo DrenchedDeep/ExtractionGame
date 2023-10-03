@@ -9,6 +9,7 @@
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "OnlineSessionSettings.h"
+#include "Core/AbilityHandlerSubSystem.h"
 #include "Interfaces/OnlineFriendsInterface.h"
 #include "ExtractionGameInstance.generated.h"
 
@@ -26,11 +27,17 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	IOnlineSessionPtr Session;
 	
 	FNamedOnlineSession* CurrentSession;
+	
+	UPROPERTY()
+	UAbilityHandlerSubSystem* AbilityHandlerSubSystem;
 
 	bool bIsPartyHost;
 	FTimerHandle DelayJoinSession;
 	
 public:
+	
+	virtual void Init() override;
+	
 	UPROPERTY(BlueprintAssignable)
 	FOnLoginCompleted OnLoginComplete;
 	
