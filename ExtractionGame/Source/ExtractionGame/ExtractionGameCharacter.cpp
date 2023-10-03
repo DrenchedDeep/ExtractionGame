@@ -11,11 +11,10 @@
 #include "InputActionValue.h"
 #include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
-#include "Abilities/MyGameplayAbility.h"
-#include "AttributeSets/ExtrationAttributeSet.h"
+#include "Abilities/GameplayAbility.h"
+#include "Abilities/ExtractionAttributeSet.h"
 #include "Components/ExtractionAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Core/CoreData.h"
 #include "Engine/LocalPlayer.h"
 #include "Net/UnrealNetwork.h"
 
@@ -115,18 +114,6 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		//EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::RightFireReleased);
 	}
 
-	//In case things get called out of order. Redundency to ensure working
-	if(AbilitySystemComponent && InputComponent)
-	{
-		const FGameplayAbilityInputBinds Binds(
-		"Confirm",
-		"Cancel",
-		"EAbilityInputID",
-		static_cast<int32>(EAbilityInputID::Confirm),
-		static_cast<int32>(EAbilityInputID::Cancel));
-
-		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
-	}
 }
 
 void AExtractionGameCharacter::ResetMove()
@@ -165,17 +152,6 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	//Client GAS initialization
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 
-	if(AbilitySystemComponent && InputComponent)
-	{
-		const FGameplayAbilityInputBinds Binds(
-		"Confirm",
-		"Cancel",
-		"EAbilityInputID",
-		static_cast<int32>(EAbilityInputID::Confirm),
-		static_cast<int32>(EAbilityInputID::Cancel));
-
-		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
-	}
 }
 
 UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const
@@ -190,12 +166,14 @@ void AExtractionGameCharacter::AddStartupGameplayAbilities()
 	if(GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
 	{
 		//Grants abilities, but only on the server.
-		for (TSubclassOf<UExtractionGameplayAbility>& StartUpAbility : Abilities)
+
+		/*Also force binds them to a key... Big no-no for this game.
+		 *for (TSubclassOf<UGameplayAbility>& StartUpAbility : Abilities)
 		{
 			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
 				StartUpAbility, 1, static_cast<int32>(StartUpAbility.GetDefaultObject()->AbilityInputID), this
 			));
-		}
+		}*/
 		
 		//Apply Passive abilities
 		for(const TSubclassOf<UGameplayEffect>& GameplayEffect: PassiveGameplayEffects)

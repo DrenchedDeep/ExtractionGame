@@ -17,7 +17,7 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
-class UExtractionGameplayAbility;
+class UGameplayAbility;
 class UExtractionAbilitySystemComponent;
 class UExtractionAttributeSet;
 
@@ -159,13 +159,13 @@ protected:
 	TArray<TSubclassOf<UGameplayEffect>> PassiveGameplayEffects;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
-	TArray<TSubclassOf<UExtractionGameplayAbility>> Abilities;
+	TArray<TSubclassOf<UGameplayAbility>> Abilities;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
-	TSubclassOf<UExtractionGameplayAbility> LeftAbility;
+	TSubclassOf<UGameplayAbility> LeftAbility;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
-	TSubclassOf<UExtractionGameplayAbility> RightAbility;
+	TSubclassOf<UGameplayAbility> RightAbility;
 	
 	UPROPERTY()
 	uint8 bAbilitiesInitialized:1;
