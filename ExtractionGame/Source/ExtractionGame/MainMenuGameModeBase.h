@@ -12,11 +12,11 @@ UCLASS()
 class EXTRACTIONGAME_API AMainMenuGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
-	UPROPERTY(EditDefaultsOnly)
-	bool IsServer;
 
+	UPROPERTY()
 	TArray<APlayerStand*> PlayerStands;
+	
+	int32 PartyPlayerCount;
 	
 public:
 	AMainMenuGameModeBase();
@@ -24,4 +24,19 @@ public:
 	virtual void BeginPlay() override;
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void Logout(AController* Exiting) override;
+
+	void SetupMemberModel(APlayerState* PlayerState, const FString& Username);
+
+	FName TargetSessionName;
+
+	
+	FORCEINLINE void SetTargetSession(const FName SessionName)
+	{
+		TargetSessionName = SessionName;
+	}
+	
+	FORCEINLINE void ResetTargetSession()
+	{
+		TargetSessionName = "";
+	}
 };

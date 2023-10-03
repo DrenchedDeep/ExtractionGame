@@ -16,18 +16,24 @@ class EXTRACTIONGAME_API APlayerStand : public AActor
 public:	
 	APlayerStand(const FObjectInitializer& ObjectInitializer);
 	
-	UPROPERTY()
-	AController* OwningClient;
-	
+	UPROPERTY(BlueprintReadOnly)
+	APlayerState* OwningClient;
+
 	UPROPERTY(ReplicatedUsing=OnRep_IsOccupied, VisibleAnywhere, BlueprintReadOnly)
 	bool bIsOccupied;
-
+	UPROPERTY(ReplicatedUsing=OnRep_IsOccupied, VisibleAnywhere, BlueprintReadOnly)
+	FString Username;
+	
 	UFUNCTION()
 	void OnRep_IsOccupied();
+	UFUNCTION()
+	void OnRep_Username();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void ToggleCharacterVisibility(bool bVisible);
-	
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateUsernameText(const FString& PlayerName);
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

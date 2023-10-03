@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MainMenuGameState.h"
 #include "OnlineSubsystem.h"
 #include "Engine/GameInstance.h"
 #include "Interfaces/OnlineIdentityInterface.h"
@@ -14,6 +15,7 @@
 UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoginCompleted, bool, bWasSuccess);
 
+
 UCLASS()
 class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 {
@@ -24,6 +26,9 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	IOnlineSessionPtr Session;
 	
 	FNamedOnlineSession* CurrentSession;
+
+	bool bIsPartyHost;
+	FTimerHandle DelayJoinSession;
 	
 public:
 	UPROPERTY(BlueprintAssignable)
@@ -39,6 +44,7 @@ public:
 	bool IsLoggedIn();
 	
 	void CreateSession(int32 PlayerCount);
+	void JoinSession(const FClientConnectionInfo ConnectionInfo);
 
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) bool CreateLobby();
@@ -46,12 +52,12 @@ public:
 
 	void OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID, const FString& Error);
 	void SetupOnlineSubsystem();
-	 
 
+	void DelaySessionJoin(const FClientConnectionInfo ConnectionInfo);
+	
 	void OnCreateSessionCompleted(FName SessionName, bool bWasSuccess);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 	void OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search);
-	void HandleNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 	void HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId, FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult);
 	
 	

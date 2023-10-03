@@ -1,17 +1,34 @@
 #include "MainMenuGameModeBase.h"
-
 #include "ExtractionGameInstance.h"
 #include "GameFramework/GameState.h"
+#include "GameFramework/PlayerState.h"
 #include "Kismet/GameplayStatics.h"
 
 AMainMenuGameModeBase::AMainMenuGameModeBase()
 {
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AMainMenuGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+}
+
+void AMainMenuGameModeBase::SetupMemberModel(APlayerState* PlayerState, const FString& Username)
+{
+	for(int32 i = 0; i < PlayerStands.Num(); i++)
+	{
+		if(PlayerState == PlayerStands[i]->OwningClient)
+		{
+			PlayerStands[i]->Username = Username;
+			PlayerStands[i]->OnRep_Username();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("hi"));
+		}
+	}
 }
 
 void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
@@ -36,9 +53,15 @@ void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
 		{
 			continue;
 		}
+
 		PlayerStands[i]->bIsOccupied = true;
-		PlayerStands[i]->OwningClient = NewPlayer;
+		PlayerStands[i]->OwningClient = NewPlayer->PlayerState;
+		PlayerStands[i]->SetOwner(NewPlayer);
+
+		//we call on rep here because its not automatically called on server, and since parties are player hosted the server needs to see when a client joins
 		PlayerStands[i]->OnRep_IsOccupied();
+		PlayerStands[i]->OnRep_Username();
+		PartyPlayerCount++;
 		break;
 	}
 }
@@ -47,7 +70,6 @@ void AMainMenuGameModeBase::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 
-	UE_LOG(LogTemp, Warning, TEXT("log out"));
 	for(int32 i = 0; i < PlayerStands.Num(); i++)
 	{
 		if(!PlayerStands[i]->OwningClient)
@@ -55,11 +77,15 @@ void AMainMenuGameModeBase::Logout(AController* Exiting)
 			continue;
 		}
 		
-		if(Exiting == PlayerStands[i]->OwningClient)
+		if(Exiting == PlayerStands[i]->OwningClient->GetOwningController())
 		{
 			PlayerStands[i]->bIsOccupied = false;
 			PlayerStands[i]->OwningClient = nullptr;
+			PlayerStands[i]->Username = "";
+			
 			PlayerStands[i]->OnRep_IsOccupied();
+			PlayerStands[i]->OnRep_Username();
+			PartyPlayerCount--;
 			break;
 		}
 	}
