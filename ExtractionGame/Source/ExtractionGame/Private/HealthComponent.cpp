@@ -1,7 +1,7 @@
 
 
 
-#include "HealthComponent.h"
+#include "Components/HealthComponent.h"
 
 //#include "../../../../../../../UE_5.3_Source/UnrealEngine-release/Engine/Source/Runtime/Engine/Public/Net/UnrealNetwork.h"
 

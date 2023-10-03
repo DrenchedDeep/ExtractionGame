@@ -1,7 +1,7 @@
 
 
 
-#include "GemController.h"
+#include "Components/GemController.h"
 
 #include "GemAbilities.h"
 

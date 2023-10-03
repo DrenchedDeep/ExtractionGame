@@ -11,9 +11,15 @@
 #include "InputActionValue.h"
 #include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
-#include "Engine/LocalPlayer.h"
+#include "Abilities/MyGameplayAbility.h"
+#include "AttributeSets/ExtrationAttributeSet.h"
+#include "Components/ExtractionAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Core/CoreData.h"
+#include "Engine/LocalPlayer.h"
 #include "Net/UnrealNetwork.h"
+
+
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -35,6 +41,13 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+
+	bAbilitiesInitialized = false;
+	AbilitySystemComponent = CreateDefaultSubobject<UExtractionAbilitySystemComponent>(TEXT("Ability System"));
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	AttributeSet = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("Ability Attributes"));
 }
 
 void AExtractionGameCharacter::BeginPlay()
@@ -48,6 +61,10 @@ void AExtractionGameCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	AbilitySystemComponent->SetInputBinding(LeftAttackAction, AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(LeftAbility, 1, -1, this)));
+	AbilitySystemComponent->SetInputBinding(RightAttackAction,AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(RightAbility, 1, -1, this)));
+		
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 
@@ -91,11 +108,24 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::CrouchPressed);
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::CrouchReleased);
 
-		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::LeftFirePressed);
-		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::LeftFireReleased);
+		//EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::LeftFirePressed);
+		//EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::LeftFireReleased);
 		
-		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::RightFirePressed);
-		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::RightFireReleased);
+		//EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::RightFirePressed);
+		//EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::RightFireReleased);
+	}
+
+	//In case things get called out of order. Redundency to ensure working
+	if(AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds(
+		"Confirm",
+		"Cancel",
+		"EAbilityInputID",
+		static_cast<int32>(EAbilityInputID::Confirm),
+		static_cast<int32>(EAbilityInputID::Cancel));
+
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
 	}
 }
 
@@ -115,6 +145,88 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	DOREPLIFETIME(AExtractionGameCharacter, IsSliding);
 	DOREPLIFETIME(AExtractionGameCharacter, IsSprinting);
 	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
+}
+
+void AExtractionGameCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	//Server GAS initialization
+	if(AbilitySystemComponent) // not nullptr
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		AddStartupGameplayAbilities();
+	}
+}
+
+void AExtractionGameCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	//Client GAS initialization
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+
+	if(AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds(
+		"Confirm",
+		"Cancel",
+		"EAbilityInputID",
+		static_cast<int32>(EAbilityInputID::Confirm),
+		static_cast<int32>(EAbilityInputID::Cancel));
+
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+	}
+}
+
+UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+void AExtractionGameCharacter::AddStartupGameplayAbilities()
+{
+	check(AbilitySystemComponent);
+
+	if(GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
+	{
+		//Grants abilities, but only on the server.
+		for (TSubclassOf<UExtractionGameplayAbility>& StartUpAbility : Abilities)
+		{
+			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
+				StartUpAbility, 1, static_cast<int32>(StartUpAbility.GetDefaultObject()->AbilityInputID), this
+			));
+		}
+		
+		//Apply Passive abilities
+		for(const TSubclassOf<UGameplayEffect>& GameplayEffect: PassiveGameplayEffects)
+		{
+			FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+			EffectContext.AddSourceObject(this);
+
+			FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, 1,  EffectContext);
+
+			if(NewHandle.IsValid())
+			{
+				//FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+					AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
+			}
+		}
+		bAbilitiesInitialized = true;
+	}
+}
+
+void AExtractionGameCharacter::HandleDamage(float amount, const FHitResult& HitInfo,
+	const FGameplayTagContainer& DamageTags, AExtractionGameCharacter* Instigator0, AActor* DamageCauser)
+{
+	OnDamaged(amount, HitInfo, DamageTags, Instigator0, DamageCauser);
+}
+
+void AExtractionGameCharacter::HandleHealthChanged(float change, const FGameplayTagContainer& EventTags)
+{
+	if(bAbilitiesInitialized)
+	{
+		OnHealthChanged(change, EventTags);
+	}
 }
 
 FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const

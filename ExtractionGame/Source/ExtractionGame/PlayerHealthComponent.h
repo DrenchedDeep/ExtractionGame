@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HealthComponent.h"
+#include "Components/HealthComponent.h"
 #include "Components/ActorComponent.h"
 #include "PlayerHealthComponent.generated.h"
 

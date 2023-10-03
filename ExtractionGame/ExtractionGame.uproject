@@ -12,7 +12,8 @@
 				"Engine",
 				"CoreUObject",
 				"OnlineSubsystemUtils",
-				"UMG"
+				"UMG",
+				"GameplayAbilities"
 			]
 		}
 	],
@@ -42,6 +43,10 @@
 		},
 		{
 			"Name": "Water",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayAbilities",
 			"Enabled": true
 		}
 	]

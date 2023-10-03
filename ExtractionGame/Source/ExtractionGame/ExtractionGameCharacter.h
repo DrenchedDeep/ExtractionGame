@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GemController.h"
+#include "Components/GemController.h"
+#include "AbilitySystemInterface.h"
+#include "GameplayEffect.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "ExtractionGameCharacter.generated.h"
@@ -15,11 +17,15 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
+class UExtractionGameplayAbility;
+class UExtractionAbilitySystemComponent;
+class UExtractionAttributeSet;
+
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class AExtractionGameCharacter : public ACharacter
+class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -89,6 +95,7 @@ protected:
 	class UPlayerMovementComponent* PlayerMovementComponent;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Health)
 	class UPlayerHealthComponent* PlayerHealthComponent;
+	
 
 public:
 
@@ -103,6 +110,7 @@ public:
 	void CrouchPressed();
 	void CrouchReleased();
 
+	
 	void LeftFirePressed();
 	void LeftFireReleased();
 	
@@ -123,11 +131,55 @@ public:
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+	/***************************************
+	 * Ability System
+	 ****************************************/
+	
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	void AddStartupGameplayAbilities();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDamaged(float amount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags,
+		AExtractionGameCharacter* Instigator0, AActor* DamageCauser);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHealthChanged(float change, const struct FGameplayTagContainer& EventTags);
+
+	virtual void HandleDamage(float amount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags,
+		AExtractionGameCharacter* Instigator, AActor* DamageCauser);
+
+	virtual void HandleHealthChanged(float change, const struct FGameplayTagContainer& EventTags);
+
+	friend UExtractionAttributeSet;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilities")
+	TArray<TSubclassOf<UGameplayEffect>> PassiveGameplayEffects;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
+	TArray<TSubclassOf<UExtractionGameplayAbility>> Abilities;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
+	TSubclassOf<UExtractionGameplayAbility> LeftAbility;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
+	TSubclassOf<UExtractionGameplayAbility> RightAbility;
+	
+	UPROPERTY()
+	uint8 bAbilitiesInitialized:1;
 
 public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
+	
 	FCollisionQueryParams GetIgnoreCharacterParams() const;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	TObjectPtr<UExtractionAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY()
+	TObjectPtr<UExtractionAttributeSet> AttributeSet;
 
 };
