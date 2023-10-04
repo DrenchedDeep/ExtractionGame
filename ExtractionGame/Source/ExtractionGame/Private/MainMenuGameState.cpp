@@ -12,12 +12,11 @@ AMainMenuGameState::AMainMenuGameState(const FObjectInitializer&  ObjectInitiali
 	
 }
 
-void AMainMenuGameState::FindSession()
+void AMainMenuGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
-	{
-		GameInstance->JoinSession(ConnectionInfo);
-	}
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AMainMenuGameState, PartyManager);
 }
 
 void AMainMenuGameState::Multicast_JoinSession_Implementation(FClientConnectionInfo ConnectInfo)
@@ -26,10 +25,16 @@ void AMainMenuGameState::Multicast_JoinSession_Implementation(FClientConnectionI
 	{
 		return;
 	}
+
+	if(HasAuthority())
+	{
+		return;
+	}
 	
+	ConnectionInfo = ConnectInfo;
 	if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
 	{
-		GameInstance->JoinSession(ConnectInfo);
+		GameInstance->JoinSession();
 	}
 }
 
@@ -41,5 +46,4 @@ void AMainMenuGameState::Multicast_SendConnectionInfo_Implementation(FClientConn
 	}
 
 	ConnectionInfo = ConnectInfo;
-	GetWorld()->GetTimerManager().SetTimer(FindSessionTimer, this, &AMainMenuGameState::FindSession, 5.f, false);
 }

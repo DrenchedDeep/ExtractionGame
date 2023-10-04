@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CharacterModel.h"
+#include "PartyManager.h"
 #include "GameFramework/Actor.h"
 #include "PlayerStand.generated.h"
 
@@ -34,6 +35,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateUsernameText(const FString& PlayerName);
 
+	void Validate(FPartyPlayer PartyPlayer);
+	
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

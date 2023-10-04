@@ -20,6 +20,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoginCompleted, bool, bWasSuccess
 UCLASS()
 class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 {
+	const int SESSION_PLAYERCOUNT = 4;
+	
 	GENERATED_BODY()
 
 	IOnlineSubsystem* OnlineSubSystem;
@@ -31,9 +33,6 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	UPROPERTY()
 	UAbilityHandlerSubSystem* AbilityHandlerSubSystem;
 
-	bool bIsPartyHost;
-	FTimerHandle DelayJoinSession;
-	
 public:
 	
 	virtual void Init() override;
@@ -51,24 +50,30 @@ public:
 	bool IsLoggedIn();
 	
 	void CreateSession(int32 PlayerCount);
-	void JoinSession(const FClientConnectionInfo ConnectionInfo);
 
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) bool CreateLobby();
 	UFUNCTION(BlueprintCallable) void DestroySession();
 
+	bool CreateMatchMakingLobby();
+
 	void OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID, const FString& Error);
 	void SetupOnlineSubsystem();
-
-	void DelaySessionJoin(const FClientConnectionInfo ConnectionInfo);
+	void HardJoinSession(FName SessionName, FOnlineSessionSearchResult Result);
 	
 	void OnCreateSessionCompleted(FName SessionName, bool bWasSuccess);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 	void OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search);
 	void HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId, FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult);
-	
+
 	
 	virtual void Shutdown() override;
+
+
+	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search)
+	{
+		return Search->SearchResults[0];
+	}
 };
 
 

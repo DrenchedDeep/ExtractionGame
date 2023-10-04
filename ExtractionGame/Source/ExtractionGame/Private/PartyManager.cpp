@@ -3,25 +3,47 @@
 
 #include "PartyManager.h"
 
-// Sets default values
+#include "PlayerStand.h"
+#include "GameFramework/PlayerState.h"
+#include "Net/UnrealNetwork.h"
+
 APartyManager::APartyManager()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	bReplicates = true;
+	bAlwaysRelevant = true;
 }
 
-// Called when the game starts or when spawned
-void APartyManager::BeginPlay()
+void APartyManager::OnRep_PartyPlayers()
 {
-	Super::BeginPlay();
-	
+	for(int32 i = 0; i < PartyPlayers.Num(); i++)
+	{
+		if(PartyPlayers[i].PlayerStand)
+		{
+			PartyPlayers[i].PlayerStand->Validate(PartyPlayers[i]);
+		}
+	}
 }
 
-// Called every frame
-void APartyManager::Tick(float DeltaTime)
+void APartyManager::AddPlayer(APlayerController* PlayerController, APlayerStand* PlayerStand)
 {
-	Super::Tick(DeltaTime);
+	if(AlreadyHasPlayer(PlayerController->PlayerState) || !HasAuthority())
+	{
+		return; 
+	}
+
+	const FPartyPlayer Player(PlayerController->PlayerState, PlayerStand, PlayerController->IsLocalController());
+	PartyPlayers.Add(Player);
+	OnRep_PartyPlayers();
+}
+
+void APartyManager::RemovePlayer(APlayerController* PlayerController)
+{
 
 }
 
+void APartyManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(APartyManager, PartyPlayers);
+}

@@ -9,24 +9,14 @@ AMainMenuGameModeBase::AMainMenuGameModeBase()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AMainMenuGameModeBase::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
 void AMainMenuGameModeBase::SetupMemberModel(APlayerState* PlayerState, const FString& Username)
-{
+{	
 	for(int32 i = 0; i < PlayerStands.Num(); i++)
 	{
 		if(PlayerState == PlayerStands[i]->OwningClient)
 		{
 			PlayerStands[i]->Username = Username;
 			PlayerStands[i]->OnRep_Username();
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("hi"));
 		}
 	}
 }
@@ -35,6 +25,16 @@ void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 
+	if(!PartyManager)
+	{
+		PartyManager = GetWorld()->SpawnActor<APartyManager>();
+
+		if(AMainMenuGameState* MainMenuGameState = Cast<AMainMenuGameState>(GameState))
+		{
+			MainMenuGameState->PartyManager = PartyManager;
+		}
+	}
+	
 	if(PlayerStands.Num() <= 0)
 	{
 		TArray<AActor*> Stands;
@@ -61,7 +61,7 @@ void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
 		//we call on rep here because its not automatically called on server, and since parties are player hosted the server needs to see when a client joins
 		PlayerStands[i]->OnRep_IsOccupied();
 		PlayerStands[i]->OnRep_Username();
-		PartyPlayerCount++;
+		PartyManager->AddPlayer(NewPlayer, PlayerStands[i]);
 		break;
 	}
 }
@@ -85,7 +85,6 @@ void AMainMenuGameModeBase::Logout(AController* Exiting)
 			
 			PlayerStands[i]->OnRep_IsOccupied();
 			PlayerStands[i]->OnRep_Username();
-			PartyPlayerCount--;
 			break;
 		}
 	}

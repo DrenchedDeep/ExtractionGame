@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameState.h"
 #include "OnlineSessionSettings.h"
+#include "PartyManager.h"
 #include "MainMenuGameState.generated.h"
 
 USTRUCT()
@@ -12,14 +13,14 @@ struct FClientConnectionInfo
 {
 	GENERATED_BODY()
 
+	UPROPERTY()
 	bool bIsValid;
+	UPROPERTY()
 	FName SessionName;
-	FOnlineSessionSearchResult SearchResult;
 
-	FClientConnectionInfo(bool bIsValid, const FName& SessionName, const FOnlineSessionSearchResult& SearchResult)
+	FClientConnectionInfo(bool bIsValid, const FName& SessionName)
 		: bIsValid(bIsValid),
-		  SessionName(SessionName),
-		  SearchResult(SearchResult)
+		  SessionName(SessionName)
 	{
 	}
 
@@ -31,11 +32,14 @@ class EXTRACTIONGAME_API AMainMenuGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 
-	FTimerHandle FindSessionTimer;
-	
+	bool bAllClientsLoadedSession = false;
+
 public:
 	AMainMenuGameState(const FObjectInitializer& ObjectInitializer);
 
+	UPROPERTY(Replicated)
+	APartyManager* PartyManager;
+	
 	UPROPERTY()
 	FClientConnectionInfo ConnectionInfo;
 	
@@ -45,5 +49,8 @@ public:
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_JoinSession(FClientConnectionInfo ConnectInfo);
 
-	void FindSession();
+
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 };
