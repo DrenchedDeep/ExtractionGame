@@ -24,6 +24,11 @@
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
+FVector AExtractionGameCharacter::GetPlayerLookPoint()
+{
+	return LookAtPoint;
+}
+
 AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
@@ -62,7 +67,13 @@ void AExtractionGameCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
 	
+	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
+	TraceParams.bIgnoreTouches = true;
+	TraceParams.bReturnPhysicalMaterial = true;
+	
+	GazeCollisionParams = TraceParams;
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 
@@ -82,6 +93,7 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 	if(IsLocallyControlled())
 	{
 		Server_SetInput(LocalVerticalMovement, LocalHorizontalMovement, LocalVerticalLook, LocalHorizontalLook);
+		HandleGaze();
 	}
 }
 
@@ -103,7 +115,7 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 		
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Move);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::None, this, &AExtractionGameCharacter::ResetMove);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::ResetMove);
 
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Look);
 		
@@ -115,6 +127,8 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		//When you release it does something...
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::Interact);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleInventory);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleSettings);
 	}
 
 }
@@ -284,7 +298,101 @@ void AExtractionGameCharacter::CrouchReleased()
 
 void AExtractionGameCharacter::Interact()
 {
-	//Check if what you're colliding with is interactable... then invoke a function based on if it is... Some blueprint implementable class Ufunc
-	//That'd function exactly like an interface.
-	UE_LOG(LogTemp, Warning, TEXT("IMPLEMENT INTERACTIONS"));	
+	if(GazeTarget)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Tried to interact with SOMETHING"))
+		GazeTarget->Execute_OnInteract(GazeTargetActor, this);
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Tried to interact with NOTHING"))
+}
+
+void AExtractionGameCharacter::ToggleInventory()
+{
+	bInInventory = !bInInventory;
+	bCanMove = !(bInInventory|bInSettings);
+	if(bInInventory)
+	{
+		OnInventoryOpened();
+	}
+	else
+	{
+		OnInventoryClosed();
+	}
+}
+
+
+void AExtractionGameCharacter::ToggleSettings()
+{
+	bInSettings = !bInSettings;
+	bCanMove = !(bInInventory|bInSettings);
+	if(bInSettings)
+	{
+		OnSettingsOpened();
+		if(bInInventory)
+		{
+			OnInventoryClosed();
+		}
+	}
+	else
+	{
+		OnSettingsClosed();
+	}
+}
+
+void AExtractionGameCharacter::HandleGaze()
+{
+	FVector CamLoc;
+	FRotator CamRot;
+
+	Controller->GetPlayerViewPoint(CamLoc, CamRot); // Get the camera position and rotation
+	const FVector StartTrace = CamLoc; // trace start is the camera location
+	const FVector Direction = CamRot.Vector();
+	const FVector EndTrace = StartTrace + Direction * 10000; // and trace end is the camera location + an offset in the direction you are looking, the 200 is the distance at wich it checks
+	
+	// Perform trace to retrieve hit info
+	
+
+	FHitResult Hit(ForceInit);
+	GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, GazeCollisionParams); // simple trace function
+
+	
+	if(Hit.bBlockingHit)
+	{
+		LookAtPoint = Hit.ImpactPoint;
+		UE_LOG(LogTemp, Warning, TEXT("Target is at distance: %f"), Hit.Distance);
+		if(Hit.Distance <= InteractionDistance)
+		{
+			//C++ you can't merge these ifs... :/
+			if(IInteractable* Usable = Cast<IInteractable>(Hit.GetActor())) // we are looking to a usable object
+			{
+				if(GazeTarget != Usable)
+				{
+					ChangeGaze();
+				}
+				GazeTargetActor = Hit.GetActor();
+				GazeTarget = Usable; // as the actor under crosshairs is a usable actor, we store it for the hud.
+				GazeTarget->Execute_OnStartFocus(GazeTargetActor);
+			}
+			else
+			{
+				ChangeGaze();
+			}
+		}
+		else
+		{
+			ChangeGaze();
+		}
+	}
+	else
+	{
+		LookAtPoint = Hit.TraceEnd;
+		ChangeGaze();
+	}
+}
+
+void AExtractionGameCharacter::ChangeGaze()
+{
+	if(!GazeTarget) return;
+	GazeTarget->Execute_OnCancelFocus(GazeTargetActor);
+	GazeTarget = nullptr;
 }

@@ -3,12 +3,12 @@
 
 #include "Gem.h"
 
-float UGem::GetPolish() const
+float AGem::GetPolish() const
 {
 	return Polish;
 }
 
-EGemType UGem::GetGemType() const
+EGemType AGem::GetGemType() const
 {
 	return GemType;
 }

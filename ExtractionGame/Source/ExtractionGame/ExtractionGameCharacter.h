@@ -64,6 +64,12 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* InventoryAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* SettingsAction;
 
 	void Move(const FInputActionValue& Value);
 	void ResetMove();
@@ -76,7 +82,22 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	void CrouchReleased();
 
 	void Interact();
+
+	void ToggleInventory();
+	void ToggleSettings();
+
+	void HandleGaze();
+	void ChangeGaze();
 	
+	bool bInInventory;
+	bool bInSettings;
+	bool bCanMove;
+	
+	FCollisionQueryParams GazeCollisionParams;
+	FVector LookAtPoint;
+	IInteractable* GazeTarget;
+	UPROPERTY()
+	AActor* GazeTargetActor;
 	
 	/*--------------------------------------------------------*/
 	float LocalVerticalMovement;
@@ -87,8 +108,25 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	UPROPERTY(EditAnywhere)
 	UGemController *GemController;
 
+	UPROPERTY(EditAnywhere, Category="Player Stats")
+	float InteractionDistance = 20;
 
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnInventoryOpened();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnInventoryClosed();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSettingsOpened();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSettingsClosed();
+
+	UFUNCTION(BlueprintCallable)
+	FVector GetPlayerLookPoint();
+	
 	AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(Replicated, BlueprintReadOnly)
@@ -191,6 +229,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
 	int RightShadow;
+
+
 	
 	UPROPERTY()
 	uint8 bAbilitiesInitialized:1;

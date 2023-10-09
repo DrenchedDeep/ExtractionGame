@@ -12,7 +12,7 @@
 class Attack
 {
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TArray<UGem*> Gems; // Not sure why there's a warning here..
+	TArray<AGem*> Gems; // Not sure why there's a warning here..
 	float totalPolish;
 	void Recompile();
 public:
@@ -20,8 +20,8 @@ public:
 
 	void Invoke() const;
 	
-	UGem* RemoveGem(int id);
-	void AddGem(UGem* gem, int slot);
+	AGem* RemoveGem(int id);
+	void AddGem(AGem* gem, int slot);
 	
 	~Attack();
 };

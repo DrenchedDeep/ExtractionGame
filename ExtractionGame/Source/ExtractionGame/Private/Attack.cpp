@@ -17,7 +17,7 @@ void Attack::Invoke() const
 void Attack::Recompile()
 {
 	float type [] = {0,0,0,0};
-	for (const UGem* gem : Gems)
+	for (const AGem* gem : Gems)
 	{
 		switch (gem->GetGemType()) {
 		case EGemType::Fire:
@@ -26,7 +26,7 @@ void Attack::Recompile()
 		case EGemType::Water:
 			type [1]+=gem->GetPolish();
 			break;
-		case EGemType::Light:
+		case EGemType::Earth:
 			type [2]+=gem->GetPolish();
 			break;
 		case EGemType::Dark:
@@ -56,15 +56,15 @@ void Attack::Recompile()
 //	ptr = UGemAbilities::FindAbility(ability);
 }
 
-UGem* Attack::RemoveGem(int id)
+AGem* Attack::RemoveGem(int id)
 {
-	UGem* gem = Gems[id];
+	AGem* gem = Gems[id];
 	Gems[id] = nullptr;
 	Recompile();
 	return gem;
 }
 
-void Attack::AddGem(UGem* gem, int slot)
+void Attack::AddGem(AGem* gem, int slot)
 {
 	Gems[slot] = gem;
 	Recompile();

@@ -22,9 +22,9 @@ public:
 	UGemController();
 
 	UPROPERTY(BlueprintReadWrite)
-	UGem* Mind;
+	AGem* Mind;
 	UPROPERTY(BlueprintReadWrite)
-	UGem* Body;
+	AGem* Body;
 
 	//UPROPERTY(BlueprintReadWrite)
 	//UAttack* leftArm;
