@@ -15,7 +15,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "Abilities/ExtractionAttributeSet.h"
 #include "Components/ExtractionAbilitySystemComponent.h"
-#include "Core/AbilityHandlerSubSystem.h"
+#include "Components/GemController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "Net/UnrealNetwork.h"
@@ -23,6 +23,16 @@
 
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
+
+void AExtractionGameCharacter::ToggleControlLocks(bool x) 
+{
+	PlayerMovementComponent->SetActive(x);
+	AbilitySystemComponent->SetActive(x);
+	bCanMove = x;
+	//GetAbilitySystemComponent()->SetActive(x);
+	//if(x) Controller->EnableInput(GetLocalViewingPlayerController());
+	//else Controller->DisableInput(GetLocalViewingPlayerController());
+}
 
 FVector AExtractionGameCharacter::GetPlayerLookPoint()
 {
@@ -32,7 +42,6 @@ FVector AExtractionGameCharacter::GetPlayerLookPoint()
 AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
-	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 	PlayerHealthComponent = CreateDefaultSubobject<UPlayerHealthComponent>(TEXT("HealthComponent"));
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
@@ -60,14 +69,13 @@ void AExtractionGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-
 	
 	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
 	TraceParams.bIgnoreTouches = true;
@@ -76,14 +84,6 @@ void AExtractionGameCharacter::BeginPlay()
 	GazeCollisionParams = TraceParams;
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
-
-	UAbilityHandlerSubSystem* MyGameInstance = GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	const TSubclassOf<UGameplayAbility> left = MyGameInstance->GetAbilityByIndex(MyGameInstance->ConvertToIntID(LeftEarth, LeftFire, LeftShadow, LeftWater));
-	const TSubclassOf<UGameplayAbility> right = MyGameInstance->GetAbilityByIndex(MyGameInstance->ConvertToIntID(RightEarth, RightFire, RightShadow, RightWater));
-	AbilitySystemComponent->SetInputBinding(LeftAttackAction, AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(left, 1, -1, this)));
-	AbilitySystemComponent->SetInputBinding(RightAttackAction,AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(right, 1, -1, this)));
-		
-
 }
 
 void AExtractionGameCharacter::Tick(float DeltaSeconds)
@@ -127,8 +127,8 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		//When you release it does something...
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::Interact);
-		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleInventory);
-		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleSettings);
+		EnhancedInputComponent->BindAction(InventoryAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleInventory);
+		EnhancedInputComponent->BindAction(SettingsAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleSettings);
 	}
 
 }
@@ -239,7 +239,7 @@ FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
 
 void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 {
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	const FVector2D MovementVector = Value.Get<FVector2D>();
 
 	//bad solution, clients can get rid of issliding check and move while sliding (do we want the player to move while sliding??)
 	if (Controller != nullptr && !IsSliding)
@@ -254,7 +254,9 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 
 void AExtractionGameCharacter::Look(const FInputActionValue& Value)
 {
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
+	if(!bCanMove) return;
+	
+	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
@@ -270,6 +272,7 @@ void AExtractionGameCharacter::SprintPressed()
 {
 	if(PlayerMovementComponent == nullptr)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("No player movement comp?"))
 		return;
 	}
 	
@@ -285,6 +288,7 @@ void AExtractionGameCharacter::SprintReleased()
 	
 	PlayerMovementComponent->SprintReleased();
 }
+
 
 void AExtractionGameCharacter::CrouchPressed() 
 {
@@ -309,7 +313,9 @@ void AExtractionGameCharacter::Interact()
 void AExtractionGameCharacter::ToggleInventory()
 {
 	bInInventory = !bInInventory;
-	bCanMove = !(bInInventory|bInSettings);
+
+	ToggleControlLocks(!(bInInventory|bInSettings));
+	
 	if(bInInventory)
 	{
 		OnInventoryOpened();
@@ -324,7 +330,9 @@ void AExtractionGameCharacter::ToggleInventory()
 void AExtractionGameCharacter::ToggleSettings()
 {
 	bInSettings = !bInSettings;
-	bCanMove = !(bInInventory|bInSettings);
+	
+	ToggleControlLocks(!(bInInventory|bInSettings));
+	
 	if(bInSettings)
 	{
 		OnSettingsOpened();
@@ -347,7 +355,7 @@ void AExtractionGameCharacter::HandleGaze()
 	Controller->GetPlayerViewPoint(CamLoc, CamRot); // Get the camera position and rotation
 	const FVector StartTrace = CamLoc; // trace start is the camera location
 	const FVector Direction = CamRot.Vector();
-	const FVector EndTrace = StartTrace + Direction * 10000; // and trace end is the camera location + an offset in the direction you are looking, the 200 is the distance at wich it checks
+	const FVector EndTrace = StartTrace + Direction * 100000; // and trace end is the camera location + an offset in the direction you are looking, the 200 is the distance at wich it checks
 	
 	// Perform trace to retrieve hit info
 	
@@ -359,7 +367,7 @@ void AExtractionGameCharacter::HandleGaze()
 	if(Hit.bBlockingHit)
 	{
 		LookAtPoint = Hit.ImpactPoint;
-		UE_LOG(LogTemp, Warning, TEXT("Target is at distance: %f"), Hit.Distance);
+		
 		if(Hit.Distance <= InteractionDistance)
 		{
 			//C++ you can't merge these ifs... :/

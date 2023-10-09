@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/GemController.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayEffect.h"
+#include "Core/Interactable.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "ExtractionGameCharacter.generated.h"
@@ -53,14 +53,16 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input)
 	UInputAction* LeftAttackAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input)
 	UInputAction* RightAttackAction;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input)
 	UInputAction* HeadAbilityAction;
+private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
@@ -91,7 +93,7 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	
 	bool bInInventory;
 	bool bInSettings;
-	bool bCanMove;
+	bool bCanMove = true;
 	
 	FCollisionQueryParams GazeCollisionParams;
 	FVector LookAtPoint;
@@ -104,12 +106,11 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	float LocalHorizontalMovement;
 	float LocalVerticalLook;
 	float LocalHorizontalLook;
-
-	UPROPERTY(EditAnywhere)
-	UGemController *GemController;
-
+	
 	UPROPERTY(EditAnywhere, Category="Player Stats")
 	float InteractionDistance = 20;
+
+	void ToggleControlLocks(bool x);
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -147,18 +148,19 @@ public:
 	
 
 protected:
-	virtual void BeginPlay();
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Movement)
 	class UPlayerMovementComponent* PlayerMovementComponent;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Health)
 	class UPlayerHealthComponent* PlayerHealthComponent;
 	
 
 public:
 
-	
+	FORCEINLINE bool CanMove() const { return bCanMove;}
 
 	// -- Why are any of these public -- //
 	
@@ -201,35 +203,6 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilities")
 	TArray<TSubclassOf<UGameplayEffect>> PassiveGameplayEffects;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Abilities")
-	TArray<TSubclassOf<UGameplayAbility>> Abilities;
-
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int LeftEarth;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int LeftFire;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int LeftWater;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int LeftShadow;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int RightEarth;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int RightFire;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int RightWater;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="TEMP|Abilities")
-	int RightShadow;
-
 
 	
 	UPROPERTY()

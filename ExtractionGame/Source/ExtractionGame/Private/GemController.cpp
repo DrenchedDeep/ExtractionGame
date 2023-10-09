@@ -2,73 +2,148 @@
 
 
 #include "Components/GemController.h"
+#include "Abilities/GameplayAbility.h"
+#include "Core/AbilityHandlerSubSystem.h"
+#include "ExtractionGame/ExtractionGameCharacter.h"
 
-#include "GemAbilities.h"
 
+AGem** UGemController::GetGemBySlot(EBodyPart slot)
+{
+	switch (slot) {
+	case EBodyPart::Head:
+		return &HeadGem;
+	case EBodyPart::Chest:
+		return &ChestGem;
+	default:
+		const int val = static_cast<int>(slot)-2;
+		if(val < 3) return &leftGems[val];
+		return &rightGems[val-3];
+	}
+}
 
 // Sets default values for this component's properties
-UGemController::UGemController(): Mind(), Body()
+UGemController::UGemController(): leftArmCooldown(nullptr), rightArmCooldown(nullptr), SubSystem(nullptr),
+                                  OwnerAbilities(nullptr),
+                                  LeftAttackAction(nullptr),
+                                  RightAttackAction(nullptr),
+                                  HeadAbilityAction(nullptr),
+                                  HeadGem(nullptr),
+                                  ChestGem(nullptr)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
-	// ...
+	leftGems.SetNum(3);
+	rightGems.SetNum(3);
+	
+	// ^^ If timers are fighting me, check here later ^^ 
 }
 
+
+bool UGemController::CheckGem(EBodyPart slot)
+{
+	return *GetGemBySlot(slot) != nullptr;
+}
+
+void UGemController::AddGem(EBodyPart slot, AGem* newGem)
+{
+	AGem** gem = GetGemBySlot(slot);
+
+	// If there was an existing gem, delete it before assigning the new one
+	if (*gem != nullptr)
+	{
+		delete *gem;
+	}
+	*gem = newGem;
+	LazyRecompileGems();
+}
+//Do I need to delete somewhere in here?
+AGem* UGemController::RemoveGem(EBodyPart slot)
+{
+	AGem** gem = GetGemBySlot(slot);
+	AGem* removedGem = *gem;
+	if(*gem)
+	{
+		delete *gem;
+		*gem = nullptr;
+	}
+	LazyRecompileGems();
+	return removedGem;
+}
 
 // Called when the game starts
 void UGemController::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
 
-	RecompileGems();
+	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
 	
-}
-//Honestly a bit lazy...
-/*void UGemController::HandleArm(UGem* a, UGem* b, UGem* chest, FAttackSignature** delegate) const
-{
-	float TotalPolish = 0;
-	const EGemType ChestType = chest->GetGemType();
-	const float ChestPolish = chest->GetPolish()/2;
-	const int GemCombo = (static_cast<int>(ChestType) | static_cast<int>(a->GetGemType()) | static_cast<int>(b->GetGemType()));
-	
-	//It's written like this in case a we add forloops down the line
-	TotalPolish += a->GetPolish() + (a->GetGemType() == ChestType)?ChestPolish:ChestPolish/2;
-	TotalPolish += b->GetPolish() + (b->GetGemType() == ChestType)?ChestPolish:ChestPolish/2; // div 4 for non matching types...
+	OwnerAbilities = Ch->AbilitySystemComponent;
+	LeftAttackAction = Ch->LeftAttackAction;
+	RightAttackAction = Ch->RightAttackAction;
+	HeadAbilityAction = Ch->HeadAbilityAction;
 
-	
-	//Select attack based on all types combines.
-	//FAttackSignature attack = UGemAbilities::FindAbility(GemCombo, TotalPolish);
-
-	
-	
-	//(*delegate)->BindLambda([TotalPolish, GemCombo, attack]
-	//{
-		UE_LOG(LogTemp, Warning, TEXT("Firing with type(s): %d, and total polish of: %f"), GemCombo, TotalPolish);
-		//attack.Execute();
-		//We don't want to be finding out what the ability is here every time...
-	//});
-	
-}*/
-
-
-void UGemController::RecompileGems()
-{
-	//Build Right arm...
-	
+	LazyRecompileGems();
 	
 }
 
-void UGemController::LeftAttack()
+void UGemController::LazyRecompileGems()
 {
-	//leftArm->Invoke();
+	//Change Ability bindings and setups...
+
+	//Bind head ability...
+	
+	//Bind arm abilities..
+	RecompileArm(leftGems, LeftAttackAction);
+	RecompileArm(rightGems, RightAttackAction);
+	
 }
 
-void UGemController::RightAttack()
+void UGemController::RecompileArm(TArray<AGem*> arm, UInputAction* binding)
 {
-	//RightAttackFunc->Execute();
+	float type [] = {0,0,0,0};
+	for (const AGem* gem : arm)
+	{
+		if(!gem) continue;
+		switch (gem->GetGemType()) {
+		case EGemType::Earth:
+			type [0]+=gem->GetPolish();
+			break;
+		case EGemType::Fire:
+			type [1]+=gem->GetPolish();
+			break;
+		case EGemType::Dark:
+			type [2]+=gem->GetPolish();
+			break;
+		case EGemType::Water:
+			type [3]+=gem->GetPolish();
+			break;
+		}
+	}
+	//Based on some constant number...
+	int ability = 0;
+	//fire, water, light, dark...
+	int iteration= 0;
+	float totalPolish = 0;
+	for (const float val : type)
+	{
+		totalPolish += val;
+		int Score;
+		if(val >= 150) Score = 3;
+		else if(val >= 50) Score = 2;
+		else Score = 1;
+		ability |= Score << (iteration++*2);
+	}
+
+	
+	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(SubSystem->ConvertToIntID(type [0], type [1], type [2], type [3]));
+	//Hopefully this doesn't allow for multiple.. if it does, just clear before...
+	OwnerAbilities->SetInputBinding(binding, OwnerAbilities->GiveAbility(FGameplayAbilitySpec(InAbilityClass, 1, -1, this)));
 }
+
 
 
 //Probably don't need tick...
