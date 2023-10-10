@@ -15,10 +15,10 @@
 
 UENUM(BlueprintType)
 enum class EGemType : uint8 {
-	Fire     UMETA(DisplayName="Fire|Red"),
-	Water       UMETA(DisplayName="Water|Blue"),
 	Earth        UMETA(DisplayName="Earth|Green"),
-	Dark    UMETA(DisplayName="Dark|Purple"),
+	Fire     UMETA(DisplayName="Fire|Red"),
+	Shadow    UMETA(DisplayName="Shadow|Purple"),
+	Water       UMETA(DisplayName="Water|Blue")
 };
 
 UCLASS(Blueprintable)

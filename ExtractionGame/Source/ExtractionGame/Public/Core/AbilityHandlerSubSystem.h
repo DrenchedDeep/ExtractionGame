@@ -26,8 +26,8 @@ public:
 	TSubclassOf<UGameplayAbility> GetAbilityByIndex(int32 Index);
 
 	UFUNCTION(BlueprintCallable)
-	int ConvertToIntID(int Earth, int Fire, int Shadow, int Water);
-	
+	int32 ConvertToIntID(int32 Earth, int32 Fire, int32 Shadow, int32 Water);
+
 
 	UFUNCTION(BlueprintCallable, Category = "MySubsystem")
 	void AddAbilityToMap(int32 Index, TSubclassOf<UGameplayAbility> Object);

@@ -51,10 +51,11 @@ void UGemController::AddGem(EBodyPart slot, AGem* newGem)
 	AGem** gem = GetGemBySlot(slot);
 
 	// If there was an existing gem, delete it before assigning the new one
+	/*
 	if (*gem != nullptr)
 	{
 		delete *gem;
-	}
+	}*/
 	*gem = newGem;
 	LazyRecompileGems();
 }
@@ -63,11 +64,12 @@ AGem* UGemController::RemoveGem(EBodyPart slot)
 {
 	AGem** gem = GetGemBySlot(slot);
 	AGem* removedGem = *gem;
+	/*
 	if(*gem)
 	{
 		delete *gem;
 		*gem = nullptr;
-	}
+	} */
 	LazyRecompileGems();
 	return removedGem;
 }
@@ -115,7 +117,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm, UInputAction* binding)
 		case EGemType::Fire:
 			type [1]+=gem->GetPolish();
 			break;
-		case EGemType::Dark:
+		case EGemType::Shadow:
 			type [2]+=gem->GetPolish();
 			break;
 		case EGemType::Water:
@@ -123,8 +125,9 @@ void UGemController::RecompileArm(TArray<AGem*> arm, UInputAction* binding)
 			break;
 		}
 	}
+
 	//Based on some constant number...
-	int ability = 0;
+	int32 ability = 0;
 	//fire, water, light, dark...
 	int iteration= 0;
 	float totalPolish = 0;
@@ -132,14 +135,15 @@ void UGemController::RecompileArm(TArray<AGem*> arm, UInputAction* binding)
 	{
 		totalPolish += val;
 		int Score;
-		if(val >= 150) Score = 3;
-		else if(val >= 50) Score = 2;
-		else Score = 1;
-		ability |= Score << (iteration++*2);
+		if(val >= 150.f) Score = 3;
+		else if(val >= 50.f) Score = 2;
+		else if (val > 0) Score = 1;
+		else Score = 0;
+		ability |= Score << (8-(++iteration*2));
 	}
-
 	
-	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(SubSystem->ConvertToIntID(type [0], type [1], type [2], type [3]));
+	UE_LOG(LogTemp, Warning, TEXT("Ability Value: %d"), ability)
+	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
 	//Hopefully this doesn't allow for multiple.. if it does, just clear before...
 	OwnerAbilities->SetInputBinding(binding, OwnerAbilities->GiveAbility(FGameplayAbilitySpec(InAbilityClass, 1, -1, this)));
 }

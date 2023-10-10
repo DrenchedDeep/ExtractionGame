@@ -16,10 +16,10 @@ enum class EBodyPart : uint8
 	Head     UMETA(DisplayName = "Head"),
 	Chest    UMETA(DisplayName = "Chest"),
 	LeftArm0  UMETA(DisplayName = "LeftArm0"),
-	RightArm0 UMETA(DisplayName = "RightArm0"),
 	LeftArm1  UMETA(DisplayName = "LeftArm1"),
-	RightArm1 UMETA(DisplayName = "RightArm1"),
 	LeftArm2  UMETA(DisplayName = "LeftArm2"),
+	RightArm0 UMETA(DisplayName = "RightArm0"),
+	RightArm1 UMETA(DisplayName = "RightArm1"),
 	RightArm2 UMETA(DisplayName = "RightArm2")
 };
 
