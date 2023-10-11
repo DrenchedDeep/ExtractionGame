@@ -13,14 +13,14 @@ class UAbilityHandlerSubSystem;
 UENUM(BlueprintType)
 enum class EBodyPart : uint8
 {
-	Head     UMETA(DisplayName = "Head"),
-	Chest    UMETA(DisplayName = "Chest"),
-	LeftArm0  UMETA(DisplayName = "LeftArm0"),
-	LeftArm1  UMETA(DisplayName = "LeftArm1"),
-	LeftArm2  UMETA(DisplayName = "LeftArm2"),
-	RightArm0 UMETA(DisplayName = "RightArm0"),
-	RightArm1 UMETA(DisplayName = "RightArm1"),
-	RightArm2 UMETA(DisplayName = "RightArm2")
+	Head = 0    UMETA(DisplayName = "Head"),
+	Chest = 1   UMETA(DisplayName = "Chest"),
+	LeftArm0 = 2  UMETA(DisplayName = "LeftArm0"),
+	LeftArm1 = 3  UMETA(DisplayName = "LeftArm1"),
+	LeftArm2 = 4   UMETA(DisplayName = "LeftArm2"),
+	RightArm0 = 5 UMETA(DisplayName = "RightArm0"),
+	RightArm1 = 6 UMETA(DisplayName = "RightArm1"),
+	RightArm2 = 7 UMETA(DisplayName = "RightArm2")
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
