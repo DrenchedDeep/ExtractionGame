@@ -10,6 +10,7 @@
 #include "Logging/LogMacros.h"
 #include "ExtractionGameCharacter.generated.h"
 
+class UInventoryComponent;
 class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
@@ -31,6 +32,9 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
+	
+	UPROPERTY(VisibleDefaultsOnly, Category=Inventory)
+	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;

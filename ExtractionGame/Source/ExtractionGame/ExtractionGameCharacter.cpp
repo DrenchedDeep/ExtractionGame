@@ -10,6 +10,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "ExtractionGameInstance.h"
 #include "InputActionValue.h"
+#include "InventoryComponent.h"
 #include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
 #include "Abilities/GameplayAbility.h"
@@ -26,9 +27,11 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 void AExtractionGameCharacter::ToggleControlLocks(bool x) 
 {
-	PlayerMovementComponent->SetActive(x);
+	
+	//PlayerMovementComponent->SetActive(x);
 	AbilitySystemComponent->SetActive(x);
 	bCanMove = x;
+	
 	//GetAbilitySystemComponent()->SetActive(x);
 	//if(x) Controller->EnableInput(GetLocalViewingPlayerController());
 	//else Controller->DisableInput(GetLocalViewingPlayerController());
@@ -63,6 +66,7 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
 	AttributeSet = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("Ability Attributes"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 }
 
 void AExtractionGameCharacter::BeginPlay()
@@ -242,7 +246,7 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 
 	//bad solution, clients can get rid of issliding check and move while sliding (do we want the player to move while sliding??)
-	if (Controller != nullptr && !IsSliding)
+	if (Controller != nullptr && !IsSliding && bCanMove)
 	{
 		LocalVerticalMovement = MovementVector.Y;
 		LocalHorizontalMovement = MovementVector.X;
