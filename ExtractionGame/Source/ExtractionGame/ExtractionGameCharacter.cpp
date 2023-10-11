@@ -170,9 +170,9 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 void AExtractionGameCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+	
 	//Client GAS initialization
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
-
 }
 
 UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const
@@ -311,7 +311,8 @@ void AExtractionGameCharacter::Interact()
 		UE_LOG(LogTemp, Warning, TEXT("Tried to interact with SOMETHING"))
 		GazeTarget->Execute_OnInteract(GazeTargetActor, this);
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Tried to interact with NOTHING"))
+	
+	//UE_LOG(LogTemp, Warning, TEXT("Tried to interact with NOTHING"))
 }
 
 void AExtractionGameCharacter::ToggleInventory()
