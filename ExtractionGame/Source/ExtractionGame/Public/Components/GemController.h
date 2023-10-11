@@ -74,9 +74,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Remove the current head gem. WARNING: Can return null ptrs."))
 	AGem* RemoveGem(EBodyPart slot);
 
-	UFUNCTION(Server, Reliable)
-	FGameplayAbilitySpec RPC_RequestAttack(int32 ability = 0);
-
 protected:
 	
 	// Called when the game starts
