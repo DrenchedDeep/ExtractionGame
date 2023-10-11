@@ -50,19 +50,23 @@ class EXTRACTIONGAME_API UGemController : public UActorComponent
 
 	
 public:	
-	// Sets default values for this component's properties
 	UGemController();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
+	FGameplayAbilitySpecHandle LeftArmAbilitySpecHandle;
+	UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
+	FGameplayAbilitySpecHandle RightArmAbilitySpecHandle;
+
+	UPROPERTY(ReplicatedUsing=OnRep_HeadGem, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	AGem* HeadGem;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	UPROPERTY(ReplicatedUsing=OnRep_ChestGem, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	AGem* ChestGem;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	UPROPERTY(ReplicatedUsing=OnRep_LeftArmGems, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	TArray<AGem*> leftGems;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	UPROPERTY(ReplicatedUsing=OnRep_RightArmGems, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	TArray<AGem*> rightGems;
 
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. Returns false if slot is already filled"))
@@ -74,13 +78,30 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Remove the current head gem. WARNING: Can return null ptrs."))
 	AGem* RemoveGem(EBodyPart slot);
 
-protected:
+	UFUNCTION()
+	void OnRep_HeadGem();
+	UFUNCTION()
+	void OnRep_ChestGem();
+	UFUNCTION()
+	void OnRep_LeftArmGems();
+	UFUNCTION()
+	void OnRep_RightArmGems();
 	
-	// Called when the game starts
+protected:
 	virtual void BeginPlay() override;
-
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	void LazyRecompileGems();
 
-	void RecompileArm(TArray<AGem*> arm, UInputAction* binding);
+	void Attack(bool bLeftArm);
+	void RecompileArm(TArray<AGem*> arm, bool bIsLeft);
+
+private:
+	UFUNCTION(Server, Reliable)
+	void Server_LazyRecompileGems();
+	UFUNCTION(Server, Reliable)
+	void Server_AddGem(EBodyPart slot, AGem* newGem);
+	UFUNCTION(Server, Reliable)
+	void Server_RemoveGem(EBodyPart slot);
 	
 };

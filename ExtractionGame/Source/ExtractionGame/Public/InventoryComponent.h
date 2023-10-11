@@ -65,6 +65,10 @@ public:
 	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;
 
+	UPROPERTY(Replicated)
+	TArray<FInventoryItem> InventoryItems;
+
+
 	void AddItem(UItem* ItemData, int Stack = 1);
 	void RemoveItem(UItem* ItemData, int Stack = 1);
 	void RemoveItem(int SlotID, int Stack = 1);
@@ -75,9 +79,6 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
-	UPROPERTY(Replicated)
-	TArray<FInventoryItem> InventoryItems;
-
 	UPROPERTY()
 	UInventoryWidget* InventoryWidget;
 

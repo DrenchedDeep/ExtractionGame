@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InventoryComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
@@ -27,12 +28,28 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsOccupied;
 	
-	void Init(int ID);
-	void InitItem(UItem* Item, int StackSize);
+	UPROPERTY(BlueprintReadOnly)
+	UInventoryComponent* Inventory;
 
-	UFUNCTION(BlueprintCallable)
+	
+	void Init(int ID);
+	void InitItem(UInventoryComponent* InventoryComponent, int InvenIndex);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
 	int GetSlotID() const { return SlotID;}
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FORCEINLINE UItem* GetCurrentItem() const
+	{
+		if(!Inventory || !Inventory->InventoryItems[InventoryIndex].ItemID)
+		{
+			return nullptr;
+		}
+
+		return Inventory->InventoryItems[InventoryIndex].ItemID;
+	}
+
 	
 private:
 	int SlotID;
+	int InventoryIndex;
 };

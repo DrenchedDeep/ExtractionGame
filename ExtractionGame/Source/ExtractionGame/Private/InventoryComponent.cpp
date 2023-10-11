@@ -62,9 +62,9 @@ void UInventoryComponent::AddItem(UItem* ItemData, int Stack)
 	const FInventoryItem InventoryItem(true, Stack, ItemData);
 	if(SlotWidget)
 	{
-		InventoryWidget->SetSlot(SlotWidget->GetSlotID(), InventoryItem);
-		//need to do thus on server aswell
 		InventoryItems.Add(InventoryItem);
+		InventoryWidget->SetSlot(SlotWidget->GetSlotID(),0, this);
+		//need to do thus on server aswell
 	}
 }
 

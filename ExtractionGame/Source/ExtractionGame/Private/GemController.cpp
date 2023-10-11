@@ -5,6 +5,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "Core/AbilityHandlerSubSystem.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
+#include "Net/UnrealNetwork.h"
 
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
@@ -48,17 +49,9 @@ bool UGemController::CheckGem(EBodyPart slot)
 
 void UGemController::AddGem(EBodyPart slot, AGem* newGem)
 {
-	AGem** gem = GetGemBySlot(slot);
-
-	// If there was an existing gem, delete it before assigning the new one
-	/*
-	if (*gem != nullptr)
-	{
-		delete *gem;
-	}*/
-	*gem = newGem;
-	LazyRecompileGems();
+	Server_AddGem(slot, newGem);
 }
+
 //Do I need to delete somewhere in here?
 AGem* UGemController::RemoveGem(EBodyPart slot)
 {
@@ -72,6 +65,22 @@ AGem* UGemController::RemoveGem(EBodyPart slot)
 	} */
 	LazyRecompileGems();
 	return removedGem;
+}
+
+void UGemController::OnRep_HeadGem()
+{
+}
+
+void UGemController::OnRep_ChestGem()
+{
+}
+
+void UGemController::OnRep_LeftArmGems()
+{
+}
+
+void UGemController::OnRep_RightArmGems()
+{
 }
 
 // Called when the game starts
@@ -88,8 +97,28 @@ void UGemController::BeginPlay()
 	RightAttackAction = Ch->RightAttackAction;
 	HeadAbilityAction = Ch->HeadAbilityAction;
 
+	if(GetOwner()->HasAuthority())
+	{
+		LazyRecompileGems();
+	}
+}
+
+void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UGemController, LeftArmAbilitySpecHandle);
+	DOREPLIFETIME(UGemController, RightArmAbilitySpecHandle);
+	DOREPLIFETIME(UGemController, HeadGem);
+	DOREPLIFETIME(UGemController, ChestGem);
+	DOREPLIFETIME(UGemController, leftGems);
+	DOREPLIFETIME(UGemController, rightGems);
+
+}
+
+void UGemController::Server_LazyRecompileGems_Implementation()
+{
 	LazyRecompileGems();
-	
 }
 
 void UGemController::LazyRecompileGems()
@@ -99,12 +128,17 @@ void UGemController::LazyRecompileGems()
 	//Bind head ability...
 	
 	//Bind arm abilities..
-	RecompileArm(leftGems, LeftAttackAction);
-	RecompileArm(rightGems, RightAttackAction);
+	RecompileArm(leftGems, true);
+	RecompileArm(rightGems, false);
 	
 }
 
-void UGemController::RecompileArm(TArray<AGem*> arm, UInputAction* binding)
+void UGemController::Attack(bool bLeftArm)
+{
+//	FGameplayAbilitySpecHandle Handle = OwnerAbilities->TryActivateAbility(AbilitySpecHandles[0]);
+}
+
+void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 {
 	float type [] = {0,0,0,0};
 	for (const AGem* gem : arm)
@@ -141,24 +175,39 @@ void UGemController::RecompileArm(TArray<AGem*> arm, UInputAction* binding)
 		else Score = 0;
 		ability |= Score << (8-(++iteration*2));
 	}
-	
-	UE_LOG(LogTemp, Warning, TEXT("Ability Value: %d"), ability)
+
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
-	//Hopefully this doesn't allow for multiple.. if it does, just clear before...
-	OwnerAbilities->SetInputBinding(binding, OwnerAbilities->GiveAbility(FGameplayAbilitySpec(InAbilityClass, 1, -1, this)));
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, this);
+	
+	if(GetOwner()->HasAuthority())
+	{
+		if(bIsLeft)
+		{
+			LeftArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
+			UE_LOG(	LogTemp, Warning, TEXT("Left Arm Ability: %s"), *AbilitySpec.Ability->GetName());
+		}
+		else
+		{
+			RightArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
+		}
+	}
 }
 
-
-
-//Probably don't need tick...
-/*
-void UGemController::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	AGem** gem = GetGemBySlot(slot);
 
-	// ...
-}*/
+	// If there was an existing gem, delete it before assigning the new one
+	/*
+	if (*gem != nullptr)
+	{
+		delete *gem;
+	}*/
+	
+	*gem = newGem;
+	LazyRecompileGems();
+}
 
-
-
-
+void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
+{
+}

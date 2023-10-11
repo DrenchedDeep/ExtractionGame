@@ -63,8 +63,9 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	bAbilitiesInitialized = false;
 	AbilitySystemComponent = CreateDefaultSubobject<UExtractionAbilitySystemComponent>(TEXT("Ability System"));
 	AbilitySystemComponent->SetIsReplicated(true);
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
+	
 	AttributeSet = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("Ability Attributes"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 }
@@ -133,6 +134,9 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::Interact);
 		EnhancedInputComponent->BindAction(InventoryAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleInventory);
 		EnhancedInputComponent->BindAction(SettingsAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleSettings);
+		
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::LeftAttackPressed);
+		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::RightAttackPressed);
 	}
 
 }
@@ -292,7 +296,6 @@ void AExtractionGameCharacter::SprintReleased()
 	
 	PlayerMovementComponent->SprintReleased();
 }
-
 
 void AExtractionGameCharacter::CrouchPressed() 
 {

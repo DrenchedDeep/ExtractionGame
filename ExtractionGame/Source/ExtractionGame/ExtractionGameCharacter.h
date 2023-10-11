@@ -83,7 +83,7 @@ private:
 
 	void SprintPressed();
 	void SprintReleased();
-
+	
 	void CrouchPressed();
 	void CrouchReleased();
 
@@ -128,6 +128,12 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSettingsClosed();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void LeftAttackPressed();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void RightAttackPressed();
 
 	UFUNCTION(BlueprintCallable)
 	FVector GetPlayerLookPoint();

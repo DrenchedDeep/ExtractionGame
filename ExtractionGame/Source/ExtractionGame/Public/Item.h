@@ -15,10 +15,10 @@ class EXTRACTIONGAME_API UItem : public UPrimaryDataAsset
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, Category="ItemStats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
 	FName ItemName;
-	UPROPERTY(EditDefaultsOnly,  Category="ItemStats")
+	UPROPERTY(EditDefaultsOnly,  BlueprintReadOnly, Category="ItemStats")
 	UTexture2D* ItemIcon;
-	UPROPERTY(EditDefaultsOnly,  Category="ItemStats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="ItemStats")
 	int ItemCost;
 };

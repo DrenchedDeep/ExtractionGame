@@ -40,13 +40,13 @@ public:
 		return InventorySlot;
 	}
 
-	FORCEINLINE bool SetSlot(int Index, FInventoryItem InventoryItem)
+	FORCEINLINE bool SetSlot(int SlotIndex, int ItemIndex, UInventoryComponent* Inventory)
 	{
 		bool bSuccess = false;
 		
-		if(Slots[Index] != nullptr)
+		if(Slots[SlotIndex] != nullptr)
 		{
-			Slots[Index]->InitItem(InventoryItem.ItemID, InventoryItem.StackSize);
+			Slots[SlotIndex]->InitItem(Inventory, ItemIndex);
 			bSuccess = true;
 		}
 
