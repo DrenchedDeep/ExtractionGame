@@ -410,7 +410,6 @@ void AExtractionGameCharacter::HandleGaze()
 		GazeLocation = Hit.TraceEnd;
 		ChangeGaze();
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Gaze location: %s"), *GazeLocation.ToString())
 
 }
 
