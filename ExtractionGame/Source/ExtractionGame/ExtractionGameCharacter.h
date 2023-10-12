@@ -100,10 +100,12 @@ private:
 	bool bCanMove = true;
 	
 	FCollisionQueryParams GazeCollisionParams;
-	FVector LookAtPoint;
+	
 	IInteractable* GazeTarget;
 	UPROPERTY()
 	AActor* GazeTargetActor;
+
+	
 	
 	/*--------------------------------------------------------*/
 	float LocalVerticalMovement;
@@ -131,12 +133,15 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void LeftAttackPressed();
+
+	UPROPERTY(BlueprintReadOnly)
+	FVector GazeLocation;
+	
+	UFUNCTION(Server, Reliable, WithValidation, BlueprintCallable)
+	void ServerUpdateGaze(FVector newGaze);
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void RightAttackPressed();
-
-	UFUNCTION(BlueprintCallable)
-	FVector GetPlayerLookPoint();
 	
 	AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer);
 

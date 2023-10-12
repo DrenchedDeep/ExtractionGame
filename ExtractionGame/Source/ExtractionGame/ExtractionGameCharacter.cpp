@@ -37,9 +37,15 @@ void AExtractionGameCharacter::ToggleControlLocks(bool x)
 	//else Controller->DisableInput(GetLocalViewingPlayerController());
 }
 
-FVector AExtractionGameCharacter::GetPlayerLookPoint()
+
+void AExtractionGameCharacter::ServerUpdateGaze_Implementation(FVector newGaze)
 {
-	return LookAtPoint;
+	GazeLocation = newGaze;
+}
+
+bool AExtractionGameCharacter::ServerUpdateGaze_Validate(FVector newGaze)
+{
+	return true;
 }
 
 AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)
@@ -374,7 +380,7 @@ void AExtractionGameCharacter::HandleGaze()
 	
 	if(Hit.bBlockingHit)
 	{
-		LookAtPoint = Hit.ImpactPoint;
+		GazeLocation = Hit.ImpactPoint;
 		
 		if(Hit.Distance <= InteractionDistance)
 		{
@@ -401,9 +407,11 @@ void AExtractionGameCharacter::HandleGaze()
 	}
 	else
 	{
-		LookAtPoint = Hit.TraceEnd;
+		GazeLocation = Hit.TraceEnd;
 		ChangeGaze();
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Gaze location: %s"), *GazeLocation.ToString())
+
 }
 
 void AExtractionGameCharacter::ChangeGaze()
