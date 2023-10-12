@@ -177,6 +177,8 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	}
 
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
+	if(bIsLeft)
+		totalPolish = -totalPolish;
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, this);
 	
 	if(GetOwner()->HasAuthority())
