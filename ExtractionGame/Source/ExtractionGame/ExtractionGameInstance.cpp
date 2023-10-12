@@ -269,10 +269,18 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 
 			if(SearchResult.IsSessionInfoValid())
 			{
-				const FName SessionName = FName(SearchResult.GetSessionIdStr());
+				if(MenuGameState->PartyManager->PartyPlayers.Num() <= 1)
+				{
+					const FName SessionName =  FName(SearchResult.GetSessionIdStr());
+					Session->JoinSession(0, SessionName, SearchResult);
+				}
+				else
+				{
+					const FName SessionName = FName(SearchResult.GetSessionIdStr());
 
-				FClientConnectionInfo ConnectInfo(true, SessionName);
-				MenuGameState->Multicast_JoinSession(ConnectInfo);
+					FClientConnectionInfo ConnectInfo(true, SessionName);
+					MenuGameState->Multicast_JoinSession(ConnectInfo);
+				}
 			}
 		}
 		else
