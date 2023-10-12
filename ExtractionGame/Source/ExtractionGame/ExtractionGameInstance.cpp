@@ -201,7 +201,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		}
 		else if(SessionSettings == "GameplaySession")
 		{
-			GetWorld()->ServerTravel("SessionMap?listen");
+			GetWorld()->ServerTravel("Desert_Map?listen");
 		}
 	}
 }
