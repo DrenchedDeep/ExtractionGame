@@ -140,6 +140,9 @@ public:
 	UFUNCTION(Server, Reliable, WithValidation, BlueprintCallable)
 	void ServerUpdateGaze(FVector newGaze);
 	
+	UFUNCTION(Server, Unreliable, WithValidation, BlueprintCallable)
+	void ServerUpdateGazeUnreliable(FVector newGaze);
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void RightAttackPressed();
 	

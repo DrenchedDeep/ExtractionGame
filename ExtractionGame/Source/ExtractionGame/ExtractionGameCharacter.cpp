@@ -48,6 +48,16 @@ bool AExtractionGameCharacter::ServerUpdateGaze_Validate(FVector newGaze)
 	return true;
 }
 
+void AExtractionGameCharacter::ServerUpdateGazeUnreliable_Implementation(FVector newGaze)
+{
+	GazeLocation = newGaze;
+}
+
+bool AExtractionGameCharacter::ServerUpdateGazeUnreliable_Validate(FVector newGaze)
+{
+	return true;
+}
+
 AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
