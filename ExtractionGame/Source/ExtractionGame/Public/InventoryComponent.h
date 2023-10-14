@@ -8,12 +8,15 @@
 #include "InventoryComponent.generated.h"
 
 class UInventoryWidget;
+class USlotWidget;
 
 USTRUCT(BlueprintType)
 struct FInventoryItem
 {
 	GENERATED_BODY()
-	
+
+	UPROPERTY()
+	int InventoryID;
 	UPROPERTY()
 	int SlotID;
 	UPROPERTY()
@@ -21,13 +24,13 @@ struct FInventoryItem
 	UPROPERTY()
 	UItem* ItemID;
 
-	FInventoryItem(int SlotID, int StackSize, UItem* ItemID)
-		: SlotID(SlotID),
+	FInventoryItem(int InventoryID, int SlotID, int StackSize, UItem* ItemID)
+		: InventoryID(InventoryID),
+		  SlotID(SlotID),
 		  StackSize(StackSize),
 		  ItemID(ItemID)
 	{
 	}
-	
 
 	FInventoryItem() = default;
 };
@@ -59,29 +62,39 @@ class EXTRACTIONGAME_API UInventoryComponent : public UActorComponent
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FStartingItem> StartingItems;
 
-	bool bInitialized;
-	
+	UPROPERTY(EditDefaultsOnly,
+		meta=(ToolTip = "When the server updates the inventory, do we want to reconcile the visuals with the updated data or keep the predicted visuals?"))
+	bool bReconcileVisuals;
+
 public:	
-	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;
-
-	UPROPERTY(Replicated)
-	TArray<FInventoryItem> InventoryItems;
-
-
-	void AddItem(UItem* ItemData, int Stack = 1);
-	void RemoveItem(UItem* ItemData, int Stack = 1);
-	void RemoveItem(int SlotID, int Stack = 1);
-
-	FInventoryItem FindItem(UItem* Item);
 	
+	UFUNCTION()
+	void OnRep_InventoryItems();
+
+	UFUNCTION(BlueprintCallable)
+	void AddItem(UItem* Item, int StackSize, bool bClientSimulation);
+	UFUNCTION(BlueprintCallable)
+	void RemoveItem(UItem* Item, int StackSize, bool bClientSimulation);
+	void TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot);
+
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing=OnRep_InventoryItems)
+	TArray<FInventoryItem> InventoryItems;
+	UPROPERTY(BlueprintReadOnly)
+	UInventoryWidget* InventoryWidget;
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
-	UPROPERTY()
-	UInventoryWidget* InventoryWidget;
 
 	UPROPERTY()
 	AExtractionGameCharacter* Character;
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_AddItem(UItem* Item, int StackSize, int InventoryIndex, int SlotID);
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_RemoveItem(UItem* Item, int StackSize);
+	UFUNCTION(Server, Reliable)
+	void Server_TransferSlots(int TargetInventoryItemID, int NewSlotID);
 };

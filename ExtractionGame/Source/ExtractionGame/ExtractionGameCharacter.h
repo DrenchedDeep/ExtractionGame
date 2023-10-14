@@ -33,9 +33,6 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
 	
-	UPROPERTY(VisibleDefaultsOnly, Category=Inventory)
-	UInventoryComponent* InventoryComponent;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 	/*------------------- Input actions -----------------------*/
@@ -66,6 +63,10 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input)
 	UInputAction* HeadAbilityAction;
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
+	UInventoryComponent* InventoryComponent;
+
 private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))

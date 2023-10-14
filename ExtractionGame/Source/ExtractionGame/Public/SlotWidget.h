@@ -18,38 +18,43 @@ class EXTRACTIONGAME_API USlotWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-	UPROPERTY(meta = (BindWidget))
-	UImage* SlotIconImage;
-	UPROPERTY(meta = (BindWidget))
-	UTextBlock* SlotStackText;
-	
-public:
 
+public:
+	
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsOccupied;
 	
 	UPROPERTY(BlueprintReadOnly)
 	UInventoryComponent* Inventory;
-
 	
-	void Init(int ID);
-	void InitItem(UInventoryComponent* InventoryComponent, int InvenIndex);
+	void Init(UInventoryComponent* InventoryComponent,int ID);
+	void Reset();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	int GetSlotID() const { return SlotID;}
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FORCEINLINE UItem* GetCurrentItem() const
-	{
-		if(!Inventory || !Inventory->InventoryItems[InventoryIndex].ItemID)
-		{
-			return nullptr;
-		}
+	int GetInventoryIndex() const { return InventoryIndex;}
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UItem* GetCurrentItem() const { return CurrentItem;}
 
-		return Inventory->InventoryItems[InventoryIndex].ItemID;
-	}
+	UFUNCTION(BlueprintCallable)
+	virtual void TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID);
+
+	virtual void PredictVisuals(UItem* Item, int Stack);
+	virtual void ReconcileVisuals(const FInventoryItem& Item);
 
 	
 private:
 	int SlotID;
 	int InventoryIndex;
+	
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	UImage* SlotIconImage;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* SlotStackText;
+	UPROPERTY()
+	UItem* CurrentItem;
+
 };

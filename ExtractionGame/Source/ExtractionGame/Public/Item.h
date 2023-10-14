@@ -6,15 +6,21 @@
 #include "Engine/DataAsset.h"
 #include "Item.generated.h"
 
-/**
- * 
- */
+UENUM(BlueprintType)
+enum EItemType : uint8
+{
+	Misc = 0    UMETA(DisplayName = "Misc"),
+	Gem = 1    UMETA(DisplayName = "Gem"),
+};
+
 UCLASS()
 class EXTRACTIONGAME_API UItem : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
+	TEnumAsByte<EItemType> ItemType;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
 	FName ItemName;
 	UPROPERTY(EditDefaultsOnly,  BlueprintReadOnly, Category="ItemStats")

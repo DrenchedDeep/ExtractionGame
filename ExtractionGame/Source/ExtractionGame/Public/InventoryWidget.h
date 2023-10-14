@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GemSlot.h"
 #include "InventoryComponent.h"
 #include "SlotWidget.h"
 #include "Blueprint/UserWidget.h"
@@ -20,11 +21,15 @@ class EXTRACTIONGAME_API UInventoryWidget : public UUserWidget
 	UWrapBox* InventoryGridPanel;
 	UPROPERTY(EditAnywhere,  meta=(AllowPrivateAccess = "true"))
 	TSubclassOf<USlotWidget> SlotWidgetSubclass;
-	
+	UPROPERTY(EditAnywhere,  meta=(AllowPrivateAccess = "true"))
+	TSubclassOf<UGemSlot> GemSlotWidgetSubclass;
+
 public:
 	UFUNCTION(BlueprintCallable)
-	void Init(int32 SlotSize);
+	void Init(UInventoryComponent* InventoryComponent, int32 SlotSize);
 
+	TArray<USlotWidget*> GetSlots() const { return Slots;};
+	
 	FORCEINLINE USlotWidget* GetSlot(int Index)
 	{
 		USlotWidget* InventorySlot = nullptr;
@@ -40,18 +45,7 @@ public:
 		return InventorySlot;
 	}
 
-	FORCEINLINE bool SetSlot(int SlotIndex, int ItemIndex, UInventoryComponent* Inventory)
-	{
-		bool bSuccess = false;
-		
-		if(Slots[SlotIndex] != nullptr)
-		{
-			Slots[SlotIndex]->InitItem(Inventory, ItemIndex);
-			bSuccess = true;
-		}
-
-		return bSuccess;
-	}
+	bool SetSlot(int SlotIndex, int ItemIndex, UInventoryComponent* Inventory);
 
 	FORCEINLINE USlotWidget* GetNextSlot()
 	{
@@ -70,9 +64,19 @@ public:
 
 		return InventorySlot;
 	}
+
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void OnItemHovered(UItem* Item);
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void OnItemUnHovered();
+	UFUNCTION(BlueprintImplementableEvent)
+	void InitGemSlots(UInventoryComponent* InventoryComponent);
 	
 private:
 	UPROPERTY()
 	TArray<USlotWidget*> Slots;
+	UPROPERTY()
+	TArray<USlotWidget*> GemSlots;
 	
 };
