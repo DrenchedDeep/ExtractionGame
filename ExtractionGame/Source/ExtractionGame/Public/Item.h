@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Gem.h"
 #include "Item.generated.h"
 
 UENUM(BlueprintType)
@@ -27,4 +28,13 @@ public:
 	UTexture2D* ItemIcon;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="ItemStats")
 	int ItemCost;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="ItemStats")
+	bool bCanStack = false;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="ItemStats")
+	int MaxStack = 1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")
+	EGemType GemType;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")
+	float DefaultPolish;
 };

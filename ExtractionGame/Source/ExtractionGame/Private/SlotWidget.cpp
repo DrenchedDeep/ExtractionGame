@@ -46,7 +46,6 @@ void USlotWidget::TransferSlots(UInventoryComponent* SourceInventoryComponent, i
 	//for now we dont want to transfer to different inventories
 	if(Inventory != SourceInventoryComponent)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Inventory Mismatch"));
 		return;
 	}
 	
@@ -54,17 +53,14 @@ void USlotWidget::TransferSlots(UInventoryComponent* SourceInventoryComponent, i
 	{
 		if(OldSlot == this)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Same Slot"));
 			return;
 		}
 
 		if(!OldSlot->GetCurrentItem())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("No Item "));
 			return;
 		}
 		
-		UE_LOG(LogTemp, Warning, TEXT("Transferring Slots"));
 		Inventory->TransferSlots(OldSlot, this);
 	}
 }
@@ -73,15 +69,18 @@ void USlotWidget::PredictVisuals(UItem* Item, int Stack)
 {
 	if(Item == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("itm null"));
 		return;
 	}
 	
 	CurrentItem = Item;
 	SlotIconImage->SetVisibility(ESlateVisibility::Visible);
 	SlotIconImage->SetBrushFromTexture(Item->ItemIcon);
-	SlotStackText->SetText(FText::FromString(FString::FromInt(Stack)));
-	SlotStackText->SetVisibility(ESlateVisibility::Visible);
+	
+	if(Item->bCanStack)
+	{
+		SlotStackText->SetText(FText::FromString(FString::FromInt(Stack)));
+		SlotStackText->SetVisibility(ESlateVisibility::Visible);
+	}
 	bIsOccupied = true;
 }
 
@@ -101,7 +100,11 @@ void USlotWidget::ReconcileVisuals(const FInventoryItem& Item)
 	InventoryIndex = Item.InventoryID;
 	SlotIconImage->SetVisibility(ESlateVisibility::Visible);
 	SlotIconImage->SetBrushFromTexture(CurrentItem->ItemIcon);
-	SlotStackText->SetText(FText::FromString(FString::FromInt(Item.StackSize)));
-	SlotStackText->SetVisibility(ESlateVisibility::Visible);
+	
+	if(Item.ItemID->bCanStack)
+	{
+		SlotStackText->SetText(FText::FromString(FString::FromInt(Item.StackSize)));
+		SlotStackText->SetVisibility(ESlateVisibility::Visible);
+	}
 	bIsOccupied = true;
 }

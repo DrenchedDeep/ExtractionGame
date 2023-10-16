@@ -48,7 +48,6 @@ void UInventoryComponent::BeginPlay()
 
 void UInventoryComponent::OnRep_InventoryItems()
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnRep_InventoryItems"));
 	if(Character->IsLocallyControlled() && bReconcileVisuals)
 	{
 		for(int i = 0; i < InventoryItems.Num(); i++)
@@ -100,6 +99,9 @@ void UInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimula
 			UE_LOG(LogTemp, Warning, TEXT("Found Next Slot"));
 
 			SlotWidget->PredictVisuals(Item, StackSize);
+
+			//need to set the inventory index on the local client aswell
+			SlotWidget->SetInventoryIndex(InventoryIndex);
 			Server_AddItem(Item, StackSize, InventoryIndex, SlotWidget->GetSlotID());
 		}
 	}
@@ -127,9 +129,10 @@ void UInventoryComponent::TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSl
 	//update inventory
 	Server_TransferSlots(OldSlot->GetInventoryIndex(), NewSlot->GetSlotID());
 
-	
+
 	//update visuals
-	NewSlot->PredictVisuals(OldSlot->GetCurrentItem(), 6);
+	NewSlot->PredictVisuals(OldSlot->GetCurrentItem(),  OldSlot->GetCurrentStack());
+	NewSlot->SetInventoryIndex(OldSlot->GetInventoryIndex());
 	OldSlot->Reset();
 }
 

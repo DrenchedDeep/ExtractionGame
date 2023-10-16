@@ -7,6 +7,7 @@
 #include "Components/ActorComponent.h"
 #include "InventoryComponent.generated.h"
 
+class AExtractionGameCharacter;
 class UInventoryWidget;
 class USlotWidget;
 
