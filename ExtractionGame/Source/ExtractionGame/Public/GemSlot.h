@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "SlotWidget.h"
+#include "Components/GemController.h"
 #include "GemSlot.generated.h"
 
 /**
@@ -15,6 +16,14 @@ class EXTRACTIONGAME_API UGemSlot : public USlotWidget
 	GENERATED_BODY()
 
 public:
+
+	UPROPERTY(BlueprintReadOnly)
+	AGem* Gem;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TEnumAsByte<EBodyPart> BodyPart;
+	
 	virtual void TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID) override;
 	virtual void PredictVisuals(UItem* Item, int Stack) override;
+	virtual void ReconcileVisuals(const FInventoryItem& Item) override;
+	virtual void Reset() override;
 };

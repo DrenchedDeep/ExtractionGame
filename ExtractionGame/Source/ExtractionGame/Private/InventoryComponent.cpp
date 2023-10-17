@@ -48,13 +48,14 @@ void UInventoryComponent::BeginPlay()
 
 void UInventoryComponent::OnRep_InventoryItems()
 {
+	UE_LOG(LogTemp, Warning, TEXT("TransferSlots"));
 	if(Character->IsLocallyControlled() && bReconcileVisuals)
 	{
 		for(int i = 0; i < InventoryItems.Num(); i++)
 		{
 			TArray<USlotWidget*> Slots = InventoryWidget->GetSlots();
 			
-			for(int z = 0; z < Slots.Num(); i++)
+			for(int z = 0; z < Slots.Num(); z++)
 			{
 				if(InventoryItems[i].SlotID == Slots[z]->GetSlotID())
 				{
@@ -128,7 +129,6 @@ void UInventoryComponent::TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSl
 
 	//update inventory
 	Server_TransferSlots(OldSlot->GetInventoryIndex(), NewSlot->GetSlotID());
-
 
 	//update visuals
 	NewSlot->PredictVisuals(OldSlot->GetCurrentItem(),  OldSlot->GetCurrentStack());

@@ -28,7 +28,7 @@ public:
 	UInventoryComponent* Inventory;
 	
 	void Init(UInventoryComponent* InventoryComponent,int ID);
-	void Reset();
+	virtual void Reset();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	int GetSlotID() const { return SlotID;}

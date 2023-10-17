@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayEffect.h"
+#include "Components/GemController.h"
 #include "Core/Interactable.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
@@ -66,6 +67,8 @@ public:
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
 	UInventoryComponent* InventoryComponent;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
+	UGemController* GemController;
 
 private:
 	

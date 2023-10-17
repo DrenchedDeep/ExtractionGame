@@ -43,6 +43,11 @@ void USlotWidget::InitItem(UInventoryComponent* InventoryComponent, int InvenInd
 
 void USlotWidget::TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID)
 {
+	if(SourceInventoryComponent)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("inventory invalid"));
+	}
+	
 	//for now we dont want to transfer to different inventories
 	if(Inventory != SourceInventoryComponent)
 	{

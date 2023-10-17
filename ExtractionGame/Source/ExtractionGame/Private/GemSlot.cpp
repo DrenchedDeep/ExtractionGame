@@ -4,6 +4,7 @@
 #include "GemSlot.h"
 
 #include "InventoryWidget.h"
+#include "ExtractionGame/ExtractionGameCharacter.h"
 
 void UGemSlot::TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID)
 {
@@ -24,4 +25,34 @@ void UGemSlot::PredictVisuals(UItem* Item, int Stack)
 	SlotIconImage->SetVisibility(ESlateVisibility::Visible);
 	SlotIconImage->SetBrushFromTexture(Item->ItemIcon);
 	bIsOccupied = true;
+}
+
+void UGemSlot::ReconcileVisuals(const FInventoryItem& Item)
+{
+	Super::ReconcileVisuals(Item);
+
+	if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(Inventory->GetOwner()))
+	{
+		Character->GemController->Server_CreateGem(Item.ItemID, BodyPart, GetSlotID());
+	}
+}
+
+void UGemSlot::Reset()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Resetting Gem Slot"));
+	if(!CurrentItem)
+	{
+		return;
+	}
+	UE_LOG(LogTemp, Warning, TEXT(" hi"));
+
+	if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(Inventory->GetOwner()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT(" character!"));
+
+		Character->GemController->RemoveGem(BodyPart);
+	}
+
+	Super::Reset();
+
 }

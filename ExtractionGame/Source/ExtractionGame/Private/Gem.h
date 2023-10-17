@@ -26,22 +26,26 @@ class AGem : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Replicated)
 	float Polish;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Replicated)
 	EGemType GemType;
-	
-	public:
 
+public:
+	AGem();
+	
 	UFUNCTION(BlueprintCallable)
 	float GetPolish () const;
 	
 	UFUNCTION(BlueprintCallable)
 	EGemType GetGemType () const;
-	
-	
-	
+
+	void SetPolish(float polish) { Polish = polish; }
+	void SetGemType(EGemType gemType) { GemType = gemType; }
+
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	
 	

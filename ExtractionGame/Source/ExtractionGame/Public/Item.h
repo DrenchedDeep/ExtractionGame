@@ -24,6 +24,8 @@ public:
 	TEnumAsByte<EItemType> ItemType;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
 	FName ItemName;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
+	FString ItemDescription;
 	UPROPERTY(EditDefaultsOnly,  BlueprintReadOnly, Category="ItemStats")
 	UTexture2D* ItemIcon;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="ItemStats")

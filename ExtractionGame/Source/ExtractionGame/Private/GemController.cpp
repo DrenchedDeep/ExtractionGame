@@ -2,10 +2,14 @@
 
 
 #include "Components/GemController.h"
+
+#include "InventoryComponent.h"
+#include "InventoryWidget.h"
 #include "Abilities/GameplayAbility.h"
 #include "Core/AbilityHandlerSubSystem.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "Net/UnrealNetwork.h"
+#include "Runtime/Online/XMPP/Public/XmppMultiUserChat.h"
 
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
@@ -53,18 +57,51 @@ void UGemController::AddGem(EBodyPart slot, AGem* newGem)
 }
 
 //Do I need to delete somewhere in here?
-AGem* UGemController::RemoveGem(EBodyPart slot)
+void UGemController::RemoveGem(EBodyPart slot)
 {
+	Server_RemoveGem(slot);
+}
+
+void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart BodyPart, int GemSlotID)
+{
+	AGem* Gem = GetWorld()->SpawnActor<AGem>();
+	Gem->SetPolish(Item->DefaultPolish);
+	Gem->SetGemType(Item->GemType);
+	Client_OnGemCreated(GemSlotID, Gem);
+
+	AGem** gem = GetGemBySlot(BodyPart);
+	
+	
+	*gem = Gem;
+	LazyRecompileGems();
+}
+
+
+void UGemController::Client_OnGemCreated_Implementation(int GemSlotID, AGem* Gem)
+{
+	if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(GetOwner()))
+	{
+		USlotWidget* Slot = Character->InventoryComponent->InventoryWidget->GetSlot(GemSlotID);
+
+		if(UGemSlot* GemSlot =	Cast<UGemSlot>(Slot))
+		{
+			GemSlot->Gem = Gem;
+			
+		}
+	}
+}
+
+void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
+{
+	GLog->Log("HIAAAAAAAAAA");
 	AGem** gem = GetGemBySlot(slot);
-	AGem* removedGem = *gem;
-	/*
 	if(*gem)
 	{
-		delete *gem;
 		*gem = nullptr;
-	} */
+	}
+
+	
 	LazyRecompileGems();
-	return removedGem;
 }
 
 void UGemController::OnRep_HeadGem()
@@ -123,6 +160,11 @@ void UGemController::Server_LazyRecompileGems_Implementation()
 
 void UGemController::LazyRecompileGems()
 {
+	//Reset Old Abilities
+	OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
+	OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);
+
+	
 	//Change Ability bindings and setups...
 
 	//Bind head ability...
@@ -180,13 +222,13 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	if(bIsLeft)
 		totalPolish = -totalPolish;
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, this);
-	
+
+	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
 	if(GetOwner()->HasAuthority())
 	{
 		if(bIsLeft)
 		{
 			LeftArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
-			UE_LOG(	LogTemp, Warning, TEXT("Left Arm Ability: %s"), *AbilitySpec.Ability->GetName());
 		}
 		else
 		{
@@ -194,6 +236,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 		}
 	}
 }
+
 
 void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 {
@@ -208,8 +251,4 @@ void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 	
 	*gem = newGem;
 	LazyRecompileGems();
-}
-
-void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
-{
 }

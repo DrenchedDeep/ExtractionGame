@@ -8,10 +8,11 @@
 #include "Components/ActorComponent.h"
 #include "GemController.generated.h"
 
+class UItem;
 class UAbilityHandlerSubSystem;
 
 UENUM(BlueprintType)
-enum class EBodyPart : uint8
+enum  EBodyPart : uint8
 {
 	Head = 0    UMETA(DisplayName = "Head"),
 	Chest = 1   UMETA(DisplayName = "Chest"),
@@ -76,16 +77,13 @@ public:
 	void AddGem(EBodyPart slot, AGem* newGem);
 
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Remove the current head gem. WARNING: Can return null ptrs."))
-	AGem* RemoveGem(EBodyPart slot);
+	void RemoveGem(EBodyPart slot);
 
-	UFUNCTION()
-	void OnRep_HeadGem();
-	UFUNCTION()
-	void OnRep_ChestGem();
-	UFUNCTION()
-	void OnRep_LeftArmGems();
-	UFUNCTION()
-	void OnRep_RightArmGems();
+	UFUNCTION(Server, Reliable)
+	void Server_CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID);
+	UFUNCTION(Client, Reliable)
+	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
+
 	
 protected:
 	virtual void BeginPlay() override;
@@ -103,5 +101,14 @@ private:
 	void Server_AddGem(EBodyPart slot, AGem* newGem);
 	UFUNCTION(Server, Reliable)
 	void Server_RemoveGem(EBodyPart slot);
+
 	
+	UFUNCTION()
+	void OnRep_HeadGem();
+	UFUNCTION()
+	void OnRep_ChestGem();
+	UFUNCTION()
+	void OnRep_LeftArmGems();
+	UFUNCTION()
+	void OnRep_RightArmGems();
 };
