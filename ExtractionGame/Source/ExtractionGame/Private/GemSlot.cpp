@@ -25,6 +25,7 @@ void UGemSlot::PredictVisuals(UItem* Item, int Stack)
 	SlotIconImage->SetVisibility(ESlateVisibility::Visible);
 	SlotIconImage->SetBrushFromTexture(Item->ItemIcon);
 	bIsOccupied = true;
+	SlotBackgroundImage->SetBrushTintColor(Item->GemColor);
 }
 
 void UGemSlot::ReconcileVisuals(const FInventoryItem& Item)
@@ -39,19 +40,18 @@ void UGemSlot::ReconcileVisuals(const FInventoryItem& Item)
 
 void UGemSlot::Reset()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Resetting Gem Slot"));
 	if(!CurrentItem)
 	{
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT(" hi"));
 
 	if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(Inventory->GetOwner()))
 	{
-		UE_LOG(LogTemp, Warning, TEXT(" character!"));
-
 		Character->GemController->RemoveGem(BodyPart);
 	}
+
+	
+	SlotBackgroundImage->SetBrushTintColor(FColor::White);
 
 	Super::Reset();
 

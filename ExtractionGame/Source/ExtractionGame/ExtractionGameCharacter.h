@@ -99,7 +99,6 @@ private:
 	void HandleGaze();
 	void ChangeGaze();
 	
-	bool bInInventory;
 	bool bInSettings;
 	bool bCanMove = true;
 	
@@ -167,7 +166,10 @@ public:
 	float SlideTimer;
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool IsSprinting;
-	
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bInInventory;
+
 
 protected:
 	virtual void BeginPlay() override;

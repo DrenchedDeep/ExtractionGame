@@ -48,7 +48,12 @@ void UInventoryComponent::BeginPlay()
 
 void UInventoryComponent::OnRep_InventoryItems()
 {
-	UE_LOG(LogTemp, Warning, TEXT("TransferSlots"));
+
+	if(!Character)
+	{
+		return;
+	}
+
 	if(Character->IsLocallyControlled() && bReconcileVisuals)
 	{
 		for(int i = 0; i < InventoryItems.Num(); i++)
@@ -70,7 +75,7 @@ void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(UInventoryComponent, InventoryItems);
+	DOREPLIFETIME_CONDITION(UInventoryComponent, InventoryItems, COND_AutonomousOnly);
 }
 
 void UInventoryComponent::Server_TransferSlots_Implementation(int TargetInventoryItemID, int NewSlotID)
@@ -80,6 +85,11 @@ void UInventoryComponent::Server_TransferSlots_Implementation(int TargetInventor
 		if(TargetInventoryItemID == InventoryItems[i].InventoryID)
 		{
 			InventoryItems[i].SlotID = NewSlotID;
+
+			if(Character->IsLocallyControlled())
+			{
+				OnRep_InventoryItems();
+			}
 			break;
 		}
 	}
@@ -127,7 +137,6 @@ void UInventoryComponent::TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSl
 		return;
 	}
 
-	//update inventory
 	Server_TransferSlots(OldSlot->GetInventoryIndex(), NewSlot->GetSlotID());
 
 	//update visuals

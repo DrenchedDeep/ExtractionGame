@@ -15,6 +15,8 @@ class EXTRACTIONGAME_API UGemSlot : public USlotWidget
 {
 	GENERATED_BODY()
 
+	UPROPERTY(meta = (BindWidget))
+	UImage* SlotBackgroundImage;
 public:
 
 	UPROPERTY(BlueprintReadOnly)
@@ -26,4 +28,4 @@ public:
 	virtual void PredictVisuals(UItem* Item, int Stack) override;
 	virtual void ReconcileVisuals(const FInventoryItem& Item) override;
 	virtual void Reset() override;
-};
+};	

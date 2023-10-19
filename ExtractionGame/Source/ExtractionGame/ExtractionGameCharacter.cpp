@@ -311,6 +311,7 @@ void AExtractionGameCharacter::SprintReleased()
 	{
 		return;
 	}
+
 	
 	PlayerMovementComponent->SprintReleased();
 }

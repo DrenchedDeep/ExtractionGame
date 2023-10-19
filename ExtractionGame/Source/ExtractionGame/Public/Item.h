@@ -39,4 +39,6 @@ public:
 	EGemType GemType;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")
 	float DefaultPolish;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")
+	FColor GemColor;
 };
