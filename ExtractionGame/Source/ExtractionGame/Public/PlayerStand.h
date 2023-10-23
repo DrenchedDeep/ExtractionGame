@@ -34,7 +34,9 @@ public:
 	void ToggleCharacterVisibility(bool bVisible);
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateUsernameText(const FString& PlayerName);
-
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateReadyStatus(bool bReady);
+	
 	void Validate(FPartyPlayer PartyPlayer);
 	
 protected:

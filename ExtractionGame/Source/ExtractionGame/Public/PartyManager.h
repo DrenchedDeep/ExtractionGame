@@ -52,6 +52,7 @@ public:
 	virtual void AddPlayer(APlayerController* PlayerController, APlayerStand* PlayerStand);
 	virtual void RemovePlayer(APlayerController* PlayerController);
 
+	void UpdatePlayerReadyStatus(APlayerState* PlayerState, bool bReady);
 	
 	FORCEINLINE FPartyPlayer GetLocalPartyPlayer() const
 	{
@@ -67,7 +68,8 @@ public:
 
 		return LocalPlayer;
 	}
-	
+
+
 	
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;

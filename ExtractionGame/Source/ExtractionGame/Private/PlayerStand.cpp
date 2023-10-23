@@ -27,6 +27,7 @@ void APlayerStand::Validate(FPartyPlayer PartyPlayer)
 	if(PartyPlayer.PlayerState)
 	{
 		UpdateUsernameText(PartyPlayer.PlayerState->GetPlayerName());
+		UpdateReadyStatus(PartyPlayer.bIsReady);
 	}
 }
 

@@ -1,5 +1,6 @@
 #include "ExtractionGameInstance.h"
 #include "MainMenuGameState.h"
+#include "MainMenuHUD.h"
 #include "OnlineSubsystemUtils.h"
 #include "OnlineSubsystem.h"
 #include "Interfaces/OnlineIdentityInterface.h"
@@ -201,7 +202,16 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		}
 		else if(SessionSettings == "GameplaySession")
 		{
-			GetWorld()->ServerTravel("Desert_Map?listen");
+			GetWorld()->ServerTravel("Desert_Map?listen");	
+			
+					if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+            		{
+            			//enable loading screen
+            			if(AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(PlayerController->GetHUD()))
+            			{
+            				MainMenuHUD->OnSessionFound();
+            			}
+            			}
 		}
 	}
 }
@@ -229,6 +239,12 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 
 		if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
 		{
+			//enable loading screen
+			if(AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(PlayerController->GetHUD()))
+			{
+				MainMenuHUD->OnSessionFound();
+			}
+			
 			FString ServerAddress;
 			Session->GetResolvedConnectString(SessionName, ServerAddress);
 
@@ -271,6 +287,7 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 			{
 				if(MenuGameState->PartyManager->PartyPlayers.Num() <= 1)
 				{
+					//if were the party host, just join directly
 					const FName SessionName =  FName(SearchResult.GetSessionIdStr());
 					Session->JoinSession(0, SessionName, SearchResult);
 				}

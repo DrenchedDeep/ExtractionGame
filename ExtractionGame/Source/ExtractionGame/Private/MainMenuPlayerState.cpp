@@ -22,11 +22,17 @@ void AMainMenuPlayerState::Server_SetUsername_Implementation(const FString& User
 void AMainMenuPlayerState::Server_ToggleReadyStatus_Implementation(bool bReady)
 {
 	bPlayerReadyForMatch = bReady;
+
+	UE_LOG(LogTemp, Warning, TEXT("hello"));
+	if(AMainMenuGameState* GameState = Cast<AMainMenuGameState>(UGameplayStatics::GetGameState(GetWorld())))
+	{
+		GameState->PartyManager->UpdatePlayerReadyStatus(this, bReady);
+	}
 }
 
 void AMainMenuPlayerState::OnRep_PlayerReady()
 {
-	//
+
 }
 
 void AMainMenuPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

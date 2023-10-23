@@ -15,7 +15,6 @@ class EXTRACTIONGAME_API AMainMenuPlayerState : public APlayerState
 	GENERATED_BODY()
 
 public:
-
 	UPROPERTY(ReplicatedUsing=OnRep_PlayerReady)
 	bool bPlayerReadyForMatch;
 

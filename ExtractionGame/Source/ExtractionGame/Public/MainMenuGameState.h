@@ -49,6 +49,7 @@ public:
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_JoinSession(FClientConnectionInfo ConnectInfo);
 
+	
 
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;

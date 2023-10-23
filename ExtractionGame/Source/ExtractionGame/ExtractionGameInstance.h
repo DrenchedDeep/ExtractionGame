@@ -18,6 +18,16 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FJoinSessionComplete, bool, bWasSucc
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateSessionComplete, bool, bWasSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateLobbyComplete, bool, bWasSuccess);
 
+
+UENUM(BlueprintType)
+enum ENetworkError : uint8
+{
+	ErrorFindingSessions = 0    UMETA(DisplayName = "ErrorFindingSessions"),
+	ErrorJoiningSession = 1    UMETA(DisplayName = "ErrorJoiningSession"),
+	ErrorJoiningParty = 2    UMETA(DisplayName = "ErrorJoiningParty"),
+	ErrorCreatingSession = 3    UMETA(DisplayName = "ErrorCreatingSession"),
+};
+
 UCLASS()
 class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 {
@@ -87,6 +97,24 @@ private:
 	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search)
 	{
 		return Search->SearchResults[0];
+	}
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE FString GetNetworkErrorDescription(ENetworkError Error)
+	{
+		switch(Error)
+		{
+			case ErrorFindingSessions:
+				return "ERROR FINDING SESSION!";
+			case ErrorJoiningSession:
+				return "ERROR JOINING SESSION!";
+			case ErrorJoiningParty:
+				return "ERROR JOINING PARTY!";
+			case ErrorCreatingSession:
+				return "ERROR CREATING SESSION";
+			default:
+				return "Unknown error";
+		}
 	}
 };
 

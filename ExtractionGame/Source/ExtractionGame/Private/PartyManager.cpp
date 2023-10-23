@@ -41,6 +41,19 @@ void APartyManager::RemovePlayer(APlayerController* PlayerController)
 
 }
 
+void APartyManager::UpdatePlayerReadyStatus(APlayerState* PlayerState, bool bReady)
+{
+	for(int32 i = 0; i < PartyPlayers.Num(); i++)
+	{
+		if(PartyPlayers[i].PlayerState == PlayerState)
+		{
+			PartyPlayers[i].bIsReady = bReady;
+			OnRep_PartyPlayers();
+			break;
+		}
+	}
+}
+
 void APartyManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

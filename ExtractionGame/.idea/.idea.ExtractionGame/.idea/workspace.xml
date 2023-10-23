@@ -9,7 +9,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/DataAssets/DA_Gem_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/DataAssets/DA_Gem_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuHUD.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_MainMenuPlayerStand.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_MainMenuPlayerStand.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendHeader.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendHeader.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/WB_CharacterInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/WB_CharacterInventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_MainLobby.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_MainLobby.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_MainMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_NetworkError.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_NetworkError.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/MSTextures/BlackPlaceholder.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/MSTextures/BlackPlaceholder.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/MSTextures/Placeholder.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/MSTextures/Placeholder.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/MSTextures/Placeholder_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/MSTextures/Placeholder_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/MSTextures/WhitePlaceholder.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/MSTextures/WhitePlaceholder.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Default_Material_VT/M_MS_Default_Material_VT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Default_Material_VT/M_MS_Default_Material_VT.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_FrameBlend.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_FrameBlend.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_Refraction.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_Refraction.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_TranslucencyEmission.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_TranslucencyEmission.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_TranslucencyMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_TranslucencyMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_WindowImperfection.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_WindowImperfection.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_WindowNormalStrength.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/Functions/MF_WindowNormalStrength.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/MI_MS_Glass_Material_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/MI_MS_Glass_Material_Inst.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/M_MS_Glass_Material.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Glass_Material/M_MS_Glass_Material.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_MainMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_MainMenu.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/TestingMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/TestingMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExtractionGame.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/ExtractionGame.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameInstance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameInstance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameInstance.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/MainMenuPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/MainMenuPlayerState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/PartyManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/PartyManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/PlayerStand.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/PlayerStand.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/MainMenuGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/MainMenuGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/MainMenuPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/MainMenuPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/PartyManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/PartyManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/PlayerStand.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/PlayerStand.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -333,6 +366,8 @@
       <workItem from="1697583397462" duration="1198000" />
       <workItem from="1697678331465" duration="4056000" />
       <workItem from="1697912196443" duration="592000" />
+      <workItem from="1698034943983" duration="619000" />
+      <workItem from="1698036029606" duration="2142000" />
     </task>
     <servers />
   </component>
