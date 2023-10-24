@@ -90,6 +90,15 @@ FNetworkPredictionData_Client* UPlayerMovementComponent::GetPredictionData_Clien
 	return ClientPredictionData;
 }
 
+void UPlayerMovementComponent::SlideJump()
+{
+	SetMovementMode(MOVE_Falling);
+	Character->IsSliding = false;
+	Character->SlideTimer = 0.0f;
+	Character->OnSlideEnd();
+	Leap();
+}
+
 //set state based on flags
 void UPlayerMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
 {
@@ -214,6 +223,7 @@ bool UPlayerMovementComponent::IsPlayerMovementMode(EPlayerMovementMode MoveMode
 	return MovementMode == MOVE_Custom && CustomMovementMode == MoveMode;
 }
 
+
 void UPlayerMovementComponent::EnterSlide()
 {
 	bWantsToCrouch = true;
@@ -228,6 +238,7 @@ void UPlayerMovementComponent::EnterSlide()
 	Velocity += VelPlaneDir + Velocity.GetSafeNormal2D() * Slide_EnterImpulse;
 	SetMovementMode(MOVE_Custom, PMOVE_Slide);
 }
+
 
 void UPlayerMovementComponent::ExitSlide()
 {
@@ -294,6 +305,11 @@ bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 	const FName ProfileName = TEXT("BlockAll");
 
 	return GetWorld()->LineTraceSingleByProfile(Hit, Start, End, ProfileName, Character->GetIgnoreCharacterParams());
+}
+
+void UPlayerMovementComponent::Leap()
+{
+	AddForce(Velocity*LeapStrength);
 }
 
 bool UPlayerMovementComponent::CanSlideInCurrentState() const

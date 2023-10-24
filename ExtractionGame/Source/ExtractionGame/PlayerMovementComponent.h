@@ -56,6 +56,7 @@ class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementCom
 	UPROPERTY(EditDefaultsOnly) float Slide_GravityForce = 5000;
 	UPROPERTY(EditDefaultsOnly) float Slide_Friction = 1.3;
 	UPROPERTY(EditDefaultsOnly) float Slide_Timer = .5f;
+	UPROPERTY(EditDefaultsOnly) float LeapStrength = 15;
 
 
 
@@ -70,6 +71,8 @@ public:
 	UPROPERTY(EditDefaultsOnly) bool bToggleCrouch;
 	
 	virtual FNetworkPredictionData_Client* GetPredictionData_Client() const override;
+
+	void SlideJump();
 
 protected:
 	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
@@ -92,11 +95,13 @@ public:
 	UFUNCTION(BlueprintPure)
 	bool IsPlayerMovementMode(EPlayerMovementMode MoveMode) const;
 
+
+	
 private:
 	void EnterSlide();
 	void ExitSlide();
 	void PhysSlide(float DeltaTime, int32 Iterations);
 	bool GetSlideSurface(FHitResult& Hit) const;
-
+	void Leap();
 	bool CanSlideInCurrentState() const;
 };

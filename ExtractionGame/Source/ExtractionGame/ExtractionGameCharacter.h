@@ -194,6 +194,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSlideEnd();
 
+
+	
 	UFUNCTION(Server, Unreliable)
 	void Server_SetInput(float VerticalMove, float HorizontalMove, float VertLook, float HorLook);
 	
@@ -245,4 +247,9 @@ public:
 	UPROPERTY()
 	TObjectPtr<UExtractionAttributeSet> AttributeSet;
 
+	virtual bool CanJumpInternal_Implementation() const override;
+
+	UFUNCTION(BlueprintCallable)
+	void SlideJump();
+	
 };

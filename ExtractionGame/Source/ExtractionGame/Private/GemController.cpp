@@ -211,8 +211,8 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	{
 		totalPolish += val;
 		int Score;
-		if(val >= 150.f) Score = 3;
-		else if(val >= 50.f) Score = 2;
+		if(val >= 150) Score = 3;
+		else if(val >= 75) Score = 2;
 		else if (val > 0) Score = 1;
 		else Score = 0;
 		ability |= Score << (8-(++iteration*2));

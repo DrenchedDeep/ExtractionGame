@@ -134,8 +134,8 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 {
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::StopJumping);
 		
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::Move);
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::ResetMove);
@@ -260,6 +260,17 @@ FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
 	Params.AddIgnoredActor(this);
 
 	return Params;
+}
+
+bool AExtractionGameCharacter::CanJumpInternal_Implementation() const
+{
+	PlayerMovementComponent->bWantsToCrouch = false;
+	return JumpIsAllowedInternal(); // Ignore restriction for being crouched
+}
+
+void AExtractionGameCharacter::SlideJump()
+{
+	PlayerMovementComponent->SlideJump();
 }
 
 
@@ -432,3 +443,5 @@ void AExtractionGameCharacter::ChangeGaze()
 	GazeTarget->Execute_OnCancelFocus(GazeTargetActor);
 	GazeTarget = nullptr;
 }
+
+
