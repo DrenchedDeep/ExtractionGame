@@ -120,10 +120,9 @@ void UGemController::OnRep_RightArmGems()
 {
 }
 
-// Called when the game starts
-void UGemController::BeginPlay()
+void UGemController::InitializeComponent()
 {
-	Super::BeginPlay();
+	Super::InitializeComponent();
 	
 	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
 
@@ -138,6 +137,15 @@ void UGemController::BeginPlay()
 	{
 		LazyRecompileGems();
 	}
+	bInitialized = true;
+
+}
+
+// Called when the game starts
+void UGemController::BeginPlay()
+{
+	Super::BeginPlay();
+	
 }
 
 void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -160,6 +168,23 @@ void UGemController::Server_LazyRecompileGems_Implementation()
 
 void UGemController::LazyRecompileGems()
 {
+	if(!bInitialized)
+	{
+		const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
+
+		SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	
+		OwnerAbilities = Ch->AbilitySystemComponent;
+		LeftAttackAction = Ch->LeftAttackAction;
+		RightAttackAction = Ch->RightAttackAction;
+		HeadAbilityAction = Ch->HeadAbilityAction;
+
+		if(GetOwner()->HasAuthority())
+		{
+		//	LazyRecompileGems();
+		}
+		bInitialized = true;
+	}
 	//Reset Old Abilities
 	OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
 	OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);

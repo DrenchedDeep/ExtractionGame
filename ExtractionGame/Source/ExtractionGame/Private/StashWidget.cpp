@@ -1,0 +1,5 @@
+
+
+
+#include "StashWidget.h"
+

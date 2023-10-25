@@ -26,6 +26,6 @@ public:
 	
 	virtual void TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID) override;
 	virtual void PredictVisuals(UItem* Item, int Stack) override;
-	virtual void ReconcileVisuals(const FInventoryItem& Item) override;
+	virtual void ReconcileVisuals(FInventoryItem& Item) override;
 	virtual void Reset() override;
 };	

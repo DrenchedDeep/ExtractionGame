@@ -10,6 +10,11 @@
 
 void USlotWidget::Init(UInventoryComponent* InventoryComponent, int ID)
 {
+	if(!SlotIconImage)
+	{
+		return;
+	}
+	
 	SlotID = ID;
 	Inventory = InventoryComponent;
 	SlotIconImage->SetVisibility(ESlateVisibility::Hidden); 
@@ -18,6 +23,8 @@ void USlotWidget::Init(UInventoryComponent* InventoryComponent, int ID)
 
 void USlotWidget::Reset()
 {
+	//print("Resetting Slot");
+	UE_LOG(	LogTemp, Warning, TEXT("%i"), InventoryIndex);
 	CurrentItem = nullptr;
 	SlotIconImage->SetVisibility(ESlateVisibility::Hidden); 
 	SlotStackText->SetVisibility(ESlateVisibility::Hidden);
@@ -43,19 +50,17 @@ void USlotWidget::InitItem(UInventoryComponent* InventoryComponent, int InvenInd
 
 void USlotWidget::TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID)
 {
-	if(SourceInventoryComponent)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("inventory invalid"));
-	}
-	
-	//for now we dont want to transfer to different inventories
-	if(Inventory != SourceInventoryComponent)
-	{
-		return;
-	}
-	
 	if(USlotWidget* OldSlot = SourceInventoryComponent->InventoryWidget->GetSlots()[TargetSlotID])
 	{
+		if(Inventory != SourceInventoryComponent)
+		{
+			Inventory->AddItem(OldSlot->GetCurrentItem(), OldSlot->GetCurrentStack(), false, SlotID);
+
+			SourceInventoryComponent->RemoveItem(OldSlot->GetInventoryIndex(),
+				SourceInventoryComponent->GetInventoryItem(OldSlot->GetInventoryIndex()).StackSize);
+			return;
+		}
+		
 		if(OldSlot == this)
 		{
 			return;
@@ -89,7 +94,7 @@ void USlotWidget::PredictVisuals(UItem* Item, int Stack)
 	bIsOccupied = true;
 }
 
-void USlotWidget::ReconcileVisuals(const FInventoryItem& Item)
+void USlotWidget::ReconcileVisuals(FInventoryItem& Item)
 {
 	if(Item.ItemID == nullptr)
 	{

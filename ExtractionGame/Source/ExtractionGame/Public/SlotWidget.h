@@ -39,18 +39,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FORCEINLINE int GetCurrentStack() const
 	{
-		constexpr int Stack = 0;
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), InventoryIndex));
-
-		for(int i = 0; i < Inventory->InventoryItems.Num(); i++)
-		{
-			if(InventoryIndex == Inventory->InventoryItems[i].InventoryID)
-			{
-				return Inventory->InventoryItems[i].StackSize;
-			}
-		}
-		
-		return Stack;
+		return Inventory->GetInventoryItem(GetInventoryIndex()).StackSize;
 	}
 
 	void SetInventoryIndex(const int Index) { InventoryIndex = Index;}
@@ -59,7 +48,7 @@ public:
 	virtual void TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID);
 
 	virtual void PredictVisuals(UItem* Item, int Stack);
-	virtual void ReconcileVisuals(const FInventoryItem& Item);
+	virtual void ReconcileVisuals(FInventoryItem& Item);
 
 	
 private:

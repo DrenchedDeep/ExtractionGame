@@ -19,15 +19,21 @@ class EXTRACTIONGAME_API UInventoryWidget : public UUserWidget
 
 	UPROPERTY(meta = (BindWidget))
 	UWrapBox* InventoryGridPanel;
-	UPROPERTY(EditAnywhere,  meta=(AllowPrivateAccess = "true"))
-	TSubclassOf<USlotWidget> SlotWidgetSubclass;
-	UPROPERTY(EditAnywhere,  meta=(AllowPrivateAccess = "true"))
-	TSubclassOf<UGemSlot> GemSlotWidgetSubclass;
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void Init(UInventoryComponent* InventoryComponent, int32 SlotSize);
+	virtual void Init(UInventoryComponent* InventoryComponent, int32 SlotSize, bool bInitGemSlots = true);
 
+	UPROPERTY(BlueprintReadOnly)
+	UInventoryComponent* OwnerInventory;
+	
+	UPROPERTY(EditAnywhere,  meta=(AllowPrivateAccess = "true"))
+	TSubclassOf<USlotWidget> SlotWidgetSubclass;
+	
+	UPROPERTY(EditAnywhere,  meta=(AllowPrivateAccess = "true"))
+	TSubclassOf<UGemSlot> GemSlotWidgetSubclass;
+
+	
 	TArray<USlotWidget*> GetSlots() const { return Slots;};
 	
 	FORCEINLINE USlotWidget* GetSlot(int Index)
@@ -78,5 +84,4 @@ private:
 	TArray<USlotWidget*> Slots;
 	UPROPERTY()
 	TArray<USlotWidget*> GemSlots;
-	
 };

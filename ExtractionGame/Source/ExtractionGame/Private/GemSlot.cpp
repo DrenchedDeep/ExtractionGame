@@ -28,14 +28,19 @@ void UGemSlot::PredictVisuals(UItem* Item, int Stack)
 	SlotBackgroundImage->SetBrushTintColor(Item->GemColor);
 }
 
-void UGemSlot::ReconcileVisuals(const FInventoryItem& Item)
+void UGemSlot::ReconcileVisuals(FInventoryItem& Item)
 {
 	Super::ReconcileVisuals(Item);
 
-	if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(Inventory->GetOwner()))
+	if(Inventory->GetOwner())
 	{
-		Character->GemController->Server_CreateGem(Item.ItemID, BodyPart, GetSlotID());
+		if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(Inventory->GetOwner()))
+		{
+			Character->GemController->Server_CreateGem(Item.ItemID, BodyPart, GetSlotID());
+		}
 	}
+
+	Item.GemSlotID = GetSlotID();
 }
 
 void UGemSlot::Reset()

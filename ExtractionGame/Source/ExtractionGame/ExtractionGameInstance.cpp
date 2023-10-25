@@ -29,6 +29,13 @@ void UExtractionGameInstance::SetupOnlineSubsystem()
 	}
 }
 
+void UExtractionGameInstance::BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers)
+{
+	FPlayerSessionData PlayerData(PlayerItems, PartyMembers);
+	PlayerSessionData = PlayerData;
+	UE_LOG(LogTemp, Warning, TEXT("Player Session Data Built"));
+}
+
 
 void UExtractionGameInstance::Init()
 {
@@ -202,16 +209,14 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		}
 		else if(SessionSettings == "GameplaySession")
 		{
+			if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+			{
+				if(AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(PlayerController->GetHUD()))
+				{
+					MainMenuHUD->OnSessionFound();
+				}
+			}
 			GetWorld()->ServerTravel("Desert_Map?listen");	
-			
-					if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
-            		{
-            			//enable loading screen
-            			if(AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(PlayerController->GetHUD()))
-            			{
-            				MainMenuHUD->OnSessionFound();
-            			}
-            			}
 		}
 	}
 }

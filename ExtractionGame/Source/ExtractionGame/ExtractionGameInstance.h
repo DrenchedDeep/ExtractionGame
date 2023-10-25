@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InventoryComponent.h"
 #include "MainMenuGameState.h"
 #include "OnlineSubsystem.h"
 #include "Engine/GameInstance.h"
@@ -28,9 +29,32 @@ enum ENetworkError : uint8
 	ErrorCreatingSession = 3    UMETA(DisplayName = "ErrorCreatingSession"),
 };
 
+USTRUCT(BlueprintType)
+struct FPlayerSessionData
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(BlueprintReadOnly)
+	TArray<FInventoryItem> PlayerItems;
+	UPROPERTY(BlueprintReadOnly)
+	TArray<FName> PartyMembers;
+
+	FPlayerSessionData(const TArray<FInventoryItem>& PlayerItems, const TArray<FName>& PartyMembers)
+		: PlayerItems(PlayerItems),
+		  PartyMembers(PartyMembers)
+	{
+	}
+
+	FPlayerSessionData() = default;
+};
+
+
+
 UCLASS()
 class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 {
+	//TODO: clean up this code, its messy having it all in the game instance because game instance is still the same across levels and you can only interact with sessions in main menu
+	//TODO: make the game instance handle the network error ui 
 	GENERATED_BODY()
 
 	const int SESSION_PLAYERCOUNT = 4;
@@ -48,6 +72,11 @@ public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
 	virtual void SetupOnlineSubsystem();
+
+	UPROPERTY(BlueprintReadOnly)
+	FPlayerSessionData PlayerSessionData;
+
+	void BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers);
 
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) void CreateLobby();

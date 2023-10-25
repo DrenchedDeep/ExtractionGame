@@ -24,6 +24,9 @@ struct FInventoryItem
 	int StackSize;
 	UPROPERTY()
 	UItem* ItemID;
+	//ignore in most cases
+	UPROPERTY()
+	int GemSlotID;
 
 	FInventoryItem(int InventoryID, int SlotID, int StackSize, UItem* ItemID)
 		: InventoryID(InventoryID),
@@ -60,24 +63,25 @@ class EXTRACTIONGAME_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+public:	
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FStartingItem> StartingItems;
 
 	UPROPERTY(EditDefaultsOnly,
 		meta=(ToolTip = "When the server updates the inventory, do we want to reconcile the visuals with the updated data or keep the predicted visuals?"))
 	bool bReconcileVisuals;
-
-public:	
-	virtual void BeginPlay() override;
 	
 	UFUNCTION()
-	void OnRep_InventoryItems();
+	virtual void OnRep_InventoryItems();
 
 	UFUNCTION(BlueprintCallable)
-	void AddItem(UItem* Item, int StackSize, bool bClientSimulation);
+	virtual void AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID = -1);
 	UFUNCTION(BlueprintCallable)
-	void RemoveItem(UItem* Item, int StackSize, bool bClientSimulation);
-	void TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot);
+	virtual void RemoveItem(UItem* Item, int StackSize, bool bClientSimulation);
+	virtual void RemoveItem(int InventoryID, int StackSize = 1);
+	virtual void TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot);
+
+	virtual FInventoryItem GetInventoryItem(int InventoryID);
 
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing=OnRep_InventoryItems)
 	TArray<FInventoryItem> InventoryItems;
@@ -88,10 +92,6 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
-
-	UPROPERTY()
-	AExtractionGameCharacter* Character;
-
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_AddItem(UItem* Item, int StackSize, int InventoryIndex, int SlotID);
 	UFUNCTION(Server, Reliable, WithValidation)

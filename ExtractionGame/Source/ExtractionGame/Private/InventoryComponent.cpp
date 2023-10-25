@@ -1,74 +1,12 @@
-
-
-
 #include "InventoryComponent.h"
-
 #include "ExtractionGameHUD.h"
-#include "IDetailTreeNode.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 
-void UInventoryComponent::BeginPlay()
-{
-	Super::BeginPlay();
-	Character = Cast<AExtractionGameCharacter>(GetOwner());
-
-	if(Character->IsLocallyControlled())
-	{
-		if(AExtractionGameHUD* GameHUD = Cast<AExtractionGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-		{
-			if(GameHUD->InventoryWidget)
-			{
-				InventoryWidget = GameHUD->InventoryWidget;
-				return;
-			}
-			
-			InventoryWidget = GameHUD->CreateInventoryWidget();
-			InventoryWidget->Init(this, 20);
-
-			if(InventoryWidget)
-			{
-				for(int i = 0; i < StartingItems.Num(); i++)
-				{
-					AddItem(StartingItems[i].ItemID, StartingItems[i].Stack, true);
-				}
-			}
-		}
-	}
-
-	if(Character->HasAuthority())
-	{
-		for(int i = 0; i < StartingItems.Num(); i++)
-		{
-			AddItem(StartingItems[i].ItemID, StartingItems[i].Stack, false);
-		}
-	}
-}
-
 void UInventoryComponent::OnRep_InventoryItems()
 {
-
-	if(!Character)
-	{
-		return;
-	}
-
-	if(Character->IsLocallyControlled() && bReconcileVisuals)
-	{
-		for(int i = 0; i < InventoryItems.Num(); i++)
-		{
-			TArray<USlotWidget*> Slots = InventoryWidget->GetSlots();
-			
-			for(int z = 0; z < Slots.Num(); z++)
-			{
-				if(InventoryItems[i].SlotID == Slots[z]->GetSlotID())
-				{
-					Slots[z]->ReconcileVisuals(InventoryItems[i]);
-				}
-			}
-		}
-	}
+	
 }
 
 void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -85,18 +23,14 @@ void UInventoryComponent::Server_TransferSlots_Implementation(int TargetInventor
 		if(TargetInventoryItemID == InventoryItems[i].InventoryID)
 		{
 			InventoryItems[i].SlotID = NewSlotID;
-
-			if(Character->IsLocallyControlled())
-			{
-				OnRep_InventoryItems();
-			}
+			OnRep_InventoryItems();
 			break;
 		}
 	}
 }
 
 
-void UInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation)
+void UInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID)
 {
 	const int InventoryIndex = FMath::RandRange(0, 10000);
 
@@ -105,7 +39,17 @@ void UInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimula
 	//if the server had a problem adding an item, we can reconcile visuals in a client rpc
 	if(bClientSimulation)
 	{
-		if(USlotWidget* SlotWidget = InventoryWidget->GetNextSlot())
+		USlotWidget* SlotWidget;
+
+		if(SlotID == -1)
+		{
+			SlotWidget = InventoryWidget->GetNextSlot();
+		}
+		else
+		{
+			SlotWidget = InventoryWidget->GetSlot(SlotID);
+		}
+		if(SlotWidget)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found Next Slot"));
 
@@ -128,6 +72,10 @@ void UInventoryComponent::RemoveItem(UItem* Item, int StackSize, bool bClientSim
 	
 }
 
+void UInventoryComponent::RemoveItem(int InventoryID, int StackSize)
+{
+}
+
 void UInventoryComponent::TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot)
 {
 	//if the new slot already has an item, we want to swap the slots items
@@ -143,6 +91,21 @@ void UInventoryComponent::TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSl
 	NewSlot->PredictVisuals(OldSlot->GetCurrentItem(),  OldSlot->GetCurrentStack());
 	NewSlot->SetInventoryIndex(OldSlot->GetInventoryIndex());
 	OldSlot->Reset();
+}
+
+FInventoryItem UInventoryComponent::GetInventoryItem(int InventoryID)
+{
+	FInventoryItem InventoryItem = {};
+
+	for(int i = 0; i < InventoryItems.Num(); i++)
+	{
+		if(InventoryID == InventoryItems[i].InventoryID)
+		{
+			InventoryItem = InventoryItems[i];
+		}
+	}
+
+	return InventoryItem;
 }
 
 

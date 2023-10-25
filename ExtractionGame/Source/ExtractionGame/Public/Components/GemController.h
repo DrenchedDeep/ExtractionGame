@@ -84,8 +84,16 @@ public:
 	UFUNCTION(Client, Reliable)
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 
+	UFUNCTION(Server, Reliable)
+	void Server_LazyRecompileGems();
+	UFUNCTION(Server, Reliable)
+	void Server_AddGem(EBodyPart slot, AGem* newGem);
+	UFUNCTION(Server, Reliable)
+	void Server_RemoveGem(EBodyPart slot);
+
 	
 protected:
+	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
@@ -95,13 +103,6 @@ protected:
 	void RecompileArm(TArray<AGem*> arm, bool bIsLeft);
 
 private:
-	UFUNCTION(Server, Reliable)
-	void Server_LazyRecompileGems();
-	UFUNCTION(Server, Reliable)
-	void Server_AddGem(EBodyPart slot, AGem* newGem);
-	UFUNCTION(Server, Reliable)
-	void Server_RemoveGem(EBodyPart slot);
-
 	
 	UFUNCTION()
 	void OnRep_HeadGem();
@@ -111,4 +112,6 @@ private:
 	void OnRep_LeftArmGems();
 	UFUNCTION()
 	void OnRep_RightArmGems();
+
+	bool bInitialized;
 };

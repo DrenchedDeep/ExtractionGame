@@ -8,8 +8,9 @@
 #include "Blueprint/WidgetTree.h"
 
 
-void UInventoryWidget::Init(UInventoryComponent* InventoryComponent, int32 SlotSize)
+void UInventoryWidget::Init(UInventoryComponent* InventoryComponent, int32 SlotSize, bool bInitGemSlots)
 {
+	OwnerInventory = InventoryComponent;
 	for(int i = 0; i < SlotSize; i++)
 	{
 		USlotWidget* InventorySlot = WidgetTree->ConstructWidget<USlotWidget>(SlotWidgetSubclass, TEXT("Slot " + i));
@@ -19,18 +20,20 @@ void UInventoryWidget::Init(UInventoryComponent* InventoryComponent, int32 SlotS
 		Slots.Add(InventorySlot);
 	}
 
-	TArray<UUserWidget*> GemsSlots;
-	UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), GemsSlots, GemSlotWidgetSubclass, false);
-
-	
-	if(GemsSlots.Num() > 0)
+	if(bInitGemSlots)
 	{
-		for(int i = 0; i < GemsSlots.Num(); i++)
+		TArray<UUserWidget*> GemsSlots;
+		UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), GemsSlots, GemSlotWidgetSubclass, false);
+		
+		if(GemsSlots.Num() > 0)
 		{
-			if(UGemSlot* GemSlot = Cast<UGemSlot>(GemsSlots[i]))
+			for(int i = 0; i < GemsSlots.Num(); i++)
 			{
-				GemSlot->Init(InventoryComponent, 20 + i);
-				Slots.Add(GemSlot);
+				if(UGemSlot* GemSlot = Cast<UGemSlot>(GemsSlots[i]))
+				{
+					GemSlot->Init(InventoryComponent, 20 + i);
+					Slots.Add(GemSlot);
+				}
 			}
 		}
 	}

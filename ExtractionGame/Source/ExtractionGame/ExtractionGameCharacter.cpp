@@ -83,7 +83,7 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 
 	
 	AttributeSet = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("Ability Attributes"));
-	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+	InventoryComponent = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("InventoryComponent"));
 	GemController = CreateDefaultSubobject<UGemController>(TEXT("GemController"));
 
 }
