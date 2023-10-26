@@ -3,17 +3,31 @@
 
 #include "ExtractionGamePlayerController.h"
 #include "EnhancedInputSubsystems.h"
+#include "ExtractionGameInstance.h"
+
+void AExtractionGamePlayerController::ReturnToLobby()
+{
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+
+	if(GameInstance->CurrentSession)
+	{
+		GameInstance->DestroySession();
+	}
+	
+	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
+}
 
 void AExtractionGamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// get the enhanced input subsystem
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
-		// add the mapping context so we get controls
 		Subsystem->AddMappingContext(InputMappingContext, 0);
-
-		UE_LOG(LogTemp, Warning, TEXT("BeginPlay"));
 	}
+}
+
+void AExtractionGamePlayerController::ClientWasKicked_Implementation(const FText& KickReason)
+{
+	UGameplayStatics::OpenLevel(GetWorld(), "LVL_Startup");
 }

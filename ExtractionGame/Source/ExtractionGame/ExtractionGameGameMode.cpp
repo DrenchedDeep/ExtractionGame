@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "OnlineSubsystemUtils.h"
 #include "OnlineSubsystem.h"
+#include "GameFramework/GameSession.h"
 #include "Interfaces/OnlineIdentityInterface.h"
 
 AExtractionGameGameMode::AExtractionGameGameMode()
@@ -19,9 +20,9 @@ AExtractionGameGameMode::AExtractionGameGameMode()
 
 void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
-	Super::PostLogin(NewPlayer);
-
 	RegisterPlayerEOS(NewPlayer);
+
+	Super::PostLogin(NewPlayer);
 }
 
 void AExtractionGameGameMode::BeginPlay()
@@ -31,7 +32,6 @@ void AExtractionGameGameMode::BeginPlay()
 
 void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)
 {
-		
 	if(NewPlayer != nullptr)
 	{
 		FUniqueNetIdRepl NetID;
@@ -65,16 +65,18 @@ void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)
 		}
 
 		const TSharedPtr<const FUniqueNetId> UniqueNetId = NetID.GetUniqueNetId();
-
 		if(UniqueNetId != nullptr)
 		{
 			const IOnlineSubsystem *OnlineSubSystem = Online::GetSubsystem(NewPlayer->GetWorld());
 			const IOnlineSessionPtr Session = OnlineSubSystem->GetSessionInterface();
-
-			if(Session->RegisterPlayer(FName("MainSession"), *UniqueNetId, false))
+			
+			UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+			
+			if(!Session->RegisterPlayer(GameInstance->CurrentSession->SessionName, *UniqueNetId, false))
 			{
-				GLog->Log("Succesfully registered");
+				GameSession->KickPlayer(NewPlayer, FText::FromString("Failed to register player"));
 			}
+
 		}
 	}
 }

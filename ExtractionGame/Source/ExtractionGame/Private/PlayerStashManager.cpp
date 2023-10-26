@@ -23,6 +23,9 @@ void APlayerStashManager::BeginPlay()
 
 		PlayerInventory->Init(InventoryWidget, 20, true);
 		StashInventory->Init(InventoryWidget, 40, false);
+
+		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+		GameInstance->BuildPlayerSessionData(PlayerInventory->StashItems, TArray<FName>());
 	}
 }
 

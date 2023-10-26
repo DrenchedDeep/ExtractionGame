@@ -23,10 +23,10 @@ public:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
 
-	void RegisterPlayerEOS(APlayerController* NewPlayer);
-	
 private:
 	bool bAllExistingPlayersRegistered;
+
+	void RegisterPlayerEOS(APlayerController* NewPlayer);
 };
 
 

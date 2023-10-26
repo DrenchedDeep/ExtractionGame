@@ -6,4 +6,6 @@ void AMainMenuHUD::PreInitializeComponents()
 
 	MainMenuWidget = CreateWidget<UMainMenuWidget>(GetWorld(), MainMenuWidgetSubclass);
 	MainMenuWidget->AddToViewport();
+
+	CreateNetworkErrorWidget();
 }

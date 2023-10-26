@@ -15,17 +15,17 @@ UCLASS()
 class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintCallable)
+	virtual void ReturnToLobby();
 	
 protected:
 
 	/** Input Mapping Context to be used for player input */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* InputMappingContext;
-
-	// Begin Actor interface
-protected:
-
+	
 	virtual void BeginPlay() override;
-
-	// End Actor interface
+	virtual void ClientWasKicked_Implementation(const FText& KickReason) override;
 };

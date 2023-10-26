@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameHUD.h"
 #include "MainMenuWidget.h"
 #include "GameFramework/HUD.h"
 #include "MainMenuHUD.generated.h"
@@ -11,7 +12,7 @@
  * 
  */
 UCLASS(BlueprintType, Blueprintable)
-class EXTRACTIONGAME_API AMainMenuHUD : public AHUD
+class EXTRACTIONGAME_API AMainMenuHUD : public AGameHUD
 {
 	GENERATED_BODY()
 
@@ -23,7 +24,4 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UMainMenuWidget> MainMenuWidgetSubclass;
-	
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnSessionFound();
 };

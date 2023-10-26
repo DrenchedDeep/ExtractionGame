@@ -1,4 +1,6 @@
 #include "ExtractionGameInstance.h"
+
+#include "GameHUD.h"
 #include "MainMenuGameState.h"
 #include "MainMenuHUD.h"
 #include "OnlineSubsystemUtils.h"
@@ -35,6 +37,7 @@ void UExtractionGameInstance::BuildPlayerSessionData(TArray<FInventoryItem> Play
 	PlayerSessionData = PlayerData;
 	UE_LOG(LogTemp, Warning, TEXT("Player Session Data Built"));
 }
+
 
 
 void UExtractionGameInstance::Init()
@@ -76,7 +79,7 @@ void UExtractionGameInstance::Init()
 		&UExtractionGameInstance::OnEndSessionCompleted));
 
 	
-	
+	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
 }
 
 
@@ -160,9 +163,13 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	const FName SessionName = FName(FString::FromInt(FMath::RandRange(0, 10000)));
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 
-	if(!Session->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),SessionName, SessionSettings))
+	if(!bCreatedSession)
 	{
+		bCreatedSession = true;
+		if(!Session->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),SessionName, SessionSettings))
+		{
 		
+		}
 	}
 }
 
@@ -185,7 +192,7 @@ void UExtractionGameInstance::JoinSession()
 		this,
 		&UExtractionGameInstance::OnFindSessionCompleted, SessionSearch));
 
-	
+
 	if (!Session->FindSessions(0, SessionSearch))
 	{
 	}
@@ -193,6 +200,7 @@ void UExtractionGameInstance::JoinSession()
 
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
+	UE_LOG(LogTemp, Warning, TEXT("session created"));
 	CurrentSession = Session->GetNamedSession(SessionName);
 
 	if(!CurrentSession || !bWasSuccess)
@@ -233,6 +241,7 @@ void UExtractionGameInstance::OnEndSessionCompleted(FName SessionName, bool bSuc
 
 void UExtractionGameInstance::OnDestroySessionCompleted(FName SessionName, bool bSuccess)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Session Destroyed"));
 	OnDestroySessionComplete.Broadcast(bSuccess);
 }
 
@@ -267,7 +276,6 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 	{
 		return;
 	}
-
 	
 	if(Search->SearchResults.Num() <= 0)
 	{
@@ -326,9 +334,7 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 void UExtractionGameInstance::HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId,
 	FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult)
 {
-	//TODO: check if session is full, if so reject
-
-	
+	//TODO: check if session is full, if so reject invite
 	if(bWasSuccessful)
 	{
 		DestroySession();
@@ -383,6 +389,7 @@ void UExtractionGameInstance::DestroySession()
 	}
 
 	Session->DestroySession(CurrentSession->SessionName);
+	bCreatedSession = false;
 	CurrentSession = nullptr;
 }
 
@@ -390,6 +397,14 @@ void UExtractionGameInstance::DestroySession()
 void UExtractionGameInstance::OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID,
                                                const FString& Error)
 {
-//	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
 	OnLoginComplete.Broadcast(bWasSuccess);
+}
+
+void UExtractionGameInstance::HandleNetworkFailure(UWorld* World, UNetDriver* NetDriver,
+	ENetworkFailure::Type FailureType, const FString& ErrorString)
+{
+	if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+	{
+		GameHUD->NetworkErrorWidget->OnNetworkError(GetNetworkErrorMessage(FailureType), ErrorString);
+	}
 }

@@ -26,32 +26,21 @@ void UPlayerInventoryComponent::BeginPlay()
 			InventoryWidget = GameHUD->CreateInventoryWidget();
 			InventoryWidget->Init(this, 20);
 
-			if(InventoryWidget)
+			if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance()))
 			{
+				TArray<FInventoryItem> PlayerItems = GameInstance->PlayerSessionData.PlayerItems;
 
-			}
-		}
-	}
-
-	if(Character->HasAuthority() || Character->IsLocallyControlled())
-	{
-		if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance()))
-		{
-			TArray<FInventoryItem> PlayerItems = GameInstance->PlayerSessionData.PlayerItems;
-			UE_LOG(LogTemp, Warning, TEXT("%i"), PlayerItems.Num());
-
-			for(int i = 0; i < PlayerItems.Num(); i++)
-			{
-				AddItem(PlayerItems[i].ItemID, PlayerItems[i].StackSize, true, PlayerItems[i].SlotID);
-
-				if(PlayerItems[i].ItemID->ItemType == Gem && Character->HasAuthority())
+				if(PlayerItems.Num() > 0)
 				{
-					Character->GemController->Server_CreateGem(PlayerItems[i].ItemID, static_cast<EBodyPart>(PlayerItems[i].GemSlotID), PlayerItems[i].SlotID);
+					for(int i = 0; i < PlayerItems.Num(); i++)
+					{
+						AddItem(PlayerItems[i].ItemID, PlayerItems[i].StackSize, true, PlayerItems[i].SlotID);
+					}
 				}
 			}
 		}
-		
 	}
+	
 }
 
 void UPlayerInventoryComponent::OnRep_InventoryItems()

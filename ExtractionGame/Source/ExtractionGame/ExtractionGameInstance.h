@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "InventoryComponent.h"
 #include "MainMenuGameState.h"
+#include "NetworkErrorWidget.h"
 #include "OnlineSubsystem.h"
 #include "Engine/GameInstance.h"
 #include "Interfaces/OnlineSessionInterface.h"
@@ -18,16 +19,6 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDestroySessionComplete, bool, bWasS
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FJoinSessionComplete, bool, bWasSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateSessionComplete, bool, bWasSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateLobbyComplete, bool, bWasSuccess);
-
-
-UENUM(BlueprintType)
-enum ENetworkError : uint8
-{
-	ErrorFindingSessions = 0    UMETA(DisplayName = "ErrorFindingSessions"),
-	ErrorJoiningSession = 1    UMETA(DisplayName = "ErrorJoiningSession"),
-	ErrorJoiningParty = 2    UMETA(DisplayName = "ErrorJoiningParty"),
-	ErrorCreatingSession = 3    UMETA(DisplayName = "ErrorCreatingSession"),
-};
 
 USTRUCT(BlueprintType)
 struct FPlayerSessionData
@@ -54,7 +45,6 @@ UCLASS()
 class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 {
 	//TODO: clean up this code, its messy having it all in the game instance because game instance is still the same across levels and you can only interact with sessions in main menu
-	//TODO: make the game instance handle the network error ui 
 	GENERATED_BODY()
 
 	const int SESSION_PLAYERCOUNT = 4;
@@ -62,10 +52,11 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	IOnlineSubsystem* OnlineSubSystem;
 	IOnlineIdentityPtr UserIdentity;
 	IOnlineSessionPtr Session;
-	FNamedOnlineSession* CurrentSession;
 	
 	UPROPERTY()
 	UAbilityHandlerSubSystem* AbilityHandlerSubSystem;
+
+	
 
 public:
 	UExtractionGameInstance();
@@ -78,6 +69,7 @@ public:
 
 	void BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers);
 
+	
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) void CreateLobby();
 	UFUNCTION(BlueprintCallable) void DestroySession();
@@ -94,6 +86,9 @@ public:
 	UPROPERTY(BlueprintAssignable) FJoinSessionComplete OnJoinSessionComplete;
 	UPROPERTY(BlueprintAssignable) FCreateSessionComplete OnCreateSessionComplete;
 	UPROPERTY(BlueprintAssignable) FCreateLobbyComplete OnCreateLobbyComplete;
+	
+	FNamedOnlineSession* CurrentSession;
+	bool bCreatedSession;
 
 protected:
 	void OnCreateSessionCompleted(FName SessionName, bool bSuccess);
@@ -104,7 +99,8 @@ protected:
 	void OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search);
 	void HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId, FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult);
 	void OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID, const FString& Error);
-
+	void HandleNetworkFailure(UWorld * World, UNetDriver * NetDriver, ENetworkFailure::Type FailureType, const FString & ErrorString);
+	
 private:
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
 	FDelegateHandle CreateSessionCompleteDelegateHandle;
@@ -120,6 +116,8 @@ private:
 
 	FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
 	FDelegateHandle JoinSessionCompleteDelegateHandle;
+
+	
 	
 	void CreateSession(int32 PlayerCount);
 	
@@ -128,21 +126,32 @@ private:
 		return Search->SearchResults[0];
 	}
 
-	UFUNCTION(BlueprintCallable)
-	FORCEINLINE FString GetNetworkErrorDescription(ENetworkError Error)
+	FORCEINLINE FString GetNetworkErrorMessage(ENetworkFailure::Type NetworkFailure)
 	{
-		switch(Error)
+		switch(NetworkFailure)
 		{
-			case ErrorFindingSessions:
-				return "ERROR FINDING SESSION!";
-			case ErrorJoiningSession:
-				return "ERROR JOINING SESSION!";
-			case ErrorJoiningParty:
-				return "ERROR JOINING PARTY!";
-			case ErrorCreatingSession:
-				return "ERROR CREATING SESSION";
-			default:
-				return "Unknown error";
+			case ENetworkFailure::ConnectionTimeout:
+				return "Connection Timeout";
+			case ENetworkFailure::ConnectionLost:
+				return "Connection Lost";
+			case ENetworkFailure::NetDriverAlreadyExists:
+				return "Net Driver Already Exists";
+			case ENetworkFailure::NetDriverCreateFailure:
+				return "Net Driver Create Failure";
+			case ENetworkFailure::OutdatedClient:
+				return "Outdated Client";
+			case ENetworkFailure::OutdatedServer:
+				return "Outdated Server";
+			case ENetworkFailure::PendingConnectionFailure:
+				return "Pending Connection Failure";
+			case ENetworkFailure::NetGuidMismatch:
+				return "Net Guid Mismatch";
+			case ENetworkFailure::NetChecksumMismatch:
+				return "Net Checksum Mismatch";	
+		case ENetworkFailure::FailureReceived:
+			return "Failure Received";
+			
+			default: return "Unknown Network Failure";
 		}
 	}
 };
