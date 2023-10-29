@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "InventoryComponent.h"
 #include "ItemDatabase.h"
-#include "PlayerSavedData.h"
+#include "PlayerSaveData.h"
 #include "StashInventoryComponent.h"
 #include "GameFramework/Actor.h"
 #include "PlayerStashManager.generated.h"
@@ -27,13 +27,14 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UStashInventoryComponent* StashInventory;
+
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	TSubclassOf<UPlayerSavedData> PlayerSavedDataSubclass;
+	TSubclassOf<UPlayerSaveData> PlayerSavedDataSubclass;
 	
 	UPROPERTY(EditDefaultsOnly)
 	UItemDatabase* ItemDatabase;
-
+	
 	UFUNCTION(BlueprintCallable)
 	void SaveInventory();
 	UFUNCTION(BlueprintCallable)

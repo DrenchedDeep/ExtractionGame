@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RaidOverWidget.h"
 #include "StashInventoryWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "MainMenuWidget.generated.h"
@@ -18,6 +19,4 @@ class EXTRACTIONGAME_API UMainMenuWidget : public UUserWidget
 public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadOnly)
 	UStashInventoryWidget* StashInventoryWidget;
-
-	
 };

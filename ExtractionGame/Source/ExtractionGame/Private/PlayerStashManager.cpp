@@ -1,6 +1,7 @@
 #include "PlayerStashManager.h"
 #include "MainMenuHUD.h"
-#include "PlayerSavedData.h"
+#include "PlayerSaveData.h"
+#include "PlayerSaveData.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "ExtractionGame/ExtractionGameInstance.h"
 
@@ -46,7 +47,7 @@ void APlayerStashManager::SaveInventory()
 		UGameplayStatics::DeleteGameInSlot(FileName, 0);
 	}
 
-	UPlayerSavedData* PlayerSavedData = Cast<UPlayerSavedData>(UGameplayStatics::CreateSaveGameObject(PlayerSavedDataSubclass));
+	UPlayerSaveData* PlayerSavedData = Cast<UPlayerSaveData>(UGameplayStatics::CreateSaveGameObject(PlayerSavedDataSubclass));
 
 	UE_LOG(LogTemp, Warning, TEXT("Stash Length: %i"), StashInventory->StashItems.Num());
 	UE_LOG(LogTemp, Warning, TEXT("Player Length: %i"), PlayerInventory->StashItems.Num());
@@ -79,7 +80,7 @@ void APlayerStashManager::SaveInventory()
 		| (static_cast<uint32>(InventoryItem.ItemID->ItemID) << 8) | InventoryItem.StackSize;
 
 		FSavedInventoryItem SavedInventoryItem(Value);
-		PlayerSavedData->PlayerInventoryItems.Add(SavedInventoryItem);
+		PlayerSavedData->PlayerItems.Add(SavedInventoryItem);
 	}
 
 	UGameplayStatics::SaveGameToSlot(PlayerSavedData, FileName, 0);
@@ -114,13 +115,13 @@ void APlayerStashManager::OnReadInventory(FString FileName, TArray<uint8> DataRe
 
 	USaveGame* SaveGame = GameInstance->ConvertIntToSavedFile(DataRef);
 
-	if(const UPlayerSavedData* PlayerSavedData = Cast<UPlayerSavedData>(SaveGame))
+	if(const UPlayerSaveData* PlayerSavedData = Cast<UPlayerSaveData>(SaveGame))
 	{
 		for(int i = 0; i < PlayerSavedData->StashItems.Num(); i++)
 		{
-			const uint8 SlotID = static_cast<uint8>((PlayerSavedData->StashItems[i].PackedValue >> 16) & 0xFF);
-			const uint8 ItemID = static_cast<uint8>((PlayerSavedData->StashItems[i].PackedValue >> 8) & 0xFF);
-			const uint8 StackSize = static_cast<uint8>(PlayerSavedData->StashItems[i].PackedValue & 0xFF);
+			const uint8 SlotID = static_cast<uint8>((PlayerSavedData->StashItems[i].InventoryData >> 16) & 0xFF);
+			const uint8 ItemID = static_cast<uint8>((PlayerSavedData->StashItems[i].InventoryData >> 8) & 0xFF);
+			const uint8 StackSize = static_cast<uint8>(PlayerSavedData->StashItems[i].InventoryData & 0xFF);
 
 			UItem* Item = ItemDatabase->FindItem(ItemID);
 			StashInventory->AddItem(Item, StackSize, true, SlotID);
@@ -128,11 +129,11 @@ void APlayerStashManager::OnReadInventory(FString FileName, TArray<uint8> DataRe
 
 		if(!GameInstance->bLoadedInventoryOnStart)
 		{
-			for(int i = 0; i < PlayerSavedData->PlayerInventoryItems.Num(); i++)
+			for(int i = 0; i < PlayerSavedData->PlayerItems.Num(); i++)
 			{
-				const uint8 SlotID = static_cast<uint8>((PlayerSavedData->PlayerInventoryItems[i].PackedValue >> 16) & 0xFF);
-				const uint8 ItemID = static_cast<uint8>((PlayerSavedData->PlayerInventoryItems[i].PackedValue >> 8) & 0xFF);
-				const uint8 StackSize = static_cast<uint8>(PlayerSavedData->PlayerInventoryItems[i].PackedValue & 0xFF);
+				const uint8 SlotID = static_cast<uint8>((PlayerSavedData->PlayerItems[i].InventoryData >> 16) & 0xFF);
+				const uint8 ItemID = static_cast<uint8>((PlayerSavedData->PlayerItems[i].InventoryData >> 8) & 0xFF);
+				const uint8 StackSize = static_cast<uint8>(PlayerSavedData->PlayerItems[i].InventoryData & 0xFF);
 
 				UItem* Item = ItemDatabase->FindItem(ItemID);
 				PlayerInventory->AddItem(Item, StackSize, true, SlotID);

@@ -1,5 +1,7 @@
 #include "MainMenuHUD.h"
 
+#include "ExtractionGame/ExtractionGameInstance.h"
+
 void AMainMenuHUD::PreInitializeComponents()
 {
 	Super::PreInitializeComponents();
@@ -13,4 +15,21 @@ void AMainMenuHUD::PreInitializeComponents()
 	RaidOverWidget->SetVisibility(ESlateVisibility::Hidden);
 	
 	CreateNetworkErrorWidget();
+}
+
+void AMainMenuHUD::BeginPlay()
+{
+	Super::BeginPlay();
+
+	 UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+
+	if(GameInstance->PlayerRaidResult.bIsValid)
+	{
+		RaidOverWidget->InitBP(GameInstance->PlayerRaidResult.bSurvived, GameInstance->PlayerRaidResult.PlayTime);
+		MainMenuWidget->SetVisibility(ESlateVisibility::Hidden);
+		RaidOverWidget->SetVisibility(ESlateVisibility::Visible);
+		
+		const FPlayerRaidResult TempRaidResult(false,false, 0.0f);
+		GameInstance->PlayerRaidResult = TempRaidResult;
+	}
 }

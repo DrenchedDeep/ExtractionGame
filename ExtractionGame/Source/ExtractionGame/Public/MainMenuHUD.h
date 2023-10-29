@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AccountLoadingScreenWidget.h"
 #include "GameHUD.h"
 #include "MainMenuWidget.h"
 #include "RaidOverWidget.h"
@@ -20,6 +19,7 @@ class EXTRACTIONGAME_API AMainMenuHUD : public AGameHUD
 
 public:
 	virtual void PreInitializeComponents() override;
+	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadOnly)
 	UMainMenuWidget* MainMenuWidget;

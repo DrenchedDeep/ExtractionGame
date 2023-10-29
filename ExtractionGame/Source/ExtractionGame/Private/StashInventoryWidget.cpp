@@ -24,14 +24,6 @@ void UStashInventoryWidget::NativeConstruct()
 	ToggleLoadingScreen(false);
 }
 
-void UStashInventoryWidget::EnableUI()
-{
-}
-
-void UStashInventoryWidget::DisableUI()
-{
-}
-
 void UStashInventoryWidget::OnInventorySaved()
 {
 }
