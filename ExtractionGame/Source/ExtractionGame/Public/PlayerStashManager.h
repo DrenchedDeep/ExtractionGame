@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "InventoryComponent.h"
+#include "ItemDatabase.h"
+#include "PlayerSavedData.h"
 #include "StashInventoryComponent.h"
 #include "GameFramework/Actor.h"
 #include "PlayerStashManager.generated.h"
@@ -17,11 +19,30 @@ public:
 	APlayerStashManager();
 	virtual void BeginPlay() override;
 
+	bool bInventoryLoaded;
+	bool bInventorySaved;
+	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UStashInventoryComponent* PlayerInventory;
+	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UStashInventoryComponent* StashInventory;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	TSubclassOf<UPlayerSavedData> PlayerSavedDataSubclass;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UItemDatabase* ItemDatabase;
 
 	UFUNCTION(BlueprintCallable)
-	 void SaveInventory();
+	void SaveInventory();
+	UFUNCTION(BlueprintCallable)
+	void LoadInventory();
+
+	UFUNCTION()
+	void OnReadInventory(FString FileName, TArray<uint8> DataRef);
+	UFUNCTION()
+	void OnSavedInventory(bool bWasSuccess);
 };
+
+

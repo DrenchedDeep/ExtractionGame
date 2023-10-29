@@ -6,6 +6,7 @@
 #include "GameFramework/GameState.h"
 #include "OnlineSessionSettings.h"
 #include "PartyManager.h"
+#include "PlayerStashManager.h"
 #include "MainMenuGameState.generated.h"
 
 USTRUCT()
@@ -36,10 +37,12 @@ class EXTRACTIONGAME_API AMainMenuGameState : public AGameStateBase
 
 public:
 	AMainMenuGameState(const FObjectInitializer& ObjectInitializer);
+	
+	virtual void BeginPlay() override;
 
 	UPROPERTY(Replicated)
 	APartyManager* PartyManager;
-	
+
 	UPROPERTY()
 	FClientConnectionInfo ConnectionInfo;
 	

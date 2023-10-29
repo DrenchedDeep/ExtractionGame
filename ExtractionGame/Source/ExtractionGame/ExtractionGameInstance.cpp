@@ -7,6 +7,8 @@
 #include "OnlineSubsystem.h"
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSessionSettings.h"
+#include "PlayerStashManager.h"
+#include "GameFramework/SaveGame.h"
 #include "Interfaces/OnlinePartyInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Online/OnlineSessionNames.h"
@@ -33,11 +35,16 @@ void UExtractionGameInstance::SetupOnlineSubsystem()
 
 void UExtractionGameInstance::BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers)
 {
-	FPlayerSessionData PlayerData(PlayerItems, PartyMembers);
+	FPlayerSessionData PlayerData(true, PlayerItems, PartyMembers);
 	PlayerSessionData = PlayerData;
-	UE_LOG(LogTemp, Warning, TEXT("Player Session Data Built"));
 }
 
+void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime)
+{
+	const FPlayerRaidResult RaidResult(true, bSurvived, PlayTime);
+
+	PlayerRaidResult = RaidResult;
+}
 
 
 void UExtractionGameInstance::Init()
@@ -78,7 +85,14 @@ void UExtractionGameInstance::Init()
 		this,
 		&UExtractionGameInstance::OnEndSessionCompleted));
 
-	
+
+	IOnlineUserCloudPtr UserCloud = OnlineSubSystem->GetUserCloudInterface();
+
+	if(UserCloud)
+	{
+		UserCloud->OnWriteUserFileCompleteDelegates.AddUObject(this, &UExtractionGameInstance::OnUserWriteComplete);
+		UserCloud->OnReadUserFileCompleteDelegates.AddUObject(this, &UExtractionGameInstance::OnUserReadComplete);
+	}
 	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
 }
 
@@ -168,8 +182,22 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 		bCreatedSession = true;
 		if(!Session->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),SessionName, SessionSettings))
 		{
-		
+			if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+			{
+				GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T CREATE SESSION", "ERROR CREATING SESSION, PLEASE TRY AGAIN!");
+			}
 		}
+	}
+}
+
+void UExtractionGameInstance::ReadPlayerData(FString FileName)
+{
+	IOnlineUserCloudPtr UserCloud = OnlineSubSystem->GetUserCloudInterface();
+
+	if(UserCloud)
+	{
+		const TSharedPtr<const FUniqueNetId> UserIDRef =  UserIdentity->GetUniquePlayerId(0).ToSharedRef();
+		UserCloud->ReadUserFile(*UserIDRef, FileName);
 	}
 }
 
@@ -195,6 +223,63 @@ void UExtractionGameInstance::JoinSession()
 
 	if (!Session->FindSessions(0, SessionSearch))
 	{
+		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		{
+			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T FIND SESSIONS", "ERROR FINDING SESSIONS, PLEASE TRY AGAIN!");
+		}
+	}
+}
+
+TArray<uint8> UExtractionGameInstance::ConvertSavedFileToInt(USaveGame* SavedGame)
+{
+	if(SavedGame)
+	{
+		TArray<uint8> LocalDataRef;
+		UGameplayStatics::SaveGameToMemory(SavedGame, LocalDataRef);
+
+		return LocalDataRef;
+	}
+
+	return TArray<uint8>();
+}
+
+USaveGame* UExtractionGameInstance::ConvertIntToSavedFile(TArray<uint8> Data)
+{
+	USaveGame* LocalObject = nullptr;
+
+	if(!Data.IsEmpty())
+	{
+		LocalObject = UGameplayStatics::LoadGameFromMemory(Data);
+	}
+
+	return LocalObject;
+}
+
+void UExtractionGameInstance::UpdatePlayerData(FString FileName, TArray<uint8> DataRef)
+{
+	if(!DataRef.IsEmpty())
+	{
+		IOnlineUserCloudPtr UserCloud = OnlineSubSystem->GetUserCloudInterface();
+
+		if(UserCloud)
+		{
+			const TSharedPtr<const FUniqueNetId> UserIDRef =  UserIdentity->GetUniquePlayerId(0).ToSharedRef();
+			UserCloud->WriteUserFile(*UserIDRef, FileName, DataRef);
+		}
+	}
+}
+
+void UExtractionGameInstance::GetPlayerData(FString FileName)
+{
+	IOnlineUserCloudPtr UserCloud = OnlineSubSystem->GetUserCloudInterface();
+
+	if(UserCloud)
+	{
+		TSharedPtr<const FUniqueNetId> UserIDRef =  UserIdentity->GetUniquePlayerId(0).ToSharedRef();
+
+		TArray<uint8> FileContents;
+		UserCloud->GetFileContents(*UserIDRef, FileName, FileContents);
+		GetFileCompleteDelegate.Broadcast(FileName, FileContents);
 	}
 }
 
@@ -205,6 +290,10 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 
 	if(!CurrentSession || !bWasSuccess)
 	{
+		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		{
+			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T CREATE SESSION", "ERROR CREATING SESSION, PLEASE TRY AGAIN!");
+		}
 		return;
 	}
 
@@ -231,6 +320,14 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 
 void UExtractionGameInstance::OnStartSessionCompleted(FName SessionName, bool bSuccess)
 {
+	if(!bSuccess)
+	{
+		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		{
+			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T START SESSION", "ERROR STARTING SESSION, PLEASE TRY AGAIN!");
+		}
+	}
+	
 	OnStartSessionComplete.Broadcast(bSuccess);
 }
 
@@ -263,6 +360,13 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 			Session->GetResolvedConnectString(SessionName, ServerAddress);
 
 			PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Absolute);
+		}
+	}
+	else
+	{
+		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		{
+			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T JOIN SESSION", "ERROR JOINING SESSION, PLEASE TRY AGAIN!");
 		}
 	}
 }
@@ -407,4 +511,23 @@ void UExtractionGameInstance::HandleNetworkFailure(UWorld* World, UNetDriver* Ne
 	{
 		GameHUD->NetworkErrorWidget->OnNetworkError(GetNetworkErrorMessage(FailureType), ErrorString);
 	}
+}
+
+void UExtractionGameInstance::OnUserWriteComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error)
+{
+	if(bWasSuccess)
+	{
+	}
+	
+	UserWriteCompleteDelegate.Broadcast(bWasSuccess);
+}
+
+void UExtractionGameInstance::OnUserReadComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& FileName)
+{
+	if(bWasSuccess)
+	{
+		GetPlayerData(FileName);
+	}
+
+	UserReadCompleteDelegate.Broadcast(bWasSuccess);
 }

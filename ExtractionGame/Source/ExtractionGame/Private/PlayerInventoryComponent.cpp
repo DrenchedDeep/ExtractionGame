@@ -7,10 +7,17 @@
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "ExtractionGame/ExtractionGameInstance.h"
 
+void UPlayerInventoryComponent::InitializeComponent()
+{
+	Super::InitializeComponent();
+
+}
+
 void UPlayerInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 
 	if(Character->IsLocallyControlled())

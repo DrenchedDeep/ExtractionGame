@@ -1,9 +1,14 @@
 #include "StashInventoryComponent.h"
 #include "MainMenuHUD.h"
+#include "ExtractionGame/ExtractionGameInstance.h"
 
 
 void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 InventorySize, bool bIsStash)
 {
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+
+	StashItems.Reset();
+	
 	if(!bIsStash)
 	{
 		InventoryWidget = InvenWidget->StashGridPanel;
@@ -13,19 +18,27 @@ void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 In
 	{
 		InventoryWidget = InvenWidget->PlayerInventoryGridPanel;
 		InventoryWidget->Init(this, InventorySize);
+		UE_LOG(LogTemp, Warning, TEXT("Player Items: %i"), StashItems.Num());
 
+		if(GameInstance->PlayerSessionData.bIsValid && GameInstance->PlayerSessionData.PlayerItems.Num() > 0)
+		{
+			for(int i = 0; i < GameInstance->PlayerSessionData.PlayerItems.Num(); i++)
+			{
+				AddItem(GameInstance->PlayerSessionData.PlayerItems[i].ItemID, GameInstance->PlayerSessionData.PlayerItems[i].StackSize,
+					true, GameInstance->PlayerSessionData.PlayerItems[i].SlotID);
+			}
+
+			GameInstance->PlayerSessionData.PlayerItems.Reset();
+			
+		}
 	}
 
-	for(int i = 0; i < StartingItems.Num(); i++)
-	{
-		AddItem(StartingItems[i].ItemID, StartingItems[i].Stack, false);
-	}
 }
 
 void UStashInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID)
 {
 	const int InventoryIndex = FMath::RandRange(0, 100000);
-	
+
 	USlotWidget* SlotWidget;
 
 	if(SlotID == -1)
@@ -51,15 +64,14 @@ void UStashInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientS
 
 void UStashInventoryComponent::RemoveItem(int InventoryID, int StackSize)
 {
-	UE_LOG(	LogTemp, Warning, TEXT("Removing Item"))
 	for(int i = 0; i < StashItems.Num(); i++)
 	{
 		const int Index = StashItems[i].InventoryID;
 		if(InventoryID == Index)
 		{
-			UE_LOG(	LogTemp, Warning, TEXT("found it"))
 			InventoryWidget->GetSlot(StashItems[i].SlotID)->Reset();
 			StashItems.RemoveAt(i);
+			UE_LOG(LogTemp, Warning, TEXT("Removed Item"));
 			break;
 		}
 	}

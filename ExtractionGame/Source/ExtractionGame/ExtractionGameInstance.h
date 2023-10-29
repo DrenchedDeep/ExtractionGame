@@ -13,30 +13,67 @@
 
 UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoginCompleted, bool, bWasSuccess);
+UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartSessionComplete, bool, bWasSuccess);
+UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FEndSessionComplete, bool, bWasSuccess);
+UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDestroySessionComplete, bool, bWasSuccess);
+UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FJoinSessionComplete, bool, bWasSuccess);
+UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateSessionComplete, bool, bWasSuccess);
+UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCreateLobbyComplete, bool, bWasSuccess);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserWriteComplete, bool, bWasSuccess);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserReadComplete, bool, bWasSuccess);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGetFileComplete, FString, FileName, TArray<uint8>, DataRef);
 
 USTRUCT(BlueprintType)
 struct FPlayerSessionData
 {
 	GENERATED_BODY()
-	
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsValid;
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FInventoryItem> PlayerItems;
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FName> PartyMembers;
 
-	FPlayerSessionData(const TArray<FInventoryItem>& PlayerItems, const TArray<FName>& PartyMembers)
-		: PlayerItems(PlayerItems),
+	FPlayerSessionData(bool bIsValid, const TArray<FInventoryItem>& PlayerItems, const TArray<FName>& PartyMembers)
+		: bIsValid(bIsValid),
+		  PlayerItems(PlayerItems),
 		  PartyMembers(PartyMembers)
 	{
 	}
 
 	FPlayerSessionData() = default;
+};
+
+USTRUCT(BlueprintType)
+struct FPlayerRaidResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsValid;
+	UPROPERTY(BlueprintReadOnly)
+	bool bSurvived;
+	UPROPERTY(BlueprintReadOnly)
+	float PlayTime;
+
+	FPlayerRaidResult(bool bIsValid, bool bSurvived, float PlayTime)
+		: bIsValid(bIsValid),
+		  bSurvived(bSurvived),
+		  PlayTime(PlayTime)
+	{
+	}
+
+	FPlayerRaidResult() = default;
 };
 
 
@@ -66,8 +103,12 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerSessionData PlayerSessionData;
+	UPROPERTY(BlueprintReadOnly)
+	FPlayerRaidResult PlayerRaidResult;
+    	
 
 	void BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers);
+	void OnRaidOver(bool bSurvived, float PlayTime);
 
 	
 	UFUNCTION(BlueprintCallable) void JoinSession();
@@ -86,9 +127,20 @@ public:
 	UPROPERTY(BlueprintAssignable) FJoinSessionComplete OnJoinSessionComplete;
 	UPROPERTY(BlueprintAssignable) FCreateSessionComplete OnCreateSessionComplete;
 	UPROPERTY(BlueprintAssignable) FCreateLobbyComplete OnCreateLobbyComplete;
-	
+	UPROPERTY(BlueprintAssignable) FOnUserWriteComplete UserWriteCompleteDelegate;
+	UPROPERTY(BlueprintAssignable) FOnUserReadComplete UserReadCompleteDelegate;
+	UPROPERTY(BlueprintAssignable) FOnGetFileComplete GetFileCompleteDelegate;
+
 	FNamedOnlineSession* CurrentSession;
+	
 	bool bCreatedSession;
+	bool bLoadedInventoryOnStart;
+
+	TArray<uint8> ConvertSavedFileToInt(USaveGame* SavedGame);
+	USaveGame* ConvertIntToSavedFile(TArray<uint8> Data);
+
+	void UpdatePlayerData(FString FileName, TArray<uint8> DataRef);
+	void ReadPlayerData(FString FileName);
 
 protected:
 	void OnCreateSessionCompleted(FName SessionName, bool bSuccess);
@@ -100,27 +152,13 @@ protected:
 	void HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId, FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult);
 	void OnLoginCompleted(int32 LocalUser, bool bWasSuccess, const FUniqueNetId& UserID, const FString& Error);
 	void HandleNetworkFailure(UWorld * World, UNetDriver * NetDriver, ENetworkFailure::Type FailureType, const FString & ErrorString);
+	void OnUserWriteComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error);
+	void OnUserReadComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& FileName);
 	
 private:
-	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
-	FDelegateHandle CreateSessionCompleteDelegateHandle;
-
-	FOnStartSessionCompleteDelegate StartSessionCompleteDelegate;
-	FDelegateHandle StartSessionCompleteDelegateHandle;
-
-	FOnEndSessionCompleteDelegate EndSessionCompleteDelegate;
-	FDelegateHandle EndSessionCompleteDelegateHandle;
-
-	FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;
-	FDelegateHandle DestroySessionCompleteDelegateHandle;
-
-	FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
-	FDelegateHandle JoinSessionCompleteDelegateHandle;
-
-	
-	
 	void CreateSession(int32 PlayerCount);
-	
+	void GetPlayerData(FString FileName);
+
 	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search)
 	{
 		return Search->SearchResults[0];

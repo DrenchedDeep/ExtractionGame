@@ -23,6 +23,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
 	TEnumAsByte<EItemType> ItemType;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
+	uint8 ItemID;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
 	FName ItemName;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ItemStats")
 	FString ItemDescription;

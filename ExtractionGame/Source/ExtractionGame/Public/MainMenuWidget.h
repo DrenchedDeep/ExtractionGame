@@ -18,4 +18,6 @@ class EXTRACTIONGAME_API UMainMenuWidget : public UUserWidget
 public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadOnly)
 	UStashInventoryWidget* StashInventoryWidget;
+
+	
 };

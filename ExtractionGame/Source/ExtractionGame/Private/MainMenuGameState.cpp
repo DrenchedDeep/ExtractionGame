@@ -12,6 +12,11 @@ AMainMenuGameState::AMainMenuGameState(const FObjectInitializer&  ObjectInitiali
 	
 }
 
+void AMainMenuGameState::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 void AMainMenuGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
