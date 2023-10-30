@@ -6,7 +6,7 @@
 void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 InventorySize, bool bIsStash)
 {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
-
+	StashInventoryWidget = InvenWidget;
 	StashItems.Reset();
 	
 	if(!bIsStash)
@@ -18,7 +18,6 @@ void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 In
 	{
 		InventoryWidget = InvenWidget->PlayerInventoryGridPanel;
 		InventoryWidget->Init(this, InventorySize);
-		UE_LOG(LogTemp, Warning, TEXT("Player Items: %i"), StashItems.Num());
 
 		if(GameInstance->PlayerSessionData.bIsValid && GameInstance->PlayerSessionData.PlayerItems.Num() > 0)
 		{
@@ -29,7 +28,6 @@ void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 In
 			}
 
 			GameInstance->PlayerSessionData.PlayerItems.Reset();
-			
 		}
 	}
 

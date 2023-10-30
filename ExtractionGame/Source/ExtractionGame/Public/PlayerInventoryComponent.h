@@ -23,4 +23,6 @@ private:
 	UPROPERTY()
 	AExtractionGameCharacter* Character;
 
+	virtual void Server_AddItem_Implementation(UItem* Item, int StackSize, int InventoryIndex, int SlotID) override;
+
 };

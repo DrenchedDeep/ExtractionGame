@@ -91,7 +91,6 @@ public:
 	UFUNCTION(Server, Reliable)
 	void Server_RemoveGem(EBodyPart slot);
 
-	
 protected:
 	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;

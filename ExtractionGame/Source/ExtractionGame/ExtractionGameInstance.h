@@ -100,20 +100,21 @@ public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
 	virtual void SetupOnlineSubsystem();
-
+	
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerSessionData PlayerSessionData;
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerRaidResult PlayerRaidResult;
-    	
+	
 
 	void BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers);
 	void OnRaidOver(bool bSurvived, float PlayTime);
-
 	
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) void CreateLobby();
 	UFUNCTION(BlueprintCallable) void DestroySession();
+	
+	UFUNCTION(BlueprintImplementableEvent) void ShowLoadingScreen();
 
 	//user
 	UFUNCTION(BlueprintCallable) void LoginEOS(FString ID, FString Token, FString LoginType);

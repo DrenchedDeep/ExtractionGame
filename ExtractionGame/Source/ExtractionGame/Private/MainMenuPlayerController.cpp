@@ -27,7 +27,6 @@ void AMainMenuPlayerController::BeginPlay()
 
 	if(IsLocalController())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Player Controller Begin Play"));
 		PlayerStashManager = Cast<APlayerStashManager>(GetWorld()->SpawnActor(PlayerStashManagerClass));
 	}
 }

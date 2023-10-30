@@ -14,6 +14,9 @@ UCLASS()
 class EXTRACTIONGAME_API APlayerStashManager : public AActor
 {
 	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly)
+	TArray<UItem*> StartingItems;
 	
 public:	
 	APlayerStashManager();
@@ -27,11 +30,10 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UStashInventoryComponent* StashInventory;
-
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	TSubclassOf<UPlayerSaveData> PlayerSavedDataSubclass;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	UItemDatabase* ItemDatabase;
 	

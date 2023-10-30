@@ -15,7 +15,7 @@ void APlayerStashManager::BeginPlay()
 {
 	Super::BeginPlay();
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
-
+	
 	GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
 	GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
 	LoadInventory();
@@ -25,9 +25,7 @@ void APlayerStashManager::BeginPlay()
 		UStashInventoryWidget* InventoryWidget = MainMenuHUD->MainMenuWidget->StashInventoryWidget;
 
 		PlayerInventory->Init(InventoryWidget, 20, true);
-		StashInventory->Init(InventoryWidget, 40, false);
-
-		GameInstance->BuildPlayerSessionData(PlayerInventory->StashItems, TArray<FName>());
+		StashInventory->Init(InventoryWidget, 60, false);
 	}
 }
 

@@ -11,6 +11,8 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 
 	GameInstance->OnRaidOver(true, 25.f);
+	GameInstance->ShowLoadingScreen();
+	
 	if(GameInstance->CurrentSession)
 	{
 		GameInstance->DestroySession();
@@ -21,7 +23,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	{
 		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->InventoryItems, TArray<FName>());
 	}
-	
+
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
 }
 

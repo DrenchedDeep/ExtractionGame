@@ -73,3 +73,17 @@ void UPlayerInventoryComponent::OnRep_InventoryItems()
 		}
 	}
 }
+
+void UPlayerInventoryComponent::Server_AddItem_Implementation(UItem* Item, int StackSize, int InventoryIndex,
+	int SlotID)
+{
+	Super::Server_AddItem_Implementation(Item, StackSize, InventoryIndex, SlotID);
+
+	if(Item->ItemType == EItemType::Gem)
+	{
+		if(UGemSlot* GemSlot = Cast<UGemSlot>(InventoryWidget->GetSlot(SlotID)))
+		{
+			Character->GemController->Server_CreateGem(Item, GemSlot->BodyPart, SlotID);
+		}
+	}
+}

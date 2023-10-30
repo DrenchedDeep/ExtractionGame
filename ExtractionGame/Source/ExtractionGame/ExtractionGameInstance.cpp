@@ -302,18 +302,13 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 	{
 		if(SessionSettings == "PartyLOBBY")
 		{
+			ShowLoadingScreen();
 			GetWorld()->ServerTravel("LVL_MainMenu?listen");
 		}
 		else if(SessionSettings == "GameplaySession")
 		{
-			if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
-			{
-				if(AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(PlayerController->GetHUD()))
-				{
-					MainMenuHUD->OnSessionFound();
-				}
-			}
-			GetWorld()->ServerTravel("Desert_Map?listen");	
+			ShowLoadingScreen();
+			GetWorld()->ServerTravel("Desert_Map?listen");
 		}
 	}
 }
@@ -351,11 +346,8 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 		if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
 		{
 			//enable loading screen
-			if(AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(PlayerController->GetHUD()))
-			{
-				MainMenuHUD->OnSessionFound();
-			}
-			
+			ShowLoadingScreen();
+
 			FString ServerAddress;
 			Session->GetResolvedConnectString(SessionName, ServerAddress);
 

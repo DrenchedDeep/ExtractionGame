@@ -23,5 +23,10 @@ public:
 	virtual void TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot) override;
 	
 	virtual FInventoryItem GetInventoryItem(int InventoryID) override;
+
+	UPROPERTY(BlueprintReadOnly)
 	TArray<FInventoryItem> StashItems;
+
+	UPROPERTY(BlueprintReadOnly)
+	UStashInventoryWidget* StashInventoryWidget;;
 };

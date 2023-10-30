@@ -165,6 +165,15 @@ void UGemController::Server_LazyRecompileGems_Implementation()
 
 void UGemController::LazyRecompileGems()
 {
+	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
+
+	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	
+	OwnerAbilities = Ch->AbilitySystemComponent;
+	LeftAttackAction = Ch->LeftAttackAction;
+	RightAttackAction = Ch->RightAttackAction;
+	HeadAbilityAction = Ch->HeadAbilityAction;
+	
 	//Reset Old Abilities
 	OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
 	OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);

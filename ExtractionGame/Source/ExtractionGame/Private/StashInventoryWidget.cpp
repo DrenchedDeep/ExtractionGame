@@ -17,12 +17,18 @@ void UStashInventoryWidget::InitInventoryWidget(UStashInventoryComponent* Invent
 void UStashInventoryWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	PlayerStashManager = Cast<APlayerStashManager>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStashManager::StaticClass()));
-	ToggleInventory(true);
-	ToggleSavingScreen(false);
-	ToggleLoadingScreen(false);
 }
+
+void UStashInventoryWidget::EnableUI(bool bEnableUI)
+{
+	Super::EnableUI(bEnableUI);
+}
+
+void UStashInventoryWidget::DisableUI(bool bDisableUI)
+{
+	Super::DisableUI(bDisableUI);
+}
+
 
 void UStashInventoryWidget::OnInventorySaved()
 {

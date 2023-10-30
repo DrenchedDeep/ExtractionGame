@@ -78,7 +78,7 @@ public:
 	void OnItemUnHovered();
 	UFUNCTION(BlueprintImplementableEvent)
 	void InitGemSlots(UInventoryComponent* InventoryComponent);
-	
+
 private:
 	UPROPERTY()
 	TArray<USlotWidget*> Slots;

@@ -93,9 +93,9 @@ protected:
 
 private:
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_AddItem(UItem* Item, int StackSize, int InventoryIndex, int SlotID);
+	virtual void Server_AddItem(UItem* Item, int StackSize, int InventoryIndex, int SlotID);
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_RemoveItem(UItem* Item, int StackSize);
+	virtual void Server_RemoveItem(UItem* Item, int StackSize);
 	UFUNCTION(Server, Reliable)
-	void Server_TransferSlots(int TargetInventoryItemID, int NewSlotID);
+	virtual void Server_TransferSlots(int TargetInventoryItemID, int NewSlotID);
 };
