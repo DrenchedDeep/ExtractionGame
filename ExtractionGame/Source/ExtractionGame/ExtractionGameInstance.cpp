@@ -93,7 +93,9 @@ void UExtractionGameInstance::Init()
 		UserCloud->OnWriteUserFileCompleteDelegates.AddUObject(this, &UExtractionGameInstance::OnUserWriteComplete);
 		UserCloud->OnReadUserFileCompleteDelegates.AddUObject(this, &UExtractionGameInstance::OnUserReadComplete);
 	}
+	
 	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
+	GetEngine()->OnTravelFailure().AddUObject(this, &UExtractionGameInstance::OnTravelError);
 }
 
 
@@ -182,10 +184,7 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 		bCreatedSession = true;
 		if(!Session->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),SessionName, SessionSettings))
 		{
-			if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-			{
-				GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T CREATE SESSION", "ERROR CREATING SESSION, PLEASE TRY AGAIN!");
-			}
+			OnCreateSessionComplete.Broadcast(false);
 		}
 	}
 }
@@ -223,10 +222,7 @@ void UExtractionGameInstance::JoinSession()
 
 	if (!Session->FindSessions(0, SessionSearch))
 	{
-		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-		{
-			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T FIND SESSIONS", "ERROR FINDING SESSIONS, PLEASE TRY AGAIN!");
-		}
+		OnMatchmakingFailedDelegate.Broadcast();
 	}
 }
 
@@ -290,10 +286,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 
 	if(!CurrentSession || !bWasSuccess)
 	{
-		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-		{
-			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T CREATE SESSION", "ERROR CREATING SESSION, PLEASE TRY AGAIN!");
-		}
+		OnCreateSessionComplete.Broadcast(false);
 		return;
 	}
 
@@ -310,6 +303,8 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 			ShowLoadingScreen();
 			GetWorld()->ServerTravel("Desert_Map?listen");
 		}
+
+		OnCreateSessionComplete.Broadcast(true);
 	}
 }
 
@@ -317,10 +312,6 @@ void UExtractionGameInstance::OnStartSessionCompleted(FName SessionName, bool bS
 {
 	if(!bSuccess)
 	{
-		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-		{
-			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T START SESSION", "ERROR STARTING SESSION, PLEASE TRY AGAIN!");
-		}
 	}
 	
 	OnStartSessionComplete.Broadcast(bSuccess);
@@ -333,7 +324,6 @@ void UExtractionGameInstance::OnEndSessionCompleted(FName SessionName, bool bSuc
 
 void UExtractionGameInstance::OnDestroySessionCompleted(FName SessionName, bool bSuccess)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Session Destroyed"));
 	OnDestroySessionComplete.Broadcast(bSuccess);
 }
 
@@ -345,21 +335,17 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 
 		if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
 		{
-			//enable loading screen
 			ShowLoadingScreen();
 
 			FString ServerAddress;
 			Session->GetResolvedConnectString(SessionName, ServerAddress);
-
+			OnJoinSessionComplete.Broadcast(true);
 			PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Absolute);
 		}
 	}
 	else
 	{
-		if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-		{
-			GameHUD->NetworkErrorWidget->OnNetworkError("COULDN'T JOIN SESSION", "ERROR JOINING SESSION, PLEASE TRY AGAIN!");
-		}
+		OnJoinSessionComplete.Broadcast(false);
 	}
 }
 
@@ -425,12 +411,24 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 			}
 		}
 	}
+	else
+	{
+		OnMatchmakingFailedDelegate.Broadcast();
+	}
 }
 
 void UExtractionGameInstance::HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId,
 	FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult)
 {
 	//TODO: check if session is full, if so reject invite
+	const FName SessionID = FName(*InviteResult.GetSessionIdStr());
+
+	if(Session->GetNamedSession(SessionID) && Session->GetNamedSession(SessionID)->NumOpenPublicConnections >= 2)
+	{
+		OnSessionAcceptedResultDelegate.Broadcast(false);
+		return;
+	}
+	
 	if(bWasSuccessful)
 	{
 		DestroySession();
@@ -438,8 +436,8 @@ void UExtractionGameInstance::HandleSessionInviteAccepted(const bool bWasSuccess
 		FOnlineSessionSearchResult InviteResultCopy = InviteResult;
 		InviteResultCopy.Session.SessionSettings.bUsesPresence = false;
 
-		const FName SessionID = FName(*InviteResult.GetSessionIdStr());
 		Session->JoinSession(0, SessionID, InviteResultCopy);
+		OnSessionAcceptedResultDelegate.Broadcast(true);
 	}
 }
 
@@ -499,18 +497,19 @@ void UExtractionGameInstance::OnLoginCompleted(int32 LocalUser, bool bWasSuccess
 void UExtractionGameInstance::HandleNetworkFailure(UWorld* World, UNetDriver* NetDriver,
 	ENetworkFailure::Type FailureType, const FString& ErrorString)
 {
-	if(AGameHUD* GameHUD = Cast<AGameHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-	{
-		GameHUD->NetworkErrorWidget->OnNetworkError(GetNetworkErrorMessage(FailureType), ErrorString);
-	}
+	OnNetworkErrorDelegate.Broadcast(ToString(FailureType), ErrorString);
 }
+
+void UExtractionGameInstance::OnTravelError(UWorld* World, ETravelFailure::Type FailureType,
+	const FString& ErrorString)
+{
+	OnTravelErrorDelegate.Broadcast(ToString(FailureType), ErrorString);
+}
+
+
 
 void UExtractionGameInstance::OnUserWriteComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error)
 {
-	if(bWasSuccess)
-	{
-	}
-	
 	UserWriteCompleteDelegate.Broadcast(bWasSuccess);
 }
 

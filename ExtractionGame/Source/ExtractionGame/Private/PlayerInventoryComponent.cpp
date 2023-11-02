@@ -74,11 +74,10 @@ void UPlayerInventoryComponent::OnRep_InventoryItems()
 	}
 }
 
-void UPlayerInventoryComponent::Server_AddItem_Implementation(UItem* Item, int StackSize, int InventoryIndex,
-	int SlotID)
+void UPlayerInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID)
 {
-	Super::Server_AddItem_Implementation(Item, StackSize, InventoryIndex, SlotID);
-
+	Super::AddItem(Item, StackSize, bClientSimulation, SlotID);
+	
 	if(Item->ItemType == EItemType::Gem)
 	{
 		if(UGemSlot* GemSlot = Cast<UGemSlot>(InventoryWidget->GetSlot(SlotID)))

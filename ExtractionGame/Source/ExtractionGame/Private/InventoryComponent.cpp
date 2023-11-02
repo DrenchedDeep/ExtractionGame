@@ -49,10 +49,9 @@ void UInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimula
 		{
 			SlotWidget = InventoryWidget->GetSlot(SlotID);
 		}
+		
 		if(SlotWidget)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Found Next Slot"));
-
 			SlotWidget->PredictVisuals(Item, StackSize);
 
 			//need to set the inventory index on the local client aswell

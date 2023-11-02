@@ -31,6 +31,14 @@ UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserReadComplete, bool, bWasSuccess);
 UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGetFileComplete, FString, FileName, TArray<uint8>, DataRef);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnNetworkError, FName, ErrorName, FString, ErrorDescription);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnTravelError, FName, ErrorName, FString, ErrorDescription);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMatchmakingFailed);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSessionAcceptedResult, bool, bWasSuccess);
 
 USTRUCT(BlueprintType)
 struct FPlayerSessionData
@@ -131,6 +139,10 @@ public:
 	UPROPERTY(BlueprintAssignable) FOnUserWriteComplete UserWriteCompleteDelegate;
 	UPROPERTY(BlueprintAssignable) FOnUserReadComplete UserReadCompleteDelegate;
 	UPROPERTY(BlueprintAssignable) FOnGetFileComplete GetFileCompleteDelegate;
+	UPROPERTY(BlueprintAssignable) FOnMatchmakingFailed OnMatchmakingFailedDelegate;
+	UPROPERTY(BlueprintAssignable) FOnSessionAcceptedResult OnSessionAcceptedResultDelegate;
+	UPROPERTY(BlueprintAssignable) FOnNetworkError OnNetworkErrorDelegate;
+	UPROPERTY(BlueprintAssignable) FOnTravelError OnTravelErrorDelegate;
 
 	FNamedOnlineSession* CurrentSession;
 	
@@ -155,6 +167,9 @@ protected:
 	void HandleNetworkFailure(UWorld * World, UNetDriver * NetDriver, ENetworkFailure::Type FailureType, const FString & ErrorString);
 	void OnUserWriteComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& Error);
 	void OnUserReadComplete(bool bWasSuccess, const FUniqueNetId& UserId, const FString& FileName);
+	void OnTravelError(UWorld* World, ETravelFailure::Type FailureType, const FString & ErrorString);
+
+
 	
 private:
 	void CreateSession(int32 PlayerCount);

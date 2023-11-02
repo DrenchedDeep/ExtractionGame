@@ -18,8 +18,9 @@ void APlayerStashManager::BeginPlay()
 	
 	GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
 	GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
+
 	LoadInventory();
-	
+
 	if(const AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
 	{
 		UStashInventoryWidget* InventoryWidget = MainMenuHUD->MainMenuWidget->StashInventoryWidget;
@@ -140,6 +141,7 @@ void APlayerStashManager::OnReadInventory(FString FileName, TArray<uint8> DataRe
 		}
 		const TArray<FName> PartyMembers;
 		GameInstance->BuildPlayerSessionData(PlayerInventory->StashItems, PartyMembers);
+		SaveInventory();
 	}
 }
 

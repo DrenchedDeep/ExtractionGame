@@ -21,7 +21,7 @@ void AMainMenuHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	 UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 
 	if(GameInstance->PlayerRaidResult.bIsValid)
 	{

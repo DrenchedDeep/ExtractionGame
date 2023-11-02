@@ -77,11 +77,12 @@ void USlotWidget::TransferSlots(UInventoryComponent* SourceInventoryComponent, i
 
 void USlotWidget::PredictVisuals(UItem* Item, int Stack)
 {
+
 	if(Item == nullptr)
 	{
 		return;
 	}
-	
+
 	CurrentItem = Item;
 	SlotIconImage->SetVisibility(ESlateVisibility::Visible);
 	SlotIconImage->SetBrushFromTexture(Item->ItemIcon);
