@@ -10,14 +10,35 @@
 void UPlayerInventoryComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
+}
 
+void UPlayerInventoryComponent::OnRep_InventoryItems()
+{
+	if(!Character)
+	{
+		return;
+	}
+
+	if(Character->IsLocallyControlled() && bReconcileVisuals)
+	{
+		for(int i = 0; i < InventoryItems.Num(); i++)
+		{
+			TArray<USlotWidget*> Slots = InventoryWidget->GetSlots();
+			
+			for(int z = 0; z < Slots.Num(); z++)
+			{
+				if(InventoryItems[i].SlotID == Slots[z]->GetSlotID())
+				{
+					Slots[z]->ReconcileVisuals(InventoryItems[i]);
+				}
+			}
+		}
+	}
 }
 
 void UPlayerInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 
 	if(Character->IsLocallyControlled())
@@ -47,31 +68,11 @@ void UPlayerInventoryComponent::BeginPlay()
 			}
 		}
 	}
-	
 }
 
-void UPlayerInventoryComponent::OnRep_InventoryItems()
+void UPlayerInventoryComponent::SafeBeginPlay()
 {
-	if(!Character)
-	{
-		return;
-	}
-
-	if(Character->IsLocallyControlled() && bReconcileVisuals)
-	{
-		for(int i = 0; i < InventoryItems.Num(); i++)
-		{
-			TArray<USlotWidget*> Slots = InventoryWidget->GetSlots();
-			
-			for(int z = 0; z < Slots.Num(); z++)
-			{
-				if(InventoryItems[i].SlotID == Slots[z]->GetSlotID())
-				{
-					Slots[z]->ReconcileVisuals(InventoryItems[i]);
-				}
-			}
-		}
-	}
+	
 }
 
 void UPlayerInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID)

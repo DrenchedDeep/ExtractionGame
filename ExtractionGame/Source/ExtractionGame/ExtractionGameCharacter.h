@@ -184,21 +184,19 @@ protected:
 	
 
 public:
-
 	FORCEINLINE bool CanMove() const { return bCanMove;}
 
-	// -- Why are any of these public -- //
-	
-	//useful for sfx/cam shake/etc
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSlideStart();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSlideEnd();
-
-
+	
+	void SafeBeginPlay();
 	
 	UFUNCTION(Server, Unreliable)
 	void Server_SetInput(float VerticalMove, float HorizontalMove, float VertLook, float HorLook);
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeathEvent();
 	
 	
 protected:
@@ -206,7 +204,8 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
-
+	virtual void OnRep_Controller() override;
+	virtual void BeginDestroy() override;
 	/***************************************
 	 * Ability System
 	 ****************************************/
@@ -225,7 +224,7 @@ protected:
 		AExtractionGameCharacter* Instigator, AActor* DamageCauser);
 
 	virtual void HandleHealthChanged(float change, const struct FGameplayTagContainer& EventTags);
-
+	
 	friend UExtractionAttributeSet;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilities")

@@ -3,6 +3,9 @@
 
 #include "Components/HealthComponent.h"
 
+#include "GameFramework/PlayerState.h"
+#include "Net/UnrealNetwork.h"
+
 //#include "../../../../../../../UE_5.3_Source/UnrealEngine-release/Engine/Source/Runtime/Engine/Public/Net/UnrealNetwork.h"
 
 UHealthComponent::UHealthComponent()
@@ -14,32 +17,48 @@ void UHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	//DOREPLIFETIME(UHealthComponent, CurrentHealth);
+	DOREPLIFETIME(UHealthComponent, CurrentHealth);
+	DOREPLIFETIME(UHealthComponent, bIsDead);
 }
 
-void UHealthComponent::ApplyDamage(FDamageData DamageInfo, bool bClientSimulation)
+void UHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
 {
-	if(bClientSimulation)
+	if(!bCanTakeDamage)
 	{
-		OnRep_CurrentHealth();
 		return;
 	}
 	
-	CurrentHealth -= DamageInfo.Damage;
+	CurrentHealth -= Damage;
+	OnRep_CurrentHealth();
 
-	if(CurrentHealth <= 0.f)
+	if(CurrentHealth <= 0)
 	{
-		OnDeath();
+		bCanTakeDamage = false;
+		OnDeath("haa");
 	}
 }
 
-
-void UHealthComponent::OnDeath()
+void UHealthComponent::OnDeath(const FName& PlayerName)
 {
-	CurrentHealth = 0.f;
+	CurrentHealth = 0;
+	bIsDead = true;
+	OnRep_IsDead();
 }
+
 
 void UHealthComponent::OnRep_CurrentHealth()
 {
 	
+}
+
+void UHealthComponent::OnRep_IsDead()
+{
+}
+
+void UHealthComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	CurrentHealth = MaxHealth;
+	bCanTakeDamage = true;
 }

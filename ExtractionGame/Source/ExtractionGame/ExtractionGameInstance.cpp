@@ -46,6 +46,22 @@ void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime)
 	PlayerRaidResult = RaidResult;
 }
 
+void UExtractionGameInstance::StartSession()
+{
+	if(CurrentSession)
+	{
+		Session->StartSession(CurrentSession->SessionName);
+	}
+}
+
+void UExtractionGameInstance::StopSession()
+{
+	if(CurrentSession)
+	{
+		Session->EndSession(CurrentSession->SessionName);
+	}
+}
+
 
 void UExtractionGameInstance::Init()
 {
@@ -214,7 +230,8 @@ void UExtractionGameInstance::JoinSession()
 		SEARCH_KEYWORDS,
 		FString("GameplaySession"),
 		EOnlineComparisonOp::Equals);
-	
+
+	Session->OnFindSessionsCompleteDelegates.Clear();
 	Session->AddOnFindSessionsCompleteDelegate_Handle(FOnFindSessionsComplete::FDelegate::CreateUObject(
 		this,
 		&UExtractionGameInstance::OnFindSessionCompleted, SessionSearch));

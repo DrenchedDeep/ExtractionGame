@@ -10,6 +10,7 @@
 #include "OnlineSubsystemUtils.h"
 #include "OnlineSubsystem.h"
 #include "GameFramework/GameSession.h"
+#include "GameFramework/PlayerStart.h"
 #include "Interfaces/OnlineIdentityInterface.h"
 
 AExtractionGameGameMode::AExtractionGameGameMode()
@@ -28,6 +29,23 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 void AExtractionGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AExtractionGameGameMode::SpawnPlayer(APlayerController* PlayerController)
+{
+	APlayerStart* SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
+
+	if(!SpawnPoint)
+	{
+		SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
+	}
+	
+	APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor(Player, &SpawnPoint->GetActorTransform()));
+
+	if(PlayerPawn)
+	{
+		PlayerController->Possess(PlayerPawn);
+	}
 }
 
 void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)

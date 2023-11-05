@@ -117,6 +117,9 @@ public:
 
 	void BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers);
 	void OnRaidOver(bool bSurvived, float PlayTime);
+
+	void StartSession();
+	void StopSession();
 	
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) void CreateLobby();

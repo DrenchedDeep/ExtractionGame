@@ -91,6 +91,7 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 void AExtractionGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("00"))
 
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -128,6 +129,11 @@ void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove
 
 	VerticalLook = VertLook;
 	HorizontalLook = HorLook;
+}
+
+void AExtractionGameCharacter::SafeBeginPlay()
+{
+	InventoryComponent->SafeBeginPlay();
 }
 
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -197,6 +203,17 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 }
 
+void AExtractionGameCharacter::OnRep_Controller()
+{
+	Super::OnRep_Controller();
+}
+
+void AExtractionGameCharacter::BeginDestroy()
+{
+
+	Super::BeginDestroy();
+}
+
 UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
@@ -249,6 +266,7 @@ void AExtractionGameCharacter::HandleHealthChanged(float change, const FGameplay
 		OnHealthChanged(change, EventTags);
 	}
 }
+
 
 FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
 {

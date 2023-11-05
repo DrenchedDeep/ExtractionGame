@@ -24,29 +24,12 @@ void USlotWidget::Init(UInventoryComponent* InventoryComponent, int ID)
 void USlotWidget::Reset()
 {
 	//print("Resetting Slot");
-	UE_LOG(	LogTemp, Warning, TEXT("%i"), InventoryIndex);
 	CurrentItem = nullptr;
 	SlotIconImage->SetVisibility(ESlateVisibility::Hidden); 
 	SlotStackText->SetVisibility(ESlateVisibility::Hidden);
 	InventoryIndex = -1;
 	bIsOccupied = false;
 }
-
-/*/
-
-void USlotWidget::InitItem(UInventoryComponent* InventoryComponent, int InvenIndex)
-{
-	InventoryIndex = InvenIndex;
-
-	Inventory = InventoryComponent;
-	bIsOccupied = true;
-
-	SlotIconImage->SetVisibility(ESlateVisibility::Visible);
-	SlotIconImage->SetBrushFromTexture(Inventory->InventoryItems[InventoryIndex].ItemID->ItemIcon);
-	SlotStackText->SetText(FText::FromString(FString::FromInt(Inventory->InventoryItems[InventoryIndex].StackSize)));
-	SlotStackText->SetVisibility(ESlateVisibility::Visible);
-}
-/*/
 
 void USlotWidget::TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID)
 {

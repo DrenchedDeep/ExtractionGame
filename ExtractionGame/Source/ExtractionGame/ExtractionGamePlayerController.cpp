@@ -4,7 +4,13 @@
 #include "ExtractionGamePlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "ExtractionGameCharacter.h"
+#include "ExtractionGameGameMode.h"
+#include "ExtractionGameHUD.h"
 #include "ExtractionGameInstance.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/PlayerState.h"
+#include "GameFramework/SpectatorPawn.h"
+#include "Net/UnrealNetwork.h"
 
 void AExtractionGamePlayerController::ReturnToLobby()
 {
@@ -27,9 +33,80 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
 }
 
-void AExtractionGamePlayerController::BeginPlay()
+void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FName& PlayerName)
 {
-	Super::BeginPlay();
+	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	{
+		HUD->DeathWidget->AddToViewport();
+		HUD->DeathWidget->ShowScreen(PlayerName);
+	}
+}
+
+void AExtractionGamePlayerController::Server_SetName_Implementation(const FString& PlayerName)
+{
+	PlayerState->SetPlayerName(PlayerName);
+}
+
+void AExtractionGamePlayerController::Client_Respawn_Implementation()
+{
+	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	{
+		HUD->DeathWidget->RemoveFromParent();
+	}
+}
+
+void AExtractionGamePlayerController::OnDeath(const FName& PlayerName)
+{
+	if(GetPawn())
+	{
+		AExtractionGameCharacter* GameCharacter = Cast<AExtractionGameCharacter>(GetPawn());
+		PlayerPawnActor = GameCharacter;
+		
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		FVector Loc = GameCharacter->GetFirstPersonCameraComponent()->GetComponentLocation();
+		FRotator Rot = GameCharacter->GetFirstPersonCameraComponent()->GetComponentRotation();
+
+	
+		ASpectatorPawn* SP =  GetWorld()->SpawnActor<ASpectatorPawn>(SpectatorPawnSubclass, Loc, Rot, SpawnParameters);
+		UnPossess();
+		Possess(SP);
+
+		CurrentRespawnTimer = RespawnTimer;
+		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AExtractionGamePlayerController::RespawnTick, 1.f, true);
+		Client_OnDeath(PlayerName);
+	}
+}
+
+void AExtractionGamePlayerController::RespawnTick()
+{
+	CurrentRespawnTimer -= 1;
+
+	if(CurrentRespawnTimer <= 0)
+	{
+		if(PlayerPawnActor)
+		{
+			PlayerPawnActor->Destroy();
+		}
+
+		if(AExtractionGameGameMode* GameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		{
+			GameMode->SpawnPlayer(this);
+		}
+
+		Client_Respawn();
+		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
+	}
+}
+
+void AExtractionGamePlayerController::Client_ReturnToLobby_Implementation()
+{
+	ReturnToLobby();
+}
+
+void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
 
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -39,5 +116,28 @@ void AExtractionGamePlayerController::BeginPlay()
 
 void AExtractionGamePlayerController::ClientWasKicked_Implementation(const FText& KickReason)
 {
-	UGameplayStatics::OpenLevel(GetWorld(), "LVL_Startup");
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+	GameInstance->ShowLoadingScreen();
+	
+	if(GameInstance->CurrentSession)
+	{
+		GameInstance->DestroySession();
+	}
+	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
+}
+
+void AExtractionGamePlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AExtractionGamePlayerController, CurrentRespawnTimer);
+}
+
+void AExtractionGamePlayerController::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+
+	Server_SetName("PLAYERRRR1");
 }

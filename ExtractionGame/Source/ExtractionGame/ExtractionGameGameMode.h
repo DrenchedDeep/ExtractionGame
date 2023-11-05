@@ -12,6 +12,9 @@ class AExtractionGameGameMode : public AGameModeBase
 
 	UPROPERTY(EditDefaultsOnly, Category="Player", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AExtractionGameCharacter> PlayerActor;
+	
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AExtractionGameCharacter> Player;
 
 	bool SessionCreated;
 
@@ -23,10 +26,11 @@ public:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
 
-private:
+	void SpawnPlayer(APlayerController* PlayerController);
+protected:
 	bool bAllExistingPlayersRegistered;
 
-	void RegisterPlayerEOS(APlayerController* NewPlayer);
+	virtual void RegisterPlayerEOS(APlayerController* NewPlayer);
 };
 
 

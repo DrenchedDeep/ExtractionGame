@@ -20,9 +20,13 @@ class EXTRACTIONGAME_API UInventoryWidget : public UUserWidget
 	UPROPERTY(meta = (BindWidget))
 	UWrapBox* InventoryGridPanel;
 
+	bool bInitialized;
+	
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void Init(UInventoryComponent* InventoryComponent, int32 SlotSize, bool bInitGemSlots = true);
+
+	void Reset();
 
 	UPROPERTY(BlueprintReadOnly)
 	UInventoryComponent* OwnerInventory;
@@ -50,9 +54,7 @@ public:
 		
 		return InventorySlot;
 	}
-
-	bool SetSlot(int SlotIndex, int ItemIndex, UInventoryComponent* Inventory);
-
+	
 	FORCEINLINE USlotWidget* GetNextSlot()
 	{
 		USlotWidget* InventorySlot = nullptr;

@@ -13,13 +13,15 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UHealthComponent
 	GENERATED_BODY()
 
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
-	
+
 public:	
 	UPlayerHealthComponent();
 
 	virtual void InitializeComponent() override;
-	virtual void ApplyDamage(FDamageData DamageInfo, bool bClientSimulation) override;
-	virtual void OnDeath() override;
+	virtual void OnDeath(const FName& PlayerName);
+	virtual void OnRep_IsDead() override;
+	virtual void ApplyDamage(float Damage, const AController* Instigator) override;
+	
 
 	UFUNCTION(Client, Unreliable)
 	void Client_ApplyDamage();
