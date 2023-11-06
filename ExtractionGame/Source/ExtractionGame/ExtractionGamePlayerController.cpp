@@ -78,6 +78,18 @@ void AExtractionGamePlayerController::OnDeath(const FName& PlayerName)
 	}
 }
 
+void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const FString& KillerName,
+	const FString& VictimName, const FString& DeathCause)
+{
+	//show kill ui
+	if(KillerName == PlayerState->GetPlayerName())
+	{
+		
+	}
+
+	//killfeed ui???
+}
+
 void AExtractionGamePlayerController::RespawnTick()
 {
 	CurrentRespawnTimer -= 1;
@@ -97,6 +109,11 @@ void AExtractionGamePlayerController::RespawnTick()
 		Client_Respawn();
 		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
 	}
+}
+
+void AExtractionGamePlayerController::OnPlayerKilled(const FString& KillerName, const FString& VictimName,
+	const FString& DeathCause)
+{
 }
 
 void AExtractionGamePlayerController::Client_ReturnToLobby_Implementation()
@@ -141,3 +158,4 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 
 	Server_SetName("PLAYERRRR1");
 }
+

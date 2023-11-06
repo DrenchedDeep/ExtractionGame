@@ -91,7 +91,6 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 void AExtractionGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("00"))
 
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -133,7 +132,6 @@ void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove
 
 void AExtractionGameCharacter::SafeBeginPlay()
 {
-	InventoryComponent->SafeBeginPlay();
 }
 
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -193,6 +191,8 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		AddStartupGameplayAbilities();
 	}
+
+	InventoryComponent->InitInventory();
 }
 
 void AExtractionGameCharacter::OnRep_PlayerState()
@@ -201,6 +201,7 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	
 	//Client GAS initialization
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	InventoryComponent->InitInventory();
 }
 
 void AExtractionGameCharacter::OnRep_Controller()

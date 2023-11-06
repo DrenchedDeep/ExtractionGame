@@ -29,20 +29,13 @@ public:
 	virtual void ReturnToLobby();
 	UFUNCTION(Reliable, Client)
 	void Client_ReturnToLobby();
-	UFUNCTION(Reliable, Client)
-	void Client_OnDeath(const FName& PlayerName);
-	UFUNCTION(Reliable, Client)
-	void Client_Respawn();
-	UFUNCTION(Reliable, Server)
-	void Server_SetName(const FString& PlayerName);
-
 	virtual void OnDeath(const FName& PlayerName);
-
-	virtual void RespawnTick();
-
+	
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
 
+	virtual void OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
+	
 protected:
 	/** Input Mapping Context to be used for player input */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
@@ -52,4 +45,16 @@ protected:
 	virtual void ClientWasKicked_Implementation(const FText& KickReason) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void OnRep_PlayerState() override;
+
+	UFUNCTION(Reliable, Client)
+	void Client_OnDeath(const FName& PlayerName);
+	UFUNCTION(Reliable, Client)
+	void Client_Respawn();
+	UFUNCTION(Reliable, Server)
+	void Server_SetName(const FString& PlayerName);
+
+	UFUNCTION(Reliable, Client)
+	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
+
+	virtual void RespawnTick();
 };

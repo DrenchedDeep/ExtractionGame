@@ -58,6 +58,7 @@ protected:
 	virtual void HandleMatchHasEnded() override;
 	virtual void HandleLeavingMap() override;
 
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void MatchStateChanged(const FName& NewState);
 	

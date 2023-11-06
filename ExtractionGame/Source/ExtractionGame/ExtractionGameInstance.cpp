@@ -148,7 +148,8 @@ FString UExtractionGameInstance::GetPlayerUsername()
 		return UserIdentity->GetPlayerNickname(0);
 	}
 
-	return FString();
+	const FString RandomPlayerName = TEXT("PLAYER") + FString::FromInt(FMath::RandRange(0, 1000));
+	return RandomPlayerName;
 }
 
 bool UExtractionGameInstance::IsLoggedIn()

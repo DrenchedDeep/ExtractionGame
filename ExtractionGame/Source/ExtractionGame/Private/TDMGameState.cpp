@@ -58,6 +58,7 @@ int32 ATDMGameState::RegisterPlayerToTeam(APlayerController* PlayerController)
 	return TeamToJoin;
 }
 
+
 void ATDMGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

@@ -15,10 +15,10 @@ class EXTRACTIONGAME_API UPlayerInventoryComponent : public UInventoryComponent
 	GENERATED_BODY()
 
 public:
+	virtual void BeginPlay() override;
+	virtual void InitInventory();
 	virtual void InitializeComponent() override;
 	virtual void OnRep_InventoryItems() override;
-	virtual void BeginPlay() override;
-	void SafeBeginPlay();
 	
 private:
 	UPROPERTY()

@@ -93,7 +93,6 @@ void UGemController::Client_OnGemCreated_Implementation(int GemSlotID, AGem* Gem
 
 void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
 {
-	GLog->Log("HIAAAAAAAAAA");
 	AGem** gem = GetGemBySlot(slot);
 	if(*gem)
 	{
