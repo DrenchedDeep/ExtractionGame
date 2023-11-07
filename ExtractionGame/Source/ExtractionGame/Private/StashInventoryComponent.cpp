@@ -13,6 +13,7 @@ void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 In
 	{
 		InventoryWidget = InvenWidget->StashGridPanel;
 		InventoryWidget->Init(this, InventorySize, false);
+		
 	}
 	else
 	{
@@ -113,5 +114,13 @@ FInventoryItem UStashInventoryComponent::GetInventoryItem(int InventoryID)
 	}
 
 	return InventoryItem;
+}
+
+void UStashInventoryComponent::InitStartingItems()
+{
+	for(int i = 0; i < StartingItems.Num(); i++)
+	{
+		AddItem(StartingItems[i].ItemID, StartingItems[i].Stack, true);
+	}
 }
 

@@ -3,6 +3,7 @@
 
 #include "Components/HealthComponent.h"
 
+#include "ExtractionGame/ExtractionGameCharacter.h"
 #include "GameFramework/PlayerState.h"
 #include "Net/UnrealNetwork.h"
 
@@ -34,11 +35,12 @@ void UHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
 	if(CurrentHealth <= 0)
 	{
 		bCanTakeDamage = false;
-		OnDeath("haa");
+		AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(GetOwner());
+		OnDeath(Character->GetPlayerState()->GetPlayerName());
 	}
 }
 
-void UHealthComponent::OnDeath(const FName& PlayerName)
+void UHealthComponent::OnDeath(const FString& PlayerName)
 {
 	CurrentHealth = 0;
 	bIsDead = true;

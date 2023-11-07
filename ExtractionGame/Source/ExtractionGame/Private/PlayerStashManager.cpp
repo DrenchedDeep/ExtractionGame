@@ -2,6 +2,7 @@
 #include "MainMenuHUD.h"
 #include "PlayerSaveData.h"
 #include "PlayerSaveData.h"
+#include "SNegativeActionButton.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "ExtractionGame/ExtractionGameInstance.h"
 
@@ -13,13 +14,13 @@ APlayerStashManager::APlayerStashManager()
 
 void APlayerStashManager::BeginPlay()
 {
+	//check if first time launch by getting files check if there is a playersavedata
 	Super::BeginPlay();
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
+	GameInstance->UserReadCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnFilesRead);
 	GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
-
-	LoadInventory();
 
 	if(const AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
 	{
@@ -28,15 +29,30 @@ void APlayerStashManager::BeginPlay()
 		PlayerInventory->Init(InventoryWidget, 20, true);
 		StashInventory->Init(InventoryWidget, 60, false);
 	}
+
+	if(!GameInstance->bFirstTime)
+	{
+		StashInventory->InitStartingItems();
+		GameInstance->bFirstTime = true;
+	}
+	
+	LoadInventory();
 }
 
 void APlayerStashManager::SaveInventory()
 {
+	//disable for now
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	const TArray<FName> PartyMembers;
 	GameInstance->BuildPlayerSessionData(PlayerInventory->StashItems, PartyMembers);
 
+	bool bDisable = true;
+
+	if(bDisable)
+	{
+		return;
+	}
 	const FString FileName = TEXT("PlayerSaveData");
 
 	bool bHasSavedSlot = UGameplayStatics::DoesSaveGameExist(FileName, 0);
@@ -98,6 +114,7 @@ void APlayerStashManager::LoadInventory()
 
 void APlayerStashManager::OnReadInventory(FString FileName, TArray<uint8> DataRef)
 {
+	
 	if(FileName != "PlayerSaveData")
 	{
 		return;
@@ -111,7 +128,6 @@ void APlayerStashManager::OnReadInventory(FString FileName, TArray<uint8> DataRe
 	}
 	
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
-
 	USaveGame* SaveGame = GameInstance->ConvertIntToSavedFile(DataRef);
 
 	if(const UPlayerSaveData* PlayerSavedData = Cast<UPlayerSaveData>(SaveGame))
@@ -149,5 +165,11 @@ void APlayerStashManager::OnSavedInventory(bool bWasSuccess)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Saved Inventory"));
 }
+
+void APlayerStashManager::OnFilesRead(bool bWasSuccess)
+{
+		bRanFirstTimeCheck = true;
+}
+
 
 

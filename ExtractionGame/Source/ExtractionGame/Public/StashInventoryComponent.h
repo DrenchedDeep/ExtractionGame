@@ -24,6 +24,8 @@ public:
 	
 	virtual FInventoryItem GetInventoryItem(int InventoryID) override;
 
+	void InitStartingItems();
+	
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FInventoryItem> StashItems;
 

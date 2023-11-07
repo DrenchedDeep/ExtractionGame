@@ -151,12 +151,14 @@ public:
 	
 	bool bCreatedSession;
 	bool bLoadedInventoryOnStart;
-
+	bool bFirstTime;
 	TArray<uint8> ConvertSavedFileToInt(USaveGame* SavedGame);
 	USaveGame* ConvertIntToSavedFile(TArray<uint8> Data);
 
 	void UpdatePlayerData(FString FileName, TArray<uint8> DataRef);
 	void ReadPlayerData(FString FileName);
+	TArray<FCloudFileHeader>& GetEosPlayerFiles();
+	TArray<FCloudFileHeader> CloudFiles;
 
 protected:
 	void OnCreateSessionCompleted(FName SessionName, bool bSuccess);

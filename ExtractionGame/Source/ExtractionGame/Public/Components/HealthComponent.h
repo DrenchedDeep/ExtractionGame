@@ -22,7 +22,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void ApplyDamage(float Damage, const AController* Instigator);
 	
-	virtual void OnDeath(const FName& PlayerName);
+	virtual void OnDeath(const FString& PlayerName);
 	
 	UPROPERTY(ReplicatedUsing=OnRep_CurrentHealth)
 	float CurrentHealth;

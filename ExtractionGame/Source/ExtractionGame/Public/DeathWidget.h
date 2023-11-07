@@ -17,7 +17,7 @@ class EXTRACTIONGAME_API UDeathWidget : public UUserWidget
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
-	void ShowScreen(const FName& PlayerName);
+	void ShowScreen(const FString& PlayerName);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateRespawnTimerText(float RespawnTimer);

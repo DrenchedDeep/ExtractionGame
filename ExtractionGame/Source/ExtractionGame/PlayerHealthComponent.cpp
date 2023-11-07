@@ -19,7 +19,7 @@ void UPlayerHealthComponent::InitializeComponent()
 }
 
 
-void UPlayerHealthComponent::OnDeath(const FName& PlayerName)
+void UPlayerHealthComponent::OnDeath(const FString& PlayerName)
 {
 	Super::OnDeath(PlayerName);
 
