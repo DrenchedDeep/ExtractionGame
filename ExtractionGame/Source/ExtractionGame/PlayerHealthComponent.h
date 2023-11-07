@@ -18,7 +18,7 @@ public:
 	UPlayerHealthComponent();
 
 	virtual void InitializeComponent() override;
-	virtual void OnDeath(const FName& PlayerName);
+	virtual void OnDeath(const FString& PlayerName);
 	virtual void OnRep_IsDead() override;
 	virtual void ApplyDamage(float Damage, const AController* Instigator) override;
 	

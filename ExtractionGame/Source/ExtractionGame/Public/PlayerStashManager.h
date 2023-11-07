@@ -17,6 +17,8 @@ class EXTRACTIONGAME_API APlayerStashManager : public AActor
 
 	UPROPERTY(EditDefaultsOnly)
 	TArray<UItem*> StartingItems;
+
+	bool bRanFirstTimeCheck;
 	
 public:	
 	APlayerStashManager();
@@ -46,6 +48,8 @@ public:
 	void OnReadInventory(FString FileName, TArray<uint8> DataRef);
 	UFUNCTION()
 	void OnSavedInventory(bool bWasSuccess);
+	UFUNCTION()
+	void OnFilesRead(bool bWasSuccess);
 };
 
 

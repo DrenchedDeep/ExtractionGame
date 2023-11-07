@@ -35,7 +35,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
 }
 
-void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FName& PlayerName)
+void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FString& PlayerName)
 {
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
@@ -57,7 +57,7 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 	}
 }
 
-void AExtractionGamePlayerController::OnDeath(const FName& PlayerName)
+void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 {
 	if(GetPawn())
 	{
@@ -80,7 +80,7 @@ void AExtractionGamePlayerController::OnDeath(const FName& PlayerName)
 
 		if(ATDMGameState* GameState = Cast<ATDMGameState>(GetWorld()->GetGameState()))
 		{
-			GameState->OnPlayerKilled(PlayerName.ToString(), PlayerState->GetPlayerName(), "KILLED");
+			GameState->OnPlayerKilled(PlayerName, PlayerState->GetPlayerName(), "KILLED");
 		}
 	}
 }
@@ -167,6 +167,6 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 
-	Server_SetName("PLAYERRRR1");
+	Server_SetName(GameInstance->GetPlayerUsername());
 }
 

@@ -29,7 +29,7 @@ public:
 	virtual void ReturnToLobby();
 	UFUNCTION(Reliable, Client)
 	void Client_ReturnToLobby();
-	virtual void OnDeath(const FName& PlayerName);
+	virtual void OnDeath(const FString& PlayerName);
 	
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
@@ -47,7 +47,7 @@ protected:
 	virtual void OnRep_PlayerState() override;
 
 	UFUNCTION(Reliable, Client)
-	void Client_OnDeath(const FName& PlayerName);
+	void Client_OnDeath(const FString& PlayerName);
 	UFUNCTION(Reliable, Client)
 	void Client_Respawn();
 	UFUNCTION(Reliable, Server)

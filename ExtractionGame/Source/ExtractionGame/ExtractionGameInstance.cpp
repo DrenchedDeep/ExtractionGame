@@ -217,6 +217,17 @@ void UExtractionGameInstance::ReadPlayerData(FString FileName)
 	}
 }
 
+TArray<FCloudFileHeader>& UExtractionGameInstance::GetEosPlayerFiles()
+{
+	TArray<FCloudFileHeader>& Files = CloudFiles;
+	IOnlineUserCloudPtr UserCloud = OnlineSubSystem->GetUserCloudInterface();
+	
+	const TSharedPtr<const FUniqueNetId> UserIDRef =  UserIdentity->GetUniquePlayerId(0).ToSharedRef();
+	UserCloud->GetUserFileList(*UserIDRef, Files);
+	
+	return Files;
+}
+
 void UExtractionGameInstance::JoinSession()
 {
 	if(Session == nullptr)
