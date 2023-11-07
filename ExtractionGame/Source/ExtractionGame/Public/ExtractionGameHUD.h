@@ -28,10 +28,13 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UDeathWidget> DeathWidgetSubclass;
-
 	
 	UInventoryWidget* CreateInventoryWidget();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnPlayerKilled(const FString& PlayerName);
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateMatchTimerText(int32 MatchTimer);
 private:
 	virtual void BeginPlay() override;
 };

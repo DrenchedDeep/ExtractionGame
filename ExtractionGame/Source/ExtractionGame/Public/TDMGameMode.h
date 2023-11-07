@@ -22,8 +22,10 @@ class EXTRACTIONGAME_API ATDMGameMode : public AGameMode
 	TSubclassOf<AExtractionGameCharacter> Player;
 
 	void RespawnAllPlayerPawns();
+
+public:
+	virtual void SpawnPlayer(APlayerController* NewPlayer, int32 TeamID);
 	
 private:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
-	virtual void SpawnPlayer(APlayerController* NewPlayer, int32 TeamID);
 };

@@ -7,6 +7,8 @@
 #include "ExtractionGameGameMode.h"
 #include "ExtractionGameHUD.h"
 #include "ExtractionGameInstance.h"
+#include "TDMGameMode.h"
+#include "TDMGameState.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/SpectatorPawn.h"
@@ -75,6 +77,11 @@ void AExtractionGamePlayerController::OnDeath(const FName& PlayerName)
 		CurrentRespawnTimer = RespawnTimer;
 		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AExtractionGamePlayerController::RespawnTick, 1.f, true);
 		Client_OnDeath(PlayerName);
+
+		if(ATDMGameState* GameState = Cast<ATDMGameState>(GetWorld()->GetGameState()))
+		{
+			GameState->OnPlayerKilled(PlayerName.ToString(), PlayerState->GetPlayerName(), "KILLED");
+		}
 	}
 }
 
@@ -84,7 +91,10 @@ void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const
 	//show kill ui
 	if(KillerName == PlayerState->GetPlayerName())
 	{
-		
+		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+		{
+			HUD->OnPlayerKilled(VictimName);
+		}
 	}
 
 	//killfeed ui???
@@ -101,9 +111,10 @@ void AExtractionGamePlayerController::RespawnTick()
 			PlayerPawnActor->Destroy();
 		}
 
-		if(AExtractionGameGameMode* GameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		if(ATDMGameMode* GameMode = Cast<ATDMGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
-			GameMode->SpawnPlayer(this);
+			ATDMPlayerState* PS = Cast<ATDMPlayerState>(PlayerState);
+			GameMode->SpawnPlayer(this, PS->TeamID);
 		}
 
 		Client_Respawn();

@@ -61,13 +61,12 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 
 void ATDMGameMode::SpawnPlayer(APlayerController* NewPlayer, int32 TeamID)
 {
-	ATDMGameState* TDMGameState = Cast<ATDMGameState>(GetWorld()->GetGameState());
-	APlayerStart* SpawnPoint = TDMGameState->GetTeamSpawnPoint(TeamID);
+	APlayerStart* SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
 
 	if(!SpawnPoint)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No spawn point found for team %d"), TeamID);
-		SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
+//		UE_LOG(LogTemp, Warning, TEXT("No spawn point found for team %d"), TeamID);
+	//	SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("Spawning player at %s"), *SpawnPoint->GetActorLocation().ToString());
@@ -77,6 +76,6 @@ void ATDMGameMode::SpawnPlayer(APlayerController* NewPlayer, int32 TeamID)
 	if(PlayerPawn)
 	{
 		NewPlayer->Possess(PlayerPawn);
-		PlayerPawn->SetOwner(NewPlayer);
+	//	PlayerPawn->SetOwner(NewPlayer);
 	}
 }

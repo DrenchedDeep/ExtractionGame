@@ -37,6 +37,9 @@ class EXTRACTIONGAME_API ATDMGameState : public AGameState
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly)
+	float MatchLength = 30.f;
+	
 public:
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	FTDMTeam RedTeam;
@@ -50,6 +53,7 @@ public:
 	virtual void PreInitializeComponents() override;
 	virtual int32 RegisterPlayerToTeam(APlayerController* PlayerController);
 
+	void OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void OnRep_MatchState() override;
@@ -57,7 +61,7 @@ protected:
 	virtual void HandleMatchHasStarted() override;
 	virtual void HandleMatchHasEnded() override;
 	virtual void HandleLeavingMap() override;
-
+	virtual void OnRep_ElapsedTime() override;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void MatchStateChanged(const FName& NewState);

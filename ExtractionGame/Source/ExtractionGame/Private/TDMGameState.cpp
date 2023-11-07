@@ -3,6 +3,7 @@
 
 #include "TDMGameState.h"
 
+#include "ExtractionGameHUD.h"
 #include "ExtractionGame/ExtractionGamePlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
@@ -58,6 +59,17 @@ int32 ATDMGameState::RegisterPlayerToTeam(APlayerController* PlayerController)
 	return TeamToJoin;
 }
 
+void ATDMGameState::OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause)
+{
+	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		if(AExtractionGamePlayerController* PlayerController = Cast<AExtractionGamePlayerController>(Iterator->Get()))
+		{
+			PlayerController->Client_OnPlayerKilled_Implementation(KillerName, VictimName, DeathCause);
+		}
+	}
+}
+
 
 void ATDMGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -71,23 +83,28 @@ void ATDMGameState::OnRep_MatchState()
 {
 	Super::OnRep_MatchState();
 
+	UE_LOG(LogTemp, Warning, TEXT("HI"));
 	MatchStateChanged(GetMatchState());
 }
 
 void ATDMGameState::HandleMatchIsWaitingToStart()
 {
+	Super::HandleMatchIsWaitingToStart();
 }
 
 void ATDMGameState::HandleMatchHasStarted()
 {
+	Super::HandleMatchHasStarted();
 }
 
 void ATDMGameState::HandleMatchHasEnded()
 {
+	Super::HandleMatchHasEnded();
 }
 
 void ATDMGameState::HandleLeavingMap()
 {
+	Super::HandleLeavingMap();
 	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
 	{
 		APlayerController* PlayerController = Iterator->Get();
@@ -98,4 +115,18 @@ void ATDMGameState::HandleLeavingMap()
 		}
 	}
 }
+
+void ATDMGameState::OnRep_ElapsedTime()
+{
+	Super::OnRep_ElapsedTime();
+
+	if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(GetWorld()->GetFirstPlayerController()))
+	{
+		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
+		{
+			HUD->UpdateMatchTimerText(ElapsedTime);
+		}
+	}
+}
+
 
