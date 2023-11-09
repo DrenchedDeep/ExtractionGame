@@ -8,7 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPooledObjectDespawn, APooledObject*, poolActor, FString, PoolName);
 
-UCLASS()
+UCLASS(Abstract)
 class EXTRACTIONGAME_API APooledObject : public AActor
 {
 	GENERATED_BODY()
@@ -21,7 +21,17 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Pooled Object")
 	void SetActivate(bool isOn);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void SetAttributes(float power, FName groupName) PURE_VIRTUAL(APooledObject::SetAttributes, );
+	
+
+	
 	
 protected:
 	virtual void Destroyed() override;
+
+	UPROPERTY(BlueprintReadWrite)
+	float Power;
 };
+

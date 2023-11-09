@@ -9,6 +9,7 @@
 #include "Interfaces/OnlineSessionInterface.h"
 #include "OnlineSessionSettings.h"
 #include "Core/AbilityHandlerSubSystem.h"
+#include "Core/PoolHandlerSubSystem.h"
 #include "ExtractionGameInstance.generated.h"
 
 UDELEGATE()
@@ -100,7 +101,8 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	UPROPERTY()
 	UAbilityHandlerSubSystem* AbilityHandlerSubSystem;
 
-	
+	UPROPERTY()
+	UPoolHandlerSubSystem* PoolHandlerSubSystem;
 
 public:
 	const int SESSION_PLAYERCOUNT = 4;

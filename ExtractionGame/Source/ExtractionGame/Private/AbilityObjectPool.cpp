@@ -2,6 +2,9 @@
 
 #include "AbilityObjectPool.h"
 
+#include "Core/AbilityHandlerSubSystem.h"
+#include "Core/PoolHandlerSubSystem.h"
+
 /*Not possible rn
 APooledObject* AAbilityObjectPool::EmergencySpawn(const FString& map)
 {
@@ -36,7 +39,8 @@ void AAbilityObjectPool::BeginPlay()
 	Super::BeginPlay();
 
 	UWorld* const world = GetWorld();
-
+	GetGameInstance()->GetSubsystem<UPoolHandlerSubSystem>()->SetPool(this);
+	
 	verify(world);
 	
 	for (const auto pool : PooledObjectSubclass)

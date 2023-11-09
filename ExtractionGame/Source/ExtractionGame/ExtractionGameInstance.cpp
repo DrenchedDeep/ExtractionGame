@@ -73,6 +73,12 @@ void UExtractionGameInstance::Init()
 		AbilityHandlerSubSystem = NewObject<UAbilityHandlerSubSystem>(this);
 	}
 
+	PoolHandlerSubSystem = GetSubsystem<UPoolHandlerSubSystem>();
+	if (!PoolHandlerSubSystem)
+	{
+		PoolHandlerSubSystem = NewObject<UPoolHandlerSubSystem>(this);
+	}
+
 	SetupOnlineSubsystem();
 	Session = OnlineSubSystem->GetSessionInterface();
 
