@@ -5,9 +5,11 @@
 
 APooledObject* UPoolHandlerSubSystem::SpawnObject(FString type)
 {
-
-	verify(Pool);
-	
+	if(!Pool)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("How was the pool null"))
+		return nullptr;
+	}
 	return Pool->SpawnPoolObject(type);
 }
 

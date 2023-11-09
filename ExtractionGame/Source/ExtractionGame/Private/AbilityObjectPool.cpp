@@ -12,7 +12,7 @@ APooledObject* AAbilityObjectPool::SpawnPoolObject(FString map)
 	
 	APooledObject* out = ObjectPool[map].pool[ObjectPool[map].index];//= nullptr;
 
-	verify(out);
+	if(!out) return nullptr;
 	
 	out->SetActivate(true);
 	

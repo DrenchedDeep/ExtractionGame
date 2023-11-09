@@ -19,10 +19,13 @@ public:
 
 	FOnPooledObjectDespawn OnPooledObjectDespawn;
 
-	UFUNCTION(BlueprintCallable, Category="Pooled Object")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Pooled Object")
 	void SetActivate(bool isOn);
+	virtual void SetActivate_Implementation(bool isOn);
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Pooling")
+	
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Pooling")
 	void SetAttributes(float power, FName groupName);
 	//virtual void SetAttributes_Implementation(float power, FName groupName);
 
