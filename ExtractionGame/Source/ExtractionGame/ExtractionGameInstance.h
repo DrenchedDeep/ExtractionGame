@@ -92,7 +92,6 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	//TODO: clean up this code, its messy having it all in the game instance because game instance is still the same across levels and you can only interact with sessions in main menu
 	GENERATED_BODY()
 
-	const int SESSION_PLAYERCOUNT = 4;
 	
 	IOnlineSubsystem* OnlineSubSystem;
 	IOnlineIdentityPtr UserIdentity;
@@ -104,6 +103,8 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	
 
 public:
+	const int SESSION_PLAYERCOUNT = 4;
+
 	UExtractionGameInstance();
 	virtual void Init() override;
 	virtual void Shutdown() override;
@@ -124,6 +125,8 @@ public:
 	UFUNCTION(BlueprintCallable) void JoinSession();
 	UFUNCTION(BlueprintCallable) void CreateLobby();
 	UFUNCTION(BlueprintCallable) void DestroySession();
+	UFUNCTION(BlueprintCallable) bool TryAutoLogin();
+	UFUNCTION(BlueprintCallable) bool LogOut();
 	
 	UFUNCTION(BlueprintImplementableEvent) void ShowLoadingScreen();
 
@@ -148,7 +151,8 @@ public:
 	UPROPERTY(BlueprintAssignable) FOnTravelError OnTravelErrorDelegate;
 
 	FNamedOnlineSession* CurrentSession;
-	
+	FNamedOnlineSession* CurrentLobby;
+
 	bool bCreatedSession;
 	bool bLoadedInventoryOnStart;
 	bool bFirstTime;

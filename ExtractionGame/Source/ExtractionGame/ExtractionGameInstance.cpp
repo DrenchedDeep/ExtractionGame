@@ -102,6 +102,8 @@ void UExtractionGameInstance::Init()
 		&UExtractionGameInstance::OnEndSessionCompleted));
 
 
+	UserIdentity->OnLoginCompleteDelegates->AddUObject(this, &UExtractionGameInstance::OnLoginCompleted);
+
 	IOnlineUserCloudPtr UserCloud = OnlineSubSystem->GetUserCloudInterface();
 
 	if(UserCloud)
@@ -125,15 +127,18 @@ void UExtractionGameInstance::LoginEOS(FString ID, FString Token, FString LoginT
 	FOnlineAccountCredentials UserAccount;
 	UserAccount.Id = ID;
 	UserAccount.Token = Token;
-	UserAccount.Type = LoginType;
-
-	if(Token.IsEmpty())
-	{
-		UserAccount.Type = "accountportal";
-	}
-
-	UserIdentity->OnLoginCompleteDelegates->AddUObject(this, &UExtractionGameInstance::OnLoginCompleted);
+	UserAccount.Type = "accountportal";
 	UserIdentity->Login(0, UserAccount);
+	/*/
+	//bool bAutoLogin = UserIdentity->Login(0, UserAccount);
+	
+	if(bAutoLogin)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("HI"));
+		UserAccount.Type = "accountportal";
+		UserIdentity->Login(0, UserAccount);
+	}
+	/*/
 }
 
 FString UExtractionGameInstance::GetPlayerUsername()
@@ -159,6 +164,7 @@ bool UExtractionGameInstance::IsLoggedIn()
 		SetupOnlineSubsystem();
 	}
 
+    UE_LOG(LogTemp, Warning, TEXT("GripState: %i"), UserIdentity->GetLoginStatus(0));
 	return UserIdentity->GetLoginStatus(0) == ELoginStatus::LoggedIn;
 }
 
@@ -326,6 +332,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		{
 			ShowLoadingScreen();
 			GetWorld()->ServerTravel("LVL_MainMenu?listen");
+			CurrentLobby = Session->GetNamedSession(SessionName);
 		}
 		else if(SessionSettings == "GameplaySession")
 		{
@@ -396,8 +403,9 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 		}
 		else
 		{
-		//	JoinSession();
+			JoinSession();
 		}
+		
 		return;
 	}
 
@@ -514,6 +522,37 @@ void UExtractionGameInstance::DestroySession()
 	Session->DestroySession(CurrentSession->SessionName);
 	bCreatedSession = false;
 	CurrentSession = nullptr;
+}
+
+bool UExtractionGameInstance::TryAutoLogin()
+{
+	FOnlineAccountCredentials UserAccount;
+	UserAccount.Id = FString();
+	UserAccount.Token = FString();
+	UserAccount.Type = "persistentauth";
+	
+	return  UserIdentity->Login(0, UserAccount);
+}
+
+bool UExtractionGameInstance::LogOut()
+{
+	if(!IsLoggedIn())
+	{
+		return false;
+	}
+
+	if(CurrentSession)
+	{
+		DestroySession();
+	}
+
+	if(CurrentLobby)
+	{
+		Session->DestroySession(CurrentLobby->SessionName);
+		CurrentLobby = nullptr;
+	}
+
+	return UserIdentity->Logout(0);
 }
 
 

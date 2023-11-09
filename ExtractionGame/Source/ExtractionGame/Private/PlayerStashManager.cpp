@@ -1,8 +1,6 @@
 #include "PlayerStashManager.h"
 #include "MainMenuHUD.h"
 #include "PlayerSaveData.h"
-#include "PlayerSaveData.h"
-#include "SNegativeActionButton.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "ExtractionGame/ExtractionGameInstance.h"
 
@@ -30,11 +28,8 @@ void APlayerStashManager::BeginPlay()
 		StashInventory->Init(InventoryWidget, 60, false);
 	}
 
-	if(!GameInstance->bFirstTime)
-	{
-		StashInventory->InitStartingItems();
-		GameInstance->bFirstTime = true;
-	}
+	StashInventory->InitStartingItems();
+
 	
 	LoadInventory();
 }

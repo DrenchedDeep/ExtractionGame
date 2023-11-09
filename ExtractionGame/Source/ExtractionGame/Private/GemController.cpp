@@ -62,7 +62,7 @@ void UGemController::RemoveGem(EBodyPart slot)
 	Server_RemoveGem(slot);
 }
 
-void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart BodyPart, int GemSlotID)
+void UGemController::CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID)
 {
 	AGem* Gem = GetWorld()->SpawnActor<AGem>();
 	Gem->SetPolish(Item->DefaultPolish);
@@ -74,6 +74,11 @@ void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart Body
 	
 	*gem = Gem;
 	LazyRecompileGems();
+}
+
+void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart BodyPart, int GemSlotID)
+{
+	CreateGem(Item, BodyPart, GemSlotID);
 }
 
 

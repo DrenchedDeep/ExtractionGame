@@ -30,6 +30,7 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 	Super::PostLogin(NewPlayer);
 
 	ATDMGameState* TDMGameState = Cast<ATDMGameState>(GetWorld()->GetGameState());
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *TDMGameState->GetMatchState().ToString());
 	if(TDMGameState->GetMatchState() == MatchState::InProgress)
@@ -41,12 +42,11 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 	{
 		uint8 TeamID = TDMGameState->RegisterPlayerToTeam(NewPlayer);
 
-		if(TDMGameState->PlayerArray.Num() >= 2)
+		if(TDMGameState->PlayerArray.Num() >= GameInstance->SESSION_PLAYERCOUNT)
 		{
 			//match is waiting to start, but there are already 2 players, start match
 			TDMGameState->SetMatchState(MatchState::InProgress);
 
-			UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 			GameInstance->StartSession();
 
 			RespawnAllPlayerPawns();

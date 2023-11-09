@@ -84,6 +84,7 @@ public:
 	UFUNCTION(Client, Reliable)
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 
+	void CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID);
 	UFUNCTION(Server, Reliable)
 	void Server_LazyRecompileGems();
 	UFUNCTION(Server, Reliable)
