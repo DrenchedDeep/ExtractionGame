@@ -3,9 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Containers/Queue.h" // Include this for TQueue
 #include "Components/ActorComponent.h"
+#include "PooledObject.h"
+#include "Containers/Queue.h"
+
 #include "AbilityObjectPool.generated.h"
+
+
+USTRUCT(BlueprintType)
+struct FPoolStruct
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	TSubclassOf<APooledObject> pooledSubclass;
+	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	int numToSpawn = 20;
+};
 
 
 
@@ -15,30 +28,19 @@ class EXTRACTIONGAME_API AAbilityObjectPool : public AActor
 	GENERATED_BODY()
 
 public:
-	AAbilityObjectPool();
+
+	//APooledObject* EmergencySpawn(const FString& map);
+	UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, Category="Object Pooling")
+	APooledObject* SpawnPoolObject(FString map);
+
+	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	TArray<FPoolStruct> PooledObjectSubclass;
+
+protected:
+	virtual void BeginPlay() override;
+
+	void OnPoolObjectDespawned(APooledObject* obj, FString pool);
+	TMap<FString, int> currentIterators;
+	TMap<FString,TArray<APooledObject*>> ObjectPool;
 	
-	UFUNCTION(BlueprintCallable, Category = "Object Pool")
-	AActor* GetPooledObject(TSubclassOf<AActor> ActorClass);
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerReturnPooledObject(AActor* PooledObject);
-
-	UFUNCTION(NetMulticast, Reliable)
-	void MulticastReturnPooledObject(AActor* PooledObject);
-
-	UPROPERTY(EditInstanceOnly, Category = "Object Pool")
-	TArray<TSubclassOf<AActor>> PooledObjectClasses;
-
-	UPROPERTY(EditInstanceOnly, Category = "Object Pool")
-	TArray<int32> PoolSizes;
-
-private:
-	AActor* SpawnPooledObject(TSubclassOf<AActor> ActorClass);
-	void ResetObjectState(AActor* PooledObject);
-
-	TMap<TSubclassOf<AActor>, TSharedPtr<TQueue<AActor*, EQueueMode::Spsc>>> ObjectPoolMap;
-
-	UPROPERTY(Replicated)
-	TArray<AActor*> ReplicatedPooledObjects;
-		
 };

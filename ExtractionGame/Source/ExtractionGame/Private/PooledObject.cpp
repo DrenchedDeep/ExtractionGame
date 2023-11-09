@@ -4,43 +4,22 @@
 #include "PooledObject.h"
 
 // Sets default values
-APooledObject::APooledObject(): PoolIndex(0)
+APooledObject::APooledObject()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void APooledObject::Deactivate()
+
+void APooledObject::SetActivate(bool isOn)
 {
-	SetActive(false);
-	GetWorldTimerManager().ClearAllTimersForObject(this);
-	OnPooledObjectDespawn.Broadcast(this);
+	SetActorHiddenInGame(!isOn);
+	SetActorTickEnabled(isOn);
+	SetActorEnableCollision(isOn);
 }
 
-void APooledObject::SetActive(bool bIsActive)
+void APooledObject::Destroyed()
 {
-	bActive = bIsActive;
-	SetActorHiddenInGame(!bActive);
-	GetWorldTimerManager().SetTimer(LifeSpanTimer, this, &APooledObject::Deactivate, LifeSpan, false);
+	OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
+	SetActivate(false);
 }
-
-void APooledObject::SetLifeSpan(float LifeTime)
-{
-	LifeSpan = LifeTime;
-}
-
-void APooledObject::SetPoolIndex(int index)
-{
-	PoolIndex = index;
-}
-
-bool APooledObject::IsActive() const
-{
-	return bActive;
-}
-
-int APooledObject::GetPoolIndex() const
-{
-	return PoolIndex;
-}
-

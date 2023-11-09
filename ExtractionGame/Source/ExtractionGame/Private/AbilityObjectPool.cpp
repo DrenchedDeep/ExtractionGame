@@ -1,121 +1,67 @@
 // ObjectPool.cpp
 
 #include "AbilityObjectPool.h"
-#include "Net/UnrealNetwork.h"
 
-AAbilityObjectPool::AAbilityObjectPool()
+/*Not possible rn
+APooledObject* AAbilityObjectPool::EmergencySpawn(const FString& map)
 {
-    for (int32 i = 0; i < PooledObjectClasses.Num(); ++i)
-    {
-        TSubclassOf<AActor> ActorClass = PooledObjectClasses[i];
-        int32 PoolSize = (i < PoolSizes.Num()) ? PoolSizes[i] : 0;
+	UWorld* const world = GetWorld();
+	for (const auto pool : PooledObjectSubclass)
+	{
+		if(pool.pooledSubclass->GetName() != map) continue;
+		APooledObject* PooledObject = world->SpawnActor<APooledObject>(pool.pooledSubclass, FVector().ZeroVector, FRotator().ZeroRotator);
+		PooledObject->OnPooledObjectDespawn.AddDynamic(this, &AAbilityObjectPool::OnPoolObjectDespawned);
+		return PooledObject;
+	}
+	return nullptr;
+}*/
 
-        // Use pointer to TQueue wrapped in TSharedPtr
-        TSharedPtr<TQueue<AActor*, EQueueMode::Spsc>> ActorQueuePtr = ObjectPoolMap.FindOrAdd(ActorClass);
-        TQueue<AActor*, EQueueMode::Spsc>& ActorQueue = *ActorQueuePtr;
+APooledObject* AAbilityObjectPool::SpawnPoolObject(FString map)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Spawning object from pool: %s"), *map);
 
-        for (int32 j = 0; j < PoolSize; ++j)
-        {
-            AActor* PooledObject = SpawnPooledObject(ActorClass);
-            if (PooledObject)
-            {
-                PooledObject->SetActorHiddenInGame(true);
-                ActorQueue.Enqueue(PooledObject);
-            }
-        }
-    }
+	currentIterators[map] = ++currentIterators[map] % ObjectPool[map].Num();
+	
+	APooledObject* out = ObjectPool[map][currentIterators[map]];//= nullptr;
+
+	
+	
+	out->SetActivate(true);
+		
+	return out;
 }
 
-AActor* AAbilityObjectPool::GetPooledObject(TSubclassOf<AActor> ActorClass)
+void AAbilityObjectPool::BeginPlay()
 {
-    if (!ObjectPoolMap.Contains(ActorClass)) return nullptr;
+	Super::BeginPlay();
 
-    TQueue<AActor*>& ActorQueue = ObjectPoolMap[ActorClass];
-    if (!ActorQueue.IsEmpty())
-    {
-        AActor* PooledObject = nullptr;
-        ActorQueue.Dequeue(PooledObject);
+	UWorld* const world = GetWorld();
 
-        // Object is available, return it
-        PooledObject->SetActorHiddenInGame(false);
-        MulticastReturnPooledObject(PooledObject);
-        return PooledObject;
-    }
-    // Queue is empty, create a new object
-    if (AActor* NewPooledObject = SpawnPooledObject(ActorClass))
-    {
-        MulticastReturnPooledObject(NewPooledObject);
-        return NewPooledObject;
-    }
+	verify(world);
+	
+	for (const auto pool : PooledObjectSubclass)
+	{
+		verify(pool.pooledSubclass);
+		UE_LOG(LogTemp, Warning, TEXT("Creating object pool: %s"), *pool.pooledSubclass->GetName());
+		FString name = pool.pooledSubclass->GetName();
+		ObjectPool.Add(name, TArray<APooledObject*>());
+		currentIterators.Add(name, 0);
+		ObjectPool[name].SetNum(pool.numToSpawn);
+		for(int i = 0; i <pool.numToSpawn; ++i)
+		{
+			APooledObject* PooledObject = world->SpawnActor<APooledObject>(pool.pooledSubclass, FVector().ZeroVector, FRotator().ZeroRotator);
 
-    // No available objects or invalid actor class
-    return nullptr;
+			PooledObject->SetActivate(false);
+			PooledObject->OnPooledObjectDespawn.AddDynamic(this, &AAbilityObjectPool::OnPoolObjectDespawned);
+			ObjectPool[name][i] = PooledObject;
+		}
+	}
 }
 
-void AAbilityObjectPool::ServerReturnPooledObject_Implementation(AActor* PooledObject)
+void AAbilityObjectPool::OnPoolObjectDespawned(APooledObject* obj, FString pool)
 {
-    if (PooledObject)
-    {
-        ResetObjectState(PooledObject);
-        MulticastReturnPooledObject(PooledObject);
-    }
-    else
-    {
-        // Log an error if the PooledObject is null
-        UE_LOG(LogTemp, Error, TEXT("ServerReturnPooledObject: Received null PooledObject"));
-    }
-}
-
-bool AAbilityObjectPool::ServerReturnPooledObject_Validate(AActor* PooledObject)
-{
-    return true;
-}
-
-void AAbilityObjectPool::MulticastReturnPooledObject_Implementation(AActor* PooledObject)
-{
-    if (PooledObject)
-    {
-        ResetObjectState(PooledObject);
-        ReplicatedPooledObjects.Add(PooledObject);
-    }
-}
-
-void AAbilityObjectPool::ResetObjectState(AActor* PooledObject)
-{
-    if (PooledObject)
-    {
-        // Reset the object's state
-        //PooledObject->SetActorLocation(FVector::ZeroVector);
-        //PooledObject->SetActorRotation(FRotator::ZeroRotator);
-        PooledObject->SetActorHiddenInGame(true);
-        PooledObject->Reset();
-    }
-}
-
-AActor* AAbilityObjectPool::SpawnPooledObject(TSubclassOf<AActor> ActorClass)
-{
-    if (ActorClass)
-    {
-        if (UWorld* World = GetWorld())
-        {
-            FActorSpawnParameters SpawnParams;
-            SpawnParams.Owner = this;
-            SpawnParams.Instigator = GetInstigator();
-
-            AActor* NewObject = World->SpawnActor<AActor>(ActorClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-            return NewObject;
-        }
-        else
-        {
-            // Log an error if the world is invalid
-            UE_LOG(LogTemp, Error, TEXT("SpawnPooledObject: Invalid World"));
-        }
-    }
-    else
-    {
-        // Log an error if the actor class is invalid
-        UE_LOG(LogTemp, Error, TEXT("SpawnPooledObject: Invalid ActorClass"));
-    }
-
-    return nullptr;
+	UE_LOG(LogTemp, Warning, TEXT("Despawning object to pool: %s"), *pool);
+	obj->SetActivate(false);
+	//ObjectPool[pool].Enqueue(obj);
+	
 }
