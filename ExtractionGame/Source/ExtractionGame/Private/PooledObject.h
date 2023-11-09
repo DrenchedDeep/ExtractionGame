@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "PooledObject.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPooledObjectDespawn, APooledObject*, poolActor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPooledObjectDespawn, APooledObject*, poolActor, FString, PoolName);
 
 UCLASS()
 class EXTRACTIONGAME_API APooledObject : public AActor
@@ -20,20 +20,8 @@ public:
 	FOnPooledObjectDespawn OnPooledObjectDespawn;
 
 	UFUNCTION(BlueprintCallable, Category="Pooled Object")
-	void Deactivate();
+	void SetActivate(bool isOn);
 	
-	
-	void SetActive(bool bIsActive);
-	void SetLifeSpan(float LifeTime);
-	void SetPoolIndex(int index);
-
-	bool IsActive() const;
-	int GetPoolIndex() const;
-
 protected:
-	bool bActive = false;
-	float LifeSpan = 0.0f;
-	int PoolIndex;
-
-	FTimerHandle LifeSpanTimer;
+	virtual void Destroyed() override;
 };
