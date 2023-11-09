@@ -2,35 +2,20 @@
 
 #include "AbilityObjectPool.h"
 
-#include "Core/AbilityHandlerSubSystem.h"
 #include "Core/PoolHandlerSubSystem.h"
-
-/*Not possible rn
-APooledObject* AAbilityObjectPool::EmergencySpawn(const FString& map)
-{
-	UWorld* const world = GetWorld();
-	for (const auto pool : PooledObjectSubclass)
-	{
-		if(pool.pooledSubclass->GetName() != map) continue;
-		APooledObject* PooledObject = world->SpawnActor<APooledObject>(pool.pooledSubclass, FVector().ZeroVector, FRotator().ZeroRotator);
-		PooledObject->OnPooledObjectDespawn.AddDynamic(this, &AAbilityObjectPool::OnPoolObjectDespawned);
-		return PooledObject;
-	}
-	return nullptr;
-}*/
 
 APooledObject* AAbilityObjectPool::SpawnPoolObject(FString map)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Spawning object from pool: %s"), *map);
 
-	currentIterators[map] = ++currentIterators[map] % ObjectPool[map].Num();
+	ObjectPool[map].index = ++ObjectPool[map].index % ObjectPool[map].pool.Num();
 	
-	APooledObject* out = ObjectPool[map][currentIterators[map]];//= nullptr;
+	APooledObject* out = ObjectPool[map].pool[ObjectPool[map].index];//= nullptr;
 
-	
+	verify(out);
 	
 	out->SetActivate(true);
-		
+	
 	return out;
 }
 
@@ -46,19 +31,25 @@ void AAbilityObjectPool::BeginPlay()
 	for (const auto pool : PooledObjectSubclass)
 	{
 		verify(pool.pooledSubclass);
-		UE_LOG(LogTemp, Warning, TEXT("Creating object pool: %s"), *pool.pooledSubclass->GetName());
+		
 		FString name = pool.pooledSubclass->GetName();
-		ObjectPool.Add(name, TArray<APooledObject*>());
-		currentIterators.Add(name, 0);
-		ObjectPool[name].SetNum(pool.numToSpawn);
+		UE_LOG(LogTemp, Warning, TEXT("Creating object pool: %s"), *name);
+		
+		TArray<APooledObject*> stored;
+		stored.SetNum(pool.numToSpawn);
+		
 		for(int i = 0; i <pool.numToSpawn; ++i)
 		{
 			APooledObject* PooledObject = world->SpawnActor<APooledObject>(pool.pooledSubclass, FVector().ZeroVector, FRotator().ZeroRotator);
 
 			PooledObject->SetActivate(false);
 			PooledObject->OnPooledObjectDespawn.AddDynamic(this, &AAbilityObjectPool::OnPoolObjectDespawned);
-			ObjectPool[name][i] = PooledObject;
+			stored[i] = PooledObject;
 		}
+		FPoolSet fp;
+		fp.pool = stored;
+		UE_LOG(LogTemp, Warning, TEXT("Finalized pool with elements: %d"), pool.numToSpawn);
+		ObjectPool.Add(name, fp);
 	}
 }
 

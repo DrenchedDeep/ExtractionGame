@@ -14,10 +14,22 @@ USTRUCT(BlueprintType)
 struct FPoolStruct
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	
+	UPROPERTY(VisibleInstanceOnly)
 	TSubclassOf<APooledObject> pooledSubclass;
-	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	
+	UPROPERTY(VisibleInstanceOnly)
 	int numToSpawn = 20;
+};
+
+USTRUCT(BlueprintType)
+struct FPoolSet
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	TArray<APooledObject*> pool;
+	UPROPERTY(EditAnywhere, Category="Object Pooling")
+	int index = 0;
 };
 
 
@@ -38,9 +50,10 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
+	UFUNCTION()
 	void OnPoolObjectDespawned(APooledObject* obj, FString pool);
-	TMap<FString, int> currentIterators;
-	TMap<FString,TArray<APooledObject*>> ObjectPool;
+	
+	UPROPERTY(VisibleInstanceOnly)
+	TMap<FString,FPoolSet> ObjectPool;
 	
 };

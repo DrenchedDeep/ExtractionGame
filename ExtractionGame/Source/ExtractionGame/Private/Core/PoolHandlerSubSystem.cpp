@@ -5,6 +5,9 @@
 
 APooledObject* UPoolHandlerSubSystem::SpawnObject(FString type)
 {
+
+	verify(Pool);
+	
 	return Pool->SpawnPoolObject(type);
 }
 

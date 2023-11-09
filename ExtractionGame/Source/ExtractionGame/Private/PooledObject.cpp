@@ -18,6 +18,11 @@ void APooledObject::SetActivate(bool isOn)
 	SetActorEnableCollision(isOn);
 }
 
+
+void APooledObject::SetAttributes_Implementation(float power, FName groupName)
+{
+}
+
 void APooledObject::Destroyed()
 {
 	OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
