@@ -32,7 +32,6 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 	ATDMGameState* TDMGameState = Cast<ATDMGameState>(GetWorld()->GetGameState());
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *TDMGameState->GetMatchState().ToString());
 	if(TDMGameState->GetMatchState() == MatchState::InProgress)
 	{
 		//match is in progress, kick user
@@ -42,7 +41,7 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 	{
 		uint8 TeamID = TDMGameState->RegisterPlayerToTeam(NewPlayer);
 
-		if(TDMGameState->PlayerArray.Num() >= GameInstance->SESSION_PLAYERCOUNT)
+		if(TDMGameState->PlayerArray.Num() >= 2) //GameInstance->SESSION_PLAYERCOUNT)
 		{
 			//match is waiting to start, but there are already 2 players, start match
 			TDMGameState->SetMatchState(MatchState::InProgress);
@@ -61,12 +60,13 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 
 void ATDMGameMode::SpawnPlayer(APlayerController* NewPlayer, int32 TeamID)
 {
-	APlayerStart* SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
+	ATDMGameState* TDMGameState = Cast<ATDMGameState>(GetWorld()->GetGameState());
+	APlayerStart* SpawnPoint = TDMGameState->GetTeamSpawnPoint(0);
 
 	if(!SpawnPoint)
 	{
-//		UE_LOG(LogTemp, Warning, TEXT("No spawn point found for team %d"), TeamID);
-	//	SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
+		UE_LOG(LogTemp, Warning, TEXT("No spawn point found for team %d"), TeamID);
+		SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("Spawning player at %s"), *SpawnPoint->GetActorLocation().ToString());

@@ -35,6 +35,8 @@ public:
 	void OnPlayerKilled(const FString& PlayerName);
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateMatchTimerText(int32 MatchTimer);
+	UFUNCTION(BlueprintImplementableEvent)
+	void EndGame(const FString& WinningTeam);
 private:
 	virtual void BeginPlay() override;
 };

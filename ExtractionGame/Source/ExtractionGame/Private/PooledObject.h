@@ -22,8 +22,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Pooled Object")
 	void SetActivate(bool isOn);
 	virtual void SetActivate_Implementation(bool isOn);
-
-	
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Pooling")
 	void SetAttributes(float power, FName groupName);

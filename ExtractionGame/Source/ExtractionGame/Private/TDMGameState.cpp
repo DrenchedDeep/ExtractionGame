@@ -4,7 +4,9 @@
 #include "TDMGameState.h"
 
 #include "ExtractionGameHUD.h"
+#include "ExtractionGame/ExtractionGameCharacter.h"
 #include "ExtractionGame/ExtractionGamePlayerController.h"
+#include "GameFramework/GameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
@@ -14,6 +16,7 @@ void ATDMGameState::BeginPlay()
 
 	RedTeam.TeamID = 1;
 	BlueTeam.TeamID = 0;
+	ElapsedTime = MatchLength;
 }
 
 void ATDMGameState::PreInitializeComponents()
@@ -61,6 +64,18 @@ int32 ATDMGameState::RegisterPlayerToTeam(APlayerController* PlayerController)
 
 void ATDMGameState::OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause)
 {
+	if(const ATDMPlayerState* KillerPlayerState = GetPlayerStateByName(KillerName))
+	{
+		if(KillerPlayerState->TeamID == 0)
+		{
+			BlueTeam.Score++;
+		}
+		else if(KillerPlayerState->TeamID == 1)
+		{
+			RedTeam.Score++;
+		}
+	}
+	
 	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
 	{
 		if(AExtractionGamePlayerController* PlayerController = Cast<AExtractionGamePlayerController>(Iterator->Get()))
@@ -77,6 +92,7 @@ void ATDMGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 
 	DOREPLIFETIME(ATDMGameState, RedTeam);
 	DOREPLIFETIME(ATDMGameState, BlueTeam);
+	DOREPLIFETIME(ATDMGameState, WinningTeamID);
 }
 
 void ATDMGameState::OnRep_MatchState()
@@ -85,6 +101,11 @@ void ATDMGameState::OnRep_MatchState()
 
 	UE_LOG(LogTemp, Warning, TEXT("HI"));
 	MatchStateChanged(GetMatchState());
+
+	if(GetMatchState() == MatchState::WaitingPostMatch)
+	{
+		
+	}
 }
 
 void ATDMGameState::HandleMatchIsWaitingToStart()
@@ -127,6 +148,58 @@ void ATDMGameState::OnRep_ElapsedTime()
 			HUD->UpdateMatchTimerText(ElapsedTime);
 		}
 	}
+}
+
+void ATDMGameState::DefaultTimer()
+{
+	if (IsMatchInProgress())
+	{
+		--ElapsedTime;
+		if (GetNetMode() != NM_DedicatedServer)
+		{
+			OnRep_ElapsedTime();
+		}
+		
+		if(ElapsedTime <= 0)
+		{
+			EndGame();
+			GetWorldTimerManager().ClearTimer(TimerHandle_DefaultTimer);
+			return;
+		}
+	}
+
+	GetWorldTimerManager().SetTimer(TimerHandle_DefaultTimer, this, &AGameState::DefaultTimer, GetWorldSettings()->GetEffectiveTimeDilation() / GetWorldSettings()->DemoPlayTimeDilation, true);
+}
+
+void ATDMGameState::OnRep_WinningTeamID()
+{
+	if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(GetWorld()->GetFirstPlayerController()))
+	{
+		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
+		{
+			ATDMPlayerState* PlayerState = Cast<ATDMPlayerState>(PC->PlayerState);
+			FString GameOutcome = WinningTeamID == PlayerState->TeamID ? "YOU WON" : "YOU LOST";
+
+			if(WinningTeamID == 3)
+			{
+				GameOutcome = "TIED";
+			}
+			HUD->EndGame(GameOutcome);
+		}
+	}
+}
+
+void ATDMGameState::EndGame()
+{
+	for(int i = 0; i < PlayerArray.Num(); i++)
+	{
+		if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(PlayerArray[i]->GetPlayerController()))
+		{
+			PC->Client_ReturnToLobby();
+		}
+	}
+
+	SetMatchState(MatchState::WaitingPostMatch);
 }
 
 

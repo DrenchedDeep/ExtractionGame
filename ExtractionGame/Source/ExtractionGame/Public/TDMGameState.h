@@ -14,13 +14,13 @@ struct FTDMTeam
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	uint8 TeamID;
 	
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	int32 Score;
 	
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TArray<ATDMPlayerState*> PlayerStates;
 
 	FTDMTeam(uint8 TeamID)
@@ -46,6 +46,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	FTDMTeam BlueTeam;
 
+	UPROPERTY(ReplicatedUsing=OnRep_WinningTeamID)
+	uint8 WinningTeamID;
+	
+
 	TArray<ASpawnpoint*> RedTeamDefaultsSpawnpoints;
 	TArray<ASpawnpoint*> BlueTeamDefaultsSpawnpoints;
 	
@@ -62,11 +66,16 @@ protected:
 	virtual void HandleMatchHasEnded() override;
 	virtual void HandleLeavingMap() override;
 	virtual void OnRep_ElapsedTime() override;
+	virtual void DefaultTimer() override;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void MatchStateChanged(const FName& NewState);
-	
+
+	UFUNCTION()
+	void OnRep_WinningTeamID();
 private:
+	void EndGame();
+	
 	FORCEINLINE uint8 GetBestTeam() const
 	{
 		uint8 BestTeam = 0;
@@ -77,6 +86,21 @@ private:
 		}
 
 		return BestTeam;
+	}
+
+	FORCEINLINE ATDMPlayerState* GetPlayerStateByName(FString PlayerName)
+	{
+		ATDMPlayerState* PlayerState = nullptr;
+
+		for(int i = 0; i < PlayerArray.Num(); i++)
+		{
+			if(PlayerName == PlayerArray[i]->GetPlayerName())
+			{
+				PlayerState = Cast<ATDMPlayerState>(PlayerArray[i]);
+			}
+		}
+
+		return PlayerState;
 	}
 
 public:

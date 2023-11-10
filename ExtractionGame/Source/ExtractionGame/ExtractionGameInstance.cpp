@@ -133,7 +133,11 @@ void UExtractionGameInstance::LoginEOS(FString ID, FString Token, FString LoginT
 	FOnlineAccountCredentials UserAccount;
 	UserAccount.Id = ID;
 	UserAccount.Token = Token;
-	UserAccount.Type = "accountportal";
+	UserAccount.Type = LoginType;
+	if(LoginType.IsEmpty())
+	{
+		UserAccount.Type = "accountportal";
+	}
 	UserIdentity->Login(0, UserAccount);
 	/*/
 	//bool bAutoLogin = UserIdentity->Login(0, UserAccount);
@@ -247,6 +251,11 @@ void UExtractionGameInstance::JoinSession()
 		Session = OnlineSubSystem->GetSessionInterface();
 	}
 
+	if(CurrentSession)
+	{
+		DestroySession();
+	}
+
 	TSharedRef<FOnlineSessionSearch> SessionSearch = MakeShared<FOnlineSessionSearch>();
 	
 	SessionSearch->MaxSearchResults = 20;
@@ -263,7 +272,7 @@ void UExtractionGameInstance::JoinSession()
 
 	if (!Session->FindSessions(0, SessionSearch))
 	{
-		OnMatchmakingFailedDelegate.Broadcast();
+		OnJoinSessionComplete.Broadcast(false);
 	}
 }
 
@@ -328,6 +337,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 	if(!CurrentSession || !bWasSuccess)
 	{
 		OnCreateSessionComplete.Broadcast(false);
+		OnJoinSessionComplete.Broadcast(false);
 		return;
 	}
 
@@ -398,6 +408,7 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 
 	if(!MenuGameState)
 	{
+		OnJoinSessionComplete.Broadcast(false);
 		return;
 	}
 	

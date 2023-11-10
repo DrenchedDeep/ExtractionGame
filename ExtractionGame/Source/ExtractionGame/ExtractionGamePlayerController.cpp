@@ -85,8 +85,16 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 	}
 }
 
+void AExtractionGamePlayerController::Client_DisableInput_Implementation()
+{
+	if(GetPawn())
+	{
+		GetPawn()->DisableInput(this);
+	}
+}
+
 void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const FString& KillerName,
-	const FString& VictimName, const FString& DeathCause)
+                                                                           const FString& VictimName, const FString& DeathCause)
 {
 	//show kill ui
 	if(KillerName == PlayerState->GetPlayerName())

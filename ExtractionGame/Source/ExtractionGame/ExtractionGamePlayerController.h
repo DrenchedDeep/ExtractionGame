@@ -30,7 +30,10 @@ public:
 	UFUNCTION(Reliable, Client)
 	void Client_ReturnToLobby();
 	virtual void OnDeath(const FString& PlayerName);
-	
+	UFUNCTION(Reliable, Client)
+	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
+	UFUNCTION(Reliable, Client)
+	virtual void Client_DisableInput();
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
 
@@ -52,9 +55,6 @@ protected:
 	void Client_Respawn();
 	UFUNCTION(Reliable, Server)
 	void Server_SetName(const FString& PlayerName);
-
-	UFUNCTION(Reliable, Client)
-	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
-
+	
 	virtual void RespawnTick();
 };
