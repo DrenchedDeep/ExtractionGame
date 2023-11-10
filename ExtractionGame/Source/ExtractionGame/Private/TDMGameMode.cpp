@@ -34,8 +34,11 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 
 	if(TDMGameState->GetMatchState() == MatchState::InProgress)
 	{
+		uint8 TeamID = TDMGameState->RegisterPlayerToTeam(NewPlayer);
+		SpawnPlayer(NewPlayer, TeamID);
+
 		//match is in progress, kick user
-		GameSession->KickPlayer(NewPlayer, FText::FromString("Match is in progress"));
+		//GameSession->KickPlayer(NewPlayer, FText::FromString("Match is in progress"));
 	}
 	else if(TDMGameState->GetMatchState() == MatchState::WaitingToStart || TDMGameState->GetMatchState() == MatchState::EnteringMap)
 	{
@@ -46,7 +49,7 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 			//match is waiting to start, but there are already 2 players, start match
 			TDMGameState->SetMatchState(MatchState::InProgress);
 
-			GameInstance->StartSession();
+		//	GameInstance->StartSession();
 
 			RespawnAllPlayerPawns();
 		}
@@ -61,7 +64,7 @@ void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 void ATDMGameMode::SpawnPlayer(APlayerController* NewPlayer, int32 TeamID)
 {
 	ATDMGameState* TDMGameState = Cast<ATDMGameState>(GetWorld()->GetGameState());
-	APlayerStart* SpawnPoint = TDMGameState->GetTeamSpawnPoint(0);
+	APlayerStart* SpawnPoint = TDMGameState->GetTeamSpawnPoint(TeamID);
 
 	if(!SpawnPoint)
 	{

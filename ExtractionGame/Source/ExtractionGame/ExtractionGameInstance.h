@@ -188,7 +188,18 @@ private:
 
 	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search)
 	{
-		return Search->SearchResults[0];
+		FOnlineSessionSearchResult BestSession;
+		for(int i = 0; i < Search->SearchResults.Num(); i++)
+		{
+			if(Search->SearchResults[i].Session.SessionSettings.bUseLobbiesIfAvailable)
+			{
+				continue;
+			}
+
+			BestSession = Search->SearchResults[i];
+			break;
+		}
+		return BestSession;
 	}
 
 	FORCEINLINE FString GetNetworkErrorMessage(ENetworkFailure::Type NetworkFailure)

@@ -430,7 +430,7 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 	{
 		if(MenuGameState->PartyManager->GetLocalPartyPlayer().bIsHost)
 		{
-			FOnlineSessionSearchResult SearchResult = Search->SearchResults[0];
+			FOnlineSessionSearchResult SearchResult = GetBestSession(Search);
 
 			if(SearchResult.IsSessionInfoValid())
 			{
@@ -447,6 +447,10 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 					FClientConnectionInfo ConnectInfo(true, SessionName);
 					MenuGameState->Multicast_JoinSession(ConnectInfo);
 				}
+			}
+			else
+			{
+				OnJoinSessionComplete.Broadcast(false);
 			}
 		}
 		else

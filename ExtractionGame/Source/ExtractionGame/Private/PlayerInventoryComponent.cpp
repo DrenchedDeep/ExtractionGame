@@ -73,7 +73,14 @@ void UPlayerInventoryComponent::OnRep_InventoryItems()
 void UPlayerInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID)
 {
 	Super::AddItem(Item, StackSize, bClientSimulation, SlotID);
+	FTimerHandle Handle;
+	FTimerDelegate Delegate = FTimerDelegate::CreateUObject(this, &UPlayerInventoryComponent::InitGemDelay, Item, SlotID);
 
+	GetWorld()->GetTimerManager().SetTimer(Handle, Delegate, 1.0f, false);
+}
+
+void UPlayerInventoryComponent::InitGemDelay(UItem* Item, int SlotID)
+{
 	if(Item->ItemType == EItemType::Gem)
 	{
 		if(UGemSlot* GemSlot = Cast<UGemSlot>(InventoryWidget->GetSlot(SlotID)))

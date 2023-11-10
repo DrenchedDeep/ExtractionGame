@@ -35,8 +35,7 @@ void UHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
 	if(CurrentHealth <= 0)
 	{
 		bCanTakeDamage = false;
-		AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(GetOwner());
-		OnDeath(Character->GetPlayerState()->GetPlayerName());
+		OnDeath(Instigator->PlayerState->GetPlayerName());
 	}
 }
 

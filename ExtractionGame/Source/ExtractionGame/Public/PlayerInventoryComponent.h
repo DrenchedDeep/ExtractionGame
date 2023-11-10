@@ -25,4 +25,5 @@ private:
 	AExtractionGameCharacter* Character;
 
 	virtual void AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID) override;
+	void InitGemDelay(UItem* Item,  int SlotID);
 };
