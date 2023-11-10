@@ -4,23 +4,18 @@
 #include "PooledObject.h"
 
 // Sets default values
-APooledObject::APooledObject()
+APooledObject::APooledObject(): Power(0)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
 
-void APooledObject::SetActivate(bool isOn)
+void APooledObject::SetActivate_Implementation(bool isOn)
 {
 	SetActorHiddenInGame(!isOn);
 	SetActorTickEnabled(isOn);
 	SetActorEnableCollision(isOn);
-}
-
-
-void APooledObject::SetAttributes_Implementation(float power, FName groupName)
-{
 }
 
 void APooledObject::Destroyed()
