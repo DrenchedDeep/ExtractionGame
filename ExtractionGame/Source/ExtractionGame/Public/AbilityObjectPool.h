@@ -50,8 +50,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	UFUNCTION()
-	void OnPoolObjectDespawned(APooledObject* obj, FString pool);
+	//UFUNCTION()
+	//void OnPoolObjectDespawned(APooledObject* obj, FString pool);
 	
 	UPROPERTY(VisibleInstanceOnly)
 	TMap<FString,FPoolSet> ObjectPool;

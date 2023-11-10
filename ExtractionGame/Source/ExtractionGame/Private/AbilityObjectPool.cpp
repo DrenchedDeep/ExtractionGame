@@ -12,9 +12,9 @@ APooledObject* AAbilityObjectPool::SpawnPoolObject(FString map)
 	
 	APooledObject* out = ObjectPool[map].pool[ObjectPool[map].index];//= nullptr;
 
-	if(!out) return nullptr;
+	//if(!out) return nullptr;
 	
-	out->SetActivate(true);
+	//out->SetActiveState(true);
 	
 	return out;
 }
@@ -42,8 +42,8 @@ void AAbilityObjectPool::BeginPlay()
 		{
 			APooledObject* PooledObject = world->SpawnActor<APooledObject>(pool.pooledSubclass, FVector().ZeroVector, FRotator().ZeroRotator);
 
-			PooledObject->SetActivate(false);
-			PooledObject->OnPooledObjectDespawn.AddDynamic(this, &AAbilityObjectPool::OnPoolObjectDespawned);
+			PooledObject->SetActiveState(false);
+			//PooledObject->OnPooledObjectDespawn.AddDynamic(this, &AAbilityObjectPool::OnPoolObjectDespawned);
 			stored[i] = PooledObject;
 		}
 		FPoolSet fp;
@@ -51,12 +51,4 @@ void AAbilityObjectPool::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Finalized pool with elements: %d"), pool.numToSpawn);
 		ObjectPool.Add(name, fp);
 	}
-}
-
-void AAbilityObjectPool::OnPoolObjectDespawned(APooledObject* obj, FString pool)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Despawning object to pool: %s"), *pool);
-	obj->SetActivate(false);
-	//ObjectPool[pool].Enqueue(obj);
-	
 }
