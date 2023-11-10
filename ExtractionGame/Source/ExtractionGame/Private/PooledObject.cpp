@@ -11,15 +11,16 @@ APooledObject::APooledObject(): Power(0)
 }
 
 
-void APooledObject::SetActivate_Implementation(bool isOn)
+void APooledObject::SetActiveState(bool isOn)
 {
 	SetActorHiddenInGame(!isOn);
 	SetActorTickEnabled(isOn);
 	SetActorEnableCollision(isOn);
+	SetActiveCustom(isOn);
 }
 
-void APooledObject::Destroyed()
+void APooledObject::ReturnToPool()
 {
-	OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
-	SetActivate(false);
+	//OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
+	SetActiveState(false);
 }
