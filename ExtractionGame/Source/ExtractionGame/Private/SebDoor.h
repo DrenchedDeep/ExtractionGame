@@ -21,6 +21,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, Replicated);
 	bool bIsOpen;
 
+	UPROPERTY(VisibleAnywhere)
+	UPrimitiveComponent* TriggerComponent;
+	
+
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginPlay() override;
 	

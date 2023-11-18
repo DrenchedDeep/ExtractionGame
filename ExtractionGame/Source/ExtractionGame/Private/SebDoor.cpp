@@ -14,13 +14,18 @@ ASebDoor::ASebDoor()
 	PrimaryActorTick.bCanEverTick = false;
 	
 	//Try to find the object, else let's create one.
-	UPrimitiveComponent* TriggerComponent = FindComponentByClass<UPrimitiveComponent>();
+	TriggerComponent = FindComponentByClass<UPrimitiveComponent>();
 	if(!TriggerComponent)
 	{
 		//Create a new object
 		USphereComponent *c = CreateDefaultSubobject<USphereComponent>(TEXT("TriggerRange"));
 		// Give default size
 		c->InitSphereRadius(500);
+
+		//Only query collisions, and overlap pawns
+		c->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+		c->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		
 		
 		TriggerComponent = c;
 	}
@@ -61,13 +66,25 @@ void ASebDoor::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	//If we are the server, AND the door is not already open AND the character interacting with us is a player. THEN do stuff.
 	if(!HasAuthority() || bIsOpen || !OtherActor->IsA(AExtractionGameCharacter::StaticClass())) return;
 	SetDoorState(true);
+	
 }
 
 void ASebDoor::EndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	//If we are the server, AND the door is not already closed AND the character interacting with us is a player. THEN do stuff.
 	if(!HasAuthority() || !bIsOpen || !OtherActor->IsA(AExtractionGameCharacter::StaticClass())) return;
-	SetDoorState(false);
+
+	//Cache then number of actors
+	TArray<AActor*> overlapped;
+	
+	//Only look for players
+	const TSubclassOf<AExtractionGameCharacter> filter = AExtractionGameCharacter::StaticClass();
+	
+	//Check if anyone is overlapping still
+	TriggerComponent->GetOverlappingActors(overlapped, filter);
+	
+	//If not, then close.
+	if(overlapped.Num() == 0)SetDoorState(false);
 }
 
 
