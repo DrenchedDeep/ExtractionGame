@@ -380,6 +380,7 @@ void AExtractionGameCharacter::ToggleInventory()
 	else
 	{
 		OnInventoryClosed();
+		GemController->SmartRecompileGems();
 	}
 }
 

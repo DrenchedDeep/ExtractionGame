@@ -14,20 +14,28 @@ class UAbilityHandlerSubSystem;
 UENUM(BlueprintType)
 enum  EBodyPart : uint8
 {
-	Head = 0    UMETA(DisplayName = "Head"),
-	Chest = 1   UMETA(DisplayName = "Chest"),
-	LeftArm0 = 2  UMETA(DisplayName = "LeftArm0"),
-	LeftArm1 = 3  UMETA(DisplayName = "LeftArm1"),
-	LeftArm2 = 4   UMETA(DisplayName = "LeftArm2"),
-	RightArm0 = 5 UMETA(DisplayName = "RightArm0"),
-	RightArm1 = 6 UMETA(DisplayName = "RightArm1"),
-	RightArm2 = 7 UMETA(DisplayName = "RightArm2")
+	None = 0  UMETA(DisplayName = "NONE"),
+	Head = 1    UMETA(DisplayName = "Head"),
+	Chest = 2   UMETA(DisplayName = "Chest"),
+	LeftArm0 = 4  UMETA(DisplayName = "LeftArm0"),
+	LeftArm1 = 8  UMETA(DisplayName = "LeftArm1"),
+	LeftArm2 = 16   UMETA(DisplayName = "LeftArm2"),
+	RightArm0 = 32 UMETA(DisplayName = "RightArm0"),
+	RightArm1 = 64 UMETA(DisplayName = "RightArm1"),
+	RightArm2 = 128 UMETA(DisplayName = "RightArm2")
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EXTRACTIONGAME_API UGemController : public UActorComponent
 {
+	
 	GENERATED_BODY()
+
+	const int HeadFlag = Head;
+	const int BodyFlag = Chest;
+	const int LeftArmFlag = LeftArm0 | LeftArm1 | LeftArm2;
+	const int RightArmFlag = RightArm0 | RightArm1 | RightArm2;
+	
 	
 	FTimerHandle* leftArmCooldown;
 	FTimerHandle* rightArmCooldown;
@@ -49,6 +57,8 @@ class EXTRACTIONGAME_API UGemController : public UActorComponent
 	UPROPERTY()
 	UInputAction* HeadAbilityAction;
 
+	int dirtyFlags;
+
 	
 public:	
 	UGemController();
@@ -57,6 +67,8 @@ public:
 	FGameplayAbilitySpecHandle LeftArmAbilitySpecHandle;
 	UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
 	FGameplayAbilitySpecHandle RightArmAbilitySpecHandle;
+	UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
+	FGameplayAbilitySpecHandle HeadAbilitySpecHandle;
 
 	UPROPERTY(ReplicatedUsing=OnRep_HeadGem, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	AGem* HeadGem;
@@ -85,22 +97,27 @@ public:
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 
 	void CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID);
-	UFUNCTION(Server, Reliable)
-	void Server_LazyRecompileGems();
+	//UFUNCTION(Server, Reliable)
+	//void Server_LazyRecompileGems();
 	UFUNCTION(Server, Reliable)
 	void Server_AddGem(EBodyPart slot, AGem* newGem);
 	UFUNCTION(Server, Reliable)
 	void Server_RemoveGem(EBodyPart slot);
 
+	UFUNCTION(Server, Reliable)
+	void SmartRecompileGems();
+	
 protected:
 	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
-	void LazyRecompileGems();
-
+	//void LazyRecompileGems();
+	
 	void Attack(bool bLeftArm);
 	void RecompileArm(TArray<AGem*> arm, bool bIsLeft);
+	void RecompileHead();
+	void RecompileChest();
 
 private:
 	

@@ -14,15 +14,20 @@
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Find: %d"), slot);
 	switch (slot) {
-	case EBodyPart::Head:
-		return &HeadGem;
-	case EBodyPart::Chest:
-		return &ChestGem;
+	case  Head: return &HeadGem;
+	case Chest: return &ChestGem;
 	default:
-		const int val = static_cast<int>(slot)-2;
-		if(val < 3) return &leftGems[val];
-		return &rightGems[val-3];
+		int val = static_cast<int>(slot) >> 2;
+		int index = 0;
+		while (val > 1)
+		{
+			index++;
+			val >>= 1;
+		}
+		if(index < 3) return &leftGems[index];
+		return &rightGems[index-3];
 	}
 }
 
@@ -31,9 +36,9 @@ UGemController::UGemController(): leftArmCooldown(nullptr), rightArmCooldown(nul
                                   OwnerAbilities(nullptr),
                                   LeftAttackAction(nullptr),
                                   RightAttackAction(nullptr),
-                                  HeadAbilityAction(nullptr),
+                                  HeadAbilityAction(nullptr), dirtyFlags(0),
                                   HeadGem(nullptr),
-                                  ChestGem(nullptr)
+                                  ChestGem(nullptr), bInitialized(false)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -41,7 +46,7 @@ UGemController::UGemController(): leftArmCooldown(nullptr), rightArmCooldown(nul
 
 	leftGems.SetNum(3);
 	rightGems.SetNum(3);
-	
+
 	// ^^ If timers are fighting me, check here later ^^ 
 }
 
@@ -64,6 +69,7 @@ void UGemController::RemoveGem(EBodyPart slot)
 
 void UGemController::CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID)
 {
+	//Is this when a gem is dropped?
 	AGem* Gem = GetWorld()->SpawnActor<AGem>();
 	Gem->SetPolish(Item->DefaultPolish);
 	Gem->SetGemType(Item->GemType);
@@ -71,9 +77,11 @@ void UGemController::CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID)
 
 	AGem** gem = GetGemBySlot(BodyPart);
 	
-	
 	*gem = Gem;
-	LazyRecompileGems();
+	dirtyFlags |= BodyPart;
+	UE_LOG(LogTemp, Warning, TEXT("CreateGem: %d"), BodyPart);
+
+	//LazyRecompileGems();
 }
 
 void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart BodyPart, int GemSlotID)
@@ -94,6 +102,7 @@ void UGemController::Client_OnGemCreated_Implementation(int GemSlotID, AGem* Gem
 			
 		}
 	}
+	
 }
 
 void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
@@ -103,10 +112,26 @@ void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
 	{
 		*gem = nullptr;
 	}
-
-	
-	LazyRecompileGems();
+	dirtyFlags |= slot;
+	UE_LOG(LogTemp, Warning, TEXT("RemoveGem: %d"), slot);
 }
+
+void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
+{
+	AGem** gem = GetGemBySlot(slot);
+
+	// If there was an existing gem, delete it before assigning the new one
+	/*
+	if (*gem != nullptr)
+	{
+		delete *gem;
+	}*/
+	
+	*gem = newGem;
+	dirtyFlags |= slot;
+	UE_LOG(LogTemp, Warning, TEXT("AddGem: %d"), slot);
+	//LazyRecompileGems();
+} 
 
 void UGemController::OnRep_HeadGem()
 {
@@ -124,6 +149,41 @@ void UGemController::OnRep_RightArmGems()
 {
 }
 
+void UGemController::SmartRecompileGems_Implementation()
+{
+	
+	//if(!GetOwner()->HasAuthority()) return; Not needed, is already a server only function.
+	
+	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
+
+	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+
+	const int val = dirtyFlags;
+	dirtyFlags = None;
+	if((val & HeadFlag) != 0)
+	{
+		//HeadAbilityAction = Ch->HeadAbilityAction;
+		OwnerAbilities->ClearAbility(HeadAbilitySpecHandle);
+		RecompileHead();
+	}
+	if((val & BodyFlag) != 0)
+	{
+		
+	}
+	if((val & LeftArmFlag) != 0)
+	{
+		//LeftAttackAction = Ch->LeftAttackAction;
+		OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
+		RecompileArm(leftGems, true);
+	}
+	if((val & RightArmFlag) != 0)
+	{
+		//RightAttackAction = Ch->RightAttackAction;
+		OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);
+		RecompileArm(rightGems, false);
+	}
+}
+
 void UGemController::InitializeComponent()
 {
 	Super::InitializeComponent();
@@ -137,15 +197,13 @@ void UGemController::BeginPlay()
 	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
 
 	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	
-	OwnerAbilities = Ch->AbilitySystemComponent;
-	LeftAttackAction = Ch->LeftAttackAction;
-	RightAttackAction = Ch->RightAttackAction;
-	HeadAbilityAction = Ch->HeadAbilityAction;
 
+	OwnerAbilities = Ch->AbilitySystemComponent;
+	
 	if(GetOwner()->HasAuthority())
 	{
-		LazyRecompileGems();
+		dirtyFlags = 255;
+		SmartRecompileGems();
 	}
 }
 
@@ -162,11 +220,11 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 }
 
-void UGemController::Server_LazyRecompileGems_Implementation()
-{
-	LazyRecompileGems();
-}
-
+//void UGemController::Server_LazyRecompileGems_Implementation()
+//{
+//	LazyRecompileGems();
+//}
+/*
 void UGemController::LazyRecompileGems()
 {
 	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
@@ -192,11 +250,12 @@ void UGemController::LazyRecompileGems()
 	RecompileArm(rightGems, false);
 	
 }
-
+*/
+/*
 void UGemController::Attack(bool bLeftArm)
 {
 //	FGameplayAbilitySpecHandle Handle = OwnerAbilities->TryActivateAbility(AbilitySpecHandles[0]);
-}
+} */
 
 void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 {
@@ -237,11 +296,6 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	}
 
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
-
-	if(!InAbilityClass)
-	{
-		return;
-	}
 	
 	if(bIsLeft)
 		totalPolish = -totalPolish;
@@ -262,18 +316,28 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	}
 }
 
-
-void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
+void UGemController::RecompileHead()
 {
-	AGem** gem = GetGemBySlot(slot);
-
-	// If there was an existing gem, delete it before assigning the new one
-	/*
-	if (*gem != nullptr)
-	{
-		delete *gem;
-	}*/
+	if(!HeadGem) return;
+	const int val = HeadGem->GetPolish();
+	int Score;
 	
-	*gem = newGem;
-	LazyRecompileGems();
+	if(val >= 150) Score = 3;
+	else if(val >= 75) Score = 2;
+	else return;
+	
+	Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
+	UE_LOG(LogTemp, Warning, TEXT("Ability: %d, %d"), Score, val);
+	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(Score);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, this);
+	HeadAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
 }
+
+void UGemController::RecompileChest()
+{
+	if(!ChestGem) return;
+	UE_LOG(LogTemp, Warning, TEXT("Pending Impl"));
+}
+
+
+
