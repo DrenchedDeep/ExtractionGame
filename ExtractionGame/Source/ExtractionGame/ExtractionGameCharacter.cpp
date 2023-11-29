@@ -13,6 +13,7 @@
 #include "InventoryComponent.h"
 #include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
+#include "TDMPlayerState.h"
 #include "Abilities/GameplayAbility.h"
 #include "Abilities/ExtractionAttributeSet.h"
 #include "Components/ExtractionAbilitySystemComponent.h"
@@ -85,7 +86,6 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	AttributeSet = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("Ability Attributes"));
 	InventoryComponent = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("InventoryComponent"));
 	GemController = CreateDefaultSubobject<UGemController>(TEXT("GemController"));
-
 }
 
 void AExtractionGameCharacter::BeginPlay()
@@ -107,6 +107,7 @@ void AExtractionGameCharacter::BeginPlay()
 	GazeCollisionParams = TraceParams;
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
+	
 }
 
 void AExtractionGameCharacter::Tick(float DeltaSeconds)
@@ -119,6 +120,7 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 		HandleGaze();
 	}
 }
+
 
 void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove, float HorizontalMove,
                                                               float VertLook, float HorLook)
@@ -175,6 +177,8 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	DOREPLIFETIME(AExtractionGameCharacter, IsSliding);
 	DOREPLIFETIME(AExtractionGameCharacter, IsSprinting);
 	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
+	DOREPLIFETIME(AExtractionGameCharacter, VerticalLook);
+	DOREPLIFETIME(AExtractionGameCharacter, HorizontalLook);
 }
 
 void AExtractionGameCharacter::PossessedBy(AController* NewController)
@@ -187,8 +191,12 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		AddStartupGameplayAbilities();
 	}
-
 	InventoryComponent->InitInventory();
+
+	if(NewController->PlayerState)
+	{
+	//	TeamID = Cast<ATDMPlayerState>(NewController->PlayerState)->TeamID;
+	}
 }
 
 void AExtractionGameCharacter::OnRep_PlayerState()
@@ -205,7 +213,7 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 void AExtractionGameCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
-	SafeBeginPlay();
+	//SafeBeginPlay();
 }
 
 void AExtractionGameCharacter::BeginDestroy()
@@ -314,7 +322,7 @@ void AExtractionGameCharacter::Look(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
-		LocalVerticalLook = LookAxisVector.Y;
+		LocalVerticalLook = FirstPersonCameraComponent->GetComponentRotation().Pitch;
 		LocalHorizontalLook = LookAxisVector.X;
 
 		AddControllerYawInput(LookAxisVector.X);

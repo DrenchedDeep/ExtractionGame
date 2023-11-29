@@ -75,12 +75,13 @@ void ATDMGameState::OnPlayerKilled(const FString& KillerName, const FString& Vic
 			RedTeam.Score++;
 		}
 	}
-	
+
 	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
 	{
 		if(AExtractionGamePlayerController* PlayerController = Cast<AExtractionGamePlayerController>(Iterator->Get()))
 		{
-			PlayerController->Client_OnPlayerKilled_Implementation(KillerName, VictimName, DeathCause);
+			UE_LOG(LogTemp, Warning, TEXT("fgjf"));
+			PlayerController->Client_OnPlayerKilled(KillerName, VictimName, DeathCause);
 		}
 	}
 }

@@ -160,7 +160,6 @@ public:
 	float VerticalLook;
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float HorizontalLook;
-
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool IsSliding;
 	UPROPERTY(Replicated, BlueprintReadOnly)
@@ -181,7 +180,6 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Health)
 	class UPlayerHealthComponent* PlayerHealthComponent;
-	
 
 public:
 	FORCEINLINE bool CanMove() const { return bCanMove;}

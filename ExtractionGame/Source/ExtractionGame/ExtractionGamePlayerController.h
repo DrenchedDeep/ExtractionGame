@@ -29,15 +29,16 @@ public:
 	virtual void ReturnToLobby();
 	UFUNCTION(Reliable, Client)
 	void Client_ReturnToLobby();
-	virtual void OnDeath(const FString& PlayerName);
 	UFUNCTION(Reliable, Client)
 	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
+
+	virtual void OnDeath(const FString& PlayerName);
+
 	UFUNCTION(Reliable, Client)
 	virtual void Client_DisableInput();
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
 
-	virtual void OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
 	
 protected:
 	/** Input Mapping Context to be used for player input */

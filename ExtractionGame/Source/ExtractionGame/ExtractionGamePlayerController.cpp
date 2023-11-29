@@ -96,16 +96,13 @@ void AExtractionGamePlayerController::Client_DisableInput_Implementation()
 void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const FString& KillerName,
                                                                            const FString& VictimName, const FString& DeathCause)
 {
-	//show kill ui
-	if(KillerName == PlayerState->GetPlayerName())
+	if(PlayerState->GetPlayerName() == KillerName)
 	{
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 		{
-			HUD->OnPlayerKilled(VictimName);
+			HUD->OnKill(VictimName);
 		}
 	}
-
-	//killfeed ui???
 }
 
 void AExtractionGamePlayerController::RespawnTick()
@@ -130,10 +127,6 @@ void AExtractionGamePlayerController::RespawnTick()
 	}
 }
 
-void AExtractionGamePlayerController::OnPlayerKilled(const FString& KillerName, const FString& VictimName,
-	const FString& DeathCause)
-{
-}
 
 void AExtractionGamePlayerController::Client_ReturnToLobby_Implementation()
 {
@@ -177,4 +170,5 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 
 	Server_SetName(GameInstance->GetPlayerUsername());
 }
+
 
