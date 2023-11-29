@@ -14,6 +14,18 @@ void UExtractionAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+	
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenMana, COND_None, REPNOTIFY_Always);
+	
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, EarthManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, FireManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, ShadowManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, WaterManaPool, COND_None, REPNOTIFY_Always);
+	
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxEarthManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxFireManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxShadowManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxWaterManaPool, COND_None, REPNOTIFY_Always);
 }
 
 void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -25,6 +37,24 @@ void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attri
 	{
 		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
 	}
+	// If a Max value changes, adjust current to keep Current % of Current to Max
+	else if (Attribute == GetMaxEarthManaPoolAttribute())
+	{
+		AdjustAttributeForMaxChange(EarthManaPool, MaxEarthManaPool, NewValue, GetEarthManaPoolAttribute());
+	}
+	else if (Attribute == GetMaxFireManaPoolAttribute())
+	{
+		AdjustAttributeForMaxChange(FireManaPool, MaxFireManaPool, NewValue, GetFireManaPoolAttribute());
+	}
+	else if (Attribute == GetMaxShadowManaPoolAttribute())
+	{
+		AdjustAttributeForMaxChange(ShadowManaPool, MaxShadowManaPool, NewValue, GetShadowManaPoolAttribute());
+	}
+	else if (Attribute == GetMaxWaterManaPoolAttribute())
+	{
+		AdjustAttributeForMaxChange(WaterManaPool, MaxWaterManaPool, NewValue, GetWaterManaPoolAttribute());
+	}
+	
 }
 
 void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -34,25 +64,75 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
 	UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
 	const FGameplayTagContainer& SourceTags = *Data.EffectSpec.CapturedSourceTags.GetAggregatedTags();
+	FGameplayTagContainer SpecAssetTags;
+	Data.EffectSpec.GetAllAssetTags(SpecAssetTags);
 
-	// Compute the delta between old and new, if it is available
-	float DeltaValue = 0;
-	if (Data.EvaluatedData.ModifierOp == EGameplayModOp::Type::Additive)
-	{
-		// If this was additive, store the raw delta value to be passed along later
-		DeltaValue = Data.EvaluatedData.Magnitude;
-	}
-
+	// Get the Target actor, which should be our owner
+	AActor* TargetActor = nullptr;
+	AController* TargetController = nullptr;
 	AExtractionGameCharacter* TargetCharacter = nullptr;
 	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
 	{
-		// AController* TargetController = nullptr;
-		AActor* TargetActor = nullptr;
 		TargetActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
-		// TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
+		TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
 		TargetCharacter = Cast<AExtractionGameCharacter>(TargetActor);
 	}
-	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+
+	// Get the Source actor
+	AActor* SourceActor = nullptr;
+	AController* SourceController = nullptr;
+	AExtractionGameCharacter* SourceCharacter = nullptr;
+	if (Source && Source->AbilityActorInfo.IsValid() && Source->AbilityActorInfo->AvatarActor.IsValid())
+	{
+		SourceActor = Source->AbilityActorInfo->AvatarActor.Get();
+		SourceController = Source->AbilityActorInfo->PlayerController.Get();
+		if (SourceController == nullptr && SourceActor != nullptr)
+		{
+			if (APawn* Pawn = Cast<APawn>(SourceActor))
+			{
+				SourceController = Pawn->GetController();
+			}
+		}
+
+		// Use the controller to find the source pawn
+		if (SourceController)
+		{
+			SourceCharacter = Cast<AExtractionGameCharacter>(SourceController->GetPawn());
+		}
+		else
+		{
+			SourceCharacter = Cast<AExtractionGameCharacter>(SourceActor);
+		}
+
+		// Set the causer actor based on context if it's set
+		if (Context.GetEffectCauser())
+		{
+			SourceActor = Context.GetEffectCauser();
+		}
+	}
+
+	//Mana increases based on FCurve.
+	//Max Mana is based on gems
+	//
+	if(Data.EvaluatedData.Attribute == GetEarthManaPoolAttribute())
+	{
+		SetEarthManaPool(FMath::Clamp(GetEarthManaPool(), 0.f, GetMaxEarthManaPool()));
+	}
+	else if(Data.EvaluatedData.Attribute == GetFireManaPoolAttribute())
+	{
+		SetFireManaPool(FMath::Clamp(GetFireManaPool(), 0.f, GetMaxFireManaPool()));
+	}
+	else if(Data.EvaluatedData.Attribute == GetShadowManaPoolAttribute())
+	{
+		SetShadowManaPool(FMath::Clamp(GetShadowManaPool(), 0.f, GetMaxShadowManaPool()));
+	}
+	else if(Data.EvaluatedData.Attribute == GetWaterManaPoolAttribute())
+	{
+		SetWaterManaPool(FMath::Clamp(GetWaterManaPool(), 0.f, GetMaxWaterManaPool()));
+	}
+
+	/*
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		// Handle other health changes such as from healing or direct modifiers
 		// First clamp it
@@ -63,13 +143,15 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 			// Call for all health changes
 			TargetCharacter->HandleHealthChanged(DeltaValue, SourceTags);
 		}
-	}
+	} */
+	
 }
 
+
 void UExtractionAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
-                                                      const FGameplayAttributeData& MaxAttribute,
-                                                      const float NewMaxValue,
-                                                      const FGameplayAttribute& AffectedAttributeProperty) const
+                                                          const FGameplayAttributeData& MaxAttribute,
+                                                          const float NewMaxValue,
+                                                          const FGameplayAttribute& AffectedAttributeProperty) const
 {
 	UAbilitySystemComponent* AbilityComp = GetOwningAbilitySystemComponent();
 	const float CurrentMaxValue = MaxAttribute.GetCurrentValue();
@@ -85,6 +167,7 @@ void UExtractionAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttribu
 	}
 }
 
+
 void UExtractionAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, Health, OldValue);
@@ -93,4 +176,50 @@ void UExtractionAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValu
 void UExtractionAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxHealth, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_RegenMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, RegenMana, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_EarthMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, EarthManaPool, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_MaxEarthMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxEarthManaPool, OldValue);
+}
+
+
+void UExtractionAttributeSet::OnRep_FireMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, FireManaPool, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_MaxFireMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxFireManaPool, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_ShadowMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, ShadowManaPool, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_MaxShadowMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxShadowManaPool, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_WaterMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, WaterManaPool, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_MaxWaterMana(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxWaterManaPool, OldValue);
 }

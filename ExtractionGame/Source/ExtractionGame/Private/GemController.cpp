@@ -148,6 +148,22 @@ void UGemController::OnRep_RightArmGems()
 {
 }
 
+void UGemController::ApplyRegen()
+{
+	//If we were previously generating, STOP.
+	if(ManaRegenHandle.IsValid()) OwnerAbilities->RemoveActiveGameplayEffect(ManaRegenHandle);
+	
+	FGameplayEffectContextHandle EffectContext = OwnerAbilities->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	//TODO: Change level
+	const FGameplayEffectSpecHandle NewHandle = OwnerAbilities->MakeOutgoingSpec(ManaRegenEffect, 0, EffectContext);
+	if (NewHandle.IsValid())
+	{
+		ManaRegenHandle = OwnerAbilities->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  OwnerPlayer->AbilitySystemComponent.Get());
+	}
+}
+
 void UGemController::SmartRecompileGems_Implementation()
 {
 	
@@ -195,15 +211,17 @@ void UGemController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
-	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	OwnerAbilities = Ch->AbilitySystemComponent;
+	OwnerPlayer = Cast<AExtractionGameCharacter>(GetOwner());
+	SubSystem = OwnerPlayer->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	OwnerAbilities = OwnerPlayer->AbilitySystemComponent;
 	
-	if(GetOwner()->HasAuthority())
-	{
-		dirtyFlags = 255;
-		SmartRecompileGems();
-	}
+	if(!GetOwner()->HasAuthority()) return;
+	
+	dirtyFlags = 255;
+	SmartRecompileGems();
+	ApplyRegen();
+	
+	
 }
 
 void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

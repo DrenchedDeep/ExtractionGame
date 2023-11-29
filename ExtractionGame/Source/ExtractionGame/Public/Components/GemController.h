@@ -37,6 +37,7 @@ class EXTRACTIONGAME_API UGemController : public UActorComponent
 	const int RightArmFlag = RightArm0 | RightArm1 | RightArm2;
 	
 	
+	
 	FTimerHandle* leftArmCooldown;
 	FTimerHandle* rightArmCooldown;
 	
@@ -82,6 +83,14 @@ public:
 	UPROPERTY(ReplicatedUsing=OnRep_RightArmGems, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	TArray<AGem*> rightGems;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	TSubclassOf<UGameplayEffect> ManaRegenEffect;
+
+	FActiveGameplayEffectHandle ManaRegenHandle;
+
+	UPROPERTY()
+	class AExtractionGameCharacter* OwnerPlayer;
+	
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. Returns false if slot is already filled"))
 	bool CheckGem(EBodyPart slot);
 	
@@ -129,6 +138,8 @@ private:
 	void OnRep_LeftArmGems();
 	UFUNCTION()
 	void OnRep_RightArmGems();
+
+	void ApplyRegen();
 
 	bool bInitialized;
 };

@@ -38,7 +38,68 @@ public:
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxHealth)
 
+	/** GemMana Pools **/
+#pragma region Mana
+	
+	UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_RegenMana)
+	FGameplayAttributeData RegenMana;
+	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, RegenMana);
+	UFUNCTION()
+	virtual void OnRep_RegenMana(const FGameplayAttributeData& OldValue);
 
+	#pragma region Earth
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_EarthMana)
+		FGameplayAttributeData EarthManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, EarthManaPool);
+		UFUNCTION()
+		virtual void OnRep_EarthMana(const FGameplayAttributeData& OldValue);
+
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxEarthMana)
+		FGameplayAttributeData MaxEarthManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxEarthManaPool);
+		UFUNCTION()
+		virtual void OnRep_MaxEarthMana(const FGameplayAttributeData& OldValue);
+	# pragma endregion Earth
+	#pragma region Fire
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_FireMana)
+		FGameplayAttributeData FireManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, FireManaPool);
+		UFUNCTION()
+		virtual void OnRep_FireMana(const FGameplayAttributeData& OldValue);
+
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxFireMana)
+		FGameplayAttributeData MaxFireManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxFireManaPool);
+		UFUNCTION()
+		virtual void OnRep_MaxFireMana(const FGameplayAttributeData& OldValue);
+	# pragma endregion Fire
+	#pragma region Shadow
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_ShadowMana)
+		FGameplayAttributeData ShadowManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, ShadowManaPool);
+		UFUNCTION()
+		virtual void OnRep_ShadowMana(const FGameplayAttributeData& OldValue);
+
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxShadowMana)
+		FGameplayAttributeData MaxShadowManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxShadowManaPool);
+		UFUNCTION()
+		virtual void OnRep_MaxShadowMana(const FGameplayAttributeData& OldValue);
+	# pragma endregion Shadow
+	#pragma region Water
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_WaterMana)
+		FGameplayAttributeData WaterManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, WaterManaPool);
+		UFUNCTION()
+		virtual void OnRep_WaterMana(const FGameplayAttributeData& OldValue);
+		
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxWaterMana)
+		FGameplayAttributeData MaxWaterManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxWaterManaPool);
+		UFUNCTION()
+		virtual void OnRep_MaxWaterMana(const FGameplayAttributeData& OldValue);
+	# pragma endregion Water
+# pragma endregion Mana
 	/**
 	 * Helper function to proportionally adjust the value of an attribute when it's associated max attribute changes.
 	 * (i.e. When MaxHealth increases, Health increases by an amount that maintains the same percentage as before)
