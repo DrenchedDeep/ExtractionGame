@@ -24,6 +24,8 @@ void AMainMenuGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(AMainMenuGameState, PartyManager);
 }
 
+
+
 void AMainMenuGameState::Multicast_JoinSession_Implementation(FClientConnectionInfo ConnectInfo)
 {
 	if(!ConnectInfo.bIsValid)
@@ -39,7 +41,7 @@ void AMainMenuGameState::Multicast_JoinSession_Implementation(FClientConnectionI
 	ConnectionInfo = ConnectInfo;
 	if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
 	{
-		GameInstance->JoinSession();
+		GameInstance->JoinSession(false);
 	}
 }
 

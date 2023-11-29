@@ -99,7 +99,6 @@ void ATDMGameState::OnRep_MatchState()
 {
 	Super::OnRep_MatchState();
 
-	UE_LOG(LogTemp, Warning, TEXT("HI"));
 	MatchStateChanged(GetMatchState());
 
 	if(GetMatchState() == MatchState::WaitingPostMatch)

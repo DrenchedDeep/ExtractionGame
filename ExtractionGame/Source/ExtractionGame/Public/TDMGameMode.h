@@ -23,6 +23,8 @@ class EXTRACTIONGAME_API ATDMGameMode : public AGameMode
 
 	void RespawnAllPlayerPawns();
 
+
+
 public:
 	virtual void SpawnPlayer(APlayerController* NewPlayer, int32 TeamID);
 	

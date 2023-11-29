@@ -23,6 +23,8 @@ public:
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
 
+	bool bWantsToHost = false;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	APlayerStashManager* PlayerStashManager;
 	

@@ -124,17 +124,22 @@ public:
 	void StartSession();
 	void StopSession();
 	
-	UFUNCTION(BlueprintCallable) void JoinSession();
+	UFUNCTION(BlueprintCallable) void JoinSession(bool bCreateSession);
 	UFUNCTION(BlueprintCallable) void CreateLobby();
 	UFUNCTION(BlueprintCallable) void DestroySession();
 	UFUNCTION(BlueprintCallable) bool TryAutoLogin();
 	UFUNCTION(BlueprintCallable) bool LogOut();
 	
+	UFUNCTION(Exec)
+	void SetWantsToHost(bool bWantsToHost);
+	
+
 	UFUNCTION(BlueprintImplementableEvent) void ShowLoadingScreen();
 
 	//user
 	UFUNCTION(BlueprintCallable) void LoginEOS(FString ID, FString Token, FString LoginType);
 	UFUNCTION(BlueprintCallable, BlueprintPure) FString GetPlayerUsername();
+	UFUNCTION(BlueprintCallable) void CancelMatchMaking();
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool IsLoggedIn();
 	
 	UPROPERTY(BlueprintAssignable) FOnLoginCompleted OnLoginComplete;
@@ -186,6 +191,8 @@ private:
 	void CreateSession(int32 PlayerCount);
 	void GetPlayerData(FString FileName);
 
+	bool bHost;
+	bool bCurrentlyFindingSessions;
 	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search)
 	{
 		FOnlineSessionSearchResult BestSession;

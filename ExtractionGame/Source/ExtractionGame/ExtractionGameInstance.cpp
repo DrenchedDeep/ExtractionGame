@@ -167,6 +167,15 @@ FString UExtractionGameInstance::GetPlayerUsername()
 	return RandomPlayerName;
 }
 
+void UExtractionGameInstance::CancelMatchMaking()
+{
+	if(bCurrentlyFindingSessions)
+	{
+		Session->CancelFindSessions();
+		bCurrentlyFindingSessions = false;
+	}
+}
+
 bool UExtractionGameInstance::IsLoggedIn()
 {
 	if(OnlineSubSystem == nullptr || UserIdentity == nullptr)
@@ -191,7 +200,6 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 		return;
 	}
 	
-	
 	FOnlineSessionSettings SessionSettings;
 
 	SessionSettings.bIsDedicated = false;
@@ -211,6 +219,7 @@ void UExtractionGameInstance::CreateSession(int32 PlayerCount)
 	
 	const FName SessionName = FName(FString::FromInt(FMath::RandRange(0, 10000)));
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	UE_LOG(LogTemp, Warning, TEXT("session created"));
 
 	if(!bCreatedSession)
 	{
@@ -244,8 +253,14 @@ TArray<FCloudFileHeader>& UExtractionGameInstance::GetEosPlayerFiles()
 	return Files;
 }
 
-void UExtractionGameInstance::JoinSession()
+void UExtractionGameInstance::JoinSession(bool bCreateSession)
 {
+	if(bCreateSession || bHost)
+	{
+		CreateSession(SESSION_PLAYERCOUNT);
+		return;
+	}
+	
 	if(Session == nullptr)
 	{
 		Session = OnlineSubSystem->GetSessionInterface();
@@ -269,7 +284,7 @@ void UExtractionGameInstance::JoinSession()
 		this,
 		&UExtractionGameInstance::OnFindSessionCompleted, SessionSearch));
 
-
+	bCurrentlyFindingSessions = true;
 	if (!Session->FindSessions(0, SessionSearch))
 	{
 		OnJoinSessionComplete.Broadcast(false);
@@ -331,7 +346,6 @@ void UExtractionGameInstance::GetPlayerData(FString FileName)
 
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
-	UE_LOG(LogTemp, Warning, TEXT("session created"));
 	CurrentSession = Session->GetNamedSession(SessionName);
 
 	if(!CurrentSession || !bWasSuccess)
@@ -392,6 +406,7 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 			FString ServerAddress;
 			Session->GetResolvedConnectString(SessionName, ServerAddress);
 			OnJoinSessionComplete.Broadcast(true);
+
 			PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Absolute);
 		}
 	}
@@ -404,6 +419,21 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 
 void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search)
 {
+	//first problem:
+	/*/ when a host crashes, the session is still there, but the host is gone therefore terminating the listen server, but doesnt destroy session so it shows up in findsession
+	 * 2nd problem:
+	 * clients need to wait for the host to create the session, then join it, so if they all hit accept match at once, they will all create their own sessions
+	 */
+
+
+
+	/*/
+	 *  if there are no servers to join, throw players into a matchmaking lobby instead of immediatly creating a session
+	 *  matchmaking lobby will wait till filled up, then create a session based on the best host and send all players to the session
+	 */
+
+
+	bCurrentlyFindingSessions = false;
 	AMainMenuGameState* MenuGameState = Cast<AMainMenuGameState>(GetWorld()->GetGameState());
 
 	if(!MenuGameState)
@@ -416,11 +446,7 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 	{
 		if(MenuGameState->PartyManager->GetLocalPartyPlayer().bIsHost)
 		{
-			CreateSession(SESSION_PLAYERCOUNT);
-		}
-		else
-		{
-			JoinSession();
+			JoinSession(false);
 		}
 		
 		return;
@@ -574,6 +600,11 @@ bool UExtractionGameInstance::LogOut()
 	}
 
 	return UserIdentity->Logout(0);
+}
+
+void UExtractionGameInstance::SetWantsToHost(bool bWantsToHost)
+{
+	bHost = bWantsToHost;
 }
 
 

@@ -130,10 +130,6 @@ void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove
 	HorizontalLook = HorLook;
 }
 
-void AExtractionGameCharacter::SafeBeginPlay()
-{
-}
-
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
@@ -202,16 +198,18 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	//Client GAS initialization
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	InventoryComponent->InitInventory();
+	SafeBeginPlay();
 }
+
 
 void AExtractionGameCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
+	SafeBeginPlay();
 }
 
 void AExtractionGameCharacter::BeginDestroy()
 {
-
 	Super::BeginDestroy();
 }
 

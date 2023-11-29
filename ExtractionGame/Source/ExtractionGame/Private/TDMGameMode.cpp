@@ -25,6 +25,7 @@ void ATDMGameMode::RespawnAllPlayerPawns()
 	}
 }
 
+
 void ATDMGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);

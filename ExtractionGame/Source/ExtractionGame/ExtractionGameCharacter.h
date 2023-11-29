@@ -191,13 +191,14 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSlideEnd();
 	
-	void SafeBeginPlay();
-	
 	UFUNCTION(Server, Unreliable)
 	void Server_SetInput(float VerticalMove, float HorizontalMove, float VertLook, float HorLook);
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeathEvent();
 	
+	UFUNCTION(BlueprintImplementableEvent)
+void SafeBeginPlay();
+
 	
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -209,7 +210,9 @@ protected:
 	/***************************************
 	 * Ability System
 	 ****************************************/
-	
+
+	//event for when is safe to access things like controller, playerstate, etc
+
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	void AddStartupGameplayAbilities();
 

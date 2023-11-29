@@ -3,6 +3,7 @@
 
 #include "TDMPlayerState.h"
 
+#include "ExtractionGame/ExtractionGameCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 void ATDMPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -12,4 +13,8 @@ void ATDMPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ATDMPlayerState, Kills);
 	DOREPLIFETIME(ATDMPlayerState, Deaths);
 	DOREPLIFETIME(ATDMPlayerState, TeamID);
+}
+
+void ATDMPlayerState::OnRep_TeamID()
+{	
 }
