@@ -43,7 +43,6 @@ UGemController::UGemController(): leftArmCooldown(nullptr), rightArmCooldown(nul
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
 	leftGems.SetNum(3);
 	rightGems.SetNum(3);
 
@@ -153,11 +152,13 @@ void UGemController::SmartRecompileGems_Implementation()
 {
 	
 	//if(!GetOwner()->HasAuthority()) return; Not needed, is already a server only function.
+	//if(!OwnerAbilities)
+	//{
+	//const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
+	//SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	//OwnerAbilities = Ch->AbilitySystemComponent;
+	//}
 	
-	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
-
-	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-
 	const int val = dirtyFlags;
 	dirtyFlags = None;
 	if((val & HeadFlag) != 0)
@@ -195,9 +196,7 @@ void UGemController::BeginPlay()
 	Super::BeginPlay();
 
 	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
-
 	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-
 	OwnerAbilities = Ch->AbilitySystemComponent;
 	
 	if(GetOwner()->HasAuthority())
@@ -224,39 +223,6 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 //{
 //	LazyRecompileGems();
 //}
-/*
-void UGemController::LazyRecompileGems()
-{
-	const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
-
-	SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	
-	OwnerAbilities = Ch->AbilitySystemComponent;
-	LeftAttackAction = Ch->LeftAttackAction;
-	RightAttackAction = Ch->RightAttackAction;
-	HeadAbilityAction = Ch->HeadAbilityAction;
-	
-	//Reset Old Abilities
-	OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
-	OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);
-
-	
-	//Change Ability bindings and setups...
-
-	//Bind head ability...
-	
-	//Bind arm abilities..
-	RecompileArm(leftGems, true);
-	RecompileArm(rightGems, false);
-	
-}
-*/
-/*
-void UGemController::Attack(bool bLeftArm)
-{
-//	FGameplayAbilitySpecHandle Handle = OwnerAbilities->TryActivateAbility(AbilitySpecHandles[0]);
-} */
-
 void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 {
 	float type [] = {0,0,0,0};
@@ -303,17 +269,17 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, this);
 
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
-	if(GetOwner()->HasAuthority())
+	//if(GetOwner()->HasAuthority())
+	//{
+	if(bIsLeft)
 	{
-		if(bIsLeft)
-		{
-			LeftArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
-		}
-		else
-		{
-			RightArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
-		}
+		LeftArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
 	}
+	else
+	{
+		RightArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
+	}
+	//}
 }
 
 void UGemController::RecompileHead()
