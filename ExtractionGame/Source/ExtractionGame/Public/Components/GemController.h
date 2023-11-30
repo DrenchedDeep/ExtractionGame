@@ -86,7 +86,11 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
 	TSubclassOf<UGameplayEffect> ManaRegenEffect;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	TSubclassOf<UGameplayEffect> ManaPoolEffect;
+
 	FActiveGameplayEffectHandle ManaRegenHandle;
+	FActiveGameplayEffectHandle ManaPoolHandle;
 
 	UPROPERTY()
 	class AExtractionGameCharacter* OwnerPlayer;
@@ -139,7 +143,7 @@ private:
 	UFUNCTION()
 	void OnRep_RightArmGems();
 
-	void ApplyRegen();
+	void ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const;
 
 	bool bInitialized;
 };

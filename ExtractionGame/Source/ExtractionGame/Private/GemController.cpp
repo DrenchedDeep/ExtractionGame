@@ -9,7 +9,6 @@
 #include "Core/AbilityHandlerSubSystem.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "Net/UnrealNetwork.h"
-#include "Runtime/Online/XMPP/Public/XmppMultiUserChat.h"
 
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
@@ -148,21 +147,25 @@ void UGemController::OnRep_RightArmGems()
 {
 }
 
-void UGemController::ApplyRegen()
+void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
+	UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK A"))
 	//If we were previously generating, STOP.
-	if(ManaRegenHandle.IsValid()) OwnerAbilities->RemoveActiveGameplayEffect(ManaRegenHandle);
+	if(handle->IsValid()) OwnerAbilities->RemoveActiveGameplayEffect(*handle);
 	
 	FGameplayEffectContextHandle EffectContext = OwnerAbilities->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
+	EffectContext.AddSourceObject(OwnerPlayer);
 
 	//TODO: Change level
-	const FGameplayEffectSpecHandle NewHandle = OwnerAbilities->MakeOutgoingSpec(ManaRegenEffect, 0, EffectContext);
+	UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK B"))
+	const FGameplayEffectSpecHandle NewHandle = OwnerAbilities->MakeOutgoingSpec(effect, level,EffectContext);
 	if (NewHandle.IsValid())
 	{
-		ManaRegenHandle = OwnerAbilities->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  OwnerPlayer->AbilitySystemComponent.Get());
+		UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK C"))
+		*handle = OwnerAbilities->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  OwnerPlayer->AbilitySystemComponent.Get());
 	}
 }
+
 
 void UGemController::SmartRecompileGems_Implementation()
 {
@@ -199,6 +202,9 @@ void UGemController::SmartRecompileGems_Implementation()
 		OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);
 		RecompileArm(rightGems, false);
 	}
+	//TODO: Gems affect values.
+	ApplyEffect(&ManaPoolHandle, ManaRegenEffect, 1);
+	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
 }
 
 void UGemController::InitializeComponent()
@@ -219,9 +225,9 @@ void UGemController::BeginPlay()
 	
 	dirtyFlags = 255;
 	SmartRecompileGems();
-	ApplyRegen();
 	
 	
+
 }
 
 void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
