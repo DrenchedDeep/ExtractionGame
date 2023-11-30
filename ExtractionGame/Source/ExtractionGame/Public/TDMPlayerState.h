@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
+#include "Player/GemPlayerState.h"
 #include "TDMPlayerState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class EXTRACTIONGAME_API ATDMPlayerState : public APlayerState
+class EXTRACTIONGAME_API ATDMPlayerState : public AGemPlayerState
 {
 	GENERATED_BODY()
 

@@ -10,6 +10,7 @@
 #include "Core/Interactable.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "UI/PlayerBarData.h"
 #include "ExtractionGameCharacter.generated.h"
 
 class UInventoryComponent;
@@ -56,7 +57,11 @@ class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterfa
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
 
+	
+
 public:
+	
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input)
 	UInputAction* LeftAttackAction;
 
@@ -99,6 +104,8 @@ private:
 
 	void HandleGaze();
 	void ChangeGaze();
+
+	UPlayerBarData* GetUIComponent() const;
 	
 	bool bInSettings;
 	bool bCanMove = true;

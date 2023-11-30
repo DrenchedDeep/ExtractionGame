@@ -7,6 +7,7 @@
 #include "GameHUD.h"
 #include "InventoryWidget.h"
 #include "GameFramework/HUD.h"
+#include "UI/PlayerBarData.h"
 #include "ExtractionGameHUD.generated.h"
 
 /**
@@ -22,14 +23,20 @@ public:
 	UInventoryWidget* InventoryWidget;
 	UPROPERTY(BlueprintReadWrite)
 	UDeathWidget* DeathWidget;
+	UPROPERTY(BlueprintReadWrite)
+	UPlayerBarData* PlayerUIData;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UInventoryWidget> InventoryWidgetSubclass;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UDeathWidget> DeathWidgetSubclass;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UPlayerBarData> PlayerUIDataSubclass;
 	
 	UInventoryWidget* CreateInventoryWidget();
+	UPlayerBarData* CreatePlayerBarDataWidget();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPlayerKilled(const FString& PlayerName);

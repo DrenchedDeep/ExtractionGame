@@ -470,4 +470,3 @@ void AExtractionGameCharacter::ChangeGaze()
 	GazeTarget = nullptr;
 }
 
-

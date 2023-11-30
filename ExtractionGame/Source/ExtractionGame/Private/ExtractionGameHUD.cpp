@@ -18,6 +18,20 @@ UInventoryWidget* AExtractionGameHUD::CreateInventoryWidget()
 	return InventoryWidget;
 }
 
+UPlayerBarData* AExtractionGameHUD::CreatePlayerBarDataWidget()
+{
+	if(PlayerUIData)
+	{
+		return PlayerUIData;
+	}
+	
+	PlayerUIData = CreateWidget<UPlayerBarData>(GetWorld(), PlayerUIDataSubclass);
+	PlayerUIData->AddToViewport();
+	PlayerUIData->SetVisibility(ESlateVisibility::Visible);
+
+	return PlayerUIData;
+}
+
 void AExtractionGameHUD::BeginPlay()
 {
 	Super::BeginPlay();
