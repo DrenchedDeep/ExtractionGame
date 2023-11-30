@@ -14,9 +14,6 @@
 #include "PlayerHealthComponent.h"
 #include "PlayerMovementComponent.h"
 #include "TDMPlayerState.h"
-#include "Abilities/GameplayAbility.h"
-#include "Abilities/ExtractionAttributeSet.h"
-#include "Components/ExtractionAbilitySystemComponent.h"
 #include "Components/GemController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/LocalPlayer.h"
@@ -30,10 +27,8 @@ void AExtractionGameCharacter::ToggleControlLocks(bool x)
 {
 	
 	//PlayerMovementComponent->SetActive(x);
-	AbilitySystemComponent->SetActive(x);
 	bCanMove = x;
 	
-	//GetAbilitySystemComponent()->SetActive(x);
 	//if(x) Controller->EnableInput(GetLocalViewingPlayerController());
 	//else Controller->DisableInput(GetLocalViewingPlayerController());
 }
@@ -77,13 +72,6 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	Mesh1P->CastShadow = false;
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
-	bAbilitiesInitialized = false;
-	AbilitySystemComponent = CreateDefaultSubobject<UExtractionAbilitySystemComponent>(TEXT("Ability System"));
-	AbilitySystemComponent->SetIsReplicated(true);
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
-
-	
-	AttributeSet = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("Ability Attributes"));
 	InventoryComponent = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("InventoryComponent"));
 	GemController = CreateDefaultSubobject<UGemController>(TEXT("GemController"));
 }
@@ -186,10 +174,12 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	//Server GAS initialization
-	if(AbilitySystemComponent) // not nullptr
+	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
 	{
+		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		AddStartupGameplayAbilities();
+		state->CreateStateFuncs();
+		GemController->SetAbilitySystem(AbilitySystemComponent);
 	}
 	InventoryComponent->InitInventory();
 
@@ -204,7 +194,14 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 	
 	//Client GAS initialization
-	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
+	{
+		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		state->CreateStateFuncs();
+		GemController->SetAbilitySystem(AbilitySystemComponent);
+
+	}
 	InventoryComponent->InitInventory();
 	SafeBeginPlay();
 }
@@ -221,44 +218,6 @@ void AExtractionGameCharacter::BeginDestroy()
 	Super::BeginDestroy();
 }
 
-UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const
-{
-	return AbilitySystemComponent;
-}
-
-void AExtractionGameCharacter::AddStartupGameplayAbilities()
-{
-	check(AbilitySystemComponent);
-
-	if(GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
-	{
-		//Grants abilities, but only on the server.
-
-		/*Also force binds them to a key... Big no-no for this game.
-		 *for (TSubclassOf<UGameplayAbility>& StartUpAbility : Abilities)
-		{
-			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
-				StartUpAbility, 1, static_cast<int32>(StartUpAbility.GetDefaultObject()->AbilityInputID), this
-			));
-		}*/
-		
-		//Apply Passive abilities
-		for(const TSubclassOf<UGameplayEffect>& GameplayEffect: PassiveGameplayEffects)
-		{
-			FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
-			EffectContext.AddSourceObject(this);
-
-			FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, 1,  EffectContext);
-
-			if(NewHandle.IsValid())
-			{
-				//FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
-					AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
-			}
-		}
-		bAbilitiesInitialized = true;
-	}
-}
 
 void AExtractionGameCharacter::HandleDamage(float amount, const FHitResult& HitInfo,
 	const FGameplayTagContainer& DamageTags, AExtractionGameCharacter* Instigator0, AActor* DamageCauser)

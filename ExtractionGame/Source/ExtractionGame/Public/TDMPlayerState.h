@@ -17,11 +17,11 @@ class EXTRACTIONGAME_API ATDMPlayerState : public AGemPlayerState
 
 
 public:
-	UPROPERTY(Replicated, BlueprintReadOnly)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	uint8 Kills;
-	UPROPERTY(Replicated, BlueprintReadOnly)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	uint8 Deaths;
-	UPROPERTY(ReplicatedUsing=OnRep_TeamID, BlueprintReadOnly)
+	UPROPERTY(ReplicatedUsing=OnRep_TeamID, BlueprintReadOnly, VisibleAnywhere)
 	uint8 TeamID;
 
 

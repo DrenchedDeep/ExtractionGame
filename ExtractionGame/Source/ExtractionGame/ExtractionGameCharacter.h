@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystemInterface.h"
 #include "GameplayEffect.h"
 #include "PlayerInventoryComponent.h"
 #include "Components/GemController.h"
@@ -29,7 +28,7 @@ class UExtractionAttributeSet;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterface
+class AExtractionGameCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -87,6 +86,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* SettingsAction;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	UExtractionAbilitySystemComponent* AbilitySystemComponent;
+	
 	void Move(const FInputActionValue& Value);
 	void ResetMove();
 	void Look(const FInputActionValue& Value);
@@ -212,14 +214,9 @@ protected:
 	virtual void OnRep_PlayerState() override;
 	virtual void OnRep_Controller() override;
 	virtual void BeginDestroy() override;
-	/***************************************
-	 * Ability System
-	 ****************************************/
 
 	//event for when is safe to access things like controller, playerstate, etc
 
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	void AddStartupGameplayAbilities();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDamaged(float amount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags,
@@ -249,11 +246,11 @@ public:
 	
 	FCollisionQueryParams GetIgnoreCharacterParams() const;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
-	TObjectPtr<UExtractionAbilitySystemComponent> AbilitySystemComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	//TObjectPtr<UExtractionAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY()
-	TObjectPtr<UExtractionAttributeSet> AttributeSet;
+	//UPROPERTY()
+	//TObjectPtr<UExtractionAttributeSet> AttributeSet;
 
 	virtual bool CanJumpInternal_Implementation() const override;
 

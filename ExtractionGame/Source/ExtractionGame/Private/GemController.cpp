@@ -9,6 +9,7 @@
 #include "Core/AbilityHandlerSubSystem.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "Net/UnrealNetwork.h"
+#include "Player/GemPlayerState.h"
 
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
@@ -162,7 +163,7 @@ void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassO
 	if (NewHandle.IsValid())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK C"))
-		*handle = OwnerAbilities->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  OwnerPlayer->AbilitySystemComponent.Get());
+		*handle = OwnerAbilities->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  OwnerAbilities);
 	}
 }
 
@@ -177,34 +178,49 @@ void UGemController::SmartRecompileGems_Implementation()
 	//SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
 	//OwnerAbilities = Ch->AbilitySystemComponent;
 	//}
-	
+	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP START"))
 	const int val = dirtyFlags;
 	dirtyFlags = None;
 	if((val & HeadFlag) != 0)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK HEAD"))
+
 		//HeadAbilityAction = Ch->HeadAbilityAction;
 		OwnerAbilities->ClearAbility(HeadAbilitySpecHandle);
 		RecompileHead();
 	}
 	if((val & BodyFlag) != 0)
 	{
-		
+		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK CHEST"))
 	}
 	if((val & LeftArmFlag) != 0)
 	{
 		//LeftAttackAction = Ch->LeftAttackAction;
+		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK LEFT ARM"))
 		OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
 		RecompileArm(leftGems, true);
 	}
 	if((val & RightArmFlag) != 0)
 	{
 		//RightAttackAction = Ch->RightAttackAction;
+		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK RIGHT ARM"))
 		OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);
 		RecompileArm(rightGems, false);
 	}
 	//TODO: Gems affect values.
-	ApplyEffect(&ManaPoolHandle, ManaRegenEffect, 1);
+	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL"))
 	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
+	alrightApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
+
+}
+
+void UGemController::SetAbilitySystem(UExtractionAbilitySystemComponent* AbilitySystemComponent)
+{
+	OwnerAbilities = AbilitySystemComponent;
+
+	if(!GetOwner()->HasAuthority()) return;
+	dirtyFlags = 255;
+	SmartRecompileGems();
 }
 
 void UGemController::InitializeComponent()
@@ -219,15 +235,6 @@ void UGemController::BeginPlay()
 
 	OwnerPlayer = Cast<AExtractionGameCharacter>(GetOwner());
 	SubSystem = OwnerPlayer->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	OwnerAbilities = OwnerPlayer->AbilitySystemComponent;
-	
-	if(!GetOwner()->HasAuthority()) return;
-	
-	dirtyFlags = 255;
-	SmartRecompileGems();
-	
-	
-
 }
 
 void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -236,6 +243,7 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(UGemController, LeftArmAbilitySpecHandle);
 	DOREPLIFETIME(UGemController, RightArmAbilitySpecHandle);
+	DOREPLIFETIME(UGemController, HeadAbilitySpecHandle);
 	DOREPLIFETIME(UGemController, HeadGem);
 	DOREPLIFETIME(UGemController, ChestGem);
 	DOREPLIFETIME(UGemController, leftGems);
@@ -290,7 +298,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	if(bIsLeft)
 		totalPolish = -totalPolish;
 	
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, this);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, OwnerPlayer);
 
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
 	//if(GetOwner()->HasAuthority())
@@ -319,7 +327,7 @@ void UGemController::RecompileHead()
 	Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d, %d"), Score, val);
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(Score);
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, this);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, OwnerPlayer);
 	HeadAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
 }
 

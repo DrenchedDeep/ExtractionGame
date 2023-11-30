@@ -119,7 +119,8 @@ public:
 
 	UFUNCTION(Server, Reliable)
 	void SmartRecompileGems();
-	
+	void SetAbilitySystem(UExtractionAbilitySystemComponent* AbilitySystemComponent);
+
 protected:
 	virtual void InitializeComponent() override;
 	virtual void BeginPlay() override;

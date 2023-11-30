@@ -32,6 +32,7 @@ protected:
 
 	UPlayerBarData* GetUIElement() const;
 	
+
 	//FGameplayTag DeadTag;
 
 	FDelegateHandle OnHealthChangedHandle;
@@ -46,8 +47,6 @@ protected:
 	FDelegateHandle OnMaxFireManaChangedHandle;
 	FDelegateHandle OnMaxWaterManaChangedHandle;
 	FDelegateHandle OnMaxShadowManaChangedHandle;
-
-	virtual void BeginPlay() override;
 
 	//UFUNCTION(BlueprintImplementableEvent)
 	virtual void OnHealthChanged(const FOnAttributeChangeData& Data);
@@ -99,4 +98,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
 	float GetManaRegenRate() const;
+
+	void CreateStateFuncs();
 };

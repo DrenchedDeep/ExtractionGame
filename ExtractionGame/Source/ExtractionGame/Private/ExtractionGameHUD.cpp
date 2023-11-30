@@ -3,6 +3,8 @@
 
 #include "ExtractionGameHUD.h"
 
+#include "Player/GemPlayerState.h"
+
 UInventoryWidget* AExtractionGameHUD::CreateInventoryWidget()
 {
 	if(InventoryWidget)
@@ -37,4 +39,5 @@ void AExtractionGameHUD::BeginPlay()
 	Super::BeginPlay();
 
 	DeathWidget = CreateWidget<UDeathWidget>(GetWorld(), DeathWidgetSubclass);
+
 }
