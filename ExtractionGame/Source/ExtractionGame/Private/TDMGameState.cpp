@@ -16,7 +16,7 @@ void ATDMGameState::BeginPlay()
 
 	RedTeam.TeamID = 1;
 	BlueTeam.TeamID = 0;
-	ElapsedTime = MatchLength;
+	MatchTime = MatchLength;
 }
 
 void ATDMGameState::PreInitializeComponents()
@@ -94,6 +94,7 @@ void ATDMGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 	DOREPLIFETIME(ATDMGameState, RedTeam);
 	DOREPLIFETIME(ATDMGameState, BlueTeam);
 	DOREPLIFETIME(ATDMGameState, WinningTeamID);
+	DOREPLIFETIME(ATDMGameState, MatchTime);
 }
 
 void ATDMGameState::OnRep_MatchState()
@@ -140,35 +141,26 @@ void ATDMGameState::HandleLeavingMap()
 void ATDMGameState::OnRep_ElapsedTime()
 {
 	Super::OnRep_ElapsedTime();
-
-	if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(GetWorld()->GetFirstPlayerController()))
-	{
-		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
-		{
-			HUD->UpdateMatchTimerText(ElapsedTime);
-		}
-	}
+	
 }
 
 void ATDMGameState::DefaultTimer()
 {
-	if (IsMatchInProgress())
+	if (IsMatchInProgress() && HasAuthority())
 	{
-		--ElapsedTime;
-		if (GetNetMode() != NM_DedicatedServer)
-		{
-			OnRep_ElapsedTime();
-		}
-		
-		if(ElapsedTime <= 0)
+		--MatchTime;
+		OnRep_MatchTime();
+
+		if(MatchTime <= 0)
 		{
 			EndGame();
 			GetWorldTimerManager().ClearTimer(TimerHandle_DefaultTimer);
 			return;
 		}
 	}
-
-	GetWorldTimerManager().SetTimer(TimerHandle_DefaultTimer, this, &AGameState::DefaultTimer, GetWorldSettings()->GetEffectiveTimeDilation() / GetWorldSettings()->DemoPlayTimeDilation, true);
+	
+	GetWorldTimerManager().SetTimer(TimerHandle_DefaultTimer,
+		this, &AGameState::DefaultTimer, GetWorldSettings()->GetEffectiveTimeDilation() / GetWorldSettings()->DemoPlayTimeDilation, true);
 }
 
 void ATDMGameState::OnRep_WinningTeamID()
@@ -185,6 +177,17 @@ void ATDMGameState::OnRep_WinningTeamID()
 				GameOutcome = "TIED";
 			}
 			HUD->EndGame(GameOutcome);
+		}
+	}
+}
+
+void ATDMGameState::OnRep_MatchTime()
+{
+	if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(GetWorld()->GetFirstPlayerController()))
+	{
+		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
+		{
+			HUD->UpdateMatchTimerText(MatchTime);
 		}
 	}
 }

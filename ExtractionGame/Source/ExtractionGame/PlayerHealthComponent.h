@@ -17,7 +17,7 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UHealthComponent
 public:	
 	UPlayerHealthComponent();
 
-	virtual void InitializeComponent() override;
+	virtual void BeginPlay() override;
 	virtual void OnDeath(const FString& PlayerName);
 	virtual void OnRep_IsDead() override;
 	virtual void ApplyDamage(float Damage, const AController* Instigator) override;

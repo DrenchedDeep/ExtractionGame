@@ -38,9 +38,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void EndGame(const FString& WinningTeam);
 
-
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnKill(const FString& VictimName);
+
+	
 private:
 	virtual void BeginPlay() override;
 };

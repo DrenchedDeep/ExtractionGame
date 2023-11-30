@@ -40,6 +40,7 @@ class EXTRACTIONGAME_API ATDMGameState : public AGameState
 	UPROPERTY(EditDefaultsOnly)
 	float MatchLength = 30.f;
 	
+	
 public:
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	FTDMTeam RedTeam;
@@ -48,6 +49,8 @@ public:
 
 	UPROPERTY(ReplicatedUsing=OnRep_WinningTeamID)
 	uint8 WinningTeamID;
+	UPROPERTY(ReplicatedUsing=OnRep_MatchTime)
+	float MatchTime;
 	
 
 	TArray<ASpawnpoint*> RedTeamDefaultsSpawnpoints;
@@ -73,6 +76,8 @@ protected:
 
 	UFUNCTION()
 	void OnRep_WinningTeamID();
+	UFUNCTION()
+	void OnRep_MatchTime();
 private:
 	void EndGame();
 	
