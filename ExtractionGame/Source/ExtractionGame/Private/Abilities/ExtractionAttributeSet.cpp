@@ -140,7 +140,7 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	}
 	else if(Data.EvaluatedData.Attribute == GetMaxHealthAttribute())
 	{
-		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+		SetHealth(GetMaxHealth());
 	}
 	
 }

@@ -3,6 +3,8 @@
 
 #include "PooledObject.h"
 
+#include "Net/UnrealNetwork.h"
+
 // Sets default values
 APooledObject::APooledObject(): Power(0)
 {
@@ -23,4 +25,10 @@ void APooledObject::ReturnToPool()
 {
 	//OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
 	SetActiveState(false);
+}
+
+void APooledObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(APooledObject, Power)
 }

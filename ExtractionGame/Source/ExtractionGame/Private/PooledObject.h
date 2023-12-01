@@ -36,7 +36,8 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Pooled Object")
 	void ReturnToPool();
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	float Power;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };
 
