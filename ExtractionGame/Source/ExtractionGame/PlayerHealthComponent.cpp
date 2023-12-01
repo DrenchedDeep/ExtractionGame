@@ -18,6 +18,7 @@ float UPlayerHealthComponent::GetMaxHealth() const
 void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigator)
 {
 	Character->GetAttributeSet()->SetHealth(Health);
+	
 	if(Health < 0)
 	{
 		bCanTakeDamage = false;
@@ -27,7 +28,7 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 
 void UPlayerHealthComponent::OnHealthChanged(const FOnAttributeChangeData& Data)
 {
-	UE_LOG(LogTemp,Warning,TEXT("TRY"))
+	UE_LOG(LogTemp, Warning, TEXT("%d"), Data.NewValue);
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
 	UE_LOG(LogTemp,Warning,TEXT("PLEASE CHANGE HEALTH"))
@@ -36,6 +37,8 @@ void UPlayerHealthComponent::OnHealthChanged(const FOnAttributeChangeData& Data)
 
 void UPlayerHealthComponent::OnMaxHealthChanged(const FOnAttributeChangeData& Data)
 {
+	UE_LOG(LogTemp, Warning, TEXT("%d"), Data.NewValue);
+
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
 	hud->SetHealthPercent(GetHealth() / Data.NewValue);
@@ -73,8 +76,12 @@ void UPlayerHealthComponent::BeginPlay()
 
 	if(Character->GetLocalRole() == ROLE_Authority)
 	{
-		OnHealthChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetEarthManaPoolAttribute()).AddUObject(this, &UPlayerHealthComponent::OnHealthChanged);
-		OnMaxHealthChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxEarthManaPoolAttribute()).AddUObject(this, &UPlayerHealthComponent::OnMaxHealthChanged);
+		OnHealthChangedHandle =
+			Character->GetAbilitySystemComponent()->
+		GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnHealthChanged);
+		OnMaxHealthChangedHandle =
+			Character->GetAbilitySystemComponent()->
+		GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnMaxHealthChanged);
 		UE_LOG(LogTemp, Warning, TEXT("Loaded LOCAL Player Health Component"))
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Loaded Player Health Component"))
@@ -148,6 +155,7 @@ void UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 	HitCount++;
 	OnRep_HitCounter();
 	SetHealth(GetHealth() - Damage, Instigator);
+	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), GetHealth());
 }
 
 void UPlayerHealthComponent::Client_ApplyDamage_Implementation()
