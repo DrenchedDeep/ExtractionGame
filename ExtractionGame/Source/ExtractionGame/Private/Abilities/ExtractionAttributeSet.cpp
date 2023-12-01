@@ -116,6 +116,7 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	//Mana increases based on FCurve.
 	//Max Mana is based on gems
 	//
+	
 	if(Data.EvaluatedData.Attribute == GetEarthManaPoolAttribute())
 	{
 		SetEarthManaPool(FMath::Clamp(GetEarthManaPool(), 0.f, GetMaxEarthManaPool()));
@@ -179,6 +180,11 @@ void UExtractionAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldV
 void UExtractionAttributeSet::OnRep_RegenHealth(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, RegenHealth, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_Speed(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, Speed, OldValue);
 }
 
 void UExtractionAttributeSet::OnRep_RegenMana(const FGameplayAttributeData& OldValue)

@@ -46,6 +46,12 @@ public:
 	UFUNCTION()
 	virtual void OnRep_RegenHealth(const FGameplayAttributeData& OldValue);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Speed", ReplicatedUsing = OnRep_RegenMana)
+	FGameplayAttributeData Speed;
+	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, Speed)
+	UFUNCTION()
+	virtual void OnRep_Speed(const FGameplayAttributeData& OldValue);
+
 	/** GemMana Pools **/
 #pragma region Mana
 	
