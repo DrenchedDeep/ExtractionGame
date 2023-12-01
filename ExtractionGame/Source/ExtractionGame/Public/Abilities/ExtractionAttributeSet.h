@@ -32,17 +32,27 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_Health)
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, Health);
-
+	UFUNCTION()
+	virtual void OnRep_Health(const FGameplayAttributeData& OldValue);
 	/** MaxHealth is its own attribute, since GameplayEffects may modify it */
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing=OnRep_MaxHealth)
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxHealth)
+	UFUNCTION()
+	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
+	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_RegenMana)
+	FGameplayAttributeData RegenHealth;
+	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, RegenHealth)
+	UFUNCTION()
+	virtual void OnRep_RegenHealth(const FGameplayAttributeData& OldValue);
 
 	/** GemMana Pools **/
 #pragma region Mana
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_RegenMana)
 	FGameplayAttributeData RegenMana;
+
+	
 	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, RegenMana);
 	UFUNCTION()
 	virtual void OnRep_RegenMana(const FGameplayAttributeData& OldValue);
@@ -108,10 +118,6 @@ public:
 	                                 const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
 	                                 const FGameplayAttribute& AffectedAttributeProperty) const;
 
-	UFUNCTION()
-	virtual void OnRep_Health(const FGameplayAttributeData& OldValue);
 
-	UFUNCTION()
-	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
 
 };

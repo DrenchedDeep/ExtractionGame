@@ -3,7 +3,10 @@
 
 #include "ExtractionGameHUD.h"
 
-#include "Player/GemPlayerState.h"
+UPlayerBarData* AExtractionGameHUD::GetPlayerBarWidget() const
+{
+	return PlayerUIData;
+}
 
 UInventoryWidget* AExtractionGameHUD::CreateInventoryWidget()
 {
@@ -20,18 +23,16 @@ UInventoryWidget* AExtractionGameHUD::CreateInventoryWidget()
 	return InventoryWidget;
 }
 
-UPlayerBarData* AExtractionGameHUD::CreatePlayerBarDataWidget()
+void AExtractionGameHUD::CreatePlayerBarDataWidget()
 {
 	if(PlayerUIData)
 	{
-		return PlayerUIData;
+		return;
 	}
 	
 	PlayerUIData = CreateWidget<UPlayerBarData>(GetWorld(), PlayerUIDataSubclass);
 	PlayerUIData->AddToViewport();
 	PlayerUIData->SetVisibility(ESlateVisibility::Visible);
-
-	return PlayerUIData;
 }
 
 void AExtractionGameHUD::BeginPlay()
@@ -39,5 +40,7 @@ void AExtractionGameHUD::BeginPlay()
 	Super::BeginPlay();
 
 	DeathWidget = CreateWidget<UDeathWidget>(GetWorld(), DeathWidgetSubclass);
-
+	UE_LOG(LogTemp, Warning, TEXT("UI Loaded"))
+	//CreatePlayerBarDataWidget();
+	
 }

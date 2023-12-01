@@ -24,7 +24,9 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 
 	UPROPERTY()
 	AActor* PlayerPawnActor;
+
 	
+
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void ReturnToLobby();
@@ -37,6 +39,7 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
+
 
 	
 protected:

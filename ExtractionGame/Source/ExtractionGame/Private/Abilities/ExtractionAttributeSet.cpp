@@ -16,6 +16,7 @@ void UExtractionAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenMana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenHealth, COND_None, REPNOTIFY_Always);
 	
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, EarthManaPool, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, FireManaPool, COND_None, REPNOTIFY_Always);
@@ -61,6 +62,7 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 {
 	Super::PostGameplayEffectExecute(Data);
 
+	/*
 	FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
 	UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
 	const FGameplayTagContainer& SourceTags = *Data.EffectSpec.CapturedSourceTags.GetAggregatedTags();
@@ -109,8 +111,8 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 		{
 			SourceActor = Context.GetEffectCauser();
 		}
-	}
-
+	} 
+	*/
 	//Mana increases based on FCurve.
 	//Max Mana is based on gems
 	//
@@ -130,20 +132,16 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	{
 		SetWaterManaPool(FMath::Clamp(GetWaterManaPool(), 0.f, GetMaxWaterManaPool()));
 	}
-
-	/*
-	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		// Handle other health changes such as from healing or direct modifiers
 		// First clamp it
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
-
-		if (TargetCharacter)
-		{
-			// Call for all health changes
-			TargetCharacter->HandleHealthChanged(DeltaValue, SourceTags);
-		}
-	} */
+	}
+	else if(Data.EvaluatedData.Attribute == GetMaxHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+	}
 	
 }
 
@@ -176,6 +174,11 @@ void UExtractionAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValu
 void UExtractionAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxHealth, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_RegenHealth(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, RegenHealth, OldValue);
 }
 
 void UExtractionAttributeSet::OnRep_RegenMana(const FGameplayAttributeData& OldValue)

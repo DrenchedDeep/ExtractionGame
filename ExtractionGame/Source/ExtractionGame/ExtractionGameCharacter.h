@@ -6,15 +6,14 @@
 #include "GameplayEffect.h"
 #include "PlayerInventoryComponent.h"
 #include "Abilities/ExtractionAttributeSet.h"
-#include "Components/GemController.h"
 #include "Core/Interactable.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "UI/PlayerBarData.h"
+#include "AbilitySystemInterface.h"
 #include "ExtractionGameCharacter.generated.h"
 
-class AGemPlayerState;
-class UInventoryComponent;
+class UGemController;
+class UExtractionAbilitySystemComponent;
 class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
@@ -22,15 +21,12 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
-class UGameplayAbility;
-class UExtractionAbilitySystemComponent;
-class UExtractionAttributeSet;
 
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class AExtractionGameCharacter : public ACharacter
+class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -75,9 +71,14 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
 	UGemController* GemController;
 
-	UPROPERTY()
-	AGemPlayerState* GemPlayerState;
+	
 private:
+
+	UPROPERTY(EditAnywhere)
+	UExtractionAttributeSet* AttributeSetBase;
+
+	UPROPERTY(EditAnywhere)
+	UExtractionAbilitySystemComponent* AbilitySystemComponent;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
@@ -87,9 +88,6 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* SettingsAction;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
-	UExtractionAbilitySystemComponent* AbilitySystemComponent;
 	
 	void Move(const FInputActionValue& Value);
 	void ResetMove();
@@ -108,8 +106,6 @@ private:
 
 	void HandleGaze();
 	void ChangeGaze();
-
-	UPlayerBarData* GetUIComponent() const;
 	
 	bool bInSettings;
 	bool bCanMove = true;
@@ -148,6 +144,7 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void LeftAttackPressed();
+	void InitializeUIComponents(const class AExtractionGameHUD* HUD) const;
 
 	UPROPERTY(BlueprintReadOnly)
 	FVector GazeLocation;
@@ -181,6 +178,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bInInventory;
 
+	
 
 protected:
 	virtual void BeginPlay() override;
@@ -191,6 +189,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Health)
 	class UPlayerHealthComponent* PlayerHealthComponent;
+
+
+	
 
 public:
 	FORCEINLINE bool CanMove() const { return bCanMove;}
@@ -205,10 +206,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeathEvent();
 	
-	UFUNCTION(BlueprintImplementableEvent)
-void SafeBeginPlay();
 
-	
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -230,7 +228,6 @@ protected:
 	virtual void HandleDamage(float amount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags,
 		AExtractionGameCharacter* Instigator, AActor* DamageCauser);
 
-	virtual void HandleHealthChanged(float change, const struct FGameplayTagContainer& EventTags);
 	
 	friend UExtractionAttributeSet;
 	
@@ -258,5 +255,14 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SlideJump();
+
+	//GAS HEALTH LATER:
 	
+	
+	virtual  UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UExtractionAttributeSet* GetAttributeSet() const;
+	
+	
+	
+	 
 };

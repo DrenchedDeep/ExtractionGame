@@ -27,7 +27,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	}
 
 	//for now, we'll save the inventory for testing but we need to delete the saved inventory if we leave the match by choice
-	if(AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
+	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
 		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->InventoryItems, TArray<FName>());
 	}
@@ -164,11 +164,19 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 
 	Server_SetName(GameInstance->GetPlayerUsername());
+	UE_LOG(LogTemp, Warning, TEXT("OnRep_PlayerState - Controller"))
 
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
 		HUD->CreatePlayerBarDataWidget();
+		if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(GetCharacter()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Good"))
+			character->InitializeUIComponents(HUD);
+		
+		}
 	}
 }
+
 
 

@@ -54,6 +54,12 @@ bool AExtractionGameCharacter::ServerUpdateGazeUnreliable_Validate(FVector newGa
 	return true;
 }
 
+void AExtractionGameCharacter::InitializeUIComponents(const AExtractionGameHUD* HUD) const
+{
+	GemController->Initialize(HUD);
+	PlayerHealthComponent->Initialize(HUD);
+}
+
 AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
@@ -74,7 +80,18 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 
 	InventoryComponent = CreateDefaultSubobject<UPlayerInventoryComponent>(TEXT("InventoryComponent"));
 	GemController = CreateDefaultSubobject<UGemController>(TEXT("GemController"));
+
+	AbilitySystemComponent = CreateDefaultSubobject<UExtractionAbilitySystemComponent>(TEXT("GAS Ability Controller"));
+	AbilitySystemComponent->SetIsReplicated(true);
+
+	// Mixed mode means we only are replicated the GEs to ourself, not the GEs to simulated proxies. If another GDPlayerState (Hero) receives a GE,
+	// we won't be told about it by the Server. Attributes, GameplayTags, and GameplayCues will still replicate to us.
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+
+	// Create the attribute set, this replicates by default
+	AttributeSetBase = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("GAS Attribute Set"));
 }
+
 
 void AExtractionGameCharacter::BeginPlay()
 {
@@ -87,7 +104,7 @@ void AExtractionGameCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
 	TraceParams.bIgnoreTouches = true;
 	TraceParams.bReturnPhysicalMaterial = true;
@@ -95,7 +112,11 @@ void AExtractionGameCharacter::BeginPlay()
 	GazeCollisionParams = TraceParams;
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
+
 	
+	//Inject Delegate functions
+	//OnHealthChangedHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AGemPlayerState::OnHealthChanged);
+	//OnMaxHealthChangedHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetMaxHealthAttribute()).AddUObject(this, &AGemPlayerState::OnMaxHealthChanged);
 }
 
 void AExtractionGameCharacter::Tick(float DeltaSeconds)
@@ -175,17 +196,17 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 
 	UE_LOG(LogTemp, Warning, TEXT("Possessed by %s"), *NewController->GetName());
 	//Server GAS initialization
+	/*
 	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GAS INITIALIZATION"));
 		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		state->CreateStateFuncs();
 		GemController->SetAbilitySystem(AbilitySystemComponent);
 	}
 	GemPlayerState = Cast<AGemPlayerState>(NewController->PlayerState);
-	GemPlayerState->SetHealth(100.f);
-
+	GemPlayerState->SetHealth(100.f); */
+	//GemController->SmartRecompileGems();
 	InventoryComponent->InitInventory();
 }
 
@@ -194,19 +215,18 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 	
 	//Client GAS initialization
+	UE_LOG(LogTemp, Warning, TEXT("REP_Player state Enter"));
+	/*
 	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
 	{
-	//	UE_LOG(LogTemp, Warning, TEXT("GAS INITIALIZATION"));
 		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		state->CreateStateFuncs();
 		GemController->SetAbilitySystem(AbilitySystemComponent);
 
-	}
-
-	GemPlayerState = Cast<AGemPlayerState>(GetPlayerState());
+	} */
+	//GemController->SmartRecompileGems();
 	InventoryComponent->InitInventory();
-	SafeBeginPlay();
 }
 
 
@@ -214,6 +234,8 @@ void AExtractionGameCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
 	//SafeBeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller"))
+
 }
 
 void AExtractionGameCharacter::BeginDestroy()
@@ -227,15 +249,6 @@ void AExtractionGameCharacter::HandleDamage(float amount, const FHitResult& HitI
 {
 	OnDamaged(amount, HitInfo, DamageTags, Instigator0, DamageCauser);
 }
-
-void AExtractionGameCharacter::HandleHealthChanged(float change, const FGameplayTagContainer& EventTags)
-{
-	if(bAbilitiesInitialized)
-	{
-		OnHealthChanged(change, EventTags);
-	}
-}
-
 
 FCollisionQueryParams AExtractionGameCharacter::GetIgnoreCharacterParams() const
 {
@@ -431,4 +444,15 @@ void AExtractionGameCharacter::ChangeGaze()
 	GazeTarget->Execute_OnCancelFocus(GazeTargetActor);
 	GazeTarget = nullptr;
 }
+
+UExtractionAttributeSet* AExtractionGameCharacter::GetAttributeSet() const
+{
+	return AttributeSetBase;
+}
+
+UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 

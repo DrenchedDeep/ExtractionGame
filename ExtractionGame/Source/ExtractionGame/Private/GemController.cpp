@@ -3,13 +3,15 @@
 
 #include "Components/GemController.h"
 
+#include "ExtractionGameHUD.h"
 #include "InventoryComponent.h"
 #include "InventoryWidget.h"
 #include "Abilities/GameplayAbility.h"
 #include "Core/AbilityHandlerSubSystem.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
+#include "ExtractionGame/ExtractionGamePlayerController.h"
 #include "Net/UnrealNetwork.h"
-#include "Player/GemPlayerState.h"
+#include "UI/PlayerBarData.h"
 
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
@@ -33,12 +35,11 @@ AGem** UGemController::GetGemBySlot(EBodyPart slot)
 
 // Sets default values for this component's properties
 UGemController::UGemController(): leftArmCooldown(nullptr), rightArmCooldown(nullptr), SubSystem(nullptr),
-                                  OwnerAbilities(nullptr),
                                   LeftAttackAction(nullptr),
                                   RightAttackAction(nullptr),
                                   HeadAbilityAction(nullptr), dirtyFlags(0),
                                   HeadGem(nullptr),
-                                  ChestGem(nullptr), bInitialized(false)
+                                  ChestGem(nullptr), Character(nullptr), PlayerBarsWidget(nullptr), bInitialized(false)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -83,6 +84,7 @@ void UGemController::CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID)
 	//LazyRecompileGems();
 }
 
+
 void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart BodyPart, int GemSlotID)
 {
 	CreateGem(Item, BodyPart, GemSlotID);
@@ -91,17 +93,13 @@ void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart Body
 
 void UGemController::Client_OnGemCreated_Implementation(int GemSlotID, AGem* Gem)
 {
-	if(AExtractionGameCharacter* Character = Cast<AExtractionGameCharacter>(GetOwner()))
-	{
-		USlotWidget* Slot = Character->InventoryComponent->InventoryWidget->GetSlot(GemSlotID);
+	USlotWidget* Slot = Character->InventoryComponent->InventoryWidget->GetSlot(GemSlotID);
 
-		if(UGemSlot* GemSlot =	Cast<UGemSlot>(Slot))
-		{
-			GemSlot->Gem = Gem;
-			
-		}
+	if(UGemSlot* GemSlot =	Cast<UGemSlot>(Slot))
+	{
+		GemSlot->Gem = Gem;
+		
 	}
-	
 }
 
 void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
@@ -150,20 +148,22 @@ void UGemController::OnRep_RightArmGems()
 
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK A"))
-	//If we were previously generating, STOP.
-	if(handle->IsValid()) OwnerAbilities->RemoveActiveGameplayEffect(*handle);
+	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))
+
 	
-	FGameplayEffectContextHandle EffectContext = OwnerAbilities->MakeEffectContext();
-	EffectContext.AddSourceObject(OwnerPlayer);
+	//If we were previously generating, STOP.
+	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);
+	
+	FGameplayEffectContextHandle EffectContext = Character->GetAbilitySystemComponent()->MakeEffectContext();
+	EffectContext.AddSourceObject(Character);
 
 	//TODO: Change level
-	UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK B"))
-	const FGameplayEffectSpecHandle NewHandle = OwnerAbilities->MakeOutgoingSpec(effect, level,EffectContext);
+	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK B"))
+	const FGameplayEffectSpecHandle NewHandle = Character->GetAbilitySystemComponent()->MakeOutgoingSpec(effect, level,EffectContext);
 	if (NewHandle.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("APPLY REGEN CHECK C"))
-		*handle = OwnerAbilities->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  OwnerAbilities);
+		UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK C"))
+		*handle = Character->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  Character->GetAbilitySystemComponent());
 	}
 }
 
@@ -172,11 +172,11 @@ void UGemController::SmartRecompileGems_Implementation()
 {
 	
 	//if(!GetOwner()->HasAuthority()) return; Not needed, is already a server only function.
-	//if(!OwnerAbilities)
+	//if(!Character->GetAbilitySystemComponent())
 	//{
 	//const AExtractionGameCharacter* Ch = Cast<AExtractionGameCharacter>(GetOwner());
 	//SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	//OwnerAbilities = Ch->AbilitySystemComponent;
+	//Character->GetAbilitySystemComponent() = Ch->Character->GetAbilitySystemComponent();
 	//}
 	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP START"))
 	const int val = dirtyFlags;
@@ -186,7 +186,7 @@ void UGemController::SmartRecompileGems_Implementation()
 		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK HEAD"))
 
 		//HeadAbilityAction = Ch->HeadAbilityAction;
-		OwnerAbilities->ClearAbility(HeadAbilitySpecHandle);
+		Character->GetAbilitySystemComponent()->ClearAbility(HeadAbilitySpecHandle);
 		RecompileHead();
 	}
 	if((val & BodyFlag) != 0)
@@ -197,44 +197,54 @@ void UGemController::SmartRecompileGems_Implementation()
 	{
 		//LeftAttackAction = Ch->LeftAttackAction;
 		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK LEFT ARM"))
-		OwnerAbilities->ClearAbility(LeftArmAbilitySpecHandle);
+		Character->GetAbilitySystemComponent()->ClearAbility(LeftArmAbilitySpecHandle);
 		RecompileArm(leftGems, true);
 	}
 	if((val & RightArmFlag) != 0)
 	{
 		//RightAttackAction = Ch->RightAttackAction;
 		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK RIGHT ARM"))
-		OwnerAbilities->ClearAbility(RightArmAbilitySpecHandle);
+		Character->GetAbilitySystemComponent()->ClearAbility(RightArmAbilitySpecHandle);
 		RecompileArm(rightGems, false);
 	}
 	//TODO: Gems affect values.
-	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL"))
+	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL, %d"), Character->GetLocalRole())
 	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
-//	alrightApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
+    ApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
 
 }
 
-void UGemController::SetAbilitySystem(UExtractionAbilitySystemComponent* AbilitySystemComponent)
-{
-	OwnerAbilities = AbilitySystemComponent;
 
-	if(!GetOwner()->HasAuthority()) return;
-	dirtyFlags = 255;
-	//SmartRecompileGems();
-}
-
-void UGemController::InitializeComponent()
-{
-	Super::InitializeComponent();
-}
+//void UGemController::InitializeComponent()
+//{
+//	Super::InitializeComponent();
+//}
 
 // Called when the game starts
-void UGemController::BeginPlay()
+void UGemController::BeginPlay() // If this isn't working, we init inventory on plater rep srate. do same tihng...
 {
 	Super::BeginPlay();
-
-	OwnerPlayer = Cast<AExtractionGameCharacter>(GetOwner());
-	SubSystem = OwnerPlayer->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	Character = Cast<AExtractionGameCharacter>(GetOwner());
+	//if(const AExtractionGetHUDElement()* hud = Cast<AExtractionGetHUDElement()>(Character->GetController<AExtractionGamePlayerController>()->GetHUD()))
+	//	GetHUDElement() = hud->PlayerUIData;
+	SubSystem = Character->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
+	dirtyFlags = 255;
+	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
+	
+	if(Character->GetLocalRole() == ROLE_Authority)
+	{
+		OnEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnEarthManaChanged);
+		OnMaxEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxEarthManaChanged);
+		OnFireManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetFireManaPoolAttribute()).AddUObject(this, &UGemController::OnFireManaChanged);
+		OnMaxFireManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxFireManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxFireManaChanged);
+		OnShadowManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetShadowManaPoolAttribute()).AddUObject(this, &UGemController::OnShadowManaChanged);
+		OnMaxShadowManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxShadowManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxShadowManaChanged);
+		OnWaterManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetWaterManaPoolAttribute()).AddUObject(this, &UGemController::OnWaterManaChanged);
+		OnMaxWaterManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxWaterManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxWaterManaChanged);
+		UE_LOG(LogTemp, Warning, TEXT("Controller LOCAL Loaded"))
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Controller Loaded"))
+	
 }
 
 void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -298,18 +308,18 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	if(bIsLeft)
 		totalPolish = -totalPolish;
 	
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, OwnerPlayer);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, Character);
 
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
 	//if(GetOwner()->HasAuthority())
 	//{
 	if(bIsLeft)
 	{
-		LeftArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
+		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 	}
 	else
 	{
-		RightArmAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
+		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 	}
 	//}
 }
@@ -327,8 +337,8 @@ void UGemController::RecompileHead()
 	Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d, %d"), Score, val);
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(Score);
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, OwnerPlayer);
-	HeadAbilitySpecHandle = OwnerAbilities->GiveAbility(AbilitySpec);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, Character);
+	HeadAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 }
 
 void UGemController::RecompileChest()
@@ -337,5 +347,136 @@ void UGemController::RecompileChest()
 	UE_LOG(LogTemp, Warning, TEXT("Pending Impl"));
 }
 
+UPlayerBarData* UGemController::GetHUDElement()
+{
+	if(PlayerBarsWidget) return PlayerBarsWidget;
+	UE_LOG(LogTemp, Warning, TEXT("Finding UI 1"));
+	if(const AExtractionGamePlayerController* x = Cast<AExtractionGamePlayerController>(Character->GetLocalViewingPlayerController()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Finding UI 2"));
+		if(const AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(x->GetHUD()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Finding UI 3"));
+			PlayerBarsWidget = HUD->GetPlayerBarWidget();
+		}
+	}
+	return nullptr;
+}
 
 
+void UGemController::OnEarthManaChanged(const FOnAttributeChangeData& Data)
+{
+	UE_LOG(LogTemp,Warning,TEXT("PLEASE - Earth Mana Changed"))
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetEarthManaPercent(Data.NewValue / GetEarthMaxMana());
+}
+
+void UGemController::OnMaxEarthManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetEarthManaPercent(GetEarthMana() / Data.NewValue);
+}
+
+void UGemController::OnFireManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetFireManaPercent(Data.NewValue / GetFireMaxMana());
+}
+
+void UGemController::OnMaxFireManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetFireManaPercent(GetFireMana() / Data.NewValue);
+}
+
+void UGemController::OnShadowManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetShadowManaPercent(Data.NewValue / GetShadowMaxMana());
+}
+
+void UGemController::OnMaxShadowManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetShadowManaPercent(GetShadowMana() / Data.NewValue);
+}
+
+void UGemController::OnWaterManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetWaterManaPercent(Data.NewValue / GetWaterMaxMana());
+}
+
+void UGemController::OnMaxWaterManaChanged(const FOnAttributeChangeData& Data)
+{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetWaterManaPercent(GetWaterMana() / Data.NewValue);
+}
+
+float UGemController::GetEarthMana() const
+{
+	
+	return Character->GetAttributeSet()->GetEarthManaPool();
+}
+
+float UGemController::GetEarthMaxMana() const
+{
+	return Character->GetAttributeSet()->GetMaxEarthManaPool();
+}
+
+float UGemController::GetFireMana() const
+{
+	return Character->GetAttributeSet()->GetFireManaPool();
+}
+
+float UGemController::GetFireMaxMana() const
+{
+	return Character->GetAttributeSet()->GetMaxFireManaPool();
+}
+
+float UGemController::GetShadowMana() const
+{
+	return Character->GetAttributeSet()->GetShadowManaPool();
+}
+
+float UGemController::GetShadowMaxMana() const
+{
+	return Character->GetAttributeSet()->GetMaxShadowManaPool();
+}
+
+float UGemController::GetWaterMana() const
+{
+	return Character->GetAttributeSet()->GetWaterManaPool();
+}
+
+float UGemController::GetWaterMaxMana() const
+{
+	
+	return Character->GetAttributeSet()->GetMaxWaterManaPool();
+}
+
+float UGemController::GetManaRegenRate() const
+{
+	return Character->GetAttributeSet()->GetRegenMana();
+}
+
+void UGemController::Initialize(const AExtractionGameHUD* hud)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Initializing Gem Controller"))
+	if (UPlayerBarData* PlayerBarWidget = hud->GetPlayerBarWidget())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Yay"))
+		// Use PlayerBarWidget since it's not null
+		//GetHUDElement() = PlayerBarWidget;
+	}
+
+	//SmartRecompileGems();
+}

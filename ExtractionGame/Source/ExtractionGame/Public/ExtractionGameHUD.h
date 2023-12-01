@@ -6,7 +6,6 @@
 #include "DeathWidget.h"
 #include "GameHUD.h"
 #include "InventoryWidget.h"
-#include "GameFramework/HUD.h"
 #include "UI/PlayerBarData.h"
 #include "ExtractionGameHUD.generated.h"
 
@@ -17,7 +16,6 @@ UCLASS()
 class EXTRACTIONGAME_API AExtractionGameHUD : public AGameHUD
 {
 	GENERATED_BODY()
-
 public:
 	UPROPERTY(BlueprintReadWrite)
 	UInventoryWidget* InventoryWidget;
@@ -25,6 +23,8 @@ public:
 	UDeathWidget* DeathWidget;
 	UPROPERTY(BlueprintReadWrite)
 	UPlayerBarData* PlayerUIData;
+	
+	UPlayerBarData* GetPlayerBarWidget() const;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UInventoryWidget> InventoryWidgetSubclass;
@@ -36,7 +36,7 @@ public:
 	TSubclassOf<UPlayerBarData> PlayerUIDataSubclass;
 	
 	UInventoryWidget* CreateInventoryWidget();
-	UPlayerBarData* CreatePlayerBarDataWidget();
+	void CreatePlayerBarDataWidget();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPlayerKilled(const FString& PlayerName);
@@ -48,7 +48,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnKill(const FString& VictimName);
 
-	
 private:
+	
 	virtual void BeginPlay() override;
 };

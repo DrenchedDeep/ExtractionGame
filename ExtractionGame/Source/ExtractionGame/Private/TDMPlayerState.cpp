@@ -13,4 +13,6 @@ void ATDMPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ATDMPlayerState, Kills);
 	DOREPLIFETIME(ATDMPlayerState, Deaths);
 	DOREPLIFETIME(ATDMPlayerState, TeamID);
+	
+	
 }
