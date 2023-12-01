@@ -149,6 +149,7 @@ void UGemController::OnRep_RightArmGems()
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
 	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))
+
 	
 	//If we were previously generating, STOP.
 	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);
@@ -208,7 +209,6 @@ void UGemController::SmartRecompileGems_Implementation()
 	}
 	//TODO: Gems affect values.
 	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL, %d"), Character->GetLocalRole())
-	GetHUDElement();
 	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
     ApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
 
@@ -231,7 +231,7 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 	dirtyFlags = 255;
 	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
 	
-	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
+	if(Character->GetLocalRole() == ROLE_Authority)
 	{
 		OnEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnEarthManaChanged);
 		OnMaxEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxEarthManaChanged);
@@ -475,7 +475,7 @@ void UGemController::Initialize(const AExtractionGameHUD* hud)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Yay"))
 		// Use PlayerBarWidget since it's not null
-		PlayerBarsWidget = PlayerBarWidget;
+		//GetHUDElement() = PlayerBarWidget;
 	}
 
 	//SmartRecompileGems();

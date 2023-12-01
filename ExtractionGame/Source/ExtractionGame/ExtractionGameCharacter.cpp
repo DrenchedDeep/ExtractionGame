@@ -8,7 +8,6 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "ExtractionGameHUD.h"
 #include "ExtractionGameInstance.h"
 #include "InputActionValue.h"
 #include "InventoryComponent.h"
@@ -55,9 +54,8 @@ bool AExtractionGameCharacter::ServerUpdateGazeUnreliable_Validate(FVector newGa
 	return true;
 }
 
-void AExtractionGameCharacter::InitializeUIComponents(AExtractionGameHUD* HUD) const
+void AExtractionGameCharacter::InitializeUIComponents(const AExtractionGameHUD* HUD) const
 {
-	UE_LOG(LogTemp,Warning,TEXT("Initialized UI Componenets"))
 	GemController->Initialize(HUD);
 	PlayerHealthComponent->Initialize(HUD);
 }

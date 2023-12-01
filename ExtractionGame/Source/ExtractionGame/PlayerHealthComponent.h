@@ -15,7 +15,7 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UActorComponent
 	GENERATED_BODY()
 
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
-	UPROPERTY(Transient) UPlayerBarData* PlayerBarsWidget;
+	UPROPERTY(Transient)UPlayerBarData* PlayerBarsWidget;
 	
 	UPROPERTY(ReplicatedUsing=OnRep_IsDead) // this is usually done with a tag...
 	bool bIsDead;

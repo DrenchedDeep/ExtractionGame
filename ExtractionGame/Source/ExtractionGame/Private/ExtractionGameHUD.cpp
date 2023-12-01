@@ -5,10 +5,6 @@
 
 UPlayerBarData* AExtractionGameHUD::GetPlayerBarWidget() const
 {
-	if(!PlayerUIData)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Widget is null?"))
-	}
 	return PlayerUIData;
 }
 
@@ -37,8 +33,6 @@ void AExtractionGameHUD::CreatePlayerBarDataWidget()
 	PlayerUIData = CreateWidget<UPlayerBarData>(GetWorld(), PlayerUIDataSubclass);
 	PlayerUIData->AddToViewport();
 	PlayerUIData->SetVisibility(ESlateVisibility::Visible);
-	UE_LOG(LogTemp, Warning, TEXT("Widget is Built"))
-
 }
 
 void AExtractionGameHUD::BeginPlay()
@@ -47,6 +41,6 @@ void AExtractionGameHUD::BeginPlay()
 
 	DeathWidget = CreateWidget<UDeathWidget>(GetWorld(), DeathWidgetSubclass);
 	UE_LOG(LogTemp, Warning, TEXT("UI Loaded"))
-	CreatePlayerBarDataWidget();
+	//CreatePlayerBarDataWidget();
 	
 }

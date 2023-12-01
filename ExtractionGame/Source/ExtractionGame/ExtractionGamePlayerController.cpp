@@ -168,7 +168,7 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
-		//HUD->CreatePlayerBarDataWidget();
+		HUD->CreatePlayerBarDataWidget();
 		if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(GetCharacter()))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Good"))
