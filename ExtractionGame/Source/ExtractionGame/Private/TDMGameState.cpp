@@ -4,6 +4,7 @@
 #include "TDMGameState.h"
 
 #include "ExtractionGameHUD.h"
+#include "TDMGameMode.h"
 #include "ExtractionGame/ExtractionGameCharacter.h"
 #include "ExtractionGame/ExtractionGamePlayerController.h"
 #include "GameFramework/GameMode.h"
@@ -17,6 +18,12 @@ void ATDMGameState::BeginPlay()
 	RedTeam.TeamID = 1;
 	BlueTeam.TeamID = 0;
 	MatchTime = MatchLength;
+	bCanInteract = true;
+
+	if(HasAuthority())
+	{
+		OnRep_CanInteract();
+	}
 }
 
 void ATDMGameState::PreInitializeComponents()
@@ -64,7 +71,7 @@ int32 ATDMGameState::RegisterPlayerToTeam(APlayerController* PlayerController)
 
 void ATDMGameState::OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause)
 {
-	if(const ATDMPlayerState* KillerPlayerState = GetPlayerStateByName(KillerName))
+	if(ATDMPlayerState* KillerPlayerState = GetPlayerStateByName(KillerName))
 	{
 		if(KillerPlayerState->TeamID == 0)
 		{
@@ -74,13 +81,19 @@ void ATDMGameState::OnPlayerKilled(const FString& KillerName, const FString& Vic
 		{
 			RedTeam.Score++;
 		}
+
+		KillerPlayerState->Kills++;
+
+		if(ATDMPlayerState* VictimPlayerState = GetPlayerStateByName(VictimName))
+		{
+			VictimPlayerState->Deaths++;
+		}
 	}
 
 	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
 	{
 		if(AExtractionGamePlayerController* PlayerController = Cast<AExtractionGamePlayerController>(Iterator->Get()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("fgjf"));
 			PlayerController->Client_OnPlayerKilled(KillerName, VictimName, DeathCause);
 		}
 	}
@@ -95,6 +108,7 @@ void ATDMGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 	DOREPLIFETIME(ATDMGameState, BlueTeam);
 	DOREPLIFETIME(ATDMGameState, WinningTeamID);
 	DOREPLIFETIME(ATDMGameState, MatchTime);
+	DOREPLIFETIME(ATDMGameState, bCanInteract);
 }
 
 void ATDMGameState::OnRep_MatchState()
@@ -102,11 +116,6 @@ void ATDMGameState::OnRep_MatchState()
 	Super::OnRep_MatchState();
 
 	MatchStateChanged(GetMatchState());
-
-	if(GetMatchState() == MatchState::WaitingPostMatch)
-	{
-		
-	}
 }
 
 void ATDMGameState::HandleMatchIsWaitingToStart()
@@ -141,7 +150,6 @@ void ATDMGameState::HandleLeavingMap()
 void ATDMGameState::OnRep_ElapsedTime()
 {
 	Super::OnRep_ElapsedTime();
-	
 }
 
 void ATDMGameState::DefaultTimer()
@@ -170,7 +178,7 @@ void ATDMGameState::OnRep_WinningTeamID()
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
 		{
 			ATDMPlayerState* PlayerState = Cast<ATDMPlayerState>(PC->PlayerState);
-			FString GameOutcome = WinningTeamID == PlayerState->TeamID ? "YOU WON" : "YOU LOST";
+			FString GameOutcome = WinningTeamID == PlayerState->TeamID ? "VICTORY" : "DEFEAT";
 
 			if(WinningTeamID == 3)
 			{
@@ -192,17 +200,43 @@ void ATDMGameState::OnRep_MatchTime()
 	}
 }
 
-void ATDMGameState::EndGame()
+void ATDMGameState::OnRep_CanInteract()
 {
-	for(int i = 0; i < PlayerArray.Num(); i++)
+	if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(GetWorld()->GetFirstPlayerController()))
 	{
-		if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(PlayerArray[i]->GetPlayerController()))
+		if(bCanInteract)
 		{
-			PC->Client_ReturnToLobby();
+			PC->SetInputMode(FInputModeGameOnly());
+		}
+		else
+		{
+			PC->SetInputMode(FInputModeUIOnly());
+			PC->bShowMouseCursor = true;
 		}
 	}
+}
 
+void ATDMGameState::EndGame()
+{
+	int Winner = RedTeam.Score > BlueTeam.Score ? 1 : 0;
+
+	if(RedTeam.Score == BlueTeam.Score)
+	{
+		Winner = 3;
+	}
+
+	WinningTeamID = Winner;
+	OnRep_WinningTeamID();
+	bCanInteract = false;
+	OnRep_CanInteract();
+	
 	SetMatchState(MatchState::WaitingPostMatch);
+	OnRep_MatchState();
+
+	if(ATDMGameMode* GameMode = Cast<ATDMGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		GameMode->KickAllPlayers();
+	}
 }
 
 

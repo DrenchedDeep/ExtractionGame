@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayEffect.h"
 #include "PlayerInventoryComponent.h"
+#include "Abilities/ExtractionAttributeSet.h"
 #include "Components/GemController.h"
 #include "Core/Interactable.h"
 #include "GameFramework/Character.h"
@@ -12,6 +13,7 @@
 #include "UI/PlayerBarData.h"
 #include "ExtractionGameCharacter.generated.h"
 
+class AGemPlayerState;
 class UInventoryComponent;
 class UInputComponent;
 class USkeletalMeshComponent;
@@ -59,8 +61,6 @@ class AExtractionGameCharacter : public ACharacter
 	
 
 public:
-	
-	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input)
 	UInputAction* LeftAttackAction;
 
@@ -75,6 +75,8 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
 	UGemController* GemController;
 
+	UPROPERTY()
+	AGemPlayerState* GemPlayerState;
 private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
@@ -249,8 +251,8 @@ public:
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	//TObjectPtr<UExtractionAbilitySystemComponent> AbilitySystemComponent;
 
-	//UPROPERTY()
-	//TObjectPtr<UExtractionAttributeSet> AttributeSet;
+//	UPROPERTY()
+//	UExtractionAttributeSet AttributeSet;
 
 	virtual bool CanJumpInternal_Implementation() const override;
 

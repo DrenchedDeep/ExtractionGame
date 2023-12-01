@@ -23,11 +23,12 @@ class EXTRACTIONGAME_API ATDMGameMode : public AGameMode
 
 	void RespawnAllPlayerPawns();
 
-
-
 public:
 	virtual void SpawnPlayer(APlayerController* NewPlayer, int32 TeamID);
-	
+	virtual void KickAllPlayers();
+
 private:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
+	virtual void KickAllPlayersTimer();
+	FTimerHandle KickEveryoneTimerHandle;
 };

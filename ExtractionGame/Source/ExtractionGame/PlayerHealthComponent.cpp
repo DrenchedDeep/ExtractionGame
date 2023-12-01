@@ -1,13 +1,9 @@
 #include "PlayerHealthComponent.h"
-
 #include "ExtractionGameCharacter.h"
 #include "ExtractionGameHUD.h"
 #include "ExtractionGamePlayerController.h"
 #include "TDMPlayerState.h"
-#include "Camera/CameraComponent.h"
-#include "GameFramework/PlayerState.h"
-#include "GameFramework/SpectatorPawn.h"
-
+#include "Net/UnrealNetwork.h"
 
 UPlayerHealthComponent::UPlayerHealthComponent(): Character(nullptr)
 {
@@ -18,13 +14,23 @@ void UPlayerHealthComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
+	bIsDead = false;
 
+}
+
+void UPlayerHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UPlayerHealthComponent, bIsDead);
+	DOREPLIFETIME(UPlayerHealthComponent, HitCount);
 }
 
 
 void UPlayerHealthComponent::OnDeath(const FString& PlayerName)
 {
-	Super::OnDeath(PlayerName);
+	bIsDead = true;
+	OnRep_IsDead();
 
 	AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Character->GetController());
 
@@ -33,19 +39,25 @@ void UPlayerHealthComponent::OnDeath(const FString& PlayerName)
 
 void UPlayerHealthComponent::OnRep_IsDead()
 {
-	Super::OnRep_IsDead();
-
 	if(!Character)
 	{
 		Character = Cast<AExtractionGameCharacter>(GetOwner());
 	}
 	
-
 	Character->OnDeathEvent();
+}
+
+void UPlayerHealthComponent::OnRep_HitCounter()
+{
 }
 
 void UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
 {
+	if(!bCanTakeDamage)
+	{
+		return;
+	}
+	
 	if(ATDMPlayerState* OwnerPlayerState = Character->GetPlayerState<ATDMPlayerState>())
 	{
 		if(ATDMPlayerState* InstigatorPlayerState = Instigator->GetPlayerState<ATDMPlayerState>())
@@ -56,11 +68,18 @@ void UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 			}
 		}
 	}
-
 	
-	Super::ApplyDamage(Damage, Instigator);
+	float Health = GetCurrentHealth() - Damage;
+	Character->GetPlayerState<AGemPlayerState>()->SetHealth(Health);
+	
+	HitCount++;
+	OnRep_HitCounter();
 
-	Client_ApplyDamage();
+	if(Health <= 0)
+	{
+		bCanTakeDamage = false;
+		OnDeath(Instigator->PlayerState->GetPlayerName());
+	}
 }
 
 void UPlayerHealthComponent::Client_ApplyDamage_Implementation()

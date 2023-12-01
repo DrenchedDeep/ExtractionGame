@@ -18,10 +18,11 @@ UCLASS()
 class EXTRACTIONGAME_API AGemPlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-	UPROPERTY()
-	UPlayerBarData* GameHUD;
+
 public:
 	AGemPlayerState();
+	UPROPERTY()
+	UPlayerBarData* GameHUD;
 protected:
 
 	UPROPERTY()
@@ -30,7 +31,7 @@ protected:
 	UPROPERTY()
 	UExtractionAttributeSet* AttributeSetBase;
 
-	UPlayerBarData* GetUIElement() const;
+	UPlayerBarData* GetUIElement();
 	
 
 	//FGameplayTag DeadTag;
@@ -99,5 +100,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
 	float GetManaRegenRate() const;
 
+	void SetHealth(float Health);
 	void CreateStateFuncs();
 };

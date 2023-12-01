@@ -21,13 +21,10 @@ public:
 	uint8 Kills;
 	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	uint8 Deaths;
-	UPROPERTY(ReplicatedUsing=OnRep_TeamID, BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	uint8 TeamID;
 
 
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
-	UFUNCTION()
-	virtual void OnRep_TeamID();
 };

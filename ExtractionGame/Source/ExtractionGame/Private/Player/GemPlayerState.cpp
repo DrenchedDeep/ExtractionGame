@@ -29,14 +29,19 @@ AGemPlayerState::AGemPlayerState()
 	//DeadTag = FGameplayTag::RequestGameplayTag(FName("State.Dead"));
 }
 
-UPlayerBarData* AGemPlayerState::GetUIElement() const
+UPlayerBarData* AGemPlayerState::GetUIElement()
 {
+	if(!GameHUD && GetPlayerController() && GetPlayerController()->GetHUD())
+	{
+		GameHUD = Cast<AExtractionGameHUD>(GetPlayerController()->GetHUD())->PlayerUIData;
+	}
+	
 	return GameHUD;
 }
 void AGemPlayerState::OnHealthChanged(const FOnAttributeChangeData& Data)
 {
 	UE_LOG(LogTemp,Warning,TEXT("PLEASE"))
-	if(GetUIElement()) GetUIElement()->SetHealthPercent(Data.NewValue / GetMaxHealth());
+	if(GetUIElement()) GetUIElement()->SetHealthPercent(Data.NewValue);
 }
 
 void AGemPlayerState::OnMaxHealthChanged(const FOnAttributeChangeData& Data)
@@ -150,8 +155,10 @@ float AGemPlayerState::GetManaRegenRate() const
 	return AttributeSetBase->GetRegenMana();
 }
 
-
-
+void AGemPlayerState::SetHealth(float Health)
+{
+	AttributeSetBase->SetHealth(Health);
+}
 
 
 void AGemPlayerState::CreateStateFuncs()

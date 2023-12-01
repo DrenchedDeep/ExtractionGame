@@ -51,7 +51,9 @@ public:
 	uint8 WinningTeamID;
 	UPROPERTY(ReplicatedUsing=OnRep_MatchTime)
 	float MatchTime;
-	
+	UPROPERTY(ReplicatedUsing=OnRep_CanInteract)
+	bool bCanInteract;
+
 
 	TArray<ASpawnpoint*> RedTeamDefaultsSpawnpoints;
 	TArray<ASpawnpoint*> BlueTeamDefaultsSpawnpoints;
@@ -78,6 +80,8 @@ protected:
 	void OnRep_WinningTeamID();
 	UFUNCTION()
 	void OnRep_MatchTime();
+	UFUNCTION()
+	void OnRep_CanInteract();
 private:
 	void EndGame();
 	

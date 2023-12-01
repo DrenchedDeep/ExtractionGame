@@ -173,20 +173,20 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
+	UE_LOG(LogTemp, Warning, TEXT("Possessed by %s"), *NewController->GetName());
 	//Server GAS initialization
 	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
 	{
+		UE_LOG(LogTemp, Warning, TEXT("GAS INITIALIZATION"));
 		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		state->CreateStateFuncs();
 		GemController->SetAbilitySystem(AbilitySystemComponent);
 	}
-	InventoryComponent->InitInventory();
+	GemPlayerState = Cast<AGemPlayerState>(NewController->PlayerState);
+	GemPlayerState->SetHealth(100.f);
 
-	if(NewController->PlayerState)
-	{
-	//	TeamID = Cast<ATDMPlayerState>(NewController->PlayerState)->TeamID;
-	}
+	InventoryComponent->InitInventory();
 }
 
 void AExtractionGameCharacter::OnRep_PlayerState()
@@ -196,12 +196,15 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	//Client GAS initialization
 	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
 	{
+	//	UE_LOG(LogTemp, Warning, TEXT("GAS INITIALIZATION"));
 		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		state->CreateStateFuncs();
 		GemController->SetAbilitySystem(AbilitySystemComponent);
 
 	}
+
+	GemPlayerState = Cast<AGemPlayerState>(GetPlayerState());
 	InventoryComponent->InitInventory();
 	SafeBeginPlay();
 }

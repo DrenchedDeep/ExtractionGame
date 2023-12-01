@@ -1,6 +1,7 @@
 #include "TDMGameMode.h"
 #include "TDMGameState.h"
 #include "ExtractionGame/ExtractionGameInstance.h"
+#include "ExtractionGame/ExtractionGamePlayerController.h"
 #include "GameFramework/GameSession.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -82,4 +83,28 @@ void ATDMGameMode::SpawnPlayer(APlayerController* NewPlayer, int32 TeamID)
 		NewPlayer->Possess(PlayerPawn);
 	//	PlayerPawn->SetOwner(NewPlayer);
 	}
+}
+
+void ATDMGameMode::KickAllPlayers()
+{
+	FTimerDelegate KickDelegate = FTimerDelegate::CreateUObject(this, &ATDMGameMode::KickAllPlayersTimer);
+	GetWorld()->GetTimerManager().SetTimer(KickEveryoneTimerHandle, KickDelegate, 15.0f, false);
+}
+
+void ATDMGameMode::KickAllPlayersTimer()
+{
+	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		APlayerController* PlayerController = Iterator->Get();
+		if(PlayerController)
+		{
+			if(AExtractionGamePlayerController* ExtractionGamePlayerController = Cast<AExtractionGamePlayerController>(PlayerController))
+			{
+				ExtractionGamePlayerController->Client_ReturnToLobby();
+			}
+		}
+	}
+
+
+	//destroy session
 }

@@ -210,7 +210,7 @@ void UGemController::SmartRecompileGems_Implementation()
 	//TODO: Gems affect values.
 	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL"))
 	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
-	alrightApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
+//	alrightApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
 
 }
 
@@ -220,7 +220,7 @@ void UGemController::SetAbilitySystem(UExtractionAbilitySystemComponent* Ability
 
 	if(!GetOwner()->HasAuthority()) return;
 	dirtyFlags = 255;
-	SmartRecompileGems();
+	//SmartRecompileGems();
 }
 
 void UGemController::InitializeComponent()
@@ -294,7 +294,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	}
 
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
-	
+
 	if(bIsLeft)
 		totalPolish = -totalPolish;
 	

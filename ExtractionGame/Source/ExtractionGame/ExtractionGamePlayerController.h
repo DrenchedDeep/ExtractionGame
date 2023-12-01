@@ -22,6 +22,7 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 	float RespawnTimer = 5.f;
 	FTimerHandle RespawnTimerHandle;
 
+	UPROPERTY()
 	AActor* PlayerPawnActor;
 	
 public:
@@ -33,9 +34,7 @@ public:
 	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
 
 	virtual void OnDeath(const FString& PlayerName);
-
-	UFUNCTION(Reliable, Client)
-	virtual void Client_DisableInput();
+	
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
 

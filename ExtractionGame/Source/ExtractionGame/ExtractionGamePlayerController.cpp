@@ -85,13 +85,6 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 	}
 }
 
-void AExtractionGamePlayerController::Client_DisableInput_Implementation()
-{
-	if(GetPawn())
-	{
-		GetPawn()->DisableInput(this);
-	}
-}
 
 void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const FString& KillerName,
                                                                            const FString& VictimName, const FString& DeathCause)
@@ -141,6 +134,8 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 	{
 		Subsystem->AddMappingContext(InputMappingContext, 0);
 	}
+
+	OnRep_PlayerState();
 }
 
 void AExtractionGamePlayerController::ClientWasKicked_Implementation(const FText& KickReason)
@@ -169,6 +164,11 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 
 	Server_SetName(GameInstance->GetPlayerUsername());
+
+	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	{
+		HUD->CreatePlayerBarDataWidget();
+	}
 }
 
 

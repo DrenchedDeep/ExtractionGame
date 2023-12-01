@@ -60,6 +60,5 @@ void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CurrentHealth = MaxHealth;
 	bCanTakeDamage = true;
 }
