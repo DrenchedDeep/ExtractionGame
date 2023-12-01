@@ -183,7 +183,6 @@ bool UExtractionGameInstance::IsLoggedIn()
 		SetupOnlineSubsystem();
 	}
 
-    UE_LOG(LogTemp, Warning, TEXT("GripState: %i"), UserIdentity->GetLoginStatus(0));
 	return UserIdentity->GetLoginStatus(0) == ELoginStatus::LoggedIn;
 }
 
@@ -367,7 +366,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		else if(SessionSettings == "GameplaySession")
 		{
 			ShowLoadingScreen();
-			GetWorld()->ServerTravel("Desert_Map?listen");
+			GetWorld()->ServerTravel("Desert_Map1?listen");
 		}
 
 		OnCreateSessionComplete.Broadcast(true);

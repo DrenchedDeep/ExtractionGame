@@ -17,7 +17,7 @@ UInventoryWidget* AExtractionGameHUD::CreateInventoryWidget()
 	}
 	
 	InventoryWidget = CreateWidget<UInventoryWidget>(GetWorld(), InventoryWidgetSubclass);
-	InventoryWidget->AddToViewport();
+	InventoryWidget->AddToViewport(100);
 	InventoryWidget->SetVisibility(ESlateVisibility::Hidden);
 
 	return InventoryWidget;

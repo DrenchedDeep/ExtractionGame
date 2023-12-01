@@ -10,34 +10,20 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/TDM/BP_TDMGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/TDM/BP_TDMGameState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/TDM/BP_TDMHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/TDM/BP_TDMHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerBars.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerBars.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerIcon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerIcon.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/TDM/WB_TDMWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/TDM/WB_TDMWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Character/Y_Bot_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Character/Y_Bot_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Character/wizard.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Character/wizard.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuGamemode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuGamemode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_MainMenuPlayerStand.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_MainMenuPlayerStand.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendHeader.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendHeader.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_CharacterWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_CharacterWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainLobby.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainLobby.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MSPresets/M_MS_Default_Material/M_MS_Default_Material.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MSPresets/M_MS_Default_Material/M_MS_Default_Material.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map1.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_MainMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_MainMenu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGamePlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGamePlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGamePlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGamePlayerController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/PlayerHealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/PlayerHealthComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/PlayerHealthComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/PlayerHealthComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GemController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GemController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/HealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/HealthComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Player/GemPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Player/GemPlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/TDMGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/TDMGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/TDMGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/TDMGameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/TDMPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/TDMPlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Player/GemPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Player/GemPlayerState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/TDMGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/TDMGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/TDMGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/TDMGameState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/TDMPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/TDMPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Megascans/3D_Assets/Roman_Stone_Floor_tkkrcayfa/MI_Roman_Stone_Floor_tkkrcayfa_2K.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Megascans/3D_Assets/Roman_Stone_Floor_tkkrcayfa/MI_Roman_Stone_Floor_tkkrcayfa_2K.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget3DPassThrough.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget3DPassThrough.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGameInstance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/ExtractionGameHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/ExtractionGameHUD.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -422,6 +408,7 @@
       <workItem from="1700870129318" duration="258000" />
       <workItem from="1701128002008" duration="6896000" />
       <workItem from="1701191028974" duration="3372000" />
+      <workItem from="1701406642472" duration="1982000" />
     </task>
     <servers />
   </component>
