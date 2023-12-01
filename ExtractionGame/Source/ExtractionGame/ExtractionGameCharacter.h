@@ -144,7 +144,7 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void LeftAttackPressed();
-	void InitializeUIComponents(const class AExtractionGameHUD* HUD) const;
+	void InitializeUIComponents(class AExtractionGameHUD* HUD) const;
 
 	UPROPERTY(BlueprintReadOnly)
 	FVector GazeLocation;

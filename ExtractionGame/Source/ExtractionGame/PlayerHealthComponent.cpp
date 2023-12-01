@@ -71,7 +71,7 @@ void UPlayerHealthComponent::BeginPlay()
 	//	GameHUD = hud->PlayerUIData;
 	bIsDead = false;
 
-	if(Character->GetLocalRole() == ROLE_Authority)
+	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
 	{
 		OnHealthChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetEarthManaPoolAttribute()).AddUObject(this, &UPlayerHealthComponent::OnHealthChanged);
 		OnMaxHealthChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxEarthManaPoolAttribute()).AddUObject(this, &UPlayerHealthComponent::OnMaxHealthChanged);
@@ -120,7 +120,7 @@ void UPlayerHealthComponent::Initialize(const AExtractionGameHUD* hud)
 	UE_LOG(LogTemp, Warning, TEXT("Initializing Health Component"))
 	if (UPlayerBarData* PlayerBarWidget = hud->GetPlayerBarWidget())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Yay"))
+		UE_LOG(LogTemp, Warning, TEXT("Health component set"))
 		// Use PlayerBarWidget since it's not null
 		PlayerBarsWidget = PlayerBarWidget;
 	}
