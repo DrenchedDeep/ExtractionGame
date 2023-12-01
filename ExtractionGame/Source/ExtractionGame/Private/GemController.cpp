@@ -314,16 +314,16 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	//if(GetOwner()->HasAuthority())
 	//{
 	UPlayerBarData* hud =GetHUDElement();
-	if(!hud) return;
+	
 	if(bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		hud->SetLeftGems(leftGems);
+		if(hud) hud->SetLeftGems(leftGems);
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		hud->SetRightGems(rightGems);
+		if(hud) hud->SetRightGems(rightGems);
 	}
 	//}
 }
@@ -483,6 +483,5 @@ void UGemController::Initialize(const AExtractionGameHUD* hud)
 		// Use PlayerBarWidget since it's not null
 		//GetHUDElement() = PlayerBarWidget;
 	}
-
 	//SmartRecompileGems();
 }

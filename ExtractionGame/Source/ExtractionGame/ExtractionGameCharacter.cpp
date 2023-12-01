@@ -235,6 +235,7 @@ void AExtractionGameCharacter::OnRep_Controller()
 	Super::OnRep_Controller();
 	//SafeBeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller"))
+	GemController->SmartRecompileGems();
 
 }
 
