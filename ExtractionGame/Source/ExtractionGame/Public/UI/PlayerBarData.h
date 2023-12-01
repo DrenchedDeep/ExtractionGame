@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Gem.h"
 #include "Blueprint/UserWidget.h"
 #include "PlayerBarData.generated.h"
 
@@ -24,4 +25,14 @@ public:
 	void SetShadowManaPercent(float percent);
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetWaterManaPercent(float percent);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetLeftGems(const  TArray<AGem*>& Gems);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetRightGems(const TArray<AGem*>& Gems); 
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetHeadGems(const AGem* Gems);
+	
 };

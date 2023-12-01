@@ -1,5 +1,6 @@
 #include "Core/AbilityHandlerSubSystem.h"
 
+#include "Gem.h"
 #include "Abilities/GameplayAbility.h"
 
 void UAbilityHandlerSubSystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -31,6 +32,40 @@ TSubclassOf<UGameplayAbility> UAbilityHandlerSubSystem::GetAbilityByIndex(int32 
 	}
 	// Handle the case where the index is not found
 	return nullptr;
+}
+
+UTexture2D* UAbilityHandlerSubSystem::GetGemSprite(const AGem* gem)
+{
+
+	int Index;
+	const float p = gem->GetPolish();
+	if(p > 150) Index = 3;
+	else if(p > 75) Index = 2;
+	else Index = 1;
+
+	Index = Index << static_cast<int>(gem->GetGemType());
+	
+	UE_LOG(LogTemp, Warning, TEXT("Map count: %d, find: %d"),ObjectMap.Num(),Index);
+
+	if(IconsMap.Num() == 0) return nullptr;
+	if(!IconsMap.Contains(Index))
+	{
+		UE_LOG(LogTemp, Error, TEXT("INVALID COMBO: %d"), Index)
+		return *IconsMap.Find(0);
+	}
+	return *IconsMap.Find(Index);
+}
+
+void UAbilityHandlerSubSystem::AddGemSpriteToMap(int32 Index, UTexture2D* Object)
+{
+#if UE_EDITOR
+	if(IconsMap.Contains(Index))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Key collision: %d"),  Index);
+		return;
+	}
+#endif
+	IconsMap.Add(Index, Object);
 }
 
 int32 UAbilityHandlerSubSystem::ConvertToIntID(int32 Earth, int32 Fire, int32 Shadow, int32 Water)

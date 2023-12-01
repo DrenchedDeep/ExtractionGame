@@ -16,6 +16,9 @@ class EXTRACTIONGAME_API UAbilityHandlerSubSystem : public UGameInstanceSubsyste
 	GENERATED_BODY()
 
 	TMap<int32, TSubclassOf<UGameplayAbility>> ObjectMap;
+
+	UPROPERTY()
+	TMap<int32, UTexture2D*> IconsMap;
 	
 public:
 
@@ -25,6 +28,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	TSubclassOf<UGameplayAbility> GetAbilityByIndex(int32 Index);
 
+	UFUNCTION(BlueprintCallable)
+	UTexture2D* GetGemSprite(const AGem* gem);
+
+	UFUNCTION(BlueprintCallable, Category = "MySubsystem")
+	void AddGemSpriteToMap(int32 Index, UTexture2D* Object);
+	
 	UFUNCTION(BlueprintCallable)
 	int32 ConvertToIntID(int32 Earth, int32 Fire, int32 Shadow, int32 Water);
 

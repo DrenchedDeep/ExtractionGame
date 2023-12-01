@@ -313,13 +313,17 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
 	//if(GetOwner()->HasAuthority())
 	//{
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
 	if(bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
+		hud->SetLeftGems(leftGems);
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
+		hud->SetRightGems(rightGems);
 	}
 	//}
 }
@@ -339,6 +343,9 @@ void UGemController::RecompileHead()
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(Score);
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, Character);
 	HeadAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
+	UPlayerBarData* hud =GetHUDElement();
+	if(!hud) return;
+	hud->SetHeadGems(HeadGem);
 }
 
 void UGemController::RecompileChest()
@@ -366,7 +373,6 @@ UPlayerBarData* UGemController::GetHUDElement()
 
 void UGemController::OnEarthManaChanged(const FOnAttributeChangeData& Data)
 {
-	UE_LOG(LogTemp,Warning,TEXT("PLEASE - Earth Mana Changed"))
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
 	hud->SetEarthManaPercent(Data.NewValue / GetEarthMaxMana());
@@ -381,8 +387,6 @@ void UGemController::OnMaxEarthManaChanged(const FOnAttributeChangeData& Data)
 
 void UGemController::OnFireManaChanged(const FOnAttributeChangeData& Data)
 {
-	UE_LOG(LogTemp,	Warning, TEXT("%d"), Data.NewValue);
-	UE_LOG(	LogTemp, Warning, TEXT("HI"));
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
 	hud->SetFireManaPercent(Data.NewValue / GetFireMaxMana());
