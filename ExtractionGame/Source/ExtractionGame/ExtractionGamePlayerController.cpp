@@ -164,7 +164,6 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 
 	Server_SetName(GameInstance->GetPlayerUsername());
-	UE_LOG(LogTemp, Warning, TEXT("OnRep_PlayerState - Controller"))
 
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{

@@ -10,8 +10,18 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map1.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_DamageAmount.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_DamageAmount.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerBars.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerBars.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/EXAMPLE.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/EXAMPLE_SELECTED.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/Title.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/class_placeholder.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/multiplayer_placeHolder.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/news_placeHolder.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/UI/Home/store_placeholder.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGamePlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/ExtractionGamePlayerController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/PlayerHealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/PlayerHealthComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GemController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GemController.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -396,7 +406,7 @@
       <workItem from="1700870129318" duration="258000" />
       <workItem from="1701128002008" duration="6896000" />
       <workItem from="1701191028974" duration="3372000" />
-      <workItem from="1701406642472" duration="5217000" />
+      <workItem from="1701406642472" duration="8775000" />
     </task>
     <servers />
   </component>

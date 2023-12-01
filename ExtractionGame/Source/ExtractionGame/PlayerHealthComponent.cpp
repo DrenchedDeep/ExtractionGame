@@ -28,16 +28,13 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 
 void UPlayerHealthComponent::OnHealthChanged(const FOnAttributeChangeData& Data)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%d"), Data.NewValue);
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
-	UE_LOG(LogTemp,Warning,TEXT("PLEASE CHANGE HEALTH"))
 	hud->SetHealthPercent(Data.NewValue / GetMaxHealth());
 }
 
 void UPlayerHealthComponent::OnMaxHealthChanged(const FOnAttributeChangeData& Data)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%d"), Data.NewValue);
 
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
@@ -47,13 +44,10 @@ void UPlayerHealthComponent::OnMaxHealthChanged(const FOnAttributeChangeData& Da
 UPlayerBarData* UPlayerHealthComponent::GetHUDElement()
 {
 	if(PlayerBarsWidget) return PlayerBarsWidget;
-	UE_LOG(LogTemp, Warning, TEXT("Finding UI 1"));
-	if(const AExtractionGamePlayerController* x = Cast<AExtractionGamePlayerController>(Character->GetLocalViewingPlayerController()))
+	if(const AExtractionGamePlayerController* x = Cast<AExtractionGamePlayerController>(Character->GetController()))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Finding UI 2"));
 		if(const AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(x->GetHUD()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Finding UI 3"));
 			PlayerBarsWidget = HUD->GetPlayerBarWidget();
 		}
 	}
@@ -68,21 +62,30 @@ UPlayerHealthComponent::UPlayerHealthComponent(): Character(nullptr), PlayerBars
 void UPlayerHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 	//if(const AExtractionGameHUD* hud = Cast<AExtractionGameHUD>(Character->GetController<AExtractionGamePlayerController>()->GetHUD()))
 	//	GameHUD = hud->PlayerUIData;
 	bIsDead = false;
 
-	if(Character->GetLocalRole() == ROLE_Authority)
+	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
 	{
+		if(const AExtractionGamePlayerController* x = Cast<AExtractionGamePlayerController>(Character->GetController()))
+		{
+			if(const AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(x->GetHUD()))
+			{
+				if(HUD->GetPlayerBarWidget())
+				{
+					HUD->GetPlayerBarWidget()->SetHealthPercent(100.f);
+				}
+			}
+		}
+	
 		OnHealthChangedHandle =
 			Character->GetAbilitySystemComponent()->
 		GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnHealthChanged);
 		OnMaxHealthChangedHandle =
 			Character->GetAbilitySystemComponent()->
 		GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnMaxHealthChanged);
-		UE_LOG(LogTemp, Warning, TEXT("Loaded LOCAL Player Health Component"))
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Loaded Player Health Component"))
 	ApplyEffect(&HealthPoolHandle, HealthPoolEffect, 1);
@@ -124,12 +127,13 @@ void UPlayerHealthComponent::OnRep_HitCounter()
 
 void UPlayerHealthComponent::Initialize(const AExtractionGameHUD* hud)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Initializing Health Component"))
+	UE_LOG(LogTemp, Warning, TEXT("Initializing Player Health Component"));
 	if (UPlayerBarData* PlayerBarWidget = hud->GetPlayerBarWidget())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Yay"))
 		// Use PlayerBarWidget since it's not null
 		PlayerBarsWidget = PlayerBarWidget;
+		UE_LOG(	LogTemp, Warning, TEXT("PlayerBarWidget is not null"));
+		PlayerBarsWidget->SetHealthPercent(100.f);
 	}
 }
 

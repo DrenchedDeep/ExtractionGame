@@ -231,7 +231,7 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 	dirtyFlags = 255;
 	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
 	
-	if(Character->GetLocalRole() == ROLE_Authority)
+	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
 	{
 		OnEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnEarthManaChanged);
 		OnMaxEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxEarthManaChanged);
@@ -381,6 +381,8 @@ void UGemController::OnMaxEarthManaChanged(const FOnAttributeChangeData& Data)
 
 void UGemController::OnFireManaChanged(const FOnAttributeChangeData& Data)
 {
+	UE_LOG(LogTemp,	Warning, TEXT("%d"), Data.NewValue);
+	UE_LOG(	LogTemp, Warning, TEXT("HI"));
 	UPlayerBarData* hud =GetHUDElement();
 	if(!hud) return;
 	hud->SetFireManaPercent(Data.NewValue / GetFireMaxMana());
