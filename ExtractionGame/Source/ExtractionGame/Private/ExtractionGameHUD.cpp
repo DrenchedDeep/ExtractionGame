@@ -31,7 +31,13 @@ void AExtractionGameHUD::CreatePlayerBarDataWidget()
 	}
 	
 	PlayerUIData = CreateWidget<UPlayerBarData>(GetWorld(), PlayerUIDataSubclass);
+	if(!PlayerUIData)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("How's that possible? %s"), *PlayerUIDataSubclass->GetName())
+		return;
+	}	
 	PlayerUIData->AddToViewport();
+
 	PlayerUIData->SetVisibility(ESlateVisibility::Visible);
 }
 

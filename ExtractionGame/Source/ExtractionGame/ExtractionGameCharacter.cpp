@@ -87,9 +87,11 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	// Mixed mode means we only are replicated the GEs to ourself, not the GEs to simulated proxies. If another GDPlayerState (Hero) receives a GE,
 	// we won't be told about it by the Server. Attributes, GameplayTags, and GameplayCues will still replicate to us.
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
-
+	
 	// Create the attribute set, this replicates by default
 	AttributeSetBase = CreateDefaultSubobject<UExtractionAttributeSet>(TEXT("GAS Attribute Set"));
+
+	UE_LOG(LogTemp, Warning, TEXT("Player Constructed"));
 }
 
 
@@ -104,6 +106,11 @@ void AExtractionGameCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Player loaded"));
+	if(!AbilitySystemComponent)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Unreal sucks, the AbilitySystemComponent visible in bps is null."))
+	}
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
 	TraceParams.bIgnoreTouches = true;
@@ -113,6 +120,8 @@ void AExtractionGameCharacter::BeginPlay()
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 
+	//Fuck you and your random loading orders unreal.
+	PlayerHealthComponent->Initialize();
 	
 	//Inject Delegate functions
 	//OnHealthChangedHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AGemPlayerState::OnHealthChanged);
