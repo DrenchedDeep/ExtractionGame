@@ -37,9 +37,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Enhanced Input Abilities")
 	void ClearAbilityBindings(UInputAction* InputAction);
-
-	UPROPERTY(EditAnywhere)
-	float test;
 	
 private:
 	void OnAbilityInputPressed(UInputAction* InputAction);
@@ -59,7 +56,4 @@ private:
 
 	UPROPERTY(transient)
 	UEnhancedInputComponent* InputComponent;
-
-	
-	
 };

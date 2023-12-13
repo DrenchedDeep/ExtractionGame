@@ -39,9 +39,8 @@ public:
 	void SetHealth(float Health, const AController* Instigator);
 	
 	UPlayerHealthComponent();
-	void Initialize();
 
-	//virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void OnDeath(const FString& PlayerName);
 

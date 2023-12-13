@@ -68,10 +68,6 @@ public:
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
 	UPlayerInventoryComponent* InventoryComponent;
-
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Abilities)
-	UExtractionAbilitySystemComponent* AbilitySystemComponent;
-	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category=Inventory)
 	UGemController* GemController;
 
@@ -81,7 +77,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	UExtractionAttributeSet* AttributeSetBase;
 
-	
+	UPROPERTY(EditAnywhere)
+	UExtractionAbilitySystemComponent* AbilitySystemComponent;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;

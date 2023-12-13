@@ -59,8 +59,9 @@ UPlayerHealthComponent::UPlayerHealthComponent(): Character(nullptr), PlayerBars
 {
 }
 
-void UPlayerHealthComponent::Initialize()
+void UPlayerHealthComponent::BeginPlay()
 {
+	Super::BeginPlay();
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 	//if(const AExtractionGameHUD* hud = Cast<AExtractionGameHUD>(Character->GetController<AExtractionGamePlayerController>()->GetHUD()))
 	//	GameHUD = hud->PlayerUIData;
@@ -172,10 +173,6 @@ void UPlayerHealthComponent::ApplyEffect(FActiveGameplayEffectHandle* handle, TS
 	
 	//If we were previously generating, STOP.
 	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);
-
-
-	check(Character);
-	check(Character->GetAbilitySystemComponent());
 	
 	FGameplayEffectContextHandle EffectContext = Character->GetAbilitySystemComponent()->MakeEffectContext();
 	EffectContext.AddSourceObject(Character);
