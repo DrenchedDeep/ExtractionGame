@@ -1,7 +1,7 @@
 ﻿#include "Abilities/ExtractionAttributeSet.h"
 
 #include "GameplayEffectExtension.h"
-#include "ExtractionGame/ExtractionGameCharacter.h"
+#include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 UExtractionAttributeSet::UExtractionAttributeSet()
