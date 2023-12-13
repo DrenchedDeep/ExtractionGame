@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "ExtractionAbilitySystemComponent.h"
-#include "Gem.h"
+#include "Core/ExtractionGame/Gem.h"
 #include "Components/ActorComponent.h"
-#include "Core/AbilityHandlerSubSystem.h"
-#include "ExtractionGame/ExtractionGameCharacter.h"
-#include "UI/PlayerBarData.h"
+#include "Core/Managers/AbilityHandlerSubSystem.h"
+#include "Core/ExtractionGame/ExtractionGameCharacter.h"
+#include "UI/Widgets/PlayerBarDataWidget.h"
 #include "GemController.generated.h"
 
 class AExtractionGameHUD;
@@ -117,7 +117,7 @@ public:
 	FActiveGameplayEffectHandle ManaPoolHandle;
 
 	UPROPERTY(Transient)AExtractionGameCharacter* Character;
-	UPROPERTY(Transient)UPlayerBarData* PlayerBarsWidget;
+	UPROPERTY(Transient)UPlayerBarDataWidget* PlayerBarsWidget;
 	
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. Returns false if slot is already filled"))
 	bool CheckGem(EBodyPart slot);
@@ -192,7 +192,7 @@ private:
 	void RecompileHead();
 	void RecompileChest();
 
-	UPlayerBarData* GetHUDElement();
+	UPlayerBarDataWidget* GetHUDElement();
 
 
 	
