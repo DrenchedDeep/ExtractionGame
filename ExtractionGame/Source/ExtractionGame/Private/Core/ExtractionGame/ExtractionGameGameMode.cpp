@@ -28,7 +28,7 @@ void AExtractionGameGameMode::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AExtractionGameGameMode::SpawnPlayer(APlayerController* PlayerController)
+void AExtractionGameGameMode::SpawnPlayer(APlayerController* PlayerController) const
 {
 	APlayerStart* SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
 

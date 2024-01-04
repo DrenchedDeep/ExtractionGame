@@ -77,7 +77,10 @@ void ATDMGameMode::SpawnPlayer(APlayerController* NewPlayer, int32 TeamID)
 	UE_LOG(LogTemp, Warning, TEXT("Spawning player at %s"), *SpawnPoint->GetActorLocation().ToString());
 
 	APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor(Player, &SpawnPoint->GetActorTransform()));
-
+	
+	// Why not just use default player pawn? I'm not going to try this because I don't want to break things.
+	//APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor(DefaultPawnClass, &SpawnPoint->GetActorTransform()));
+	
 	if(PlayerPawn)
 	{
 		NewPlayer->Possess(PlayerPawn);

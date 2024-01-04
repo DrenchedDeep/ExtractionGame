@@ -26,7 +26,7 @@ public:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
 
-	void SpawnPlayer(APlayerController* PlayerController);
+	void SpawnPlayer(APlayerController* PlayerController) const;
 protected:
 	bool bAllExistingPlayersRegistered;
 

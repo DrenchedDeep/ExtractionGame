@@ -9,6 +9,7 @@
 
 #include "SpaceShip.generated.h"
 
+class UInputMappingContext;
 struct FInputActionValue;
 class UInputAction;
 UCLASS()
@@ -25,6 +26,21 @@ class EXTRACTIONGAME_API ASpaceShip : public APawn
 	void OnDirectionStopped();
 	void StartBoost();
 	void StopBoost();
+
+	UPROPERTY(EditDefaultsOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* Move;
+
+	UPROPERTY(EditDefaultsOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* Look;
+	
+	UPROPERTY(EditDefaultsOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* Thrust;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputMappingContext* ShipMappingContext;
+
+	float curRot;
+	bool isCrashed;
 	
 public:
 	// Sets default values for this pawn's properties
@@ -56,15 +72,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera)
 	UCameraComponent* FirstPersonCameraComponent;
 
-	UPROPERTY(EditDefaultsOnly, Category=Input)
-	UInputAction* Move;
-
-	UPROPERTY(EditDefaultsOnly, Category=Input)
-	UInputAction* Look;
-	
-	UPROPERTY(EditDefaultsOnly, Category=Input)
-	UInputAction* Thrust;
-
 	UPROPERTY(EditDefaultsOnly, Category=Stats)
 	float regularSpeed;
 
@@ -74,11 +81,22 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category=Stats)
 	float rotationSpeed;
 
+	UPROPERTY(EditDefaultsOnly, Category=Stats)
+	float camPanSpeed;
+	
+	UPROPERTY(EditDefaultsOnly, Category=Stats)
+	float MaxPitch;
+
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Stats)
 	float currentSpeed;
 
+	//Replicate the speed?
+	//virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
-	//UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent)
+	void CrashLand(FHitResult HitResult);
+	//virtual void PossessedBy(AController* NewController) override;
 	
 	
 public:	

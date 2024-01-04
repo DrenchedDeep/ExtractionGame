@@ -45,7 +45,10 @@ public:
 protected:
 	/** Input Mapping Context to be used for player input */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
-	UInputMappingContext* InputMappingContext;
+	UInputMappingContext* PlayerControllerMapping;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UInputMappingContext* MountControllerMapping;
 	
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void ClientWasKicked_Implementation(const FText& KickReason) override;

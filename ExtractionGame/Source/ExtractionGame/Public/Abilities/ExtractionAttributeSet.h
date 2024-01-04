@@ -46,7 +46,7 @@ public:
 	UFUNCTION()
 	virtual void OnRep_RegenHealth(const FGameplayAttributeData& OldValue);
 
-	UPROPERTY(BlueprintReadOnly, Category = "Speed", ReplicatedUsing = OnRep_RegenMana)
+	UPROPERTY(BlueprintReadOnly, Category = "Speed", ReplicatedUsing = OnRep_Speed)
 	FGameplayAttributeData Speed;
 	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, Speed)
 	UFUNCTION()

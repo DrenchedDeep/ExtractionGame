@@ -100,9 +100,11 @@ void AExtractionGameCharacter::BeginPlay()
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
+			Subsystem->ClearAllMappings();
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
 	TraceParams.bIgnoreTouches = true;

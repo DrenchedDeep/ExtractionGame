@@ -10,6 +10,7 @@
 #include "Core/ExtractionGame/TDMGameMode.h"
 #include "Core/ExtractionGame/TDMGameState.h"
 #include "Camera/CameraComponent.h"
+#include "Core/ExtractionGame/SpaceShip.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/SpectatorPawn.h"
 #include "Net/UnrealNetwork.h"
@@ -130,9 +131,23 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
+	//It now depends on what we posses... Except this never actually happens in net mode..?
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
-		Subsystem->AddMappingContext(InputMappingContext, 0);
+		Subsystem->ClearAllMappings();
+		
+#if UE_EDITOR
+		if(InPawn->IsA(ASpaceShip::StaticClass()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("\x1b[34mPossessed a MOUNT pawn\x1b[0m"))	
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("\x1b[31mPossessed a PLAYER pawn\x1b[0m"))
+		}
+#endif
+		
+		Subsystem->AddMappingContext(InPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
 	}
 
 	OnRep_PlayerState();
@@ -165,16 +180,20 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 
 	Server_SetName(GameInstance->GetPlayerUsername());
 
-	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	APawn* possessed = GetPawn();
+	UE_LOG(LogTemp, Warning, TEXT("CONTROLLER: Possessed a: %s"), *possessed->GetName())
+
+	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(possessed))
 	{
-		HUD->CreatePlayerBarDataWidget();
-		if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(GetCharacter()))
+		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Good"))
-			character->InitializeUIComponents(HUD);
+			HUD->CreatePlayerBarDataWidget();
 		
+			UE_LOG(LogTemp, Warning, TEXT("PLAYER HUD BUILT"))
+			character->InitializeUIComponents(HUD);
 		}
 	}
+
 }
 
 
