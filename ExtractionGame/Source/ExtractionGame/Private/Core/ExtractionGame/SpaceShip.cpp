@@ -175,7 +175,7 @@ void ASpaceShip::Tick(float DeltaTime)
 	{
 		StopBoost();
 		OnDirectionStopped();
-		//SetActorTickEnabled(false);
+		SetActorTickEnabled(false);
 		isCrashed = true;
 		CrashLand(hit);
 	}
