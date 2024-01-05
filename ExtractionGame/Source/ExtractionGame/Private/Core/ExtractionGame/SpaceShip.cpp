@@ -5,6 +5,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Net/UnrealNetwork.h"
 
 
 void ASpaceShip::OnDirectionChanged(const FInputActionValue& Value)
@@ -53,6 +54,7 @@ void ASpaceShip::OnDirectionChanged(const FInputActionValue& Value)
 		FrontRight->Activate();
 		BackRight->Activate();
 	}
+	ServerSetMovementDirection(movementDirection);
 	
 }
 
@@ -66,7 +68,7 @@ void ASpaceShip::OnDirectionStopped()
 	BackLeft->Deactivate();
 	BackMid->Deactivate();
 	BackRight->Deactivate();
-	
+	ServerSetMovementDirection(movementDirection);
 }
 
 void ASpaceShip::StartBoost()
@@ -74,12 +76,14 @@ void ASpaceShip::StartBoost()
 	if(isCrashed) return;
 	currentSpeed = boostSpeed;
 	Primary->Activate();
+	ServerSetSpeed(currentSpeed);
 }
 
 void ASpaceShip::StopBoost()
 {
 	currentSpeed = regularSpeed;
 	Primary->Deactivate();
+	ServerSetSpeed(currentSpeed);
 }
 
 // Sets default values
@@ -98,13 +102,14 @@ ASpaceShip::ASpaceShip(): Move(nullptr), Look(nullptr), Thrust(nullptr), ShipMap
 {
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	SetReplicates(true);
+	SetReplicatingMovement(true);
 }
 
 // Called when the game starts or when spawned
 void ASpaceShip::BeginPlay()
 {
 	Super::BeginPlay();
-
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -132,12 +137,41 @@ void ASpaceShip::OnLook(const FInputActionValue& Value)
 }
 
 
+void ASpaceShip::ServerSetMovementDirection_Implementation(FVector2D NewValue)
+{
+	movementDirection = NewValue;
+}
+
+
+void ASpaceShip::ServerSetSpeed_Implementation(float NewValue)
+{
+	currentSpeed = NewValue;
+}
+
+bool ASpaceShip::ServerSetMovementDirection_Validate(FVector2D NewValue)
+{
+	return true;// HasAuthority() && GetNetOwningPlayer() == GetWorld()->GetFirstLocalPlayerFromController();
+}
+
+bool ASpaceShip::ServerSetSpeed_Validate(float NewValue)
+{
+	return true;//HasAuthority() && GetNetOwningPlayer() == GetWorld()->GetFirstLocalPlayerFromController();
+}
+
+void ASpaceShip::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ASpaceShip, movementDirection)
+	DOREPLIFETIME(ASpaceShip, currentSpeed)
+}
 
 // Called every frame
 void ASpaceShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	//TODO: On crash disable tick.
+	
+	
 	const float dt = GetWorld()->DeltaTimeSeconds;
 	const FVector newLocation = GetActorLocation() + GetActorUpVector() * (-currentSpeed * dt);
 	FHitResult hit;

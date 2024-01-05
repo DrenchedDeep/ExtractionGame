@@ -5,6 +5,7 @@
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
+#include "Core/ExtractionGame/Spawnpoint.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameSession.h"
@@ -28,6 +29,7 @@ void AExtractionGameGameMode::BeginPlay()
 	Super::BeginPlay();
 }
 
+/*
 void AExtractionGameGameMode::SpawnPlayer(APlayerController* PlayerController) const
 {
 	APlayerStart* SpawnPoint = Cast<APlayerStart>(UGameplayStatics::GetActorOfClass(GetWorld(), APlayerStart::StaticClass()));
@@ -44,6 +46,8 @@ void AExtractionGameGameMode::SpawnPlayer(APlayerController* PlayerController) c
 		PlayerController->Possess(PlayerPawn);
 	}
 }
+*/
+
 
 void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)
 {

@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "NiagaraComponent.h"
+#include "Interfaces/NetworkPredictionInterface.h"
 
 #include "SpaceShip.generated.h"
 
@@ -17,7 +18,9 @@ class EXTRACTIONGAME_API ASpaceShip : public APawn
 {
 	GENERATED_BODY()
 
+	UPROPERTY(Replicated)
 	FVector2D movementDirection;
+	
 	FVector rotator;
 	
 	//Store niagara particle Systems
@@ -88,11 +91,17 @@ protected:
 	float MaxPitch;
 
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Stats)
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category=Stats)
 	float currentSpeed;
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerSetMovementDirection(FVector2D NewValue);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerSetSpeed(float NewValue);
+	
 	//Replicate the speed?
-	//virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void CrashLand(FHitResult HitResult);
@@ -102,7 +111,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 

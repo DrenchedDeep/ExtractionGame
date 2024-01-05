@@ -57,6 +57,7 @@ void AExtractionGameCharacter::InitializeUIComponents(const AExtractionGameHUD* 
 {
 	GemController->Initialize(HUD);
 	PlayerHealthComponent->Initialize(HUD);
+	
 }
 
 AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer)

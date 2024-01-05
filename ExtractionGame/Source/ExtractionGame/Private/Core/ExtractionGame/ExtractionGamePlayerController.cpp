@@ -146,7 +146,6 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 			UE_LOG(LogTemp, Warning, TEXT("\x1b[31mPossessed a PLAYER pawn\x1b[0m"))
 		}
 #endif
-		
 		Subsystem->AddMappingContext(InPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
 	}
 
@@ -181,10 +180,12 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 	Server_SetName(GameInstance->GetPlayerUsername());
 
 	APawn* possessed = GetPawn();
+	if(!possessed) return;
 	UE_LOG(LogTemp, Warning, TEXT("CONTROLLER: Possessed a: %s"), *possessed->GetName())
 
 	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(possessed))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Character Check Succeeded"))
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 		{
 			HUD->CreatePlayerBarDataWidget();
