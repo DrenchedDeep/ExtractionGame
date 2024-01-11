@@ -77,6 +77,7 @@ void UGemController::CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlo
 {
 	//Is this when a gem is dropped?
 	AGem* Gem = GetWorld()->SpawnActor<AGem>();
+	UE_LOG(LogTemp, Error, TEXT("REMOVE ME: Pre check Auth: %hhd"), GetOwner()->HasAuthority());
 	if(!Item)
 	{
 		UE_LOG(LogTemp, Error, TEXT("REMOVE ME: Crashed because item is null?"));
