@@ -139,7 +139,8 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 	//It now depends on what we posses... Except this never actually happens in net mode..?
 	
 	UE_LOG(LogTemp, Warning, TEXT("On Possessed by Server: %hs"), (HasAuthority()?"true":"false"))
-	//OnRep_PlayerState(); Why tf is is this here?
+	OnRep_Pawn();
+	//OnRep_PlayerState(); Why tf is is this here? -- Because if you are on standalone, or play as server.. These onReps are not needed in final?
 	
 }
 
@@ -166,7 +167,7 @@ void AExtractionGamePlayerController::GetLifetimeReplicatedProps(TArray<FLifetim
 void AExtractionGamePlayerController::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	//UE_LOG(LogTemp,Warning,TEXT("OnRep_PlayerState, AUTH: %hhd"), HasAuthority())
+	UE_LOG(LogTemp,Warning,TEXT("OnRep_PlayerState, AUTH: %hhd"), HasAuthority())
 	//APawn* possessed = GetPawn();
 	//if(!possessed) return;
 }
@@ -186,17 +187,15 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 #if UE_EDITOR
 		if(NewPawn->IsA(ASpaceShip::StaticClass()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("\x1b[34mPossessed a MOUNT pawn\x1b[0m"))	
+			UE_LOG(LogTemp, Warning, TEXT("Possessed a MOUNT pawn"))	
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("\x1b[31mPossessed a PLAYER pawn\x1b[0m"))
+			UE_LOG(LogTemp, Warning, TEXT("Possessed a PLAYER pawn"))
 		}
 #endif
 		Subsystem->AddMappingContext(NewPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
 	}
-
-	
 	
 	UE_LOG(LogTemp, Warning, TEXT("CONTROLLER: Possessed a: %s, is Server %hs"), *NewPawn->GetName(), (HasAuthority()?"true":"false"))
 
