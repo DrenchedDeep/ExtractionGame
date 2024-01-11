@@ -127,29 +127,20 @@ void AExtractionGamePlayerController::Client_ReturnToLobby_Implementation()
 	ReturnToLobby();
 }
 
+//This is a server side only function.
 void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
+	//This is likely being called more than it needs to be, I changed it too, so hopefully it still works.
+	//UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+	//Server_SetName(GameInstance->GetPlayerUsername());
+	
 	//It now depends on what we posses... Except this never actually happens in net mode..?
-	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-	{
-		Subsystem->ClearAllMappings();
-		
-#if UE_EDITOR
-		if(InPawn->IsA(ASpaceShip::StaticClass()))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("\x1b[34mPossessed a MOUNT pawn\x1b[0m"))	
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("\x1b[31mPossessed a PLAYER pawn\x1b[0m"))
-		}
-#endif
-		Subsystem->AddMappingContext(InPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
-	}
-
-	OnRep_PlayerState();
+	
+	UE_LOG(LogTemp, Warning, TEXT("On Possessed by Server: %hs"), (HasAuthority()?"true":"false"))
+	//OnRep_PlayerState(); Why tf is is this here?
+	
 }
 
 void AExtractionGamePlayerController::ClientWasKicked_Implementation(const FText& KickReason)
@@ -171,19 +162,45 @@ void AExtractionGamePlayerController::GetLifetimeReplicatedProps(TArray<FLifetim
 	DOREPLIFETIME(AExtractionGamePlayerController, CurrentRespawnTimer);
 }
 
+//TODO delete
 void AExtractionGamePlayerController::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+	//UE_LOG(LogTemp,Warning,TEXT("OnRep_PlayerState, AUTH: %hhd"), HasAuthority())
+	//APawn* possessed = GetPawn();
+	//if(!possessed) return;
+}
 
-	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+void AExtractionGamePlayerController::OnRep_Pawn()
+{
+	Super::OnRep_Pawn();
+	UE_LOG(LogTemp,Warning,TEXT("OnRep_Pawn, AUTH: %hhd"), HasAuthority())
 
-	Server_SetName(GameInstance->GetPlayerUsername());
+	APawn* NewPawn = GetPawn();
+	if(!NewPawn) return;
+	UE_LOG(LogTemp,Warning,TEXT("OnRep_Pawn, NAME: %s"), *NewPawn->GetName())
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->ClearAllMappings();
+		
+#if UE_EDITOR
+		if(NewPawn->IsA(ASpaceShip::StaticClass()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("\x1b[34mPossessed a MOUNT pawn\x1b[0m"))	
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("\x1b[31mPossessed a PLAYER pawn\x1b[0m"))
+		}
+#endif
+		Subsystem->AddMappingContext(NewPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
+	}
 
-	APawn* possessed = GetPawn();
-	if(!possessed) return;
-	UE_LOG(LogTemp, Warning, TEXT("CONTROLLER: Possessed a: %s"), *possessed->GetName())
+	
+	
+	UE_LOG(LogTemp, Warning, TEXT("CONTROLLER: Possessed a: %s, is Server %hs"), *NewPawn->GetName(), (HasAuthority()?"true":"false"))
 
-	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(possessed))
+	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(NewPawn))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Character Check Succeeded"))
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
@@ -194,8 +211,19 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 			character->InitializeUIComponents(HUD);
 		}
 	}
-
 }
+
+void AExtractionGamePlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	if(!HasAuthority()) return;
+	
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+	Server_SetName(GameInstance->GetPlayerUsername());
+	//Server_SetName(PlayerState->GetPlayerName());
+	UE_LOG(LogTemp,Warning,TEXT("Binding events: %s"), *GameInstance->GetPlayerUsername());
+}
+
 
 
 

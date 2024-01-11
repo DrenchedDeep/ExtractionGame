@@ -77,6 +77,11 @@ void UGemController::CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlo
 {
 	//Is this when a gem is dropped?
 	AGem* Gem = GetWorld()->SpawnActor<AGem>();
+	if(!Item)
+	{
+		UE_LOG(LogTemp, Error, TEXT("REMOVE ME: Crashed because item is null?"));
+		return;
+	}
 	Gem->SetPolish(Item->DefaultPolish);
 	Gem->SetGemType(Item->GemType);
 	Client_OnGemCreated(GemSlotID, Gem);

@@ -196,7 +196,7 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	UE_LOG(LogTemp, Warning, TEXT("Possessed by %s"), *NewController->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Possessed by %s, has Authority: %hhd"), *NewController->GetName(), HasAuthority());
 	//Server GAS initialization
 	/*
 	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
@@ -217,7 +217,7 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 	
 	//Client GAS initialization
-	UE_LOG(LogTemp, Warning, TEXT("REP_Player state Enter"));
+	UE_LOG(LogTemp, Warning, TEXT("REP_Player state Enter Has authority: %hhd"), HasAuthority());
 	/*
 	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
 	{
@@ -236,7 +236,7 @@ void AExtractionGameCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
 	//SafeBeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller"))
+	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller Has authority: %hhd"), HasAuthority())
 	GemController->SmartRecompileGems();
 
 }

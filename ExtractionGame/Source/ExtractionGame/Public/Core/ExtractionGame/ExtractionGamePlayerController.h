@@ -54,6 +54,10 @@ protected:
 	virtual void ClientWasKicked_Implementation(const FText& KickReason) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void OnRep_PlayerState() override;
+	virtual void OnRep_Pawn() override;
+
+	virtual void BeginPlay() override;
+	
 
 	UFUNCTION(Reliable, Client)
 	void Client_OnDeath(const FString& PlayerName);
