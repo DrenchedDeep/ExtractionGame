@@ -23,12 +23,12 @@ public:
 	TEnumAsByte<EBodyPart> BodyPart;
 	UPROPERTY(BlueprintReadOnly)
 	UItemObject* ItemObject;
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	UInventoryComp* InventoryComp;
 
 	
 	UFUNCTION(BlueprintCallable)
-	void InitNewGem(UItemObject* ItemObj, UInventoryComp* InvComp);
+	void InitNewGem(UItemObject* ItemObj);
 	UFUNCTION(BlueprintCallable)
 	void ResetGemSlot();
 };	

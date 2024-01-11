@@ -45,7 +45,6 @@ public:
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
 	float DefaultPolish;
-
 	
 	//make sure our item has a valid uworld
 	virtual UWorld* GetWorld() const override
