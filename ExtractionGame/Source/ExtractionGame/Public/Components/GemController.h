@@ -128,12 +128,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Remove the current head gem. WARNING: Can return null ptrs."))
 	void RemoveGem(EBodyPart slot);
 
-	UFUNCTION(Server, Reliable)
-	void Server_CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID);
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void Server_CreateGem(UItemObject* Item, EBodyPart BodyPart);
 	UFUNCTION(Client, Reliable)
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 
-	void CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID);
+	void CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlotID);
 	//UFUNCTION(Server, Reliable)
 	//void Server_LazyRecompileGems();
 	UFUNCTION(Server, Reliable)

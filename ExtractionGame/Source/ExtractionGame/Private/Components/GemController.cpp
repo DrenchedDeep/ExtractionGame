@@ -7,6 +7,7 @@
 #include "Components/InventoryComponent.h"
 #include "UI/Widgets/InventoryWidget.h"
 #include "Abilities/GameplayAbility.h"
+#include "Components/ItemObject.h"
 #include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "Core/ExtractionGame/ExtractionGamePlayerController.h"
@@ -67,7 +68,12 @@ void UGemController::RemoveGem(EBodyPart slot)
 	Server_RemoveGem(slot);
 }
 
-void UGemController::CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID)
+void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPart BodyPart)
+{
+	CreateGem(Item, BodyPart, 0);
+}
+
+void UGemController::CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlotID)
 {
 	//Is this when a gem is dropped?
 	AGem* Gem = GetWorld()->SpawnActor<AGem>();
@@ -80,26 +86,19 @@ void UGemController::CreateGem(UItem* Item, EBodyPart BodyPart, int GemSlotID)
 	*gem = Gem;
 	dirtyFlags |= BodyPart;
 	UE_LOG(LogTemp, Warning, TEXT("CreateGem: %d"), BodyPart);
-
 	//LazyRecompileGems();
-}
-
-
-void UGemController::Server_CreateGem_Implementation(UItem* Item, EBodyPart BodyPart, int GemSlotID)
-{
-	CreateGem(Item, BodyPart, GemSlotID);
 }
 
 
 void UGemController::Client_OnGemCreated_Implementation(int GemSlotID, AGem* Gem)
 {
-	USlotWidget* Slot = Character->InventoryComponent->InventoryWidget->GetSlot(GemSlotID);
+	//USlotWidget* Slot = Character->InventoryComponent->InventoryWidget->GetSlot(GemSlotID);
 
-	if(UGemSlot* GemSlot =	Cast<UGemSlot>(Slot))
-	{
-		GemSlot->Gem = Gem;
+	//if(UGemSlot* GemSlot =	Cast<UGemSlot>(Slot))
+	//{
+	//	GemSlot->Gem = Gem;
 		
-	}
+	//}
 }
 
 void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)

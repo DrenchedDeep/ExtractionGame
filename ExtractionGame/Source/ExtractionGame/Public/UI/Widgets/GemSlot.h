@@ -12,21 +12,23 @@
  * 
  */
 UCLASS()
-class EXTRACTIONGAME_API UGemSlot : public USlotWidget
+class EXTRACTIONGAME_API UGemSlot : public UUserWidget
 {
 	GENERATED_BODY()
 
 	UPROPERTY(meta = (BindWidget))
-	UImage* SlotBackgroundImage;
+	UImage* SLotIconImage;
 public:
-
-	UPROPERTY(BlueprintReadOnly)
-	AGem* Gem;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TEnumAsByte<EBodyPart> BodyPart;
+	UPROPERTY(BlueprintReadOnly)
+	UItemObject* ItemObject;
+	UPROPERTY(BlueprintReadOnly)
+	UInventoryComp* InventoryComp;
+
 	
-	virtual void TransferSlots(UInventoryComponent* SourceInventoryComponent, int TargetSlotID) override;
-	virtual void PredictVisuals(UItem* Item, int Stack) override;
-	virtual void ReconcileVisuals(FInventoryItem& Item) override;
-	virtual void Reset() override;
+	UFUNCTION(BlueprintCallable)
+	void InitNewGem(UItemObject* ItemObj, UInventoryComp* InvComp);
+	UFUNCTION(BlueprintCallable)
+	void ResetGemSlot();
 };	

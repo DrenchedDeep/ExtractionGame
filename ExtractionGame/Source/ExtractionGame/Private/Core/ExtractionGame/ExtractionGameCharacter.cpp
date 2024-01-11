@@ -209,7 +209,7 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 	GemPlayerState = Cast<AGemPlayerState>(NewController->PlayerState);
 	GemPlayerState->SetHealth(100.f); */
 	//GemController->SmartRecompileGems();
-	InventoryComponent->InitInventory();
+//	InventoryComponent->InitInventory();
 }
 
 void AExtractionGameCharacter::OnRep_PlayerState()
@@ -228,7 +228,7 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 
 	} */
 	//GemController->SmartRecompileGems();
-	InventoryComponent->InitInventory();
+//	InventoryComponent->InitInventory();
 }
 
 

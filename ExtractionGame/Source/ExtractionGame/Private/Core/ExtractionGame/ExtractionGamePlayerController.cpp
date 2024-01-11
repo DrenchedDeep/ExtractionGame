@@ -30,7 +30,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	//for now, we'll save the inventory for testing but we need to delete the saved inventory if we leave the match by choice
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
-		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->InventoryItems, TArray<FName>());
+//		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->InventoryItems, TArray<FName>());
 	}
 
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");

@@ -10,8 +10,8 @@
 UENUM(BlueprintType)
 enum EItemType : uint8
 {
-	Misc = 0    UMETA(DisplayName = "Misc"),
-	Gem = 1    UMETA(DisplayName = "Gem"),
+	Misc = 0    UMETA(DisplayName = "Misc")
+//	Gem = 1    UMETA(DisplayName = "Gem"),
 };
 
 UCLASS()

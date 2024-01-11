@@ -35,8 +35,8 @@ void UInventoryWidget::Init(UInventoryComponent* InventoryComponent, int32 SlotS
 				{
 					if(UGemSlot* GemSlot = Cast<UGemSlot>(GemsSlots[i]))
 					{
-						GemSlot->Init(InventoryComponent, 20 + i);
-						Slots.Add(GemSlot);
+					//	GemSlot->Init(InventoryComponent, 20 + i);
+					//	Slots.Add(GemSlot);
 					}
 				}
 			}
