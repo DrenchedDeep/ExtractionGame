@@ -113,11 +113,6 @@ void UInventoryComp::Server_AddItem_Implementation(FAddItemInfo ItemInfo, int32 
 
 }
 
-void UInventoryComp::Client_AddItem_Implementation()
-{
-	bIsDirty = true;
-}
-
 void UInventoryComp::OnRep_Items()
 {
 	UE_LOG(LogTemp, Warning, TEXT("OnRep_Items"));

@@ -12,25 +12,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/BP_GoldChest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/BP_GoldChest.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Fire/BP_FireGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Fire/BP_FireGem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Shadow/BP_ShadowGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Shadow/BP_ShadowGem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Water/BP_FireGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Water/BP_FireGem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_Items.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_Items.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/Items/BP_Item.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/Items/BP_Item.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/Items/BP_ItemObject.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/Items/BP_ItemObject.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_InventoryGrid.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_InventoryGrid.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_Item.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_Item.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/ItemObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/ItemObject.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/Gem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/Gem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Managers/ItemReplicationManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Managers/ItemReplicationManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComp.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/ItemObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/ItemObject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/Item.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Items/GemItemActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Items/GemItemActor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Items/ItemActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Items/ItemActor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Managers/ItemReplicationManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Managers/ItemReplicationManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Objects/GemItemObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Objects/GemItemObject.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -405,6 +388,7 @@
       <workItem from="1701406642472" duration="8775000" />
       <workItem from="1704834224595" duration="7396000" />
       <workItem from="1704907630388" duration="3830000" />
+      <workItem from="1705075222662" duration="1788000" />
     </task>
     <servers />
   </component>

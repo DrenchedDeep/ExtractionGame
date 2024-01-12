@@ -197,8 +197,6 @@ protected:
 	UFUNCTION(Server, Reliable)
 	virtual void Server_RemoveItem(UItemObject* Item);
 	
-	UFUNCTION(Client, Reliable)
-	virtual void Client_AddItem();
 	UFUNCTION()
 	virtual void OnRep_Items();
 private:
