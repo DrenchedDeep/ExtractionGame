@@ -6,7 +6,6 @@
 #include "Components/ItemObject.h"
 #include "GemItemObject.generated.h"
 
-enum class EGemType : uint8;
 /**
  * 
  */

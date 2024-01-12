@@ -23,11 +23,10 @@ public:
 	AItemActor();
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FString RowName;
-	UPROPERTY(BlueprintReadWrite)
-	UItemObject* ItemObject;
 	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
 	float DefaultPolish;
+	
 	void PostReplication(TArray<uint8>& Payload);
 };

@@ -8,7 +8,7 @@
 
 enum ERarityType : uint8;
 enum EItemTypes : uint8;
-enum class EGemType : uint8;
+enum  EGemType : uint8;
 
 /**
  * 
@@ -26,42 +26,49 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void Rotate();
-	
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	FVector2D Dimensions;
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	UMaterialInterface* Icon;
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	UMaterialInterface* IconRotated;
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	FString ItemName;
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	TEnumAsByte<EItemTypes> ItemType;
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	TEnumAsByte<ERarityType> Rarity;
-	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn="true"))
-	FString Description;
-	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
-	TEnumAsByte<EGemType> GemType;
-	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
-	float DefaultPolish;
-	
-	//make sure our item has a valid uworld
-	virtual UWorld* GetWorld() const override
+
+	void Init(FVector2D Size,
+		UMaterialInterface* InIcon,
+		UMaterialInterface* InIconRotated,
+		FString InName,
+		EItemTypes InType,
+		ERarityType InRarity,
+		FString Desc,
+		EGemType InGemType,
+		float InPolish)
 	{
-		if(const UObject* Outer = GetOuter())
-		{
-			return Outer->GetWorld();
-		}
-
-		return nullptr;
+		Dimensions = Size;
+		this->Icon = InIcon;
+		this->IconRotated = InIconRotated;
+		ItemName = InName;
+		ItemType = InType;
+		this->Rarity = InRarity;
+		Description = Desc;
+		this->GemType = InGemType;
+		DefaultPolish = InPolish;
 	}
-
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	AActor* GetOwningActor() const { return GetTypedOuter<AActor>();}
+	
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	FVector2D Dimensions;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	UMaterialInterface* Icon;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	UMaterialInterface* IconRotated;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	FString ItemName;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	TEnumAsByte<EItemTypes> ItemType;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	TEnumAsByte<ERarityType> Rarity;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	FString Description;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	TEnumAsByte<EGemType> GemType;
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	float DefaultPolish;
 
 protected:
-//	virtual bool IsSupportedForNetworking() const override { return true; }
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
 	UPROPERTY()
 	bool bRotated;

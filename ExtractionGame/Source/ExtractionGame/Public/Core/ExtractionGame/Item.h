@@ -38,7 +38,7 @@ public:
 	int MaxStack = 1;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")
-	EGemType GemType;
+	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")
 	float DefaultPolish;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,  Category="GemStats")

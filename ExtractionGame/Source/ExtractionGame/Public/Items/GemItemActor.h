@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Items/ItemActor.h"
 #include "GemItemActor.generated.h"
-enum class EGemType : uint8;
 
 /**
  * 

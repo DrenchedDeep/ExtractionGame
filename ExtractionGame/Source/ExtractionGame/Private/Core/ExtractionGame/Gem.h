@@ -13,7 +13,7 @@
 
 
 UENUM(BlueprintType)
-enum class EGemType : uint8 {
+enum EGemType : uint8 {
 	Earth        UMETA(DisplayName="Earth|Green"),
 	Fire     UMETA(DisplayName="Fire|Red"),
 	Shadow    UMETA(DisplayName="Shadow|Purple"),
@@ -29,7 +29,7 @@ class AGem : public AActor, public IInteractable
 	float Polish;
 
 	UPROPERTY(EditAnywhere, Replicated)
-	EGemType GemType;
+	TEnumAsByte<EGemType> GemType;
 
 public:
 	AGem();

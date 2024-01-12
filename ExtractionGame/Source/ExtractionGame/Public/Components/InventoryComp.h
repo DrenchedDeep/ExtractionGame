@@ -7,7 +7,10 @@
 #include "InventoryComp.generated.h"
 
 
+class AExtractionGameCharacter;
 class UItemObject;
+enum EGemType : uint8;
+
 USTRUCT(BlueprintType)
 struct FTile
 {
@@ -84,6 +87,41 @@ struct FItemDataStruct : public FTableRowBase
 	int32 SizeY;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Description;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInterface* Icon;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInterface* IconRotated;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TEnumAsByte<EGemType> GemType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DefaultPolish;
+	
+};
+
+USTRUCT(BlueprintType, Blueprintable)
+struct FAddItemInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector2D Dimensions;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterialInterface* Icon;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterialInterface* IconRotated;
+	UPROPERTY(BlueprintReadWrite)
+	FString ItemName;
+	UPROPERTY(BlueprintReadWrite)
+	TEnumAsByte<EItemTypes> ItemType;
+	UPROPERTY(BlueprintReadWrite)
+	TEnumAsByte<ERarityType> Rarity;
+	UPROPERTY(BlueprintReadWrite)
+	FString Description;
+	UPROPERTY(BlueprintReadWrite)
+	TEnumAsByte<EGemType> GemType;
+	UPROPERTY(BlueprintReadWrite)
+	float DefaultPolish;	
 };
 
 
@@ -104,14 +142,22 @@ class EXTRACTIONGAME_API UInventoryComp : public UActorComponent
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float TileSize;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UItemObject> ItemObjectSubclass;
+	
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UUserWidget* InventoryWidget;
 public:
 	UInventoryComp();
+	
 	UFUNCTION(BlueprintCallable)
 	virtual bool TryAddItem(UItemObject* Item);
 	UFUNCTION(BlueprintCallable)
 	virtual void RemoveItem(UItemObject* Item);
+
+	UFUNCTION(BlueprintCallable)
+	virtual bool TryAddItemByAddItemInfo(FAddItemInfo Item);
+	
 	UFUNCTION(BlueprintCallable)
 	virtual void AddItem(int32 Index, UItemObject* Item);
 	UFUNCTION(BlueprintCallable)
@@ -127,8 +173,8 @@ public:
 	TMap<UItemObject*, FTile> GetAllItems();
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	virtual bool HasRoomForItem(UItemObject* Item, int32 TopLeftIndex);
-	
+	virtual bool HasRoomForItem(FVector2D Dimensions, int32 TopLeftIndex);
+
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	virtual FItemIndex GetItemAtIndex(int32 InIndex);
 	
@@ -136,15 +182,31 @@ public:
 	virtual bool IsTileValid(FTile Tile);
 	
 	UPROPERTY(BlueprintAssignable)
-	FOInventoryChangedDelegate OnInventoryChanged; 
+	FOInventoryChangedDelegate OnInventoryChanged;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual bool ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags) override;
+	
+	UFUNCTION(Server, Reliable)
+	virtual  void Server_AddItemByObject(UItemObject* Item, int32 Index);
+	UFUNCTION(Server, Reliable)
+	virtual  void Server_AddItem(FAddItemInfo ItemInfo, int32 Index);
+	UFUNCTION(Server, Reliable)
+	virtual void Server_RemoveItem(UItemObject* Item);
+	
+	UFUNCTION(Client, Reliable)
+	virtual void Client_AddItem();
+	UFUNCTION()
+	virtual void OnRep_Items();
 private:
-	UPROPERTY()
+	UPROPERTY(ReplicatedUsing=OnRep_Items)
 	TArray<UItemObject*> Items;
-
+	UPROPERTY()
+	AExtractionGameCharacter* Character;
+	
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool bIsDirty;
 };
