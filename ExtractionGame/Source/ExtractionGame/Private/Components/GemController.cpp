@@ -311,8 +311,11 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
 
 	if(bIsLeft)
+	{
 		totalPolish = -totalPolish;
-	
+		if(totalPolish == 0)
+			totalPolish = -1;
+	}
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, Character);
 
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
