@@ -33,6 +33,13 @@ void UExtractionGameInstance::SetupOnlineSubsystem()
 	}
 }
 
+const UMapInfo* UExtractionGameInstance::GetMapInfo()
+{
+	checkf(GetWorld(), TEXT("Cannot get map info before a map exists"))
+	UE_LOG(LogTemp,Warning,TEXT("WORLD: %s"), *GetWorld()->GetName());
+	return MapInfo[GetWorld()->GetName()];
+}
+
 void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
 	FPlayerSessionData PlayerData(true, PlayerItems, GemItems);
@@ -67,6 +74,8 @@ void UExtractionGameInstance::Init()
 {
 	Super::Init();
 
+
+	
 	AbilityHandlerSubSystem = GetSubsystem<UAbilityHandlerSubSystem>();
 	if (!AbilityHandlerSubSystem)
 	{
@@ -78,6 +87,7 @@ void UExtractionGameInstance::Init()
 	{
 		PoolHandlerSubSystem = NewObject<UPoolHandlerSubSystem>(this);
 	}
+	
 
 	SetupOnlineSubsystem();
 	Session = OnlineSubSystem->GetSessionInterface();
@@ -120,6 +130,8 @@ void UExtractionGameInstance::Init()
 	
 	GetEngine()->OnNetworkFailure().AddUObject(this, &UExtractionGameInstance::HandleNetworkFailure);
 	GetEngine()->OnTravelFailure().AddUObject(this, &UExtractionGameInstance::OnTravelError);
+
+	
 }
 
 

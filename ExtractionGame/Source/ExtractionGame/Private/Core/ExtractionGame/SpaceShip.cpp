@@ -5,6 +5,8 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "Core/Other/MapInfo.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -163,6 +165,22 @@ void ASpaceShip::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifeti
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ASpaceShip, movementDirection)
 	DOREPLIFETIME(ASpaceShip, currentSpeed)
+}
+
+void ASpaceShip::MoveToWorldSpawn()
+{
+	if(!HasAuthority()) return;
+	
+	const UMapInfo* MapInfo = Cast<UExtractionGameInstance>(GetGameInstance())->GetMapInfo();
+	
+	const float distance = FMath::RandRange(MapInfo->InnerRing(), MapInfo->OuterRing());
+	const float height = FMath::RandRange(MapInfo->MinHeight(), MapInfo->MaxHeight()) + MapInfo->AdditionalUpOffset();
+	const float angle = FMath::RandRange(0.f, 6.28f);
+
+	const FVector SpawnPoint(FMath::Cos(angle) * distance,FMath::Sin(angle) * distance,height);
+	const FRotator Rotation(0,FMath::RadiansToDegrees(angle),0);
+
+	SetActorLocationAndRotation(SpawnPoint, Rotation, false);
 }
 
 // Called every frame

@@ -10,6 +10,7 @@
 #include "OnlineSessionSettings.h"
 #include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Core/Managers/PoolHandlerSubSystem.h"
+#include "Core/Other/MapInfo.h"
 #include "ExtractionGameInstance.generated.h"
 
 UDELEGATE()
@@ -112,7 +113,8 @@ public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
 	virtual void SetupOnlineSubsystem();
-	
+	const UMapInfo* GetMapInfo();
+
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerSessionData PlayerSessionData;
 	UPROPERTY(BlueprintReadOnly)
@@ -157,6 +159,8 @@ public:
 	UPROPERTY(BlueprintAssignable) FOnSessionAcceptedResult OnSessionAcceptedResultDelegate;
 	UPROPERTY(BlueprintAssignable) FOnNetworkError OnNetworkErrorDelegate;
 	UPROPERTY(BlueprintAssignable) FOnTravelError OnTravelErrorDelegate;
+	
+	UPROPERTY(EditDefaultsOnly) TMap<FString, UMapInfo*> MapInfo;
 
 	FNamedOnlineSession* CurrentSession;
 	FNamedOnlineSession* CurrentLobby;

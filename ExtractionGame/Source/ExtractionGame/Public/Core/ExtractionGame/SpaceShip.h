@@ -105,6 +105,10 @@ protected:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void CrashLand(FHitResult HitResult);
+	
+	UFUNCTION(BlueprintCallable)
+	void MoveToWorldSpawn();
+	
 	//virtual void PossessedBy(AController* NewController) override;
 	
 	
