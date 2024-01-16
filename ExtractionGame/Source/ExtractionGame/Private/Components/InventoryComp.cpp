@@ -236,6 +236,29 @@ bool UInventoryComp::HasRoomForItem(FVector2D Dimensions, int32 TopLeftIndex)
 	return true;
 }
 
+TArray<FAddItemInfo> UInventoryComp::GetItemsAsAddItemInfo()
+{
+	TArray<FAddItemInfo> ItemInfos;
+
+	for(auto Item : GetAllItems())
+	{
+		FAddItemInfo Info;
+		Info.Description = Item.Key->Description;
+		Info.Dimensions = Item.Key->Dimensions;
+		Info.Icon = Item.Key->Icon;
+		Info.IconRotated = Item.Key->IconRotated;
+		Info.Rarity = Item.Key->Rarity;
+		Info.ItemName = Item.Key->ItemName;
+		Info.ItemType = Item.Key->ItemType;
+		Info.GemType = Item.Key->GemType;
+		Info.DefaultPolish = Item.Key->DefaultPolish;
+
+		ItemInfos.Add(Info);
+	}
+
+	return ItemInfos;
+}
+
 FTile UInventoryComp::IndexToTile(int32 Index)
 {
 	const FTile Tile { Index % Columns, Index / Columns };
@@ -269,7 +292,6 @@ void UInventoryComp::AddItem(int32 Index, UItemObject* Item)
 			{
 				int32 I = TileToIndex({i, z});
 				Items[I] = Item;
-				UE_LOG(LogTemp, Warning, TEXT("Item added to index %d"), I);
 				OnRep_Items();
 			}
 		}

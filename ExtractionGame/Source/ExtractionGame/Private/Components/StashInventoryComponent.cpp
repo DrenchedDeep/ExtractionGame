@@ -1,126 +1,35 @@
 #include "Components/StashInventoryComponent.h"
+
+#include "Components/ItemObject.h"
 #include "UI/MainMenuHUD.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
 
 
-void UStashInventoryComponent::Init(UStashInventoryWidget* InvenWidget, int32 InventorySize, bool bIsStash)
-{
-	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
-	StashInventoryWidget = InvenWidget;
-	StashItems.Reset();
-	
-	if(!bIsStash)
-	{
-		InventoryWidget = InvenWidget->StashGridPanel;
-		InventoryWidget->Init(this, InventorySize, false);
-		
-	}
-	else
-	{
-		InventoryWidget = InvenWidget->PlayerInventoryGridPanel;
-		InventoryWidget->Init(this, InventorySize);
 
-		if(GameInstance->PlayerSessionData.bIsValid && GameInstance->PlayerSessionData.PlayerItems.Num() > 0)
+void UStashInventoryComponent::AddItem(int32 Index, UItemObject* Item)
+{
+	FTile Tile = IndexToTile(Index);
+	for(int32 i = Tile.X; i < Tile.X + Item->GetDimensions().X; i++)
+	{
+		for(int32 z = Tile.Y; z < Tile.Y + Item->GetDimensions().Y; z++)
 		{
-			for(int i = 0; i < GameInstance->PlayerSessionData.PlayerItems.Num(); i++)
-			{
-				AddItem(GameInstance->PlayerSessionData.PlayerItems[i].ItemID, GameInstance->PlayerSessionData.PlayerItems[i].StackSize,
-					true, GameInstance->PlayerSessionData.PlayerItems[i].SlotID);
-			}
-
-			GameInstance->PlayerSessionData.PlayerItems.Reset();
-		}
-	}
-
-}
-
-void UStashInventoryComponent::AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID)
-{
-	const int InventoryIndex = FMath::RandRange(0, 100000);
-
-	USlotWidget* SlotWidget;
-
-	if(SlotID == -1)
-	{
-		SlotWidget = InventoryWidget->GetNextSlot();
-	}
-	else
-	{
-		SlotWidget = InventoryWidget->GetSlot(SlotID);
-	}
-	
-	if(SlotWidget)
-	{
-		FInventoryItem InventoryItem(InventoryIndex, SlotWidget->GetSlotID(), StackSize, Item);
-
-		SlotWidget->PredictVisuals(Item, StackSize);
-		SlotWidget->ReconcileVisuals(InventoryItem);
-		SlotWidget->SetInventoryIndex(InventoryIndex);
-
-		StashItems.Add(InventoryItem);
-	}
-}
-
-void UStashInventoryComponent::RemoveItem(int InventoryID, int StackSize)
-{
-	for(int i = 0; i < StashItems.Num(); i++)
-	{
-		const int Index = StashItems[i].InventoryID;
-		if(InventoryID == Index)
-		{
-			InventoryWidget->GetSlot(StashItems[i].SlotID)->Reset();
-			StashItems.RemoveAt(i);
-			UE_LOG(LogTemp, Warning, TEXT("Removed Item"));
-			break;
+			int32 I = TileToIndex({i, z});
+			Items[I] = Item;
+			UE_LOG(LogTemp, Warning, TEXT("Item added to index %d"), I);
+			OnRep_Items();
 		}
 	}
 }
 
-void UStashInventoryComponent::TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot)
+void UStashInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType,
+	FActorComponentTickFunction* ThisTickFunction)
 {
-	//if the new slot already has an item, we want to swap the slots items
-	if(NewSlot->bIsOccupied)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("New Slot already has item"));
-		return;
-	}
-	for(int i = 0; i < StashItems.Num(); i++)
-	{
-		if(OldSlot->GetInventoryIndex() == StashItems[i].InventoryID)
-		{
-			StashItems[i].SlotID = NewSlot->GetSlotID();
-			break;
-		}
-	}
-	
-	
-	//update visuals
-	NewSlot->PredictVisuals(OldSlot->GetCurrentItem(),  GetInventoryItem(OldSlot->GetInventoryIndex()).StackSize);
-	NewSlot->SetInventoryIndex(OldSlot->GetInventoryIndex());
-	OldSlot->Reset();
-	
-}
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-FInventoryItem UStashInventoryComponent::GetInventoryItem(int InventoryID)
-{
-	FInventoryItem InventoryItem = {};
-
-	for(int i = 0; i < StashItems.Num(); i++)
+	if(bIsDirty)
 	{
-		if(InventoryID == StashItems[i].InventoryID)
-		{
-			InventoryItem = StashItems[i];
-		}
-	}
-
-	return InventoryItem;
-}
-
-void UStashInventoryComponent::InitStartingItems()
-{
-	for(int i = 0; i < StartingItems.Num(); i++)
-	{
-		AddItem(StartingItems[i].ItemID, StartingItems[i].Stack, true);
+		UE_LOG(LogTemp, Warning, TEXT("bIsDirty"));
+		bIsDirty = false;
+		OnInventoryChanged.Broadcast();
 	}
 }
-

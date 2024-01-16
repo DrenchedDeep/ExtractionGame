@@ -46,17 +46,18 @@ struct FPlayerSessionData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY()
 	bool bIsValid;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<FInventoryItem> PlayerItems;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<FName> PartyMembers;
+	UPROPERTY()
+	TMap<int32, FAddItemInfo> PlayerItems;
+	UPROPERTY()
+	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems;
 
-	FPlayerSessionData(bool bIsValid, const TArray<FInventoryItem>& PlayerItems, const TArray<FName>& PartyMembers)
+	FPlayerSessionData(bool bIsValid, const TMap<int32, FAddItemInfo>& PlayerItems,
+		const TMap<TEnumAsByte<EBodyPart>, FAddItemInfo>& GemItems)
 		: bIsValid(bIsValid),
 		  PlayerItems(PlayerItems),
-		  PartyMembers(PartyMembers)
+		  GemItems(GemItems)
 	{
 	}
 
@@ -118,7 +119,7 @@ public:
 	FPlayerRaidResult PlayerRaidResult;
 	
 
-	void BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers);
+	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
 	void OnRaidOver(bool bSurvived, float PlayTime);
 
 	void StartSession();

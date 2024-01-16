@@ -33,9 +33,9 @@ void UExtractionGameInstance::SetupOnlineSubsystem()
 	}
 }
 
-void UExtractionGameInstance::BuildPlayerSessionData(TArray<FInventoryItem> PlayerItems, TArray<FName> PartyMembers)
+void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
-	FPlayerSessionData PlayerData(true, PlayerItems, PartyMembers);
+	FPlayerSessionData PlayerData(true, PlayerItems, GemItems);
 	PlayerSessionData = PlayerData;
 }
 
@@ -366,7 +366,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		else if(SessionSettings == "GameplaySession")
 		{
 			ShowLoadingScreen();
-			GetWorld()->ServerTravel("Desert_Map1?listen");
+			GetWorld()->ServerTravel("Desert_Map?listen");
 		}
 
 		OnCreateSessionComplete.Broadcast(true);

@@ -11,24 +11,11 @@
  * 
  */
 UCLASS()
-class EXTRACTIONGAME_API UStashInventoryComponent : public UInventoryComponent
+class EXTRACTIONGAME_API UStashInventoryComponent : public UInventoryComp
 {
 	GENERATED_BODY()
 
 public:
-	void Init(UStashInventoryWidget* InvenWidget, int32 InventorySize, bool bIsStash);
-	
-	virtual void AddItem(UItem* Item, int StackSize, bool bClientSimulation, int SlotID = -1) override;
-	virtual void RemoveItem(int InventoryID, int StackSize) override;
-	virtual void TransferSlots(USlotWidget* OldSlot, USlotWidget* NewSlot) override;
-	
-	virtual FInventoryItem GetInventoryItem(int InventoryID) override;
-
-	void InitStartingItems();
-	
-	UPROPERTY(BlueprintReadOnly)
-	TArray<FInventoryItem> StashItems;
-
-	UPROPERTY(BlueprintReadOnly)
-	UStashInventoryWidget* StashInventoryWidget;;
+	virtual void AddItem(int32 Index, UItemObject* Item) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 };

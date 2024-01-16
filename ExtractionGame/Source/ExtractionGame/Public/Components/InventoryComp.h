@@ -175,6 +175,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	virtual bool HasRoomForItem(FVector2D Dimensions, int32 TopLeftIndex);
 
+	UFUNCTION(BlueprintCallable)
+	virtual TArray<FAddItemInfo> GetItemsAsAddItemInfo();
+
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	virtual FItemIndex GetItemAtIndex(int32 InIndex);
 	
@@ -199,12 +202,14 @@ protected:
 	
 	UFUNCTION()
 	virtual void OnRep_Items();
-private:
+
 	UPROPERTY(ReplicatedUsing=OnRep_Items)
 	TArray<UItemObject*> Items;
+
 	UPROPERTY()
 	AExtractionGameCharacter* Character;
 	
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool bIsDirty;
+	
 };

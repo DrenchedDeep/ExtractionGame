@@ -14,5 +14,9 @@ UCLASS()
 class EXTRACTIONGAME_API UPlayerInventoryComponent : public UInventoryComp
 {
 	GENERATED_BODY()
-	
+
+
+
+protected:
+	virtual void BeginPlay() override;
 };

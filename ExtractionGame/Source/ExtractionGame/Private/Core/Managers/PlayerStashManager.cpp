@@ -1,8 +1,11 @@
 #include "Core/Managers/PlayerStashManager.h"
+
+#include "Components/ItemObject.h"
 #include "UI/MainMenuHUD.h"
 #include "Core/Other/PlayerSaveData.h"
 #include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "EntitySystem/MovieSceneEntityBuilder.h"
 
 APlayerStashManager::APlayerStashManager()
 {
@@ -16,23 +19,16 @@ void APlayerStashManager::BeginPlay()
 	Super::BeginPlay();
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
-	GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
-	GameInstance->UserReadCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnFilesRead);
-	GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
+//	GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
+//	GameInstance->UserReadCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnFilesRead);
+	//GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
 
-	if(const AMainMenuHUD* MainMenuHUD = Cast<AMainMenuHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
-	{
-		UStashInventoryWidget* InventoryWidget = MainMenuHUD->MainMenuWidget->StashInventoryWidget;
+	//LoadInventory();
 
-		PlayerInventory->Init(InventoryWidget, 20, true);
-		StashInventory->Init(InventoryWidget, 60, false);
-	}
-
-	StashInventory->InitStartingItems();
-
-	
-	LoadInventory();
 }
+
+
+
 
 void APlayerStashManager::SaveInventory()
 {
@@ -40,8 +36,8 @@ void APlayerStashManager::SaveInventory()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	const TArray<FName> PartyMembers;
-	GameInstance->BuildPlayerSessionData(PlayerInventory->StashItems, PartyMembers);
-
+	GameInstance->BuildPlayerSessionData(GetPlayerInventory(), GetGemInventory());
+	
 	bool bDisable = true;
 
 	if(bDisable)
@@ -59,16 +55,12 @@ void APlayerStashManager::SaveInventory()
 
 	UPlayerSaveData* PlayerSavedData = Cast<UPlayerSaveData>(UGameplayStatics::CreateSaveGameObject(PlayerSavedDataSubclass));
 
-	UE_LOG(LogTemp, Warning, TEXT("Stash Length: %i"), StashInventory->StashItems.Num());
-	UE_LOG(LogTemp, Warning, TEXT("Player Length: %i"), PlayerInventory->StashItems.Num());
-	for(int i = 0; i < StashInventory->StashItems.Num(); i++)
+	//UE_LOG(LogTemp, Warning, TEXT("Stash Length: %i"), StashInventory->StashItems.Num());
+	//UE_LOG(LogTemp, Warning, TEXT("Player Length: %i"), PlayerInventory->StashItems.Num());
+	/*/
+	for(int i = 0; i < StashInventory->GetItemsAsAddItemInfo().Num(); i++)
 	{
-		const FInventoryItem InventoryItem = StashInventory->StashItems[i];
-
-		if(InventoryItem.ItemID == nullptr)
-		{
-			continue;
-		}
+		const FAddItemInfo InventoryItem = StashInventory->GetItemsAsAddItemInfo()[i];
 		
 		const uint32 Value = (static_cast<uint32>(InventoryItem.SlotID) << 16)
 		| (static_cast<uint32>(InventoryItem.ItemID->ItemID) << 8) | InventoryItem.StackSize;
@@ -97,8 +89,82 @@ void APlayerStashManager::SaveInventory()
 
 	TArray<uint8> SavedData = GameInstance->ConvertSavedFileToInt(PlayerSavedData);
 	GameInstance->UpdatePlayerData(FileName, SavedData);
+	/*/
 }
 
+void APlayerStashManager::AddGem(UItemObject* Gem, EBodyPart BodyPart)
+{
+	if(GemInventory.Contains(BodyPart))
+	{
+		return;
+	}
+	
+	GemInventory.Add(BodyPart, Gem);
+}
+
+void APlayerStashManager::RemoveGem(EBodyPart BodyPart)
+{
+	if(!GemInventory.Contains(BodyPart))
+	{
+		return;
+	}
+	
+	GemInventory.Remove(BodyPart);
+}
+
+TMap<int32,FAddItemInfo> APlayerStashManager::GetPlayerInventory() const
+{
+	TMap<int32,FAddItemInfo> PlayerItems;
+
+	for(auto Item : PlayerInventory->GetAllItems())
+	{
+		FAddItemInfo Info;
+		Info.Description = Item.Key->Description;
+		Info.Dimensions = Item.Key->Dimensions;
+		Info.Icon = Item.Key->Icon;
+		Info.IconRotated = Item.Key->IconRotated;
+		Info.Rarity = Item.Key->Rarity;
+		Info.ItemName = Item.Key->ItemName;
+		Info.ItemType = Item.Key->ItemType;
+		Info.GemType = Item.Key->GemType;
+		Info.DefaultPolish = Item.Key->DefaultPolish;
+
+		int32 Index = PlayerInventory->TileToIndex(Item.Value);
+		PlayerItems.Add(Index, Info);
+	}
+
+	return PlayerItems;
+}
+
+TMap<int32,FAddItemInfo> APlayerStashManager::GetStashInventory() const
+{
+		return	TMap<int32,FAddItemInfo>();
+}
+
+TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> APlayerStashManager::GetGemInventory()
+{
+	TMap<TEnumAsByte<EBodyPart>,FAddItemInfo> GemItems;
+
+	for(auto Item : GemInventory)
+	{
+		FAddItemInfo Info;
+		Info.Description = Item.Value->Description;
+		Info.Dimensions = Item.Value->Dimensions;
+		Info.Icon = Item.Value->Icon;
+		Info.IconRotated = Item.Value->IconRotated;
+		Info.Rarity = Item.Value->Rarity;
+		Info.ItemName = Item.Value->ItemName;
+		Info.ItemType = Item.Value->ItemType;
+		Info.GemType = Item.Value->GemType;
+		Info.DefaultPolish = Item.Value->DefaultPolish;
+
+		GemItems.Add(Item.Key, Info);
+	}
+
+	return GemItems;
+}
+
+/*/
 void APlayerStashManager::LoadInventory()
 {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
@@ -156,6 +222,7 @@ void APlayerStashManager::OnReadInventory(FString FileName, TArray<uint8> DataRe
 	}
 }
 
+
 void APlayerStashManager::OnSavedInventory(bool bWasSuccess)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Saved Inventory"));
@@ -165,6 +232,8 @@ void APlayerStashManager::OnFilesRead(bool bWasSuccess)
 {
 		bRanFirstTimeCheck = true;
 }
+
+/*/
 
 
 

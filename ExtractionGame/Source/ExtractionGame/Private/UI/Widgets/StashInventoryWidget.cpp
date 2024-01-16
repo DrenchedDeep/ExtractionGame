@@ -8,8 +8,8 @@
 void UStashInventoryWidget::InitInventoryWidget(UStashInventoryComponent* InventoryComponent, int32 PlayerInventorySize,
                                                 int32 StashInventorySize)
 {
-	StashGridPanel->Init(InventoryComponent, StashInventorySize);
-	PlayerInventoryGridPanel->Init(InventoryComponent, PlayerInventorySize);
+	//StashGridPanel->Init(InventoryComponent, StashInventorySize);
+//	PlayerInventoryGridPanel->Init(InventoryComponent, PlayerInventorySize);
 }
 
 

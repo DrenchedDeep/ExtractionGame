@@ -14,8 +14,6 @@ class EXTRACTIONGAME_API APlayerStashManager : public AActor
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
-	TArray<UItem*> StartingItems;
 
 	bool bRanFirstTimeCheck;
 	
@@ -25,11 +23,14 @@ public:
 
 	bool bInventoryLoaded;
 	bool bInventorySaved;
-	
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TArray<FName> StartingItems;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStashInventoryComponent* PlayerInventory;
 	
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStashInventoryComponent* StashInventory;
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
@@ -40,15 +41,19 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveInventory();
-	UFUNCTION(BlueprintCallable)
-	void LoadInventory();
 
-	UFUNCTION()
-	void OnReadInventory(FString FileName, TArray<uint8> DataRef);
-	UFUNCTION()
-	void OnSavedInventory(bool bWasSuccess);
-	UFUNCTION()
-	void OnFilesRead(bool bWasSuccess);
+	UFUNCTION(BlueprintCallable)
+	void AddGem(UItemObject* Gem, EBodyPart BodyPart);
+	UFUNCTION(BlueprintCallable)
+	void RemoveGem(EBodyPart BodyPart);
+	
+	TMap<int32,FAddItemInfo> GetPlayerInventory() const;
+	TMap<int32, FAddItemInfo> GetStashInventory() const;
+	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GetGemInventory();
+
+
+private:
+	TMap<TEnumAsByte<EBodyPart>, UItemObject*> GemInventory;
 };
 
 

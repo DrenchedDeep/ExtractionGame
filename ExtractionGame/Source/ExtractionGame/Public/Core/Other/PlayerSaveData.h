@@ -32,5 +32,6 @@ public:
 	TArray<FSavedInventoryItem> StashItems;
 	UPROPERTY()
 	TArray<FSavedInventoryItem> PlayerItems;
-	
+	UPROPERTY()
+	TArray<FSavedInventoryItem> GemItems;
 };

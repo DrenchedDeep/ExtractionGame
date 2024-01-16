@@ -18,10 +18,6 @@ class EXTRACTIONGAME_API UMainMenuWidget : public UUserWidget
 
 public:
 	virtual void NativeConstruct() override;
-	
-	UPROPERTY(meta = (BindWidget), BlueprintReadOnly)
-	UStashInventoryWidget* StashInventoryWidget;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<UMainMenuPanel*> Panels;
 
