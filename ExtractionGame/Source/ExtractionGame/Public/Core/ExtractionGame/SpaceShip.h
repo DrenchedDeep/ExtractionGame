@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "NiagaraComponent.h"
+#include "Engine/DamageEvents.h"
 #include "Interfaces/NetworkPredictionInterface.h"
 
 #include "SpaceShip.generated.h"
@@ -75,6 +76,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera)
 	UCameraComponent* FirstPersonCameraComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FDamageEvent DamageType;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnCrush(FHitResult hit);
+	
 	UPROPERTY(EditDefaultsOnly, Category=Stats)
 	float regularSpeed;
 

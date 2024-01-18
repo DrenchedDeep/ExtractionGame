@@ -119,15 +119,24 @@ void AExtractionGamePlayerController::RespawnTick()
 		{
 			PlayerPawnActor->Destroy();
 		}
-
+		UE_LOG(LogTemp, Warning, TEXT("RESPAWNING PLAYER"))
 		if(ATDMGameMode* GameMode = Cast<ATDMGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			ATDMPlayerState* PS = Cast<ATDMPlayerState>(PlayerState);
 			GameMode->SpawnPlayer(this, PS->TeamID);
-		}
+			UE_LOG(LogTemp, Warning, TEXT("TDM RESPAWN"))
 
+		}
+		else if(const AExtractionGameGameMode* ExtractionGameGameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		{
+			ExtractionGameGameMode->RespawnShip(this,0);
+			UE_LOG(LogTemp, Warning, TEXT("EXTRACTION RESPAWN"))
+		}
+		
 		Client_Respawn();
 		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
+		UE_LOG(LogTemp, Warning, TEXT("RESPAWNING COMPLETE"))
+
 	}
 }
 

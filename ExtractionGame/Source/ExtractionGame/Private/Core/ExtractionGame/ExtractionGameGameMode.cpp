@@ -5,6 +5,7 @@
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
+#include "Core/ExtractionGame/SpaceShip.h"
 #include "Core/ExtractionGame/Spawnpoint.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -27,6 +28,17 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 void AExtractionGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 TeamID) const
+{
+	FActorSpawnParameters Parm;
+	Parm.bNoFail = true;
+	
+	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(DefaultPawnClass, FVector(0,0,100000), FRotator(0), Parm)))
+	{
+		NewPlayer->Possess(PlayerPawn);
+	}
 }
 
 /*

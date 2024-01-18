@@ -122,6 +122,7 @@ void ASpaceShip::BeginPlay()
 	}
 	OnDirectionStopped();
 	StopBoost();
+	MoveToWorldSpawn();
 }
 
 void ASpaceShip::OnLook(const FInputActionValue& Value)
@@ -183,6 +184,7 @@ void ASpaceShip::MoveToWorldSpawn()
 	SetActorLocationAndRotation(SpawnPoint, Rotation, false);
 }
 
+
 // Called every frame
 void ASpaceShip::Tick(float DeltaTime)
 {
@@ -225,6 +227,14 @@ void ASpaceShip::Tick(float DeltaTime)
 
 	if(hit.IsValidBlockingHit())
 	{
+		AActor * actor = hit.GetActor();
+		if(actor->CanBeDamaged())
+		{
+			actor->TakeDamage(10000, DamageType, Controller, this);
+			actor->Destroy();
+			OnCrush(hit);
+			return;
+		}
 		StopBoost();
 		OnDirectionStopped();
 		SetActorTickEnabled(false);

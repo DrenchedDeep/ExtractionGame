@@ -26,6 +26,8 @@ public:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
 
+	void RespawnShip(APlayerController* NewPlayer, int32 TeamID) const;
+
 	//void SpawnPlayer(APlayerController* PlayerController) const;
 protected:
 	bool bAllExistingPlayersRegistered;

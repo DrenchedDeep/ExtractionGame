@@ -22,6 +22,8 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 	if(Health < 0)
 	{
 		bCanTakeDamage = false;
+		check(Instigator);
+		check(Instigator->PlayerState);
 		OnDeath(Instigator->PlayerState->GetPlayerName());
 	}
 }
