@@ -23,10 +23,11 @@ class EXTRACTIONGAME_API AItemActor : public AActor, public IInteractable
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FString RowName;
-	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
-	TEnumAsByte<EGemType> GemType;
-	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
-	float DefaultPolish;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
+	bool bOverridePolish = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true", EditCondition="bOverridePolish"))
+	float DefaultPolish = 25;
 
 	UFUNCTION(BlueprintCallable)
 	void UnregisterItem();
