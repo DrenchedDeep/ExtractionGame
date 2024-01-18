@@ -7,6 +7,7 @@
 #include "InventoryComp.generated.h"
 
 
+class AItemActor;
 class AExtractionGameCharacter;
 class UItemObject;
 enum EGemType : uint8;
@@ -91,7 +92,6 @@ struct FItemDataStruct : public FTableRowBase
 	UMaterialInterface* Icon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInterface* IconRotated;
-	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

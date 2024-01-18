@@ -35,6 +35,11 @@ public:
 	UFUNCTION(Reliable, Client)
 	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
 
+
+	//reason i put it here is cuz i think its more reliable and cleaner to use client rpcs for important things like spawning items
+	UFUNCTION(Reliable, Client)
+	void Client_SpawnItems();
+
 	virtual void OnDeath(const FString& PlayerName);
 	
 	UPROPERTY(BlueprintReadOnly, Replicated)

@@ -9,6 +9,7 @@
 #include "GameFramework/Actor.h"
 #include "ItemActor.generated.h"
 
+class AItemSpawner;
 UCLASS(BlueprintType, Blueprintable)
 class EXTRACTIONGAME_API AItemActor : public AActor, public IInteractable
 {
@@ -20,13 +21,18 @@ class EXTRACTIONGAME_API AItemActor : public AActor, public IInteractable
 	USphereComponent* SphereComponent;
 	
 public:
-	AItemActor();
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FString RowName;
 	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
 	float DefaultPolish;
-	
-	void PostReplication(TArray<uint8>& Payload);
+
+	UFUNCTION(BlueprintCallable)
+	void UnregisterItem();
+
+
+	UPROPERTY()
+	AItemSpawner* ItemSpawner;
+	int32 Index;
 };

@@ -17,6 +17,6 @@ class EXTRACTIONGAME_API UPlayerInventoryComponent : public UInventoryComp
 
 
 
-protected:
-	virtual void BeginPlay() override;
+public:
+	void InitStartingItems();
 };

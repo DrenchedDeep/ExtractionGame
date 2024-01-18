@@ -4,13 +4,10 @@
 #include "Items/ItemActor.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Managers/ItemSpawner.h"
 
-AItemActor::AItemActor()
+void AItemActor::UnregisterItem()
 {
-	//MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
-	//SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-}
-
-void AItemActor::PostReplication(TArray<uint8>& Payload)
-{
+//	ItemSpawner->GetItemReplicationManager()->UnregisterItem(Index);
+	Destroy();
 }

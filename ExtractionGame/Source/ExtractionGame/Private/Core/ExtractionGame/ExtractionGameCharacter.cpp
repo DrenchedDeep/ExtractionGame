@@ -210,6 +210,11 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 	GemPlayerState->SetHealth(100.f); */
 	//GemController->SmartRecompileGems();
 //	InventoryComponent->InitInventory();
+	if(IsLocallyControlled())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Possessed by %s, has Authority: %hhd"), *NewController->GetName(), HasAuthority());
+		InventoryComponent->InitStartingItems();
+	}
 }
 
 void AExtractionGameCharacter::OnRep_PlayerState()
@@ -239,6 +244,7 @@ void AExtractionGameCharacter::OnRep_Controller()
 	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller Has authority: %hhd"), HasAuthority())
 	GemController->SmartRecompileGems();
 
+	InventoryComponent->InitStartingItems();
 }
 
 void AExtractionGameCharacter::BeginDestroy()

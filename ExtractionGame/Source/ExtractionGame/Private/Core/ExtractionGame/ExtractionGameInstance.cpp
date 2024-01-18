@@ -42,6 +42,7 @@ const UMapInfo* UExtractionGameInstance::GetMapInfo()
 
 void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
+	UE_LOG(LogTemp, Warning, TEXT("BuildPlayerSessionData"));
 	FPlayerSessionData PlayerData(true, PlayerItems, GemItems);
 	PlayerSessionData = PlayerData;
 }

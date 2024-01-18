@@ -10,6 +10,7 @@
 #include "Core/ExtractionGame/TDMGameMode.h"
 #include "Core/ExtractionGame/TDMGameState.h"
 #include "Camera/CameraComponent.h"
+#include "Core/ExtractionGame/ExtractionGameState.h"
 #include "Core/ExtractionGame/SpaceShip.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/SpectatorPawn.h"
@@ -55,6 +56,15 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
 		HUD->DeathWidget->RemoveFromParent();
+	}
+}
+
+void AExtractionGamePlayerController::Client_SpawnItems_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Client spawning items"));
+	if(const AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
+	{
+		GameState->GetItemReplicationManager()->SpawnItems();
 	}
 }
 
