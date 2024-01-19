@@ -23,4 +23,12 @@ void UItemObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(UItemObject, Description);
 	DOREPLIFETIME(UItemObject, GemType);
 	DOREPLIFETIME(UItemObject, DefaultPolish);
+	DOREPLIFETIME(UItemObject, RowName);
+}
+
+void UItemObject::BeginDestroy()
+{
+	UObject::BeginDestroy();
+
+	UE_LOG(LogTemp, Warning, TEXT("ItemObject Destroyed"));
 }

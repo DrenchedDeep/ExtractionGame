@@ -24,8 +24,7 @@ public:
 
 	UItemReplicationManager* GetItemReplicationManager() const { return ItemReplicationManager; }
 
-	UFUNCTION(BlueprintCallable)
-	void DropItem()
+
 protected:
 	virtual void BeginPlay() override;
 };

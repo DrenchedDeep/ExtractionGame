@@ -35,7 +35,8 @@ public:
 		ERarityType InRarity,
 		FString Desc,
 		EGemType InGemType,
-		float InPolish)
+		float InPolish,
+		FName InRowName)
 	{
 		Dimensions = Size;
 		this->Icon = InIcon;
@@ -46,8 +47,10 @@ public:
 		Description = Desc;
 		this->GemType = InGemType;
 		DefaultPolish = InPolish;
+		RowName = InRowName;
 	}
-	
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	FName RowName;
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	FVector2D Dimensions;
 	UPROPERTY(BlueprintReadOnly, Replicated)
@@ -69,6 +72,7 @@ public:
 
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void BeginDestroy() override;
 private:
 	UPROPERTY()
 	bool bRotated;

@@ -203,9 +203,14 @@ public:
 	
 	UFUNCTION(Server, Unreliable)
 	void Server_SetInput(float VerticalMove, float HorizontalMove, float VertLook, float HorLook);
+
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeathEvent();
-	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeathServer();
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeathClient();
 
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;

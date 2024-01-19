@@ -116,11 +116,11 @@ void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVect
 		
 		if(bWantsToSprint)
 		{
-			MaxWalkSpeed = Sprint_MaxWalkSpeed * Character->GetAttributeSet()->GetSpeed();
+			MaxWalkSpeed = Sprint_MaxWalkSpeed;// * Character->GetAttributeSet()->GetSpeed();
 		}
 		else
 		{
-			MaxWalkSpeed = Walk_MaxWalkSpeed * Character->GetAttributeSet()->GetSpeed();
+			MaxWalkSpeed = Walk_MaxWalkSpeed;// * Character->GetAttributeSet()->GetSpeed();
 		}
 	}
 	

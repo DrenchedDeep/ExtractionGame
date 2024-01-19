@@ -108,6 +108,11 @@ void UPlayerHealthComponent::OnDeath(const FString& PlayerName)
 	bIsDead = true;
 	OnRep_IsDead();
 
+	if(Character)
+	{
+		Character->OnDeathServer();
+	}
+	
 	AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Character->GetController());
 
 	PC->OnDeath(PlayerName);
@@ -119,8 +124,15 @@ void UPlayerHealthComponent::OnRep_IsDead()
 	{
 		Character = Cast<AExtractionGameCharacter>(GetOwner());
 	}
-	
-	Character->OnDeathEvent();
+
+	if(Character)
+	{
+		if(Character->IsLocallyControlled())
+		{
+			Character->OnDeathClient();
+		}
+		Character->OnDeathEvent();
+	}
 }
 
 void UPlayerHealthComponent::OnRep_HitCounter()

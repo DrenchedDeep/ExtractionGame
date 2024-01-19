@@ -16,6 +16,16 @@ UInventoryComp::UInventoryComp()
 }
 
 
+void UInventoryComp::AddItemDirectly(UItemObject* Item)
+{
+	Server_AddItemDirectly(Item);
+}
+
+void UInventoryComp::RemoveItemDirectly(UItemObject* Item)
+{
+	Server_RemoveItemDirectly(Item);
+}
+
 void UInventoryComp::BeginPlay()
 {
 	Super::BeginPlay();
@@ -97,6 +107,7 @@ void UInventoryComp::Server_AddItem_Implementation(FAddItemInfo ItemInfo, int32 
 	ItemObject->Dimensions = ItemInfo.Dimensions;
 	ItemObject->Icon = ItemInfo.Icon;
 	ItemObject->IconRotated = ItemInfo.IconRotated;
+	ItemObject->RowName = ItemInfo.RowName;
 
 	FTile Tile = IndexToTile(Index);
 	for(int32 i = Tile.X; i < Tile.X + ItemInfo.Dimensions.X; i++)
@@ -111,6 +122,16 @@ void UInventoryComp::Server_AddItem_Implementation(FAddItemInfo ItemInfo, int32 
 	OnRep_Items();
 	//Client_AddItem();
 
+}
+
+void UInventoryComp::Server_AddItemDirectly_Implementation(UItemObject* Item)
+{
+	Items.Add(Item);
+}
+
+void UInventoryComp::Server_RemoveItemDirectly_Implementation(UItemObject* Item)
+{
+	Items.Remove(Item);
 }
 
 void UInventoryComp::OnRep_Items()

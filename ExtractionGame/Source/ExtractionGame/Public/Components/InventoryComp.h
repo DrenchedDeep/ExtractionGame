@@ -124,7 +124,9 @@ struct FAddItemInfo
 	UPROPERTY(BlueprintReadWrite)
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(BlueprintReadWrite)
-	float DefaultPolish;	
+	float DefaultPolish;
+	UPROPERTY(BlueprintReadWrite)
+	FName RowName;
 };
 
 
@@ -190,6 +192,10 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOInventoryChangedDelegate OnInventoryChanged;
 
+	UFUNCTION(BlueprintCallable)
+	void AddItemDirectly(UItemObject* Item);
+	UFUNCTION(BlueprintCallable)
+	void RemoveItemDirectly(UItemObject* Item);
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -202,6 +208,10 @@ protected:
 	virtual  void Server_AddItem(FAddItemInfo ItemInfo, int32 Index);
 	UFUNCTION(Server, Reliable)
 	virtual void Server_RemoveItem(UItemObject* Item);
+	UFUNCTION(Server, Reliable)
+	virtual void Server_AddItemDirectly(UItemObject* Item);
+	UFUNCTION(Server, Reliable)
+	virtual void Server_RemoveItemDirectly(UItemObject* Item);
 	
 	UFUNCTION()
 	virtual void OnRep_Items();
