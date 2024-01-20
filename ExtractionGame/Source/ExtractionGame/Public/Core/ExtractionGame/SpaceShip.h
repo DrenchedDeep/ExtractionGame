@@ -82,6 +82,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnCrush(FHitResult hit);
 	
+	
+	
+	
 	UPROPERTY(EditDefaultsOnly, Category=Stats)
 	float regularSpeed;
 
@@ -112,6 +115,22 @@ protected:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void CrashLand(FHitResult HitResult);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void ClientCrashLandEffects(FHitResult HitResult);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnThrustBegin();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnThrustEnd();
+	
+	UFUNCTION(NetMulticast, Reliable)
+	void ClientCrashLand(FHitResult HitResult);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void ClientOnCrush(FHitResult HitResult);
+	
 	
 	UFUNCTION(BlueprintCallable)
 	void MoveToWorldSpawn();

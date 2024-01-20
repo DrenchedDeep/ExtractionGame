@@ -79,6 +79,7 @@ void ASpaceShip::StartBoost()
 	currentSpeed = boostSpeed;
 	Primary->Activate();
 	ServerSetSpeed(currentSpeed);
+	OnThrustBegin();
 }
 
 void ASpaceShip::StopBoost()
@@ -86,6 +87,7 @@ void ASpaceShip::StopBoost()
 	currentSpeed = regularSpeed;
 	Primary->Deactivate();
 	ServerSetSpeed(currentSpeed);
+	OnThrustEnd();
 }
 
 // Sets default values
@@ -168,6 +170,19 @@ void ASpaceShip::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifeti
 	DOREPLIFETIME(ASpaceShip, currentSpeed)
 }
 
+void ASpaceShip::ClientCrashLand_Implementation(FHitResult HitResult)
+{
+	StopBoost();
+	OnDirectionStopped();
+	SetActorTickEnabled(false);
+	ClientCrashLandEffects(HitResult);
+}
+
+void ASpaceShip::ClientOnCrush_Implementation(FHitResult HitResult)
+{
+	OnCrush(HitResult);
+}
+
 void ASpaceShip::MoveToWorldSpawn()
 {
 	if(!HasAuthority()) return;
@@ -225,14 +240,14 @@ void ASpaceShip::Tick(float DeltaTime)
 	}
 	
 
-	if(hit.IsValidBlockingHit())
+	if(HasAuthority() && hit.IsValidBlockingHit())
 	{
 		AActor * actor = hit.GetActor();
 		if(actor->CanBeDamaged())
 		{
 			actor->TakeDamage(10000, DamageType, Controller, this);
 			actor->Destroy();
-			OnCrush(hit);
+			ClientOnCrush(hit);
 			return;
 		}
 		StopBoost();
@@ -240,6 +255,7 @@ void ASpaceShip::Tick(float DeltaTime)
 		SetActorTickEnabled(false);
 		isCrashed = true;
 		CrashLand(hit);
+		ClientCrashLand(hit);
 	}
 	
 	//AddMovementInput(GetActorForwardVector(), currentSpeed);
