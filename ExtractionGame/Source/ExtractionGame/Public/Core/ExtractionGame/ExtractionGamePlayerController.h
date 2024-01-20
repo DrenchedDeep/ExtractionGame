@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Items/ItemActor.h"
 #include "ExtractionGamePlayerController.generated.h"
 
 class UInputMappingContext;
@@ -34,7 +35,8 @@ public:
 	void Client_ReturnToLobby();
 	UFUNCTION(Reliable, Client)
 	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
-
+	UFUNCTION(Server, Reliable)
+	void Server_PickupItem(AItemActor* ItemActor);
 
 	//reason i put it here is cuz i think its more reliable and cleaner to use client rpcs for important things like spawning items
 	UFUNCTION(Reliable, Client)

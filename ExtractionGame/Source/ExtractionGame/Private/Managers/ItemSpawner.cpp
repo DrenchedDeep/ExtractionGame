@@ -47,13 +47,23 @@ void AItemSpawner::SpawnItems(UItemReplicationManager* ItemManager)
 
 	//	UE_LOG(LogTemp, Warning, TEXT("Spawning Item"));
 		UE_LOG(LogTemp, Warning, TEXT("Spawn Location: %s"), *SpawnLocation.ToString());
-		AItemActor* ItemActor = GetWorld()->SpawnActor<AItemActor>(SpawnableItems[FMath::RandRange(0, SpawnableItems.Num() - 1)],
+
+		FSpawnableItem Item = SpawnableItems[FMath::RandRange(0, SpawnableItems.Num() - 1)];
+		
+		AItemActor* ItemActor = GetWorld()->SpawnActor<AItemActor>(
+			Item.ItemClass,
 			SpawnLocation, GetActorRotation(), SpawnParams);
 
+		if(Item.bIsGem)
+		{
+			ItemActor->DefaultPolish = FMath::RandRange(Item.MinPolish, Item.MaxPolish);
+		}
+		
 		if(ItemActor)
 		{
-			ItemActor->Index = ItemManager->RegisterNewItem(ItemActor);
+		//	ItemActor->Index = ItemManager->RegisterNewItem();
 			ItemActor->ItemSpawner = this;
+			SpawnedItems.Add(ItemActor);
 		}
 	}
 

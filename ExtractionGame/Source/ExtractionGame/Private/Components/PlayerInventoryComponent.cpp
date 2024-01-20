@@ -18,12 +18,50 @@ void UPlayerInventoryComponent::InitStartingItems()
 	{
 		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Items!!!!!!!"));
 			Server_AddItem(Item.Value, Item.Key);
 			//	Character->GemController->Server_AddGem()
 		}
 	}
 }
- 
+
+
+TArray<UItemObject*> UPlayerInventoryComponent::GetItemsIncludingGems()
+{
+	TArray<UItemObject*> Itms;
+
+	for(int32 i = 0; i < Items.Num(); i++)
+	{
+		if(!Items[i])
+		{
+			continue;
+		}
+
+		if(Itms.Contains(Items[i]))
+		{
+			continue;
+		}
+
+		Itms.Add(Items[i]);
+	}
+
+	for(int32 i = 0; i < GemItems.Num(); i++)
+	{
+		if(!GemItems[i])
+		{
+			continue;
+		}
+
+		if(Itms.Contains(GemItems[i]))
+		{
+			continue;
+		}
+
+		Itms.Add(GemItems[i]);
+	}	
+
+	return Itms;
+}
 
 void UPlayerInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {

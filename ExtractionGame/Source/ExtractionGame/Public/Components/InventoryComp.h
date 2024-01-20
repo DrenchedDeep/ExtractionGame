@@ -89,7 +89,7 @@ struct FItemDataStruct : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Description;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UMaterialInterface* Icon;
+	TArray<UMaterialInterface*> Icon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInterface* IconRotated;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

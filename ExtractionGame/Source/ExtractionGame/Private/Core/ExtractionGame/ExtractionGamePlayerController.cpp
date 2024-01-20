@@ -64,7 +64,15 @@ void AExtractionGamePlayerController::Client_SpawnItems_Implementation()
 	UE_LOG(LogTemp, Warning, TEXT("Client spawning items"));
 	if(const AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
 	{
-		GameState->GetItemReplicationManager()->SpawnItems();
+//		GameState->GetItemReplicationManager()->SpawnItems();
+	}
+}
+
+void AExtractionGamePlayerController::Server_PickupItem_Implementation(AItemActor* ItemActor)
+{
+	if(ItemActor)
+	{
+		ItemActor->Destroy();
 	}
 }
 

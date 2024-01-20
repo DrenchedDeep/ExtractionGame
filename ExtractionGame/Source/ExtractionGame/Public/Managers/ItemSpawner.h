@@ -7,6 +7,21 @@
 #include "GameFramework/Actor.h"
 #include "ItemSpawner.generated.h"
 
+USTRUCT(BlueprintType)
+struct FSpawnableItem
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AItemActor> ItemClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsGem;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(EditCondition="bIsGem"))
+	float MinPolish = 25;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(EditCondition="bIsGem"))
+	float MaxPolish = 100;
+};
+
 UCLASS()
 class EXTRACTIONGAME_API AItemSpawner : public AActor
 {
@@ -24,16 +39,22 @@ public:
 	int32 MaxSpawnAttempts;
 	
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite, meta = (ExposeOnSpawn = "true"))
-	TArray<TSubclassOf<AItemActor>> SpawnableItems;
+	TArray<FSpawnableItem> SpawnableItems;
 
 
 	AItemSpawner();
 	void SpawnItems(UItemReplicationManager* ItemManager);
 
 	UItemReplicationManager* GetItemReplicationManager() const { return ItemReplicationManager; }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	TArray<AItemActor*> GetSpawnedItems() const { return SpawnedItems; }
 private:
 	void SpawnItemsOnLandscape();
 
 	UPROPERTY()
 	UItemReplicationManager* ItemReplicationManager;
+
+	UPROPERTY()
+	TArray<AItemActor*> SpawnedItems;
 };

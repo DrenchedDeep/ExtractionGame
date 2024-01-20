@@ -24,6 +24,8 @@ public:
 	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void Server_RemoveGem(UItemObject* Item);
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	TArray<UItemObject*> GetItemsIncludingGems();
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 

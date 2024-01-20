@@ -26,7 +26,7 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true"))
 	bool bOverridePolish = false;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true", EditCondition="bOverridePolish"))
+	UPROPERTY(Replicated, EditAnywhere,BlueprintReadWrite, Category = "Gems", meta = (ExposeOnSpawn="true", EditCondition="bOverridePolish"))
 	float DefaultPolish = 25;
 
 	UFUNCTION(BlueprintCallable)
@@ -35,5 +35,9 @@ public:
 
 	UPROPERTY()
 	AItemSpawner* ItemSpawner;
+	
 	int32 Index;
+	
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

@@ -244,7 +244,10 @@ void AExtractionGameCharacter::OnRep_Controller()
 	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller Has authority: %hhd"), HasAuthority())
 	GemController->SmartRecompileGems();
 
-	InventoryComponent->InitStartingItems();
+	if(IsLocallyControlled())
+	{
+		InventoryComponent->InitStartingItems();
+	}
 }
 
 void AExtractionGameCharacter::BeginDestroy()

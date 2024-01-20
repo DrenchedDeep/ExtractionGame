@@ -14,6 +14,6 @@ void AExtractionGameState::BeginPlay()
 
 	if(HasAuthority())
 	{
-		ItemReplicationManager->Init();
+//		ItemReplicationManager->Init();
 	}
 }
