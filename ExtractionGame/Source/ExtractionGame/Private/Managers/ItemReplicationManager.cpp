@@ -3,7 +3,6 @@
 
 #include "Managers/ItemReplicationManager.h"
 
-#include "IDetailTreeNode.h"
 #include "Core/ExtractionGame/ExtractionGamePlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Managers/ItemSpawner.h"
