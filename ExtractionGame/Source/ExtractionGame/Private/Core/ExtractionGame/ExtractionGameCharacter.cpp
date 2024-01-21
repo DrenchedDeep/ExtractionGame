@@ -98,6 +98,8 @@ void AExtractionGameCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	OnHealthChanged(1);
 	
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
