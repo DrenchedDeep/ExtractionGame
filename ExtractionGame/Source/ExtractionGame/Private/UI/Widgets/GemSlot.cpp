@@ -5,10 +5,12 @@
 
 void UGemSlot::InitNewGem(UItemObject* ItemObj)
 {
+	if(ItemObj)
+	{
+		SLotIconImage->SetVisibility(ESlateVisibility::Visible);
+		SLotIconImage->SetBrushFromMaterial(ItemObj->Icon);
+	}
 	ItemObject = ItemObj;
-	
-	SLotIconImage->SetVisibility(ESlateVisibility::Visible);
-	SLotIconImage->SetBrushFromMaterial(ItemObj->Icon);
 }
 
 void UGemSlot::ResetGemSlot()

@@ -24,6 +24,18 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 		bCanTakeDamage = false;
 		check(Instigator);
 		check(Instigator->PlayerState);
+
+		if(ATDMPlayerState* InstigatorPlayerState = Instigator->GetPlayerState<ATDMPlayerState>())
+		{
+			InstigatorPlayerState->Kills++;
+			InstigatorPlayerState->OnRep_Kills();
+		}
+
+		if(ATDMPlayerState* OwnerPlayerState = Character->GetPlayerState<ATDMPlayerState>())
+		{
+			OwnerPlayerState->Deaths++;
+			OwnerPlayerState->OnRep_Deaths();
+		}
 		OnDeath(Instigator->PlayerState->GetPlayerName());
 	}
 }
@@ -113,6 +125,7 @@ void UPlayerHealthComponent::OnDeath(const FString& PlayerName)
 		Character->OnDeathServer();
 	}
 	
+	
 	AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Character->GetController());
 
 	PC->OnDeath(PlayerName);
@@ -157,7 +170,7 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 	{
 		return false;
 	}
-
+/*/
 	//If the user shares a team.
 	if(ATDMPlayerState* OwnerPlayerState = Character->GetPlayerState<ATDMPlayerState>())
 	{
@@ -165,11 +178,14 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 		{
 			if(OwnerPlayerState->TeamID == InstigatorPlayerState->TeamID)
 			{
-				return false;
+			//	return false;
 			}
 		}
 	}
 
+
+	/*/
+	
 	
 	HitCount++;
 	OnRep_HitCounter();
@@ -185,7 +201,6 @@ void UPlayerHealthComponent::Client_ApplyDamage_Implementation()
 void UPlayerHealthComponent::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
 	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))
-
 	
 	//If we were previously generating, STOP.
 	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);

@@ -16,14 +16,20 @@ class EXTRACTIONGAME_API ATDMPlayerState : public APlayerState
 
 
 public:
-	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(ReplicatedUsing=OnRep_Kills, BlueprintReadOnly, VisibleAnywhere)
 	uint8 Kills;
-	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(ReplicatedUsing=OnRep_Deaths, BlueprintReadOnly, VisibleAnywhere)
 	uint8 Deaths;
 	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	uint8 TeamID;
 
 
+	UFUNCTION()
+	void OnRep_Kills();
+
+	UFUNCTION()
+	void OnRep_Deaths();
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 };

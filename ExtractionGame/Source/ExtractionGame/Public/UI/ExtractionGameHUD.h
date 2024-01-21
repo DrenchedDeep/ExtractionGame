@@ -48,6 +48,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnKill(const FString& VictimName);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateScore(int32 Kills, int32 Deaths);
 private:
 	
 	virtual void BeginPlay() override;

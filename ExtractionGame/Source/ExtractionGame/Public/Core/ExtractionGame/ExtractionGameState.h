@@ -24,7 +24,10 @@ public:
 
 	UItemReplicationManager* GetItemReplicationManager() const { return ItemReplicationManager; }
 
+	
 
 protected:
 	virtual void BeginPlay() override;
+
+	
 };
