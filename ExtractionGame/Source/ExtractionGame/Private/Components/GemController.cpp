@@ -9,7 +9,6 @@
 #include "Abilities/GameplayAbility.h"
 #include "Components/ItemObject.h"
 #include "Core/Managers/AbilityHandlerSubSystem.h"
-#include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "Core/ExtractionGame/ExtractionGamePlayerController.h"
 #include "Net/UnrealNetwork.h"
 #include "UI/Widgets/PlayerBarDataWidget.h"

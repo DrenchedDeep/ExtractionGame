@@ -147,9 +147,6 @@ class EXTRACTIONGAME_API UInventoryComp : public UActorComponent
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float TileSize;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UItemObject> ItemObjectSubclass;
-	
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UUserWidget* InventoryWidget;
 public:
@@ -212,6 +209,9 @@ protected:
 	virtual void Server_AddItemDirectly(UItemObject* Item);
 	UFUNCTION(Server, Reliable)
 	virtual void Server_RemoveItemDirectly(UItemObject* Item);
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UItemObject> ItemObjectSubclass;
 	
 	UFUNCTION()
 	virtual void OnRep_Items();

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameplayEffect.h"
-#include "Components/PlayerInventoryComponent.h"
 #include "Abilities/ExtractionAttributeSet.h"
 #include "Core/ExtractionGame/Interactable.h"
 #include "GameFramework/Character.h"
@@ -12,6 +11,7 @@
 #include "AbilitySystemInterface.h"
 #include "ExtractionGameCharacter.generated.h"
 
+class UPlayerInventoryComponent;
 class UGemController;
 class UExtractionAbilitySystemComponent;
 class UInputComponent;
@@ -146,6 +146,9 @@ public:
 	void LeftAttackPressed();
 	void InitializeUIComponents(const class AExtractionGameHUD* HUD) const;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void InitGemUI();
+	
 	UPROPERTY(BlueprintReadOnly)
 	FVector GazeLocation;
 	

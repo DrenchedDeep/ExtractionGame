@@ -14,6 +14,7 @@
 #include "Components/PlayerMovementComponent.h"
 //#include "Core/ExtractionGame/TDMPlayerState.h"
 #include "Components/GemController.h"
+#include "Components/PlayerInventoryComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "Net/UnrealNetwork.h"

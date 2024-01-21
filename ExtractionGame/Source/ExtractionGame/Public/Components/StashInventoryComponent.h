@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InventoryComp.h"
 #include "InventoryComponent.h"
 #include "UI/Widgets/StashInventoryWidget.h"
 #include "StashInventoryComponent.generated.h"

@@ -8,6 +8,8 @@
 #include "GemSlot.generated.h"
 
 
+class UInventoryComp;
+class UItemObject;
 /**
  * 
  */
