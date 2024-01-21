@@ -148,6 +148,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void InitGemUI();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHealthChanged(float healthPercent);
 	
 	UPROPERTY(BlueprintReadOnly)
 	FVector GazeLocation;
@@ -229,9 +232,6 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDamaged(float amount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags,
 		AExtractionGameCharacter* Instigator0, AActor* DamageCauser);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnHealthChanged(float change, const struct FGameplayTagContainer& EventTags);
 
 	virtual void HandleDamage(float amount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags,
 		AExtractionGameCharacter* Instigator, AActor* DamageCauser);

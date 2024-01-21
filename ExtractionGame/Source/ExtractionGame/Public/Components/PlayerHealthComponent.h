@@ -26,10 +26,13 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UActorComponent
 
 	FDelegateHandle OnHealthChangedHandle;
 	FDelegateHandle OnMaxHealthChangedHandle;
+
 	virtual void OnHealthChanged(const FOnAttributeChangeData& Data);
 	virtual void OnMaxHealthChanged(const FOnAttributeChangeData& Data);
 	UPlayerBarDataWidget* GetHUDElement();
 	void ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const;
+
+	
 public:
 	
 	float GetHealth() const;

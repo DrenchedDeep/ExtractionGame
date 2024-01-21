@@ -27,21 +27,15 @@ UPlayerMovementComponent::UPlayerMovementComponent(): Sprint_MaxWalkSpeed(0), Wa
 void UPlayerMovementComponent::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect,
                                            float level) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))
-
-	
 	//If we were previously generating, STOP.
 	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);
 	
 	FGameplayEffectContextHandle EffectContext = Character->GetAbilitySystemComponent()->MakeEffectContext();
 	EffectContext.AddSourceObject(Character);
 
-	//TODO: Change level
-	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK B"))
 	const FGameplayEffectSpecHandle NewHandle = Character->GetAbilitySystemComponent()->MakeOutgoingSpec(effect, level,EffectContext);
 	if (NewHandle.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK C"))
 		*handle = Character->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  Character->GetAbilitySystemComponent());
 	}
 }
@@ -148,7 +142,6 @@ void UPlayerMovementComponent::OnMovementUpdated(float DeltaSeconds, const FVect
 	if(!Character->HasAuthority()) return;
 	if(MovementMode == MOVE_Walking)
 	{
-	    UE_LOG(LogTemp,Warning,TEXT("DEBUG SPEED: %f | %f, Auth: %hd, LocalRole: %d"), Character->GetAttributeSet()->GetSpeed(), currentSpeed, Character->HasAuthority(), Character->GetLocalRole())	
 		if(bWantsToSprint)
 		{
 			MaxWalkSpeed = Sprint_MaxWalkSpeed* currentSpeed;
@@ -235,18 +228,15 @@ void UPlayerMovementComponent::SprintPressed()
 	{
 		MaxWalkSpeed = Walk_MaxWalkSpeed * (1+currentSpeed);// * Character->GetAttributeSet()->GetSpeed();
 		bWantsToSprint = false;
-		UE_LOG(LogTemp,Warning,TEXT("PRESSED A DEBUG SPEED: %f | %f, Auth: %hd, LocalRole: %d"), Character->GetAttributeSet()->GetSpeed(), (1+currentSpeed), Character->HasAuthority(), Character->GetLocalRole())	
 		return;
 	}
 	MaxWalkSpeed = Sprint_MaxWalkSpeed * (1+currentSpeed);//* Character->GetAttributeSet()->GetSpeed();
-	UE_LOG(LogTemp,Warning,TEXT("PRESSED B DEBUG SPEED: %f | %f, Auth: %hd, LocalRole: %d"), Character->GetAttributeSet()->GetSpeed(), (1+currentSpeed), Character->HasAuthority(), Character->GetLocalRole())	
 	bWantsToSprint = true;
 }
 
 void UPlayerMovementComponent::SprintReleased()
 {
 	MaxWalkSpeed = Walk_MaxWalkSpeed * (1+currentSpeed);// * Character->GetAttributeSet()->GetSpeed();
-	UE_LOG(LogTemp,Warning,TEXT("PRESSED C DEBUG SPEED: %f | %f, Auth: %hd, LocalRole: %d"), Character->GetAttributeSet()->GetSpeed(), (1+currentSpeed), Character->HasAuthority(), Character->GetLocalRole())	
 	bWantsToSprint = false;
 }
 
@@ -362,7 +352,6 @@ bool UPlayerMovementComponent::CanSlideInCurrentState() const
 void UPlayerMovementComponent::OnSpeedChanged(const FOnAttributeChangeData& Data)
 {
 	currentSpeed  = Data.NewValue;
-	UE_LOG(LogTemp,Warning,TEXT("Speed change: %hd, %f, %f"), Character->HasAuthority(), MaxWalkSpeed ,Data.NewValue)
 
 	//MaxWalkSpeedCrouched = currentCrouchSpeed * Data.NewValue;
 }

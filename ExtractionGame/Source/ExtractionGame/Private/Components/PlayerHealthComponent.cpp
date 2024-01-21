@@ -43,8 +43,10 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 void UPlayerHealthComponent::OnHealthChanged(const FOnAttributeChangeData& Data)
 {
 	UPlayerBarDataWidget* hud =GetHUDElement();
+	const float perc = Data.NewValue / GetMaxHealth();
+	Character->OnHealthChanged(perc);
 	if(!hud) return;
-	hud->SetHealthPercent(Data.NewValue / GetMaxHealth());
+	hud->SetHealthPercent(perc);
 }
 
 void UPlayerHealthComponent::OnMaxHealthChanged(const FOnAttributeChangeData& Data)
@@ -104,6 +106,7 @@ void UPlayerHealthComponent::BeginPlay()
 	UE_LOG(LogTemp, Warning, TEXT("Loaded Player Health Component"))
 	ApplyEffect(&HealthPoolHandle, HealthPoolEffect, 1);
 	ApplyEffect(&HealthRegenHandle, HealthRegenEffect, 1);
+	Character->OnHealthChanged(1);
 }
 
 void UPlayerHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -196,6 +199,7 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 
 void UPlayerHealthComponent::Client_ApplyDamage_Implementation()
 {
+	UE_LOG(LogTemp, Warning, TEXT("I was hit!"))
 }
 
 void UPlayerHealthComponent::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
