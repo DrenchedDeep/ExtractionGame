@@ -125,6 +125,17 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 	}
 }
 
+void AExtractionGameCharacter::ChangeKnockBackMultiplier(float amt)
+{
+	if(HasAuthority())
+	UpdateKnockBack(amt);
+	else UE_LOG(LogTemp,Warning,TEXT("NO ACCESS TO DO THAT!"))
+}
+
+void AExtractionGameCharacter::UpdateKnockBack_Implementation(float amount)
+{
+}
+
 
 void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove, float HorizontalMove,
                                                               float VertLook, float HorLook)

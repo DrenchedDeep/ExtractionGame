@@ -200,6 +200,16 @@ protected:
 	
 
 public:
+
+	UFUNCTION(Exec)
+	void ChangeKnockBackMultiplier(float amt);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void UpdateKnockBack(float amount);
+
+	UPROPERTY(BlueprintReadOnly)
+	float KnockBackMultiplier = 1;
+	
 	FORCEINLINE bool CanMove() const { return bCanMove;}
 
 	UFUNCTION(BlueprintImplementableEvent)
