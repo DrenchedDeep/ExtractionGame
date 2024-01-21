@@ -207,7 +207,7 @@ public:
 	UFUNCTION(NetMulticast, Reliable)
 	void UpdateKnockBack(float amount);
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Replicated)
 	float KnockBackMultiplier = 1;
 	
 	FORCEINLINE bool CanMove() const { return bCanMove;}

@@ -128,12 +128,16 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 void AExtractionGameCharacter::ChangeKnockBackMultiplier(float amt)
 {
 	if(HasAuthority())
-	UpdateKnockBack(amt);
+	{
+		KnockBackMultiplier = amt;
+		UpdateKnockBack(amt);
+	}
 	else UE_LOG(LogTemp,Warning,TEXT("NO ACCESS TO DO THAT!"))
 }
 
 void AExtractionGameCharacter::UpdateKnockBack_Implementation(float amount)
 {
+	KnockBackMultiplier = amount;
 }
 
 
@@ -194,6 +198,7 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalLook);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalLook);
+	DOREPLIFETIME(AExtractionGameCharacter, KnockBackMultiplier);
 }
 
 void AExtractionGameCharacter::PossessedBy(AController* NewController)

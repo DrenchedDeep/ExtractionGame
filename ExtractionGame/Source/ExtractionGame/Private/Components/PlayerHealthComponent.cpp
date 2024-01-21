@@ -22,21 +22,26 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 	if(Health < 0)
 	{
 		bCanTakeDamage = false;
-		check(Instigator);
-		check(Instigator->PlayerState);
-
-		if(ATDMPlayerState* InstigatorPlayerState = Instigator->GetPlayerState<ATDMPlayerState>())
-		{
-			InstigatorPlayerState->Kills++;
-			InstigatorPlayerState->OnRep_Kills();
-		}
 
 		if(ATDMPlayerState* OwnerPlayerState = Character->GetPlayerState<ATDMPlayerState>())
 		{
 			OwnerPlayerState->Deaths++;
 			OwnerPlayerState->OnRep_Deaths();
 		}
-		OnDeath(Instigator->PlayerState->GetPlayerName());
+		
+		if(!Instigator)
+		{
+			OnDeath("WORLD");
+			return;
+		}
+
+		if(ATDMPlayerState* InstigatorPlayerState = Instigator->GetPlayerState<ATDMPlayerState>())
+		{
+			InstigatorPlayerState->Kills++;
+			InstigatorPlayerState->OnRep_Kills();
+
+			OnDeath(Instigator->PlayerState->GetPlayerName());
+		}
 	}
 }
 
