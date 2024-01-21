@@ -24,6 +24,7 @@ void APooledObject::SetActiveState(bool isOn)
 void APooledObject::ReturnToPool()
 {
 	//OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
+	SetActorTickEnabled(false);
 	SetActiveState(false);
 }
 

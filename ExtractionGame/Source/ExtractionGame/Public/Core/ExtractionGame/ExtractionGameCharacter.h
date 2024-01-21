@@ -149,12 +149,12 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	FVector GazeLocation;
 	
-	UFUNCTION(Server, Reliable, WithValidation, BlueprintCallable)
+	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void ServerUpdateGaze(FVector newGaze);
 	
-	UFUNCTION(Server, Unreliable, WithValidation, BlueprintCallable)
+	UFUNCTION(Server, Unreliable, BlueprintCallable)
 	void ServerUpdateGazeUnreliable(FVector newGaze);
-	
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void RightAttackPressed();
 	

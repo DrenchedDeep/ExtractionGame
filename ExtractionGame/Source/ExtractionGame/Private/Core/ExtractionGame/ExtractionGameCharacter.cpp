@@ -38,20 +38,12 @@ void AExtractionGameCharacter::ServerUpdateGaze_Implementation(FVector newGaze)
 	GazeLocation = newGaze;
 }
 
-bool AExtractionGameCharacter::ServerUpdateGaze_Validate(FVector newGaze)
-{
-	return true;
-}
 
 void AExtractionGameCharacter::ServerUpdateGazeUnreliable_Implementation(FVector newGaze)
 {
 	GazeLocation = newGaze;
 }
 
-bool AExtractionGameCharacter::ServerUpdateGazeUnreliable_Validate(FVector newGaze)
-{
-	return true;
-}
 
 void AExtractionGameCharacter::InitializeUIComponents(const AExtractionGameHUD* HUD) const
 {

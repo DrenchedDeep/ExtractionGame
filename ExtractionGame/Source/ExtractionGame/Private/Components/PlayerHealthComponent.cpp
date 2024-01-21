@@ -151,20 +151,21 @@ void UPlayerHealthComponent::Initialize(const AExtractionGameHUD* hud)
 	}
 }
 
-void UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
+bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
 {
 	if(!bCanTakeDamage)
 	{
-		return;
+		return false;
 	}
-	
+
+	//If the user shares a team.
 	if(ATDMPlayerState* OwnerPlayerState = Character->GetPlayerState<ATDMPlayerState>())
 	{
 		if(ATDMPlayerState* InstigatorPlayerState = Instigator->GetPlayerState<ATDMPlayerState>())
 		{
 			if(OwnerPlayerState->TeamID == InstigatorPlayerState->TeamID)
 			{
-				return;
+				return false;
 			}
 		}
 	}
@@ -174,6 +175,7 @@ void UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 	OnRep_HitCounter();
 	SetHealth(GetHealth() - Damage, Instigator);
 	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), GetHealth());
+	return true;
 }
 
 void UPlayerHealthComponent::Client_ApplyDamage_Implementation()
