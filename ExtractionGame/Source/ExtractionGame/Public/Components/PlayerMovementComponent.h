@@ -19,7 +19,13 @@ UCLASS()
 class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementComponent
 {
 	GENERATED_BODY()
-	
+
+
+	FDelegateHandle OnSpeedChangeHandle;
+	void ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const;
+	FActiveGameplayEffectHandle SpeedHandle;
+
+
 	//snapshot of all state in movement comp required to produce a move in a single frame
 	class FSavedMove_Player : public FSavedMove_Character
 	{
@@ -50,6 +56,8 @@ class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementCom
 
 	UPROPERTY(EditDefaultsOnly) float Sprint_MaxWalkSpeed;
 	UPROPERTY(EditDefaultsOnly) float Walk_MaxWalkSpeed;
+	float currentSpeed;
+	float currentCrouchSpeed;
 
 	UPROPERTY(EditDefaultsOnly) float Slide_MinSpeed = 350;
 	UPROPERTY(EditDefaultsOnly) float Slide_EnterImpulse = 500;
@@ -63,9 +71,18 @@ class EXTRACTIONGAME_API UPlayerMovementComponent : public UCharacterMovementCom
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
 
 	bool bWantsToSprint;
-	
 
+	virtual void BeginPlay() override;
+
+
+protected:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	TSubclassOf<UGameplayEffect> BaseSpeedEffect;
+	
 public:
+
+
+	
 	UPlayerMovementComponent();
 	
 	UPROPERTY(EditDefaultsOnly) bool bToggleCrouch;
@@ -77,6 +94,7 @@ public:
 protected:
 	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
 	virtual void OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation, const FVector& OldVelocity) override;
+	//virtual void OnMovementUpdated(float DeltaSeconds, const FVector& OldLocation, const FVector& OldVelocity) override;
 	virtual void InitializeComponent() override;
 	virtual void UpdateCharacterStateBeforeMovement(float DeltaSeconds) override;
 	virtual void UpdateCharacterStateAfterMovement(float DeltaSeconds) override;
@@ -84,7 +102,9 @@ protected:
 
 	virtual bool IsMovingOnGround() const override;
 	virtual bool CanCrouchInCurrentState() const override;
-	
+
+	void OnSpeedChanged(const FOnAttributeChangeData& Data);
+
 public:
 	void SprintPressed();
 	void SprintReleased();

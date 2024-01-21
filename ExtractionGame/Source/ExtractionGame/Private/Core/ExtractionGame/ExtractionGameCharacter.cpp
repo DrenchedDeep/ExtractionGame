@@ -107,10 +107,8 @@ void AExtractionGameCharacter::BeginPlay()
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 
+
 	
-	//Inject Delegate functions
-	//OnHealthChangedHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AGemPlayerState::OnHealthChanged);
-	//OnMaxHealthChangedHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetMaxHealthAttribute()).AddUObject(this, &AGemPlayerState::OnMaxHealthChanged);
 }
 
 void AExtractionGameCharacter::Tick(float DeltaSeconds)
@@ -311,23 +309,11 @@ void AExtractionGameCharacter::Look(const FInputActionValue& Value)
 
 void AExtractionGameCharacter::SprintPressed()
 {
-	if(PlayerMovementComponent == nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No player movement comp?"))
-		return;
-	}
-	
 	PlayerMovementComponent->SprintPressed();
 }
 
 void AExtractionGameCharacter::SprintReleased() 
 {
-	if(PlayerMovementComponent == nullptr)
-	{
-		return;
-	}
-
-	
 	PlayerMovementComponent->SprintReleased();
 }
 
