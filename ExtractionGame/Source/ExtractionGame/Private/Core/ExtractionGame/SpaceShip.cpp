@@ -200,6 +200,20 @@ void ASpaceShip::MoveToWorldSpawn()
 }
 
 
+void ASpaceShip::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	UE_LOG(LogTemp, Warning, TEXT("Loading ship, is it crashed? %d" ), isCrashed)
+
+	if(isCrashed)
+	{
+		StopBoost();
+		OnDirectionStopped();
+		SetActorTickEnabled(false);
+		OnDiscardShip();
+	}
+}
+
 // Called every frame
 void ASpaceShip::Tick(float DeltaTime)
 {
@@ -250,12 +264,14 @@ void ASpaceShip::Tick(float DeltaTime)
 			ClientOnCrush(hit);
 			return;
 		}
+
+		isCrashed = true;
+		
 		StopBoost();
 		OnDirectionStopped();
 		SetActorTickEnabled(false);
-		isCrashed = true;
-		CrashLand(hit);
 		ClientCrashLand(hit);
+		CrashLand(hit);
 	}
 	
 	//AddMovementInput(GetActorForwardVector(), currentSpeed);

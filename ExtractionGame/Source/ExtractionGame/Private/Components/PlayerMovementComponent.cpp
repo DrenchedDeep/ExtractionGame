@@ -341,7 +341,7 @@ bool UPlayerMovementComponent::GetSlideSurface(FHitResult& Hit) const
 
 void UPlayerMovementComponent::Leap()
 {
-	AddForce(Velocity*LeapStrength);
+	AddForce(Velocity.RotateAngleAxis(LeapAngle, Character->GetActorRightVector())*LeapStrength);
 }
 
 bool UPlayerMovementComponent::CanSlideInCurrentState() const

@@ -44,8 +44,7 @@ class EXTRACTIONGAME_API ASpaceShip : public APawn
 	UInputMappingContext* ShipMappingContext;
 
 	float curRot;
-	bool isCrashed;
-	
+
 public:
 	// Sets default values for this pawn's properties
 	ASpaceShip();
@@ -53,6 +52,12 @@ public:
 		
 
 protected:
+
+	
+	UPROPERTY(BlueprintReadOnly)
+	bool isCrashed;
+	
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -136,6 +141,11 @@ protected:
 	void MoveToWorldSpawn();
 	
 	//virtual void PossessedBy(AController* NewController) override;
+
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
+	void OnDiscardShip();
+
+	virtual void PostInitializeComponents() override;
 	
 	
 public:	
