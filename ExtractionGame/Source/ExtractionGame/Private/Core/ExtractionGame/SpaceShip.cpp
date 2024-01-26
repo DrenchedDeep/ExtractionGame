@@ -122,6 +122,12 @@ void ASpaceShip::BeginPlay()
 			Subsystem->AddMappingContext(ShipMappingContext, 0);
 		}
 	}
+
+	if(isCrashed)
+	{
+		SetActorTickEnabled(false);
+		OnDiscardShip();
+	}
 	OnDirectionStopped();
 	StopBoost();
 	MoveToWorldSpawn();
@@ -168,6 +174,7 @@ void ASpaceShip::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifeti
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ASpaceShip, movementDirection)
 	DOREPLIFETIME(ASpaceShip, currentSpeed)
+	DOREPLIFETIME(ASpaceShip, isCrashed)
 }
 
 void ASpaceShip::ClientCrashLand_Implementation(FHitResult HitResult)
@@ -200,18 +207,12 @@ void ASpaceShip::MoveToWorldSpawn()
 }
 
 
-void ASpaceShip::PostInitializeComponents()
+void ASpaceShip::PostLoad()
 {
-	Super::PostInitializeComponents();
+	Super::PostLoad();
 	UE_LOG(LogTemp, Warning, TEXT("Loading ship, is it crashed? %d" ), isCrashed)
 
-	if(isCrashed)
-	{
-		StopBoost();
-		OnDirectionStopped();
-		SetActorTickEnabled(false);
-		OnDiscardShip();
-	}
+	
 }
 
 // Called every frame

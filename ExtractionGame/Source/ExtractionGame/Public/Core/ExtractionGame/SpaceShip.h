@@ -54,7 +54,7 @@ public:
 protected:
 
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool isCrashed;
 	
 	
@@ -145,7 +145,7 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
 	void OnDiscardShip();
 
-	virtual void PostInitializeComponents() override;
+	virtual void PostLoad() override;
 	
 	
 public:	

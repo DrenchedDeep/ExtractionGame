@@ -204,11 +204,9 @@ public:
 	UFUNCTION(Exec)
 	void ChangeKnockBackMultiplier(float amt);
 
-	UFUNCTION(NetMulticast, Reliable)
-	void UpdateKnockBack(float amount);
-
-	UPROPERTY(BlueprintReadOnly, Replicated)
-	float KnockBackMultiplier = 1;
+	UPROPERTY(Replicated) // It's per object
+	
+	static float KnockBackMultiplier = 1;
 	
 	FORCEINLINE bool CanMove() const { return bCanMove;}
 
