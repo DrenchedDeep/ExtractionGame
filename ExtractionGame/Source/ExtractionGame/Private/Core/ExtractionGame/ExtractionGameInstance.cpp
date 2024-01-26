@@ -356,6 +356,18 @@ void UExtractionGameInstance::GetPlayerData(FString FileName)
 	}
 }
 
+void UExtractionGameInstance::SetQuestAsComplete(int32 QuestID)
+{
+	for(int32 i = 0; i < PlayerQuests.Num(); i++)
+	{
+		const int32 ArrayQuestID = PlayerQuests[i].QuestID;
+		if(QuestID == ArrayQuestID)
+		{
+			PlayerQuests[i].bIsComplete = true;
+		}
+	}
+}
+
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
 	CurrentSession = Session->GetNamedSession(SessionName);

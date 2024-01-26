@@ -11,6 +11,7 @@
 #include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Core/Managers/PoolHandlerSubSystem.h"
 #include "Core/Other/MapInfo.h"
+#include "Quests/QuestStatics.h"
 #include "ExtractionGameInstance.generated.h"
 
 UDELEGATE()
@@ -85,6 +86,17 @@ struct FPlayerRaidResult
 	}
 
 	FPlayerRaidResult() = default;
+};
+
+USTRUCT(BlueprintType)
+struct FPlayerQuestData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsComplete;
+	UPROPERTY(BlueprintReadOnly)
+	int32 QuestID;
 };
 
 
@@ -242,6 +254,19 @@ private:
 			default: return "Unknown Network Failure";
 		}
 	}
+
+
+	//quests
+public:
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	TArray<FPlayerQuestData> GetPlayerQuests() const { return PlayerQuests; }
+
+
+	void SetQuestAsComplete(int32 QuestID);
+	
+private:
+	UPROPERTY()
+	TArray<FPlayerQuestData> PlayerQuests;
 };
 
 

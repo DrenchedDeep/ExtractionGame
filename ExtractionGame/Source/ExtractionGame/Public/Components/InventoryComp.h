@@ -94,7 +94,8 @@ struct FItemDataStruct : public FTableRowBase
 	UMaterialInterface* IconRotated;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AItemActor> ItemActor;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bFoundInRaid;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Core/Managers/PlayerStashManager.h"
 #include "GameFramework/PlayerController.h"
+#include "Quests/QuestController.h"
 #include "MainMenuPlayerController.generated.h"
 
 /**
@@ -18,6 +19,8 @@ class EXTRACTIONGAME_API AMainMenuPlayerController : public APlayerController
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<APlayerStashManager> PlayerStashManagerClass;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AQuestController> QuestControllerSubclass;
 	
 public:
 	virtual void PostInitializeComponents() override;
@@ -27,5 +30,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	APlayerStashManager* PlayerStashManager;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	AQuestController* QuestController;
 	
 };

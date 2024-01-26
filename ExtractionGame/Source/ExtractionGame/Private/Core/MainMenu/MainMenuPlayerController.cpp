@@ -18,7 +18,8 @@ void AMainMenuPlayerController::PostInitializeComponents()
 			MainMenuPlayerState->Server_SetUsername(PlayerUsername);
 		}
 	}
-	
+
+
 }
 
 void AMainMenuPlayerController::BeginPlay()
@@ -28,5 +29,6 @@ void AMainMenuPlayerController::BeginPlay()
 	if(IsLocalController())
 	{
 		PlayerStashManager = Cast<APlayerStashManager>(GetWorld()->SpawnActor(PlayerStashManagerClass));
+		QuestController = Cast<AQuestController>(GetWorld()->SpawnActor(QuestControllerSubclass));
 	}
 }
