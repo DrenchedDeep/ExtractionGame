@@ -201,12 +201,11 @@ protected:
 
 public:
 
-	UFUNCTION(Exec)
-	void ChangeKnockBackMultiplier(float amt);
-
-	UPROPERTY(Replicated) // It's per object
 	
-	static float KnockBackMultiplier = 1;
+
+	//UPROPERTY(Replicated) // It's per object
+	
+	//static float KnockBackMultiplier = 1;
 	
 	FORCEINLINE bool CanMove() const { return bCanMove;}
 

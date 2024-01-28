@@ -94,3 +94,8 @@ void UAbilityHandlerSubSystem::AddAbilityToMap(int32 Index, TSubclassOf<UGamepla
 #endif
 	ObjectMap.Add(Index, Object);
 }
+
+bool UAbilityHandlerSubSystem::ContainsAbility(int index) const
+{
+	return ObjectMap.Contains(index);
+}

@@ -33,12 +33,14 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "MySubsystem")
 	void AddGemSpriteToMap(int32 Index, UTexture2D* Object);
-	
+
 	UFUNCTION(BlueprintCallable)
-	int32 ConvertToIntID(int32 Earth, int32 Fire, int32 Shadow, int32 Water);
+	int ConvertToIntID(int32 Earth, int32 Fire, int32 Shadow, int32 Water);
 
 
 	UFUNCTION(BlueprintCallable, Category = "MySubsystem")
 	void AddAbilityToMap(int32 Index, TSubclassOf<UGameplayAbility> Object);
+
+	bool ContainsAbility(int32 ability) const;
 
 };

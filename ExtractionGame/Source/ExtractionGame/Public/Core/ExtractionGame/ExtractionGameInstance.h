@@ -11,6 +11,7 @@
 #include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Core/Managers/PoolHandlerSubSystem.h"
 #include "Core/Other/MapInfo.h"
+#include "Managers/CommandHandlerSubsystem.h"
 #include "Quests/QuestStatics.h"
 #include "ExtractionGameInstance.generated.h"
 
@@ -112,13 +113,14 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	IOnlineIdentityPtr UserIdentity;
 	IOnlineSessionPtr Session;
 	
-	UPROPERTY()
-	UAbilityHandlerSubSystem* AbilityHandlerSubSystem;
-
-	UPROPERTY()
-	UPoolHandlerSubSystem* PoolHandlerSubSystem;
+	UPROPERTY()UAbilityHandlerSubSystem* AbilityHandlerSubSystem;
+	UPROPERTY()UPoolHandlerSubSystem* PoolHandlerSubSystem;
+	UPROPERTY()UCommandHandlerSubsystem* CommandHandlerSubsystem;
 
 public:
+
+	UAbilityHandlerSubSystem* GetAbilityHandlerSubSystem() const {return AbilityHandlerSubSystem;}
+	
 	const int SESSION_PLAYERCOUNT = 4;
 
 	UExtractionGameInstance();

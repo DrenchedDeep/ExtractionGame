@@ -88,6 +88,14 @@ void UExtractionGameInstance::Init()
 	{
 		PoolHandlerSubSystem = NewObject<UPoolHandlerSubSystem>(this);
 	}
+
+	CommandHandlerSubsystem = GetSubsystem<UCommandHandlerSubsystem>();
+	if (!CommandHandlerSubsystem)
+	{
+		CommandHandlerSubsystem = NewObject<UCommandHandlerSubsystem>(this);
+		CommandHandlerSubsystem->Init(AbilityHandlerSubSystem);
+	}
+	
 	
 
 	SetupOnlineSubsystem();
