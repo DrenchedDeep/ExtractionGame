@@ -123,16 +123,19 @@ void ASpaceShip::BeginPlay()
 		}
 	}
 
+	
+	OnDirectionStopped();
+	StopBoost();
 	if(isCrashed)
 	{
 		SetActorTickEnabled(false);
 		OnDiscardShip();
 	}
-	OnDirectionStopped();
-	StopBoost();
-	MoveToWorldSpawn();
+	else
+	{
+		MoveToWorldSpawn();
+	}
 }
-
 void ASpaceShip::OnLook(const FInputActionValue& Value)
 {
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();

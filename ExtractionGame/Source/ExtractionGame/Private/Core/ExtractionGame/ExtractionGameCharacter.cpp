@@ -36,6 +36,7 @@ void AExtractionGameCharacter::ToggleControlLocks(bool x)
 
 void AExtractionGameCharacter::ServerUpdateGaze_Implementation(FVector newGaze)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Looking in direction: %s"), *newGaze.ToString())
 	GazeLocation = newGaze;
 }
 
@@ -105,6 +106,7 @@ void AExtractionGameCharacter::BeginPlay()
 	FCollisionQueryParams TraceParams(FName(TEXT("WeaponTrace")),true,this);
 	TraceParams.bIgnoreTouches = true;
 	TraceParams.bReturnPhysicalMaterial = true;
+	TraceParams.bIgnoreBlocks = false;
 	
 	GazeCollisionParams = TraceParams;
 
@@ -122,6 +124,9 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 	{
 		Server_SetInput(LocalVerticalMovement, LocalHorizontalMovement, LocalVerticalLook, LocalHorizontalLook);
 		HandleGaze();
+
+		//Warning constant maybe not needed expense
+		ServerUpdateGazeUnreliable(GazeLocation);
 	}
 }
 
@@ -401,7 +406,9 @@ void AExtractionGameCharacter::HandleGaze()
 	
 	if(Hit.bBlockingHit)
 	{
-		GazeLocation = Hit.ImpactPoint;
+		constexpr float minDist = 500;
+		if(Hit.Distance < minDist)GazeLocation = StartTrace + Direction * minDist;
+		else GazeLocation = Hit.ImpactPoint;
 		
 		if(Hit.Distance <= InteractionDistance)
 		{

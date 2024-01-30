@@ -191,6 +191,9 @@ public:
 	TArray<FCloudFileHeader> CloudFiles;
 
 protected:
+
+	virtual bool ProcessConsoleExec(const TCHAR* Cmd, FOutputDevice& Ar, UObject* Executor) override;
+	
 	void OnCreateSessionCompleted(FName SessionName, bool bSuccess);
 	void OnStartSessionCompleted(FName SessionName, bool bSuccess);
 	void OnEndSessionCompleted(FName SessionName, bool bSuccess);

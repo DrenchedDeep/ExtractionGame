@@ -376,6 +376,18 @@ void UExtractionGameInstance::SetQuestAsComplete(int32 QuestID)
 	}
 }
 
+bool UExtractionGameInstance::ProcessConsoleExec(const TCHAR* Cmd, FOutputDevice& Ar, UObject* Executor)
+{
+	UE_LOG(LogTemp,Warning,TEXT("Received Exec"))
+	bool handled = Super::ProcessConsoleExec(Cmd, Ar, Executor);
+	if (!handled)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("My Exec"))
+		handled = CommandHandlerSubsystem->ProcessConsoleExec(Cmd, Ar, Executor);
+	}
+	return handled;
+}
+
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
 	CurrentSession = Session->GetNamedSession(SessionName);
