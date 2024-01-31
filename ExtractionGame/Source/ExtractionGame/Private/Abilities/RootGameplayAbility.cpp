@@ -1,5 +1,0 @@
-
-
-
-#include "Abilities/RootGameplayAbility.h"
-

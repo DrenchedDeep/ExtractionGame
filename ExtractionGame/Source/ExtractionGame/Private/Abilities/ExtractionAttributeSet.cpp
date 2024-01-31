@@ -13,20 +13,20 @@ void UExtractionAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, Health, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxHealth, COND_None, REPNOTIFY_OnChanged);
 	
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenMana, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenHealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenMana, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenHealth, COND_None, REPNOTIFY_OnChanged);
 	
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, EarthManaPool, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, FireManaPool, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, ShadowManaPool, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, WaterManaPool, COND_None, REPNOTIFY_Always);
 	
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxEarthManaPool, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxFireManaPool, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxShadowManaPool, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxWaterManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxEarthManaPool, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxFireManaPool, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxShadowManaPool, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxWaterManaPool, COND_None, REPNOTIFY_OnChanged);
 }
 
 void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -35,7 +35,7 @@ void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attri
 	Super::PreAttributeChange(Attribute, NewValue);
 
 	if (Attribute == GetMaxHealthAttribute())
-	{
+	{\
 		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
 	}
 	// If a Max value changes, adjust current to keep Current % of Current to Max
@@ -158,10 +158,8 @@ void UExtractionAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttribu
 	{
 		// Change current value to maintain the current Val / Max percent
 		const float CurrentValue = AffectedAttribute.GetCurrentValue();
-		const float NewDelta = (CurrentMaxValue > 0.f)
-			                       ? (CurrentValue * NewMaxValue / CurrentMaxValue) - CurrentValue
-			                       : NewMaxValue;
-
+		const float NewDelta = (CurrentMaxValue > 0.f)? (CurrentValue * NewMaxValue / CurrentMaxValue) - CurrentValue: NewMaxValue;
+		UE_LOG(LogTemp, Warning, TEXT("Setting ability from %f to %f"), CurrentValue, CurrentValue+NewDelta)
 		AbilityComp->ApplyModToAttributeUnsafe(AffectedAttributeProperty, EGameplayModOp::Additive, NewDelta);
 	}
 }

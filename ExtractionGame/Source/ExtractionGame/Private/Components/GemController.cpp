@@ -325,6 +325,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	if(bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
+		
 		if(hud) hud->SetLeftGems(leftGems);
 	}
 	else
