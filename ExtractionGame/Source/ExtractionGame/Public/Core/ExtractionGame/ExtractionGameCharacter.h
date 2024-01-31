@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "AbilitySystemInterface.h"
+#include "Core/CharacterPawnBase.h"
 #include "ExtractionGameCharacter.generated.h"
 
 class UPlayerInventoryComponent;
@@ -26,7 +27,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class AExtractionGameCharacter : public ACharacter, public IAbilitySystemInterface
+class AExtractionGameCharacter : public ACharacterPawnBase, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
