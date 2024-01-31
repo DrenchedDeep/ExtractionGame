@@ -19,6 +19,9 @@ public:
 	UPROPERTY(ReplicatedUsing=OnRep_Dead);
 	bool bIsDead;
 
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	float MaxHealth;
+
 	UFUNCTION(BlueprintCallable)
 	void ApplyDamage(float Damage);
 

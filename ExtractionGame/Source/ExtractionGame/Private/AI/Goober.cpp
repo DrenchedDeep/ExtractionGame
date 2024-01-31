@@ -35,6 +35,6 @@ void AGoober::BeginPlay()
 
 	if(HasAuthority())
 	{
-		CurrentHealth = 100.f;
+		CurrentHealth = MaxHealth;
 	}
 }

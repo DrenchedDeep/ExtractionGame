@@ -23,7 +23,8 @@ public:
 	UDeathWidget* DeathWidget;
 	UPROPERTY(BlueprintReadWrite)
 	UPlayerBarDataWidget* PlayerUIData;
-	
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
 	UPlayerBarDataWidget* GetPlayerBarWidget() const;
 	
 	UPROPERTY(EditDefaultsOnly)
