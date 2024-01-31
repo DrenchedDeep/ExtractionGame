@@ -10,20 +10,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Ragdoll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Ragdoll.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Animations/AB_PlayerCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Character/Animations/AB_PlayerCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Blueprint/BP_GoodSky.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Blueprint/BP_GoodSky.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/Items/BP_Item.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/Items/BP_Item.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Crystal_Prop_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Crystal_Prop_Inst1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_POI.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Volumetrics/M_StormSphere_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Volumetrics/M_StormSphere_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Volumetrics/M_VolumetricClouds.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Volumetrics/M_VolumetricClouds.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Volumetrics/M_VolumetricClouds_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Volumetrics/M_VolumetricClouds_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/Goober.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/Goober.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -416,7 +408,7 @@
       <workItem from="1706141389901" duration="4217000" />
       <workItem from="1706207114247" duration="3063000" />
       <workItem from="1706479681730" duration="21710000" />
-      <workItem from="1706658572535" duration="1377000" />
+      <workItem from="1706658572535" duration="2801000" />
     </task>
     <servers />
   </component>
