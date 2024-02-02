@@ -6,8 +6,8 @@
 #include "ExtractionAbilitySystemComponent.h"
 #include "Core/ExtractionGame/Gem.h"
 #include "Components/ActorComponent.h"
-#include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Core/ExtractionGame/ExtractionGameCharacter.h"
+#include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "UI/Widgets/PlayerBarDataWidget.h"
 #include "GemController.generated.h"
 
@@ -174,6 +174,9 @@ public:
 	float GetManaRegenRate() const;
 	void Initialize(const AExtractionGameHUD* hud);
 
+
+
+	
 protected:
 	
 	//virtual void InitializeComponent() override;
@@ -186,11 +189,15 @@ protected:
 	
 	//UPROPERTY()
 	//UExtractionAttributeSet* AttributeSetBase;
-
+	UFUNCTION(Client, Reliable)
+	void Sadness(bool left, bool state);
+	
 private:
 	void RecompileArm(TArray<AGem*> arm, bool bIsLeft);
 	void RecompileHead();
 	void RecompileChest();
+
+
 
 	UPlayerBarDataWidget* GetHUDElement();
 

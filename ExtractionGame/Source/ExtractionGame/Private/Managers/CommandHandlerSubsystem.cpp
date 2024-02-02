@@ -315,7 +315,7 @@ void UCommandHandlerSubsystem::KillSelfServer_Implementation(APlayerController* 
 void UCommandHandlerSubsystem::SetAbilityCostServer_Implementation(int idx, float val)
 {
 	//Modify the ability cost...
-	const UGameplayAbility* ability = Cast<UGameplayAbility>(AbilitiesSubSystem->GetAbilityByIndex(idx));
+	const UGameplayAbility* ability = Cast<UGameplayAbility>(AbilitiesSubSystem->GetAbilityByIndex(idx).GameplayAbilityClass);
 
 	FGameplayModifierInfo mod = ability->GetCostGameplayEffect()->Modifiers[0];
 
@@ -330,7 +330,7 @@ bool UCommandHandlerSubsystem::SetAbilityCostServer_Validate(int idx, float val)
 void UCommandHandlerSubsystem::SetAbilityFireRateServer_Implementation(int idx, float val)
 {
 	//Modify the ability cost...
-	const UGameplayAbility* ability = Cast<UGameplayAbility>(AbilitiesSubSystem->GetAbilityByIndex(idx));
+	const UGameplayAbility* ability = Cast<UGameplayAbility>(AbilitiesSubSystem->GetAbilityByIndex(idx).GameplayAbilityClass);
 
 	FGameplayModifierInfo mod = ability->GetCostGameplayEffect()->Modifiers[0];
 
@@ -345,7 +345,7 @@ bool UCommandHandlerSubsystem::SetAbilityFireRateServer_Validate(int idx, float 
 void UCommandHandlerSubsystem::SetAbilityDamageServer_Implementation(int idx, float val)
 {
 	//Modify the ability cost...
-	const UGameplayAbility* ability = Cast<UGameplayAbility>(AbilitiesSubSystem->GetAbilityByIndex(idx));
+	const UGameplayAbility* ability = Cast<UGameplayAbility>(AbilitiesSubSystem->GetAbilityByIndex(idx).GameplayAbilityClass);
 
 	FGameplayModifierInfo mod = ability->GetCostGameplayEffect()->Modifiers[0];
 

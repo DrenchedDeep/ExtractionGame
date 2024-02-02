@@ -128,6 +128,16 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 		//Warning constant maybe not needed expense
 		ServerUpdateGazeUnreliable(GazeLocation);
 	}
+
+	if(bWantsToLeftFire)
+	{
+		LeftAttackPressed();
+	}
+	if(bWantsToRightFire)
+	{
+		RightAttackPressed();
+	}
+	
 }
 
 
@@ -167,8 +177,11 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(InventoryAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleInventory);
 		EnhancedInputComponent->BindAction(SettingsAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::ToggleSettings);
 		
-		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::LeftAttackPressed);
-		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Triggered, this, &AExtractionGameCharacter::RightAttackPressed);
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::StartFireLeft);
+		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::StartFireRight);
+
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::StopFireLeft);
+		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::StopFireRight);
 	}
 
 }
@@ -401,7 +414,9 @@ void AExtractionGameCharacter::HandleGaze()
 	
 
 	FHitResult Hit(ForceInit);
-	GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, GazeCollisionParams); // simple trace function
+	//There's a bizzare bug that happens sometimes, when ECC_VISIBILITY, projectiles move as if the camera is looking into the infinite... But ECC_Camera is just wrong...
+	//Does every map prop need to have both on trigger and on collide events :(
+	GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Camera, GazeCollisionParams); // simple trace function
 
 	
 	if(Hit.bBlockingHit)

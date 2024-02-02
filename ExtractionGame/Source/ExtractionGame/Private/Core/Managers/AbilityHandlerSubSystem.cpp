@@ -15,24 +15,24 @@ void UAbilityHandlerSubSystem::Deinitialize()
 	Super::Deinitialize();
 }
 
-TSubclassOf<UGameplayAbility> UAbilityHandlerSubSystem::GetAbilityByIndex(int32 Index)
+FAbilityStruct UAbilityHandlerSubSystem::GetAbilityByIndex(int32 Index)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Map count: %d, find: %d"),ObjectMap.Num(),Index);
 
-	if(ObjectMap.Num() == 0) return nullptr;
+	if(ObjectMap.Num() == 0) return FAbilityStruct();
 	if(!ObjectMap.Contains(Index))
 	{
 		UE_LOG(LogTemp, Error, TEXT("INVALID COMBO: %d"), Index)
 		return *ObjectMap.Find(0);
 	}
-	if (const TSubclassOf<UGameplayAbility> FoundObject = *ObjectMap.Find(Index))
+	if (const FAbilityStruct* FoundObject = ObjectMap.Find(Index))
 	{
-		return FoundObject;
+		return *FoundObject;
 	}
 	// Handle the case where the index is not found
-	return nullptr;
+	return FAbilityStruct();
 }
-
+/*
 UTexture2D* UAbilityHandlerSubSystem::GetGemSprite(const AGem* gem)
 {
 
@@ -66,7 +66,7 @@ void UAbilityHandlerSubSystem::AddGemSpriteToMap(int32 Index, UTexture2D* Object
 #endif
 	IconsMap.Add(Index, Object);
 }
-
+*/
 int32 UAbilityHandlerSubSystem::ConvertToIntID(int32 Earth, int32 Fire, int32 Shadow, int32 Water)
 {
 	// Assuming each parameter can have values 1, 2, or 3
@@ -83,7 +83,7 @@ int32 UAbilityHandlerSubSystem::ConvertToIntID(int32 Earth, int32 Fire, int32 Sh
 	
 	return Result;
 }
-void UAbilityHandlerSubSystem::AddAbilityToMap(int32 Index, TSubclassOf<UGameplayAbility> Object)
+void UAbilityHandlerSubSystem::AddAbilityToMap(int32 Index,FAbilityStruct Object)
 {
 #if UE_EDITOR
 	if(ObjectMap.Contains(Index))

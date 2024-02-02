@@ -117,6 +117,23 @@ private:
 	UPROPERTY()
 	AActor* GazeTargetActor;
 
+
+
+	//Could not be bothered to move these. Sorry.
+	bool bWantsToLeftFire;
+	bool bWantsToRightFire;
+
+public:
+	//Needs to be here cus circular depend
+	bool bIsLeftAutomatic;
+	bool bIsRightAutomatic;
+	
+private:
+	
+	void StartFireLeft() {if(bIsLeftAutomatic)bWantsToLeftFire = true; else LeftAttackPressed(); }
+	void StartFireRight() {if(bIsRightAutomatic)bWantsToRightFire = true; else RightAttackPressed(); }
+	void StopFireLeft() {bWantsToLeftFire = false;}
+	void StopFireRight() { bWantsToRightFire = false; }
 	
 	
 	/*--------------------------------------------------------*/

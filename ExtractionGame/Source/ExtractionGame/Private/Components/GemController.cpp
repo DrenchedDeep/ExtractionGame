@@ -152,21 +152,15 @@ void UGemController::OnRep_RightArmGems()
 
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))
-
-	
 	//If we were previously generating, STOP.
 	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);
 	
 	FGameplayEffectContextHandle EffectContext = Character->GetAbilitySystemComponent()->MakeEffectContext();
 	EffectContext.AddSourceObject(Character);
 
-	//TODO: Change level
-	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK B"))
 	const FGameplayEffectSpecHandle NewHandle = Character->GetAbilitySystemComponent()->MakeOutgoingSpec(effect, level,EffectContext);
 	if (NewHandle.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK C"))
 		*handle = Character->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(),  Character->GetAbilitySystemComponent());
 	}
 }
@@ -265,6 +259,12 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 }
 
+void UGemController::Sadness_Implementation(bool left, bool state)
+{
+	if(left)Character->bIsLeftAutomatic = state;
+	else Character->bIsRightAutomatic = state;
+}
+
 //void UGemController::Server_LazyRecompileGems_Implementation()
 //{
 //	LazyRecompileGems();
@@ -307,7 +307,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 		ability |= Score << (8-(++iteration*2));
 	}
 
-	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(ability);
+	const FAbilityStruct InAbilityClass = SubSystem->GetAbilityByIndex(ability);
 
 	if(bIsLeft)
 	{
@@ -315,23 +315,22 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 		if(totalPolish == 0)
 			totalPolish = -1;
 	}
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, totalPolish, -1, Character);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, totalPolish, -1, Character);
 
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
 	//if(GetOwner()->HasAuthority())
 	//{
 	UPlayerBarDataWidget* hud =GetHUDElement();
-	
+	Sadness(bIsLeft, InAbilityClass.bIsFullyAuto);
 	if(bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		
 		if(hud) hud->SetLeftGems(leftGems);
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		if(hud) hud->SetRightGems(rightGems);
+		if(hud) hud->SetRightGems(rightGems);;
 	}
 	//}
 }
@@ -348,8 +347,8 @@ void UGemController::RecompileHead()
 	
 	Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
 	UE_LOG(LogTemp, Warning, TEXT("Ability: %d, %d"), Score, val);
-	const TSubclassOf<UGameplayAbility> InAbilityClass = SubSystem->GetAbilityByIndex(Score);
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass, val, -1, Character);
+	const FAbilityStruct InAbilityClass = SubSystem->GetAbilityByIndex(Score);
+	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, val, -1, Character);
 	HeadAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
@@ -365,13 +364,10 @@ void UGemController::RecompileChest()
 UPlayerBarDataWidget* UGemController::GetHUDElement()
 {
 	if(PlayerBarsWidget) return PlayerBarsWidget;
-	UE_LOG(LogTemp, Warning, TEXT("Finding UI 1"));
 	if(const AExtractionGamePlayerController* x = Cast<AExtractionGamePlayerController>(Character->GetLocalViewingPlayerController()))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Finding UI 2"));
 		if(const AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(x->GetHUD()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Finding UI 3"));
 			PlayerBarsWidget = HUD->GetPlayerBarWidget();
 		}
 	}
