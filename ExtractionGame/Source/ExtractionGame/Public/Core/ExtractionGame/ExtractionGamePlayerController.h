@@ -74,4 +74,37 @@ protected:
 	void Server_SetName(const FString& PlayerName);
 	
 	virtual void RespawnTick();
+
+
+	
+//network clock
+private:
+
+	float ServerWorldTimeDelta = 0.f;
+	TArray<float> RTTCircularBuffer;
+protected:
+
+	UPROPERTY(EditDefaultsOnly, Category=GameState)
+	float NetworkClockUpdateFrequency = 5.f;
+
+public:
+
+	UFUNCTION(BlueprintPure)
+	float GetServerWorldTimeDelta() const;
+
+	UFUNCTION(BlueprintPure)
+	float GetServerWorldTime() const;
+
+	void PostNetInit() override;
+
+private:
+
+	void RequestWorldTime_Internal();
+	
+	UFUNCTION(Server, Unreliable)
+	void ServerRequestWorldTime(float ClientTimestamp);
+	
+	UFUNCTION(Client, Unreliable)
+	void ClientUpdateWorldTime(float ClientTimestamp, float ServerTimestamp);
+
 };

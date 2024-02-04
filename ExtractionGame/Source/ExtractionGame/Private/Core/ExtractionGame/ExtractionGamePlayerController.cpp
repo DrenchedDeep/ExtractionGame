@@ -148,6 +148,69 @@ void AExtractionGamePlayerController::RespawnTick()
 	}
 }
 
+float AExtractionGamePlayerController::GetServerWorldTimeDelta() const
+{
+	return ServerWorldTimeDelta;
+}
+
+float AExtractionGamePlayerController::GetServerWorldTime() const
+{
+	return GetWorld()->GetTimeSeconds() + ServerWorldTimeDelta;
+}
+
+void AExtractionGamePlayerController::PostNetInit()
+{
+	Super::PostNetInit();
+
+	if(GetLocalRole() != ROLE_Authority)
+	{
+		RequestWorldTime_Internal();
+
+		if(NetworkClockUpdateFrequency > 0.f)
+		{
+			FTimerHandle TimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle,
+				this, &AExtractionGamePlayerController::RequestWorldTime_Internal, NetworkClockUpdateFrequency);
+		}
+	}
+}
+
+void AExtractionGamePlayerController::RequestWorldTime_Internal()
+{
+	ServerRequestWorldTime(GetWorld()->DeltaTimeSeconds);
+}
+
+void AExtractionGamePlayerController::ServerRequestWorldTime_Implementation(float ClientTimestamp)
+{
+	const float Timestamp = GetWorld()->DeltaTimeSeconds;
+	ClientUpdateWorldTime(ClientTimestamp, Timestamp);
+}
+
+void AExtractionGamePlayerController::ClientUpdateWorldTime_Implementation(float ClientTimestamp, float ServerTimestamp)
+{
+	const float RTT = GetWorld()->DeltaTimeSeconds - ClientTimestamp;
+
+	RTTCircularBuffer.Add(RTT);
+	float AdjustedRTT = 0;
+	if (RTTCircularBuffer.Num() == 10)
+	{
+		TArray<float> tmp = RTTCircularBuffer;
+		tmp.Sort();
+		for (int i = 1; i < 9; ++i)
+		{
+			AdjustedRTT += tmp[i];
+		}
+		AdjustedRTT /= 8;
+		RTTCircularBuffer.RemoveAt(0);
+	}
+	else
+	{
+		AdjustedRTT = RTT;
+	}
+	
+	ServerWorldTimeDelta = ServerTimestamp - ClientTimestamp - AdjustedRTT / 2.f;
+}
+
 
 void AExtractionGamePlayerController::Client_ReturnToLobby_Implementation()
 {
