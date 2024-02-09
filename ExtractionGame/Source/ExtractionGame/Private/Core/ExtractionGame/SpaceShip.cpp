@@ -121,6 +121,8 @@ void ASpaceShip::BeginPlay()
 			Subsystem->ClearAllMappings();
 			Subsystem->AddMappingContext(ShipMappingContext, 0);
 		}
+		
+		AddControllerYawInput(360) ;
 	}
 
 	
