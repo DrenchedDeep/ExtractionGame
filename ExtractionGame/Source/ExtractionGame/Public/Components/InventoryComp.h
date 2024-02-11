@@ -12,6 +12,28 @@ class AExtractionGameCharacter;
 class UItemObject;
 enum EGemType : uint8;
 
+UENUM(BlueprintType)
+enum EItemStat
+{
+	ET_Heal,
+	ET_Poison,
+	ET_Misc,
+	ET_SpeedBoost
+};
+
+USTRUCT(BlueprintType)
+struct FItemStat
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TEnumAsByte<EItemStat> Stat;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float Value;
+};
+
+
+
 USTRUCT(BlueprintType)
 struct FTile
 {
@@ -95,12 +117,21 @@ struct FItemDataStruct : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AItemActor> ItemActor;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bFoundInRaid;
+	TArray<FItemStat> ItemStats;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bIsCrushable;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bIsUseable;
+	
+
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TEnumAsByte<EGemType> GemType;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DefaultPolish;
-	
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bFoundInRaid;
 };
 
 USTRUCT(BlueprintType, Blueprintable)

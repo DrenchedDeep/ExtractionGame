@@ -189,7 +189,6 @@ void UInventoryComp::RemoveItem(UItemObject* Item)
 
 bool UInventoryComp::TryAddItemByAddItemInfo(FAddItemInfo Item)
 {
-	UE_LOG(LogTemp, Warning, TEXT("TryAddItemByAddItemInfo"));
 	bool bSuccess = false;
 
 	for(int32 i = 0; i < Items.Num(); i++)
