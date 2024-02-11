@@ -9,23 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/AbilityEffects/GE_HealtRegen.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/AbilityEffects/GE_HealtRegen.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Slots/WB_GemSlot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Slots/WB_GemSlot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_Items.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_Items.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_InspectPanel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_InspectPanel.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_Item.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_Item.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_ItemActions.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_PlayerInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_PlayerInventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_StashInspectPanelManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_StashInspectPanelManager.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_StashInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_StashInventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Reusable/BoneMat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Reusable/BoneMat.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComp.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
