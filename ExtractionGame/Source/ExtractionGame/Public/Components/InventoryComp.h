@@ -225,6 +225,9 @@ public:
 	void AddItemDirectly(UItemObject* Item);
 	UFUNCTION(BlueprintCallable)
 	void RemoveItemDirectly(UItemObject* Item);
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void Server_Rotate(UItemObject* ItemObject);
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

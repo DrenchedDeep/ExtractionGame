@@ -9,7 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/GA_Punch.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/GA_Punch.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inventory/BP_Item_DD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/BP_Item_DD.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_InventoryGrid.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_InventoryGrid.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComp.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -423,7 +428,7 @@
       <workItem from="1706911159803" duration="5263000" />
       <workItem from="1707008213777" duration="1259000" />
       <workItem from="1707090072163" duration="334000" />
-      <workItem from="1707635137242" duration="1222000" />
+      <workItem from="1707635137242" duration="2370000" />
     </task>
     <servers />
   </component>
