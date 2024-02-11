@@ -26,6 +26,14 @@ void UInventoryComp::RemoveItemDirectly(UItemObject* Item)
 	Server_RemoveItemDirectly(Item);
 }
 
+void UInventoryComp::Server_Rotate_Implementation(UItemObject* ItemObject)
+{
+	if(ItemObject)
+	{
+		ItemObject->Rotate();
+	}
+}
+
 void UInventoryComp::BeginPlay()
 {
 	Super::BeginPlay();
