@@ -47,8 +47,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RemoveGem(EBodyPart BodyPart);
 	
-	TMap<int32,FAddItemInfo> GetPlayerInventory() const;
-	TMap<int32, FAddItemInfo> GetStashInventory() const;
 	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GetGemInventory();
 
 

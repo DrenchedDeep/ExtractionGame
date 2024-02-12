@@ -10,6 +10,7 @@
 #include "Core/ExtractionGame/TDMGameMode.h"
 #include "Core/ExtractionGame/TDMGameState.h"
 #include "Camera/CameraComponent.h"
+#include "Components/PlayerInventoryComponent.h"
 #include "Core/ExtractionGame/ExtractionGameState.h"
 #include "Core/ExtractionGame/SpaceShip.h"
 #include "GameFramework/PlayerState.h"
@@ -31,7 +32,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	//for now, we'll save the inventory for testing but we need to delete the saved inventory if we leave the match by choice
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
-//		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->InventoryItems, TArray<FName>());
+		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(), PlayerCharacter->InventoryComponent->GetGemInventory());
 	}
 
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");

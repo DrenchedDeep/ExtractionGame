@@ -98,37 +98,44 @@ struct FItemDataStruct : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	FString ItemName;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	TEnumAsByte<EItemTypes> ItemType;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	TEnumAsByte<ERarityType> Rarity;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	int32 SizeX;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	int32 SizeY;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	FString Description;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	TArray<UMaterialInterface*> Icon;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	UMaterialInterface* IconRotated;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	TSubclassOf<AItemActor> ItemActor;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	TArray<FItemStat> ItemStats;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool bIsCrushable;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool bIsUseable;
-	
-
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bIsCombineable;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Gems")
 	TEnumAsByte<EGemType> GemType;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Gems")
 	float DefaultPolish;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Combining")
+	int32 ItemsNeededToCombine = 3;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Combining")
+	FName CombinedItemRowName;
+	
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bFoundInRaid;
@@ -188,7 +195,8 @@ public:
 	virtual bool TryAddItem(UItemObject* Item);
 	UFUNCTION(BlueprintCallable)
 	virtual void RemoveItem(UItemObject* Item);
-
+	UFUNCTION(BlueprintCallable)
+	virtual void RemoveItemByName(const FName& ItemRowName, int32 AmountToRemove);
 	UFUNCTION(BlueprintCallable)
 	virtual bool TryAddItemByAddItemInfo(FAddItemInfo Item);
 	
@@ -228,6 +236,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void Server_Rotate(UItemObject* ItemObject);
+
+	UFUNCTION(BlueprintCallable)
+	bool HasItems(FName ItemRowName, int32 AmountNeeded);
+
+	TMap<int32,FAddItemInfo> GetPlayerInventory();
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

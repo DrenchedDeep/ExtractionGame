@@ -46,6 +46,8 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	TArray<FGemItem> GetGemItems() const { return GemItems; }
 	
+	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GetGemInventory();
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 

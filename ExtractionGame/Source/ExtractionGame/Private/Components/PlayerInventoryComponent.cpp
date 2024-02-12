@@ -110,6 +110,29 @@ TArray<UItemObject*> UPlayerInventoryComponent::GetItemsIncludingGems()
 	return Itms;
 }
 
+TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> UPlayerInventoryComponent::GetGemInventory()
+{
+	TMap<TEnumAsByte<EBodyPart>,FAddItemInfo> Gems;
+
+	for(auto Item :  GemItems)
+	{
+		FAddItemInfo Info;
+		Info.Description = Item.Item->Description;
+		Info.Dimensions = Item.Item->Dimensions;
+		Info.Icon = Item.Item->Icon;
+		Info.IconRotated =Item.Item->IconRotated;
+		Info.Rarity = Item.Item->Rarity;
+		Info.ItemName = Item.Item->ItemName;
+		Info.ItemType = Item.Item->ItemType;
+		Info.GemType = Item.Item->GemType;
+		Info.DefaultPolish = Item.Item->DefaultPolish;
+
+		Gems.Add(Item.BodyPart, Info);
+	}
+
+	return Gems;
+}
+
 void UPlayerInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

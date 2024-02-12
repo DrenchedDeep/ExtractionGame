@@ -18,8 +18,25 @@ void APlayerStashManager::BeginPlay()
 	//check if first time launch by getting files check if there is a playersavedata
 	Super::BeginPlay();
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+
+	if(GameInstance->PlayerSessionData.bIsValid)
+	{
+		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
+		{
+			PlayerInventory->TryAddItemByAddItemInfo(Item.Value);
+		}
+
+		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
+		{
+			//AddGem()
+		}
+	}
+	else
+	{
+		GameInstance->ReadPlayerData("PlayerSaveData");
+	}
 	
-//	GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
+	//GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
 //	GameInstance->UserReadCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnFilesRead);
 	//GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
 
@@ -36,7 +53,7 @@ void APlayerStashManager::SaveInventory()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	const TArray<FName> PartyMembers;
-	GameInstance->BuildPlayerSessionData(GetPlayerInventory(), GetGemInventory());
+	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(), GetGemInventory());
 	
 	bool bDisable = true;
 
@@ -112,34 +129,6 @@ void APlayerStashManager::RemoveGem(EBodyPart BodyPart)
 	GemInventory.Remove(BodyPart);
 }
 
-TMap<int32,FAddItemInfo> APlayerStashManager::GetPlayerInventory() const
-{
-	TMap<int32,FAddItemInfo> PlayerItems;
-
-	for(auto Item : PlayerInventory->GetAllItems())
-	{
-		FAddItemInfo Info;
-		Info.Description = Item.Key->Description;
-		Info.Dimensions = Item.Key->Dimensions;
-		Info.Icon = Item.Key->Icon;
-		Info.IconRotated = Item.Key->IconRotated;
-		Info.Rarity = Item.Key->Rarity;
-		Info.ItemName = Item.Key->ItemName;
-		Info.ItemType = Item.Key->ItemType;
-		Info.GemType = Item.Key->GemType;
-		Info.DefaultPolish = Item.Key->DefaultPolish;
-
-		int32 Index = PlayerInventory->TileToIndex(Item.Value);
-		PlayerItems.Add(Index, Info);
-	}
-
-	return PlayerItems;
-}
-
-TMap<int32,FAddItemInfo> APlayerStashManager::GetStashInventory() const
-{
-		return	TMap<int32,FAddItemInfo>();
-}
 
 TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> APlayerStashManager::GetGemInventory()
 {

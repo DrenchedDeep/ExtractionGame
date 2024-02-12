@@ -34,6 +34,50 @@ void UInventoryComp::Server_Rotate_Implementation(UItemObject* ItemObject)
 	}
 }
 
+bool UInventoryComp::HasItems(FName ItemRowName, int32 AmountNeeded)
+{
+	bool bHasItems = false;
+	int32 Count = 0;
+	for(int32 i = 0; i < Items.Num(); i++)
+	{
+		if(Items[i] && Items[i]->RowName == ItemRowName)
+		{
+			Count++;
+		}
+	}
+
+	if(Count >= AmountNeeded)
+	{
+		bHasItems = true;
+	}
+
+	return bHasItems;
+}
+
+TMap<int32, FAddItemInfo> UInventoryComp::GetPlayerInventory()
+{
+	TMap<int32,FAddItemInfo> PlayerItems;
+
+	for(auto Item : GetAllItems())
+	{
+		FAddItemInfo Info;
+		Info.Description = Item.Key->Description;
+		Info.Dimensions = Item.Key->Dimensions;
+		Info.Icon = Item.Key->Icon;
+		Info.IconRotated = Item.Key->IconRotated;
+		Info.Rarity = Item.Key->Rarity;
+		Info.ItemName = Item.Key->ItemName;
+		Info.ItemType = Item.Key->ItemType;
+		Info.GemType = Item.Key->GemType;
+		Info.DefaultPolish = Item.Key->DefaultPolish;
+
+		int32 Index = TileToIndex(Item.Value);
+		PlayerItems.Add(Index, Info);
+	}
+
+	return PlayerItems;
+}
+
 void UInventoryComp::BeginPlay()
 {
 	Super::BeginPlay();
@@ -193,6 +237,24 @@ void UInventoryComp::RemoveItem(UItemObject* Item)
 {
 	Server_RemoveItem(Item);
 
+}
+
+void UInventoryComp::RemoveItemByName(const FName& ItemRowName, int32 AmountToRemove)
+{
+	int32 AmountSentToRemove = 0;
+	for(int32 i = 0; i < Items.Num(); ++i)
+	{
+		if(AmountSentToRemove >= AmountToRemove)
+		{
+			break;
+		}
+		
+		if(Items[i] && Items[i]->RowName == ItemRowName)
+		{
+			Server_RemoveItem(Items[i]);
+			AmountSentToRemove++;
+		}
+	}
 }
 
 bool UInventoryComp::TryAddItemByAddItemInfo(FAddItemInfo Item)
