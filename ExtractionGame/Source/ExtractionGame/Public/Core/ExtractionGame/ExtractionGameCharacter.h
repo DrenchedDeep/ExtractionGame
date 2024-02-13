@@ -192,7 +192,7 @@ public:
 	float VerticalLook;
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float HorizontalLook;
-	UPROPERTY(Replicated, BlueprintReadOnly)
+	UPROPERTY(Replicated, BlueprintReadWrite)
 	bool IsSliding;
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	float SlideTimer;

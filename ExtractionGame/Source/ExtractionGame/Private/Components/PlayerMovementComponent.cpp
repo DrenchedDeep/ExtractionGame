@@ -121,8 +121,11 @@ FNetworkPredictionData_Client* UPlayerMovementComponent::GetPredictionData_Clien
 
 void UPlayerMovementComponent::SlideJump()
 {
+	//ExitSlide(); // You are stuck in a slide...
 	SetMovementMode(MOVE_Falling);
-	ExitSlide(); // You are stuck in a slide...
+	Character->IsSliding = false;
+    Character->SlideTimer = 0.0f;
+    Character->OnSlideEnd();
 	Leap();
 }
 
