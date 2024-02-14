@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Extraction/ExtractionBeacon.h"
 #include "GameFramework/PlayerController.h"
 #include "Items/ItemActor.h"
 #include "ExtractionGamePlayerController.generated.h"
@@ -38,6 +39,10 @@ public:
 	UFUNCTION(Server, Reliable)
 	void Server_PickupItem(AItemActor* ItemActor);
 
+	UFUNCTION(Unreliable, Client)
+	void Client_EnteredExtractionBeacon(AExtractionBeacon* Beacon);
+	UFUNCTION(Unreliable, Client)
+	void Client_LeftExtractionBeacon();
 	//reason i put it here is cuz i think its more reliable and cleaner to use client rpcs for important things like spawning items
 	UFUNCTION(Reliable, Client)
 	void Client_SpawnItems();
@@ -47,10 +52,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
 
-
-	
 protected:
-	/** Input Mapping Context to be used for player input */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* PlayerControllerMapping;
 
@@ -65,6 +67,8 @@ protected:
 
 	virtual void BeginPlay() override;
 	
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void Server_StartExtraction(AExtractionBeacon* Beacon);
 
 	UFUNCTION(Reliable, Client)
 	void Client_OnDeath(const FString& PlayerName);
@@ -76,6 +80,10 @@ protected:
 	virtual void RespawnTick();
 
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnEnteredExtractionBeacon(AExtractionBeacon* Beacon);
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnLeftExtractionBeacon();
 	
 //network clock
 private:
@@ -88,7 +96,6 @@ protected:
 	float NetworkClockUpdateFrequency = 5.f;
 
 public:
-
 	UFUNCTION(BlueprintPure)
 	float GetServerWorldTimeDelta() const;
 
@@ -98,7 +105,6 @@ public:
 	void PostNetInit() override;
 
 private:
-
 	void RequestWorldTime_Internal();
 	
 	UFUNCTION(Server, Unreliable)
@@ -107,4 +113,6 @@ private:
 	UFUNCTION(Client, Unreliable)
 	void ClientUpdateWorldTime(float ClientTimestamp, float ServerTimestamp);
 
+
+	float StartPlayTime;
 };

@@ -51,6 +51,12 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateScore(int32 Kills, int32 Deaths);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateExtractionTimerWidget(float ExtractionTimer);
+	
+	UPROPERTY(BlueprintReadWrite)
+	UUserWidget* ExtractionWidget;
 private:
 	
 	virtual void BeginPlay() override;

@@ -6,12 +6,13 @@
 #include "GooberManager.h"
 #include "GooberTask.h"
 #include "Core/CharacterPawnBase.h"
+#include "Core/ExtractionGame/Interactable.h"
 #include "GameFramework/Actor.h"
 #include "Goober.generated.h"
 
 
 UCLASS()
-class EXTRACTIONGAME_API AGoober : public ACharacterPawnBase
+class EXTRACTIONGAME_API AGoober : public ACharacterPawnBase, public IInteractable
 {
 	GENERATED_BODY()
 	

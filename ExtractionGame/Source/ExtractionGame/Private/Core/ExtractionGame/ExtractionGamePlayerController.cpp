@@ -21,7 +21,9 @@ void AExtractionGamePlayerController::ReturnToLobby()
 {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 
-	GameInstance->OnRaidOver(true, 25.f);
+	const float EndPlayerTime = GetWorld()->GetTimeSeconds() - StartPlayTime;
+
+	GameInstance->OnRaidOver(true, EndPlayerTime);
 	GameInstance->ShowLoadingScreen();
 	
 	if(GameInstance->CurrentSession)
@@ -29,11 +31,12 @@ void AExtractionGamePlayerController::ReturnToLobby()
 		GameInstance->DestroySession();
 	}
 
-	//for now, we'll save the inventory for testing but we need to delete the saved inventory if we leave the match by choice
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
-		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(), PlayerCharacter->InventoryComponent->GetGemInventory());
+		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(),
+			PlayerCharacter->InventoryComponent->GetGemInventory());
 	}
+
 
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
 }
@@ -75,6 +78,27 @@ void AExtractionGamePlayerController::Server_PickupItem_Implementation(AItemActo
 	{
 		ItemActor->Destroy();
 	}
+}
+
+void AExtractionGamePlayerController::Client_EnteredExtractionBeacon_Implementation(AExtractionBeacon* Beacon)
+{
+	if(Beacon->GetIsExtracting())
+	{
+		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+		{
+			HUD->ExtractionWidget->AddToViewport();
+		}
+	}
+}
+
+void AExtractionGamePlayerController::Client_LeftExtractionBeacon_Implementation()
+{
+	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	{
+		HUD->ExtractionWidget->RemoveFromParent();
+	}
+
+	OnLeftExtractionBeacon();
 }
 
 void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
@@ -311,7 +335,15 @@ void AExtractionGamePlayerController::BeginPlay()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 	Server_SetName(GameInstance->GetPlayerUsername());
 	//Server_SetName(PlayerState->GetPlayerName());
-	UE_LOG(LogTemp,Warning,TEXT("Binding events: %s"), *GameInstance->GetPlayerUsername());
+	StartPlayTime = GetWorld()->GetTimeSeconds();
+}
+
+void AExtractionGamePlayerController::Server_StartExtraction_Implementation(AExtractionBeacon* Beacon)
+{
+	if(Beacon)
+	{
+		Beacon->StartExtraction();
+	}
 }
 
 
