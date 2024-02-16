@@ -47,6 +47,12 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	TArray<AExtractionGameCharacter*> Players;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnBeaconExtractedServer();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnExtractionStateChangedEverybody(bool bExtracting);
+	
 private:
 	bool bExtractionCompleted;
 	void OnExtractionCompleted();

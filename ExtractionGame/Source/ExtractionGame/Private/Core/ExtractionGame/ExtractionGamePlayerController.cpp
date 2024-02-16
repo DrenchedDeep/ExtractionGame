@@ -88,6 +88,8 @@ void AExtractionGamePlayerController::Client_EnteredExtractionBeacon_Implementat
 		{
 			HUD->ExtractionWidget->AddToViewport();
 		}
+
+		OnEnteredExtractionBeacon(Beacon);
 	}
 }
 

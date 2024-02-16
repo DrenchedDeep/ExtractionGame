@@ -87,9 +87,14 @@ void AExtractionBeacon::PlayerExit(AExtractionGameCharacter* Character)
 
 void AExtractionBeacon::StartExtraction()
 {
+	if(bIsExtracting)
+	{
+		return;
+	}
+	
 	bIsExtracting = true;
+	bExtractionCompleted = false;
 	OnRep_IsExtracting();
-	UE_LOG(LogTemp, Warning, TEXT("Extraction Started"));
 	ExtractionTimer = ExtractionMaxTimer;
 
 	for(auto Player : Players)
@@ -117,23 +122,13 @@ void AExtractionBeacon::OnRep_ExtractionTimer()
 
 void AExtractionBeacon::OnRep_IsExtracting()
 {
-	APlayerController* LocalPlayer = GetWorld()->GetFirstPlayerController();
-
-	if(LocalPlayer)
-	{
-		for(auto Player : Players)
-		{
-			if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(LocalPlayer->GetHUD()))
-			{
-				HUD->ExtractionWidget->AddToViewport();
-			}
-		}
-	}
+	OnExtractionStateChangedEverybody(bIsExtracting);
 }
 
 void AExtractionBeacon::OnExtractionCompleted()
 {
 	bExtractionCompleted = true;
+	bIsExtracting = false;
 
 	for(const auto Player : Players)
 	{
@@ -142,6 +137,8 @@ void AExtractionBeacon::OnExtractionCompleted()
 			PC->ReturnToLobby();
 		}
 	}
+
+	OnBeaconExtractedServer();
 }
 
 bool AExtractionBeacon::PlayerCanEnterExtractionBeacon(APlayerController* PC)
