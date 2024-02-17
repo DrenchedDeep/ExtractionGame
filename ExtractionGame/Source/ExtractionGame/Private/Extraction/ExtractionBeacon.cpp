@@ -122,6 +122,7 @@ void AExtractionBeacon::OnRep_ExtractionTimer()
 
 void AExtractionBeacon::OnRep_IsExtracting()
 {
+UE_LOG(LogTemp, Warning, TEXT("OnRep_IsExtracting"));
 	OnExtractionStateChangedEverybody(bIsExtracting);
 }
 
