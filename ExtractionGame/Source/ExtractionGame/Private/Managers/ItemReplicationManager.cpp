@@ -8,7 +8,7 @@
 #include "Managers/ItemSpawner.h"
 #include "Net/UnrealNetwork.h"
 
-void UItemReplicationManager::BeginPlay()
+void AItemReplicationManager::BeginPlay()
 {
 	Super::BeginPlay();
 

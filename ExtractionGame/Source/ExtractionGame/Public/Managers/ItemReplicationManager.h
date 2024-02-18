@@ -20,8 +20,8 @@
 ///when player picks up item, get the index and tell all clients to destroy that item from server
 ///
 
-UCLASS()
-class EXTRACTIONGAME_API UItemReplicationManager : public UActorComponent
+UCLASS(Blueprintable, BlueprintType)
+class EXTRACTIONGAME_API AItemReplicationManager : public AActor
 {
 	GENERATED_BODY()
 

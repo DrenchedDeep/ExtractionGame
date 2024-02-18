@@ -16,7 +16,7 @@ if(bSpawnOnLandscape)
 #endif
 }
 
-void AItemSpawner::SpawnItems(UItemReplicationManager* ItemManager)
+void AItemSpawner::SpawnItems(AItemReplicationManager* ItemManager)
 {
 	if(bSpawnOnLandscape)
 	{

@@ -43,9 +43,9 @@ public:
 
 
 	AItemSpawner();
-	void SpawnItems(UItemReplicationManager* ItemManager);
+	void SpawnItems(AItemReplicationManager* ItemManager);
 
-	UItemReplicationManager* GetItemReplicationManager() const { return ItemReplicationManager; }
+	AItemReplicationManager* GetItemReplicationManager() const { return ItemReplicationManager; }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	TArray<AItemActor*> GetSpawnedItems() const { return SpawnedItems; }
@@ -53,7 +53,7 @@ private:
 	void SpawnItemsOnLandscape();
 
 	UPROPERTY()
-	UItemReplicationManager* ItemReplicationManager;
+	AItemReplicationManager* ItemReplicationManager;
 
 	UPROPERTY()
 	TArray<AItemActor*> SpawnedItems;
