@@ -18,9 +18,13 @@ class EXTRACTIONGAME_API AExtractionBeacon : public AActor
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnRep_ExtractionTimer, Category = "Beacon", meta = (AllowPrivateAccess = "true"))
 	float ExtractionTimer;
 
+	UPROPERTY(BlueprintReadOnly, Replicated, Category = "Beacon", meta = (AllowPrivateAccess = "true"))
+	bool bPlayerInRange;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Beacon", meta = (AllowPrivateAccess = "true"))
 	float ExtractionMaxTimer = 30.f;
 	
+
 public:	
 	AExtractionBeacon();
 

@@ -17,6 +17,7 @@ void AExtractionBeacon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AExtractionBeacon, bIsExtracting);
+	DOREPLIFETIME(AExtractionBeacon, bPlayerInRange);
 	DOREPLIFETIME(AExtractionBeacon, ExtractionTimer);
 }
 
@@ -68,6 +69,7 @@ void AExtractionBeacon::PlayerEnter(AExtractionGameCharacter* Character)
 			PC->Client_EnteredExtractionBeacon(this);
 		}
 	}
+	bPlayerInRange = true;
 }
 
 void AExtractionBeacon::PlayerExit(AExtractionGameCharacter* Character)
@@ -81,6 +83,8 @@ void AExtractionBeacon::PlayerExit(AExtractionGameCharacter* Character)
 			PC->Client_LeftExtractionBeacon();
 		}
 	}
+	if(Players.Num() == 0)
+	bPlayerInRange  = false;
 }
 
 
