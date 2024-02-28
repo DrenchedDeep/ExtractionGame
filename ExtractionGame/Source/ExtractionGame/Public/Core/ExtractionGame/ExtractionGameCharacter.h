@@ -242,7 +242,8 @@ public:
 	void OnDeathServer();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeathClient();
-
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnAttacked(FVector FromLocation);
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;

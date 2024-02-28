@@ -75,8 +75,7 @@ UPlayerBarDataWidget* UPlayerHealthComponent::GetHUDElement()
 	return nullptr;
 }
 
-UPlayerHealthComponent::UPlayerHealthComponent(): Character(nullptr), PlayerBarsWidget(nullptr), bIsDead(false),
-                                                  HitCount(0)
+UPlayerHealthComponent::UPlayerHealthComponent(): Character(nullptr), PlayerBarsWidget(nullptr), bIsDead(false)
 {
 }
 
@@ -119,7 +118,6 @@ void UPlayerHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(UPlayerHealthComponent, bIsDead);
-	DOREPLIFETIME(UPlayerHealthComponent, HitCount);
 }
 
 
@@ -139,6 +137,14 @@ void UPlayerHealthComponent::OnDeath(const FString& PlayerName)
 	PC->OnDeath(PlayerName);
 }
 
+void UPlayerHealthComponent::Client_ApplyDamage_Implementation(FVector FromDirection)
+{
+	if(Character && Character->IsLocallyControlled())
+	{
+		Character->OnAttacked(FromDirection);
+	}
+}
+
 void UPlayerHealthComponent::OnRep_IsDead()
 {
 	if(!Character)
@@ -156,9 +162,6 @@ void UPlayerHealthComponent::OnRep_IsDead()
 	}
 }
 
-void UPlayerHealthComponent::OnRep_HitCounter()
-{
-}
 
 void UPlayerHealthComponent::Initialize(const AExtractionGameHUD* hud)
 {
@@ -193,20 +196,17 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 
 
 	/*/
+
+
+	if(Instigator && Instigator->GetPawn())
+	{
+		Client_ApplyDamage(Instigator->GetPawn()->GetActorLocation());
+	}
 	
-	
-	HitCount++;
-	OnRep_HitCounter();
 	SetHealth(GetHealth() - Damage, Instigator);
 	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), GetHealth());
 	return true;
 }
-
-void UPlayerHealthComponent::Client_ApplyDamage_Implementation()
-{
-	UE_LOG(LogTemp, Warning, TEXT("I was hit!"))
-}
-
 void UPlayerHealthComponent::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
 	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))

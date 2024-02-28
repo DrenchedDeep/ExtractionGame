@@ -36,7 +36,7 @@
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Managers/ItemSpawner.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Objects/GemItemObject.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Quests/EliminateQuestBase.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberSoundsManager.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberSoundsManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Components/ItemObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGamePlayerController.h" root0="FORCE_HIGHLIGHTING" />
@@ -45,7 +45,7 @@
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Extraction/ExtractionBeacon.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Items/GemItemActor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Items/ItemActor.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Managers/ItemReplicationManager.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Managers/ItemReplicationManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Managers/ItemSpawner.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Objects/GemItemObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Quests/EliminateQuestBase.h" root0="FORCE_HIGHLIGHTING" />
@@ -467,6 +467,7 @@
       <workItem from="1708274344740" duration="73000" />
       <workItem from="1708274566580" duration="1935000" />
       <workItem from="1708279122302" duration="1137000" />
+      <workItem from="1708672300269" duration="669000" />
     </task>
     <servers />
   </component>

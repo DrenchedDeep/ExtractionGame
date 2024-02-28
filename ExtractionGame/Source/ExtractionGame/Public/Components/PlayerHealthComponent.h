@@ -19,8 +19,6 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UActorComponent
 	
 	UPROPERTY(ReplicatedUsing=OnRep_IsDead) // this is usually done with a tag...
 	bool bIsDead;
-	UPROPERTY(ReplicatedUsing=OnRep_HitCounter)
-	int32 HitCount;
 
 	bool bCanTakeDamage = true;
 
@@ -61,11 +59,10 @@ public:
 
 
 	UFUNCTION(Client, Unreliable)
-	void Client_ApplyDamage();
+	void Client_ApplyDamage(FVector FromDirection);
 	UFUNCTION()
 	virtual void OnRep_IsDead();
-	UFUNCTION()
-	virtual void OnRep_HitCounter();
+	
 	void Initialize(const AExtractionGameHUD* hud);
 
 };
