@@ -179,6 +179,8 @@ public:
 	EBodyPart GetNextAvaliableArmGemSlot(bool bIsLeft) const;
 
 
+	UFUNCTION(BlueprintCallable)
+	int32 GetArmGemCount(bool bIsLeft) const;
 	
 protected:
 	

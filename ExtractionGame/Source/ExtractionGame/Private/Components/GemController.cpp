@@ -516,3 +516,29 @@ EBodyPart UGemController::GetNextAvaliableArmGemSlot(bool bIsLeft) const
 	}
 	return None;
 }
+
+int32 UGemController::GetArmGemCount(bool bIsLeft) const
+{
+	int32 count = 0;
+	if(bIsLeft)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(leftGems[i] != nullptr)
+			{
+				count++;
+			}
+		}
+	}
+	else
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(rightGems[i] != nullptr)
+			{
+				count++;
+			}
+		}
+	}
+	return count;
+}
