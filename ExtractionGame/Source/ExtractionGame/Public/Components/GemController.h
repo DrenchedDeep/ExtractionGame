@@ -11,6 +11,7 @@
 #include "UI/Widgets/PlayerBarDataWidget.h"
 #include "GemController.generated.h"
 
+class UItemObject;
 class AExtractionGameHUD;
 class UItem;
 
@@ -129,7 +130,7 @@ public:
 	void RemoveGem(EBodyPart slot);
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void Server_CreateGem(UItemObject* Item, EBodyPart BodyPart);
+	void Server_CreateGem(UItemObject* Item, EBodyPart BodyPart, bool bAddToInventory = false);
 	UFUNCTION(Client, Reliable)
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 
@@ -174,6 +175,8 @@ public:
 	float GetManaRegenRate() const;
 	void Initialize(const AExtractionGameHUD* hud);
 
+	UFUNCTION(BlueprintCallable)
+	EBodyPart GetNextAvaliableArmGemSlot(bool bIsLeft) const;
 
 
 	

@@ -8,6 +8,7 @@
 #include "UI/Widgets/InventoryWidget.h"
 #include "Abilities/GameplayAbility.h"
 #include "Components/ItemObject.h"
+#include "Components/PlayerInventoryComponent.h"
 #include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Core/ExtractionGame/ExtractionGamePlayerController.h"
 #include "Net/UnrealNetwork.h"
@@ -67,9 +68,17 @@ void UGemController::RemoveGem(EBodyPart slot)
 	Server_RemoveGem(slot);
 }
 
-void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPart BodyPart)
+void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPart BodyPart, bool bAddToInventory)
 {
-	CreateGem(Item, BodyPart, 0);
+	if(Item)
+	{
+		CreateGem(Item, BodyPart, 0);
+
+		if(bAddToInventory)
+		{
+			Character->InventoryComponent->Server_AddGem(Item, BodyPart);
+		}
+	}
 }
 
 void UGemController::CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlotID)
@@ -91,19 +100,12 @@ void UGemController::CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlo
 	*gem = Gem;
 	dirtyFlags |= BodyPart;
 	UE_LOG(LogTemp, Warning, TEXT("CreateGem: %d"), BodyPart);
-	//LazyRecompileGems();
 }
 
 
 void UGemController::Client_OnGemCreated_Implementation(int GemSlotID, AGem* Gem)
 {
-	//USlotWidget* Slot = Character->InventoryComponent->InventoryWidget->GetSlot(GemSlotID);
-
-	//if(UGemSlot* GemSlot =	Cast<UGemSlot>(Slot))
-	//{
-	//	GemSlot->Gem = Gem;
-		
-	//}
+	Character->InitGemUI();
 }
 
 void UGemController::Server_RemoveGem_Implementation(EBodyPart slot)
@@ -488,4 +490,29 @@ void UGemController::Initialize(const AExtractionGameHUD* hud)
 		//GetHUDElement() = PlayerBarWidget;
 	}
 	//SmartRecompileGems();
+}
+
+EBodyPart UGemController::GetNextAvaliableArmGemSlot(bool bIsLeft) const
+{
+	if(bIsLeft)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(leftGems[i] == nullptr)
+			{
+				return static_cast<EBodyPart>(1 << (i+2));
+			}
+		}
+	}
+	else
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(rightGems[i] == nullptr)
+			{
+				return static_cast<EBodyPart>(1 << (i+5));
+			}
+		}
+	}
+	return None;
 }

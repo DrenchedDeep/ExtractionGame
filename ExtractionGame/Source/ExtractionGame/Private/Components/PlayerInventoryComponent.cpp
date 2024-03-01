@@ -151,15 +151,13 @@ void UPlayerInventoryComponent::OnRep_GemItems()
 
 void UPlayerInventoryComponent::Server_RemoveGem_Implementation(UItemObject* Item)
 {
-	for(auto Gem : GemItems)
+	for(int32 i = 0; i < GemItems.Num(); i++)
 	{
-		/*/
-		UItemObject* GemItem = Gem.Item;
-		if(Item == GemItem)
+		if(GemItems[i].Item == Item)
 		{
-			GemItems.Remove(Gem);
-			break;
+			GemItems.RemoveAt(i);
+			OnRep_GemItems();
+			return;
 		}
-		/*/
 	}
 }
