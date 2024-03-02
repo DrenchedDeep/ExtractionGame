@@ -6,13 +6,14 @@
 #include "GooberManager.h"
 #include "GooberTask.h"
 #include "Core/CharacterPawnBase.h"
+#include "Core/ExtractionGame/Cookable.h"
 #include "Core/ExtractionGame/Interactable.h"
 #include "GameFramework/Actor.h"
 #include "Goober.generated.h"
 
 
 UCLASS()
-class EXTRACTIONGAME_API AGoober : public ACharacterPawnBase, public IInteractable
+class EXTRACTIONGAME_API AGoober : public ACharacterPawnBase, public IInteractable, public ICookable
 {
 	GENERATED_BODY()
 
@@ -37,6 +38,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void StartCook();
+	UFUNCTION(BlueprintCallable)
+	void StopCook();
 	
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -53,15 +56,18 @@ protected:
 	void BP_OnGooberDeadServer();
 
 		
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnCookTimerEnd();
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnCookTimerStart();
+	//UFUNCTION(BlueprintImplementableEvent)
+	//void OnCookTimerEnd();
+	//UFUNCTION(BlueprintImplementableEvent)
+	//void OnCookTimerStart();
+	//UFUNCTION(BlueprintImplementableEvent)
+	//void UpdateCookedProgress(float CurrentProgress);
 
 private:
 	float CurrentHealth;
-	float CurrentCookTimer;
+	float CurrentCookTimer = 0;
 
+	
 	UFUNCTION()
 	void OnCookTimerTick();
 

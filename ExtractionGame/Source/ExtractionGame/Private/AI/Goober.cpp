@@ -20,33 +20,45 @@ void AGoober::ApplyDamage(float Damage)
 void AGoober::StartCook()
 {
 	bIsCooking = true;
-	OnRep_Cooking();
+	OnRep_Cooking(); // Do you need to manually do this? I thought replicatingUsing did this for you?
 	UE_LOG(LogTemp, Warning, TEXT("StartCook"));
+}
+
+void AGoober::StopCook()
+{
+	bIsCooking = false;
+	OnRep_Cooking();
+	UE_LOG(LogTemp, Warning, TEXT("StopCook"));
 }
 
 void AGoober::OnRep_Cooking()
 {
-	if(bIsCooking)
+	if(bIsCooking && !bIsCooked && bIsDead) // Do not cook twice... And the guy needa be dead.
 	{
-		OnCookTimerStart();
-		CurrentCookTimer = MaxCookTime;
+		//OnStartCook();
+		//CurrentCookTimer = 0; // Clearing the timer like this may be unn
 		GetWorldTimerManager().SetTimer(CookTimerHandle, this, &AGoober::OnCookTimerTick, 1.f, true);
 	}
 	else
 	{
-		OnCookTimerEnd();
-
-		GetWorldTimerManager().ClearTimer(CookTimerHandle);
+		//OnCookTimerEnd();
+		//OnEndCook();
+		if(CookTimerHandle.IsValid()) GetWorldTimerManager().PauseTimer(CookTimerHandle);
 	}
 }
 
 void AGoober::OnCookTimerTick()
 {
-	CurrentCookTimer -= 1.f;
+	CurrentCookTimer += 1;
 
-	if(CurrentCookTimer <= 0)
+	Execute_OnCookTick(this, CurrentCookTimer / MaxCookTime);
+	//UpdateCookedProgress();
+	
+	if(CurrentCookTimer >= MaxCookTime)
 	{
 		bIsCooked = true;
+		GetWorldTimerManager().ClearTimer(CookTimerHandle);
+		CookTimerHandle.Invalidate();
 	}
 }
 
