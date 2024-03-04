@@ -29,13 +29,16 @@ void AMainMenuGameState::Multicast_JoinSession_Implementation(FClientConnectionI
 	{
 		return;
 	}
+	
+	ConnectionInfo = ConnectInfo;
+
 
 	if(HasAuthority())
 	{
+		
 		return;
 	}
 	
-	ConnectionInfo = ConnectInfo;
 	if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
 	{
 		GameInstance->JoinSession(false);

@@ -13,21 +13,17 @@ struct FPartyPlayer
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	APlayerState* PlayerState;
-
-	UPROPERTY()
-	APlayerStand* PlayerStand;
 	
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	bool bIsHost;
 
 	UPROPERTY()
 	bool bIsReady;
 
-	FPartyPlayer(APlayerState* PlayerState, APlayerStand* PlayerStand, bool bIsHost)
+	FPartyPlayer(APlayerState* PlayerState, bool bIsHost)
 		: PlayerState(PlayerState),
-		  PlayerStand(PlayerStand),
 		  bIsHost(bIsHost)
 	{
 	}
@@ -48,12 +44,16 @@ public:
 
 	UFUNCTION()
 	void OnRep_PartyPlayers();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdatePlayers();
 	
-	virtual void AddPlayer(APlayerController* PlayerController, APlayerStand* PlayerStand);
+	virtual void AddPlayer(APlayerController* PlayerController);
 	virtual void RemovePlayer(APlayerController* PlayerController);
 
 	void UpdatePlayerReadyStatus(APlayerState* PlayerState, bool bReady);
-	
+
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE FPartyPlayer GetLocalPartyPlayer() const
 	{
 		FPartyPlayer LocalPlayer = {};
@@ -61,6 +61,22 @@ public:
 		for(int32 i = 0; i < PartyPlayers.Num(); i++)
 		{
 			if(PartyPlayers[i].PlayerState == UGameplayStatics::GetPlayerController(GetWorld(), 0)->PlayerState)
+			{
+				LocalPlayer = PartyPlayers[i];
+			}
+		}
+
+		return LocalPlayer;
+	}
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE FPartyPlayer GetPartyPlayer(APlayerState* PlayerState) const
+	{
+		FPartyPlayer LocalPlayer = {};
+		
+		for(int32 i = 0; i < PartyPlayers.Num(); i++)
+		{
+			if(PartyPlayers[i].PlayerState == PlayerState)
 			{
 				LocalPlayer = PartyPlayers[i];
 			}

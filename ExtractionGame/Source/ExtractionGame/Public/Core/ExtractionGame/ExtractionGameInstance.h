@@ -149,7 +149,11 @@ public:
 	
 	UFUNCTION(Exec)
 	void SetWantsToHost(bool bWantsToHost);
-	
+
+	UFUNCTION(BlueprintCallable)
+	void ConnectToCurrentlySavedSession();
+
+	FString SavedAddress;
 
 	UFUNCTION(BlueprintImplementableEvent) void ShowLoadingScreen();
 
@@ -208,7 +212,6 @@ protected:
 	void OnTravelError(UWorld* World, ETravelFailure::Type FailureType, const FString & ErrorString);
 
 
-	
 private:
 	void CreateSession(int32 PlayerCount);
 	void GetPlayerData(FString FileName);

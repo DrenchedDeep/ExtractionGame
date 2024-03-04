@@ -38,7 +38,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	}
 
 
-	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu?listen");
+	UGameplayStatics::OpenLevel(GetWorld(), "LVL_Entry");
 }
 
 void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FString& PlayerName)

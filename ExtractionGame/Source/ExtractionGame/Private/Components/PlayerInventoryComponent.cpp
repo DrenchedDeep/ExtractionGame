@@ -30,6 +30,7 @@ void UPlayerInventoryComponent::InitStartingItems()
 
 		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Adding Gem"));
 			Server_AddGemRaw(Gem.Value, Gem.Key);
 		}
 	}
@@ -137,7 +138,7 @@ void UPlayerInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME_CONDITION(UPlayerInventoryComponent, GemItems, COND_OwnerOnly);
+	DOREPLIFETIME(UPlayerInventoryComponent, GemItems);
 }
 
 void UPlayerInventoryComponent::OnRep_GemItems()

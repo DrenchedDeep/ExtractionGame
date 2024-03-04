@@ -1,5 +1,6 @@
 #include "Core/MainMenu/MainMenuGameModeBase.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "Core/ExtractionGame/ExtractionGameState.h"
 #include "GameFramework/GameState.h"
 #include "GameFramework/PlayerState.h"
 #include "Kismet/GameplayStatics.h"
@@ -10,15 +11,8 @@ AMainMenuGameModeBase::AMainMenuGameModeBase()
 }
 
 void AMainMenuGameModeBase::SetupMemberModel(APlayerState* PlayerState, const FString& Username)
-{	
-	for(int32 i = 0; i < PlayerStands.Num(); i++)
-	{
-		if(PlayerState == PlayerStands[i]->OwningClient)
-		{
-			PlayerStands[i]->Username = Username;
-			PlayerStands[i]->OnRep_Username();
-		}
-	}
+{
+	PlayerState->SetPlayerName(Username);
 }
 
 void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
@@ -27,65 +21,59 @@ void AMainMenuGameModeBase::PostLogin(APlayerController* NewPlayer)
 
 	if(!PartyManager)
 	{
-		PartyManager = GetWorld()->SpawnActor<APartyManager>();
+		PartyManager = GetWorld()->SpawnActor<APartyManager>(PartyManagerClass);
 
 		if(AMainMenuGameState* MainMenuGameState = Cast<AMainMenuGameState>(GameState))
 		{
 			MainMenuGameState->PartyManager = PartyManager;
 		}
 	}
-	
-	if(PlayerStands.Num() <= 0)
+
+	UE_LOG(LogTemp, Warning, TEXT("PostLogin"));
+	if(SpaceShips.Num() <= 0)
 	{
 		TArray<AActor*> Stands;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStand::StaticClass(),Stands);
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMainMenuSpaceShip::StaticClass(),Stands);
 
 		for(auto Stand : Stands)
 		{
-			APlayerStand* PlayerStand = Cast<APlayerStand>(Stand);
-			PlayerStands.Add(PlayerStand);
+			AMainMenuSpaceShip* PlayerStand = Cast<AMainMenuSpaceShip>(Stand);
+			SpaceShips.Add(PlayerStand);
+			UE_LOG(	LogTemp, Warning, TEXT("Added Stand"));
 		}
 	}
 
-	for(int32 i = 0; i < PlayerStands.Num(); i++)
+	for(int32 i = 0; i < SpaceShips.Num(); i++)
 	{
-		if(PlayerStands[i]->bIsOccupied)
+		if(SpaceShips[i]->bHasPlayer)
 		{
 			continue;
 		}
 
-		PlayerStands[i]->bIsOccupied = true;
-		PlayerStands[i]->OwningClient = NewPlayer->PlayerState;
-		PlayerStands[i]->SetOwner(NewPlayer);
+		UE_LOG(	LogTemp, Warning, TEXT("Added 2"));
 
-		//we call on rep here because its not automatically called on server, and since parties are player hosted the server needs to see when a client joins
-		PlayerStands[i]->OnRep_IsOccupied();
-		PlayerStands[i]->OnRep_Username();
-		PartyManager->AddPlayer(NewPlayer, PlayerStands[i]);
+		SpaceShips[i]->bHasPlayer = true;
+		SpaceShips[i]->SetOwner(NewPlayer->PlayerState);
 		break;
 	}
+
+	PartyManager->AddPlayer(NewPlayer);
 }
 
 void AMainMenuGameModeBase::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 
-	for(int32 i = 0; i < PlayerStands.Num(); i++)
+	AMainMenuGameState* MainMenuGameState = Cast<AMainMenuGameState>(GameState);
+	if(MainMenuGameState && MainMenuGameState->bIsConnectingToGameSession && MainMenuGameState->ConnectionInfo.bIsValid)
 	{
-		if(!PlayerStands[i]->OwningClient)
+		if(MainMenuGameState->PlayerArray.Num() <= 1)
 		{
-			continue;
-		}
-		
-		if(Exiting == PlayerStands[i]->OwningClient->GetOwningController())
-		{
-			PlayerStands[i]->bIsOccupied = false;
-			PlayerStands[i]->OwningClient = nullptr;
-			PlayerStands[i]->Username = "";
-			
-			PlayerStands[i]->OnRep_IsOccupied();
-			PlayerStands[i]->OnRep_Username();
-			break;
+			if(UExtractionGameInstance* ExtractionGameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
+			{
+				ExtractionGameInstance->JoinSession(false);
+				UE_LOG(LogTemp, Warning, TEXT("host is tryna join"));
+			}
 		}
 	}
 }

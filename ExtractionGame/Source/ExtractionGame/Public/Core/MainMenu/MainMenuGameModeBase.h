@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MainMenuSpaceShip.h"
 #include "Core/Managers/PartyManager.h"
 #include "PlayerStand.h"
 #include "GameFramework/GameModeBase.h"
@@ -14,8 +15,12 @@ class EXTRACTIONGAME_API AMainMenuGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
+	
 	UPROPERTY()
-	TArray<APlayerStand*> PlayerStands;
+	TArray<AMainMenuSpaceShip*> SpaceShips;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<APartyManager> PartyManagerClass;
 
 public:
 	AMainMenuGameModeBase();

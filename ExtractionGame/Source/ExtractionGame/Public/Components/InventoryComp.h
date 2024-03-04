@@ -18,7 +18,13 @@ enum EItemStat
 	ET_Heal,
 	ET_Poison,
 	ET_Misc,
-	ET_SpeedBoost
+	ET_SpeedBoost,
+	ET_Speed,
+	ET_Damage,
+	ET_AOEDamage,
+	ET_SpeedDebuff,
+	ET_FireRate,
+	ET_Ammo
 };
 
 USTRUCT(BlueprintType)

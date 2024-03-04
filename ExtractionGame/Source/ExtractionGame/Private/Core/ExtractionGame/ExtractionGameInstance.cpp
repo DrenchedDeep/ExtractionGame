@@ -290,6 +290,8 @@ void UExtractionGameInstance::JoinSession(bool bCreateSession)
 		DestroySession();
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("Joining Session"));
+
 	TSharedRef<FOnlineSessionSearch> SessionSearch = MakeShared<FOnlineSessionSearch>();
 	
 	SessionSearch->MaxSearchResults = 20;
@@ -389,6 +391,11 @@ bool UExtractionGameInstance::ProcessConsoleExec(const TCHAR* Cmd, FOutputDevice
 
 void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool bWasSuccess)
 {
+	if(CurrentSession)
+	{
+		DestroySession();
+	}
+	
 	CurrentSession = Session->GetNamedSession(SessionName);
 
 	if(!CurrentSession || !bWasSuccess)
@@ -441,17 +448,28 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 	if(Result == EOnJoinSessionCompleteResult::Success)
 	{
 		CurrentSession = Session->GetNamedSession(SessionName);
-
-		if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+		FString ServerAddress;
+		Session->GetResolvedConnectString(SessionName, ServerAddress);
+		SavedAddress = ServerAddress;
+		
+		for(auto& Pair : CurrentSession->SessionSettings.Settings)
 		{
-			ShowLoadingScreen();
-
-			FString ServerAddress;
-			Session->GetResolvedConnectString(SessionName, ServerAddress);
-			OnJoinSessionComplete.Broadcast(true);
-
-			PlayerController->ClientTravel(ServerAddress, ETravelType::TRAVEL_Absolute);
+			FString Key = Pair.Key.ToString();
+			FString Value = Pair.Value.Data.ToString();
+			if(Key == "SEARCHKEYWORDS")
+			{
+				if(Value == "PartyLOBBY")
+				{
+					ShowLoadingScreen();
+					ConnectToCurrentlySavedSession();
+					CurrentLobby = Session->GetNamedSession(SessionName);
+				}
+			}
+			
+			UE_LOG(LogTemp, Warning, TEXT("Key: %s, Value: %s"), *Pair.Key.ToString(), *Pair.Value.Data.ToString());
 		}
+		
+		OnJoinSessionComplete.Broadcast(true);
 	}
 	else
 	{
@@ -462,20 +480,6 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 
 void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRef<FOnlineSessionSearch> Search)
 {
-	//first problem:
-	/*/ when a host crashes, the session is still there, but the host is gone therefore terminating the listen server, but doesnt destroy session so it shows up in findsession
-	 * 2nd problem:
-	 * clients need to wait for the host to create the session, then join it, so if they all hit accept match at once, they will all create their own sessions
-	 */
-
-
-
-	/*/
-	 *  if there are no servers to join, throw players into a matchmaking lobby instead of immediatly creating a session
-	 *  matchmaking lobby will wait till filled up, then create a session based on the best host and send all players to the session
-	 */
-
-
 	bCurrentlyFindingSessions = false;
 	AMainMenuGameState* MenuGameState = Cast<AMainMenuGameState>(GetWorld()->GetGameState());
 
@@ -490,22 +494,26 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 		if(MenuGameState->PartyManager->GetLocalPartyPlayer().bIsHost)
 		{
 			JoinSession(false);
-		}
-		
+		} 
 		return;
 	}
-
+	
 	if(bWasSuccess)
 	{
 		if(MenuGameState->PartyManager->GetLocalPartyPlayer().bIsHost)
 		{
 			FOnlineSessionSearchResult SearchResult = GetBestSession(Search);
-
+			
 			if(SearchResult.IsSessionInfoValid())
 			{
+				if(MenuGameState->bIsConnectingToGameSession && MenuGameState->PlayerArray.Num() <= 1)
+				{
+					const FName SessionName =  FName(SearchResult.GetSessionIdStr());
+					Session->JoinSession(0, SessionName, SearchResult);
+				}
+				//if the party is only one person or the host is sending the clients the connection info
 				if(MenuGameState->PartyManager->PartyPlayers.Num() <= 1)
 				{
-					//if were the party host, just join directly
 					const FName SessionName =  FName(SearchResult.GetSessionIdStr());
 					Session->JoinSession(0, SessionName, SearchResult);
 				}
@@ -513,6 +521,7 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 				{
 					const FName SessionName = FName(SearchResult.GetSessionIdStr());
 
+					MenuGameState->bIsConnectingToGameSession = true;
 					FClientConnectionInfo ConnectInfo(true, SessionName);
 					MenuGameState->Multicast_JoinSession(ConnectInfo);
 				}
@@ -589,7 +598,7 @@ void UExtractionGameInstance::CreateLobby()
 	SessionSettings.bAllowJoinViaPresenceFriendsOnly = true;
 	SessionSettings.bAllowJoinViaPresence = true;
 	SessionSettings.bAntiCheatProtected = false;
-	SessionSettings.bUseLobbiesIfAvailable = true;
+	SessionSettings.bUseLobbiesIfAvailable = false;
 	SessionSettings.bAllowJoinInProgress = true;
 	SessionSettings.Set(SEARCH_KEYWORDS, FString("PartyLOBBY"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
  
@@ -648,6 +657,15 @@ bool UExtractionGameInstance::LogOut()
 void UExtractionGameInstance::SetWantsToHost(bool bWantsToHost)
 {
 	bHost = bWantsToHost;
+}
+
+void UExtractionGameInstance::ConnectToCurrentlySavedSession()
+{
+	if(APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+	{
+		PlayerController->ClientTravel(SavedAddress, ETravelType::TRAVEL_Absolute);
+		ShowLoadingScreen();
+	}
 }
 
 

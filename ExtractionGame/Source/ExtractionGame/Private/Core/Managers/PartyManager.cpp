@@ -15,23 +15,17 @@ APartyManager::APartyManager()
 
 void APartyManager::OnRep_PartyPlayers()
 {
-	for(int32 i = 0; i < PartyPlayers.Num(); i++)
-	{
-		if(PartyPlayers[i].PlayerStand)
-		{
-			PartyPlayers[i].PlayerStand->Validate(PartyPlayers[i]);
-		}
-	}
+	UpdatePlayers();
 }
 
-void APartyManager::AddPlayer(APlayerController* PlayerController, APlayerStand* PlayerStand)
+void APartyManager::AddPlayer(APlayerController* PlayerController)
 {
 	if(AlreadyHasPlayer(PlayerController->PlayerState) || !HasAuthority())
 	{
 		return; 
 	}
 
-	const FPartyPlayer Player(PlayerController->PlayerState, PlayerStand, PlayerController->IsLocalController());
+	const FPartyPlayer Player(PlayerController->PlayerState, PlayerController->IsLocalController());
 	PartyPlayers.Add(Player);
 	OnRep_PartyPlayers();
 }

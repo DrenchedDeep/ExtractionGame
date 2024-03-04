@@ -40,7 +40,7 @@ public:
 	
 	virtual void BeginPlay() override;
 
-	UPROPERTY(Replicated)
+	UPROPERTY(Replicated, BlueprintReadOnly)
 	APartyManager* PartyManager;
 
 	UPROPERTY()
@@ -51,10 +51,10 @@ public:
 
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_JoinSession(FClientConnectionInfo ConnectInfo);
-
 	
+	bool bIsConnectingToGameSession;
 
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	
+
 };
