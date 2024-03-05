@@ -52,9 +52,9 @@ UGemController::UGemController(): leftArmCooldown(nullptr), rightArmCooldown(nul
 }
 
 
-bool UGemController::CheckGem(EBodyPart slot)
+const AGem* UGemController::CheckGem(EBodyPart slot) 
 {
-	return *GetGemBySlot(slot) != nullptr;
+	return *GetGemBySlot(slot);
 }
 
 void UGemController::AddGem(EBodyPart slot, AGem* newGem)
@@ -81,7 +81,7 @@ void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPar
 	}
 }
 
-void UGemController::CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlotID)
+void UGemController::CreateGem(const UItemObject* Item, EBodyPart BodyPart, int GemSlotID)
 {
 	//Is this when a gem is dropped?
 	AGem* Gem = GetWorld()->SpawnActor<AGem>();
@@ -138,18 +138,31 @@ void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 
 void UGemController::OnRep_HeadGem()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Head Gem Equipped...")) // What info can we extract,
+	//OnHeadUpdated();
+	OnHeadChanged.Broadcast();
 }
 
 void UGemController::OnRep_ChestGem()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Chest Gem Equipped...")) // What info can we extract,
+	//OnRightArmUpdated();
+	OnChestChanged.Broadcast();
 }
 
 void UGemController::OnRep_LeftArmGems()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Left Arms Updated... ")) // What info can we extract,
+	//OnLeftArmUpdated();
+	OnLeftArmChanged.Broadcast();
 }
 
 void UGemController::OnRep_RightArmGems()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Right Arms Updated... ")) // What info can we extract,
+	//OnRightArmUpdated();
+	OnRightArmChanged.Broadcast();
+	//The easiest thing we can do, is make this exposed to blueprints, and then apply the proper texture to each gem.
 }
 
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
@@ -186,7 +199,10 @@ void UGemController::SmartRecompileGems_Implementation()
 		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK HEAD"))
 
 		//HeadAbilityAction = Ch->HeadAbilityAction;
-		Character->GetAbilitySystemComponent()->ClearAbility(HeadAbilitySpecHandle);
+		//HeadEffectHandle.Clear();
+		Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(HeadEffectHandle);
+		//HeadEffectHandle.Clear();
+		//Character->GetAbilitySystemComponent()->ClearAbility(HeadAbilitySpecHandle);
 		RecompileHead();
 	}
 	if((val & BodyFlag) != 0)
@@ -253,7 +269,7 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(UGemController, LeftArmAbilitySpecHandle);
 	DOREPLIFETIME(UGemController, RightArmAbilitySpecHandle);
-	DOREPLIFETIME(UGemController, HeadAbilitySpecHandle);
+	//DOREPLIFETIME(UGemController, HeadAbilitySpecHandle);
 	DOREPLIFETIME(UGemController, HeadGem);
 	DOREPLIFETIME(UGemController, ChestGem);
 	DOREPLIFETIME(UGemController, leftGems);
@@ -278,16 +294,16 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	{
 		if(!gem) continue;
 		switch (gem->GetGemType()) {
-		case EGemType::Earth:
+		case Earth:
 			type [0]+=gem->GetPolish();
 			break;
-		case EGemType::Fire:
+		case Fire:
 			type [1]+=gem->GetPolish();
 			break;
-		case EGemType::Shadow:
+		case Shadow:
 			type [2]+=gem->GetPolish();
 			break;
-		case EGemType::Water:
+		case Water:
 			type [3]+=gem->GetPolish();
 			break;
 		}
@@ -319,7 +335,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	}
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, totalPolish, -1, Character);
 
-	UE_LOG(LogTemp, Warning, TEXT("Ability: %d"), ability);
+	UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d"), bIsLeft, ability);
 	//if(GetOwner()->HasAuthority())
 	//{
 	UPlayerBarDataWidget* hud =GetHUDElement();
@@ -332,26 +348,28 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		if(hud) hud->SetRightGems(rightGems);;
+		if(hud) hud->SetRightGems(rightGems);
 	}
 	//}
 }
 
 void UGemController::RecompileHead()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Recomp Head in code is head null? %d"), HeadGem == nullptr);
 	if(!HeadGem) return;
 	const int val = HeadGem->GetPolish();
-	int Score;
+	int Score = 1;
 	
 	if(val >= 150) Score = 3;
 	else if(val >= 75) Score = 2;
-	else return;
 	
-	Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
-	UE_LOG(LogTemp, Warning, TEXT("Ability: %d, %d"), Score, val);
-	const FAbilityStruct InAbilityClass = SubSystem->GetAbilityByIndex(Score);
-	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, val, -1, Character);
-	HeadAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
+	//Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
+	Score =  Score << (6-(static_cast<int>(HeadGem->GetGemType())*2));//(Score << (6 - static_cast<int>(HeadGem->GetGemType()) * 2));
+	//Earth 1,2,4
+	UE_LOG(LogTemp, Warning, TEXT("Head Ability: %d, %d"), Score, val);
+	const TSubclassOf<UGameplayEffect> effect = SubSystem->GetEffectByIndex(Score);
+	//const FGameplayAbilitySpec EffectSpec(effect, val, -1, Character);
+	ApplyEffect(&HeadEffectHandle,effect, val);
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
 	hud->SetHeadGems(HeadGem);

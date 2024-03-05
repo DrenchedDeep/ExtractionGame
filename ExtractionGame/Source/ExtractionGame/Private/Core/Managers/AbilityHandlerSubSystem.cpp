@@ -1,5 +1,4 @@
 #include "Core/Managers/AbilityHandlerSubSystem.h"
-#include "Core/ExtractionGame/Gem.h"
 #include "Abilities/GameplayAbility.h"
 
 void UAbilityHandlerSubSystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -32,6 +31,25 @@ FAbilityStruct UAbilityHandlerSubSystem::GetAbilityByIndex(int32 Index)
 	// Handle the case where the index is not found
 	return FAbilityStruct();
 }
+
+TSubclassOf<UGameplayEffect> UAbilityHandlerSubSystem::GetEffectByIndex(int32 Index)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Map count: %d, find: %d"),EffectMap.Num(),Index);
+
+	if(EffectMap.Num() == 0) return nullptr;
+	if(!EffectMap.Contains(Index))
+	{
+		UE_LOG(LogTemp, Error, TEXT("INVALID COMBO: %d"), Index)
+		return *EffectMap.Find(0);
+	}
+	if (const TSubclassOf<UGameplayEffect> FoundObject = *EffectMap.Find(Index))
+	{
+		return FoundObject;
+	}
+	// Handle the case where the index is not found
+	return nullptr;
+}
+
 /*
 UTexture2D* UAbilityHandlerSubSystem::GetGemSprite(const AGem* gem)
 {
@@ -95,7 +113,24 @@ void UAbilityHandlerSubSystem::AddAbilityToMap(int32 Index,FAbilityStruct Object
 	ObjectMap.Add(Index, Object);
 }
 
+void UAbilityHandlerSubSystem::AddEffectToMap(int32 Index, TSubclassOf<UGameplayEffect> Object)
+{
+#if UE_EDITOR
+	if(EffectMap.Contains(Index))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Key collision: %d"),  Index);
+		return;
+	}
+#endif
+	EffectMap.Add(Index, Object);
+}
+
 bool UAbilityHandlerSubSystem::ContainsAbility(int index) const
 {
 	return ObjectMap.Contains(index);
+}
+
+bool UAbilityHandlerSubSystem::ContainsEffect(int index) const
+{
+	return EffectMap.Contains(index);
 }

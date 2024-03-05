@@ -29,6 +29,9 @@ enum  EBodyPart : uint8
 	RightArm2 = 128 UMETA(DisplayName = "RightArm2")
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReplicateGemChangeEvent);
+
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EXTRACTIONGAME_API UGemController : public UActorComponent 
 {
@@ -43,7 +46,12 @@ class EXTRACTIONGAME_API UGemController : public UActorComponent
 	FTimerHandle* leftArmCooldown;
 	FTimerHandle* rightArmCooldown;
 
-	
+	UPROPERTY(BlueprintAssignable, Category="Gem Changes")FReplicateGemChangeEvent OnHeadChanged;
+	UPROPERTY(BlueprintAssignable, Category="Gem Changes")FReplicateGemChangeEvent OnLeftArmChanged;
+	UPROPERTY(BlueprintAssignable, Category="Gem Changes")FReplicateGemChangeEvent OnRightArmChanged;
+	UPROPERTY(BlueprintAssignable, Category="Gem Changes")FReplicateGemChangeEvent OnChestChanged;
+
+
 	
 	FDelegateHandle OnEarthManaChangedHandle;
 	FDelegateHandle OnFireManaChangedHandle;
@@ -93,8 +101,8 @@ public:
 	FGameplayAbilitySpecHandle LeftArmAbilitySpecHandle;
 	UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
 	FGameplayAbilitySpecHandle RightArmAbilitySpecHandle;
-	UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
-	FGameplayAbilitySpecHandle HeadAbilitySpecHandle;
+	//UPROPERTY(Replicated, BlueprintReadOnly, Category="Gems Abilites")
+	//FGameplayAbilitySpecHandle HeadAbilitySpecHandle;
 
 	UPROPERTY(ReplicatedUsing=OnRep_HeadGem, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	AGem* HeadGem;
@@ -116,12 +124,13 @@ public:
 
 	FActiveGameplayEffectHandle ManaRegenHandle;
 	FActiveGameplayEffectHandle ManaPoolHandle;
+	FActiveGameplayEffectHandle HeadEffectHandle;
 
 	UPROPERTY(Transient)AExtractionGameCharacter* Character;
 	UPROPERTY(Transient)UPlayerBarDataWidget* PlayerBarsWidget;
 	
-	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. Returns false if slot is already filled"))
-	bool CheckGem(EBodyPart slot);
+	UFUNCTION(BlueprintPure, BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. Returns false if slot is already filled"))
+	const AGem* CheckGem(EBodyPart slot);
 	
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. WARNING: will delete gems if not handled properly"))
 	void AddGem(EBodyPart slot, AGem* newGem);
@@ -134,7 +143,7 @@ public:
 	UFUNCTION(Client, Reliable)
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 
-	void CreateGem(UItemObject* Item, EBodyPart BodyPart, int GemSlotID);
+	void CreateGem(const UItemObject* Item, EBodyPart BodyPart, int GemSlotID);
 	//UFUNCTION(Server, Reliable)
 	//void Server_LazyRecompileGems();
 	UFUNCTION(Server, Reliable)
@@ -178,10 +187,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	EBodyPart GetNextAvaliableArmGemSlot(bool bIsLeft) const;
 
-
 	UFUNCTION(BlueprintCallable)
 	int32 GetArmGemCount(bool bIsLeft) const;
-	
+
 protected:
 	
 	//virtual void InitializeComponent() override;
@@ -199,6 +207,7 @@ protected:
 	
 private:
 	void RecompileArm(TArray<AGem*> arm, bool bIsLeft);
+	UFUNCTION()
 	void RecompileHead();
 	void RecompileChest();
 

@@ -151,6 +151,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnInventoryOpened();
 
+	
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnInventoryClosed();
 
