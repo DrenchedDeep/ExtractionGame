@@ -135,7 +135,7 @@ void ASpaceShip::BeginPlay()
 	}
 	else
 	{
-		MoveToWorldSpawn();
+//		MoveToWorldSpawn();
 	}
 }
 void ASpaceShip::OnLook(const FInputActionValue& Value)
@@ -208,31 +208,25 @@ void ASpaceShip::MoveToWorldSpawn()
 	const FVector SpawnPoint(FMath::Cos(angle) * distance,FMath::Sin(angle) * distance,height);
 	const FRotator Rotation(0,FMath::RadiansToDegrees(angle),0);
 
-	SetActorLocationAndRotation(SpawnPoint, Rotation, false);
+	//SetActorLocationAndRotation(SpawnPoint, Rotation, false);
 }
 
 
 void ASpaceShip::PostLoad()
 {
 	Super::PostLoad();
-	UE_LOG(LogTemp, Warning, TEXT("Loading ship, is it crashed? %d" ), isCrashed)
-
-	
 }
 
 // Called every frame
 void ASpaceShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//TODO: On crash disable tick.
-	
 	
 	const float dt = GetWorld()->DeltaTimeSeconds;
 	const FVector newLocation = GetActorLocation() + GetActorUpVector() * (-currentSpeed * dt);
 	FHitResult hit;
 	if(!movementDirection.IsNearlyZero())
 	{
-
 		FRotator r = GetActorRotation();
 		
 		const float yaw = movementDirection.X * rotationSpeed * dt;

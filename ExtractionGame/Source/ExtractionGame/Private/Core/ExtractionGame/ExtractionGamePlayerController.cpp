@@ -41,6 +41,16 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_Entry");
 }
 
+void AExtractionGamePlayerController::Server_SendPartyInfo_Implementation(FPartyInfo Party)
+{
+	UE_LOG(LogTemp, Warning, TEXT("yay"));
+
+	if(AExtractionGameGameMode* GameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		GameMode->OnPartyInfoRecieved(this, Party);
+	}
+}
+
 void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FString& PlayerName)
 {
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
@@ -332,12 +342,25 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 void AExtractionGamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	if(!HasAuthority()) return;
-	
-	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
-	Server_SetName(GameInstance->GetPlayerUsername());
-	//Server_SetName(PlayerState->GetPlayerName());
-	StartPlayTime = GetWorld()->GetTimeSeconds();
+	if(HasAuthority())
+	{
+		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+		Server_SetName(GameInstance->GetPlayerUsername());
+		//Server_SetName(PlayerState->GetPlayerName());
+		StartPlayTime = GetWorld()->GetTimeSeconds();
+	}
+
+	if(IsLocalController())
+	{
+		FPartyInfo PartyInfo = Cast<UExtractionGameInstance>(GetGameInstance())->PartyInfo;
+
+		UE_LOG(LogTemp, Warning, TEXT("Party info recieved"));
+		if(PartyInfo.bIsValid)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("valid"));
+			Server_SendPartyInfo(PartyInfo);
+		}
+	}
 }
 
 void AExtractionGamePlayerController::Server_StartExtraction_Implementation(AExtractionBeacon* Beacon)

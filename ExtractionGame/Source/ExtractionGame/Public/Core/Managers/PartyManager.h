@@ -42,6 +42,9 @@ public:
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing=OnRep_PartyPlayers, BlueprintReadOnly)
 	TArray<FPartyPlayer> PartyPlayers;
 
+	UPROPERTY(Replicated)
+	int32 PartyID;
+	
 	UFUNCTION()
 	void OnRep_PartyPlayers();
 
@@ -89,6 +92,7 @@ public:
 	
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void BeginPlay() override;
 	
 	FORCEINLINE bool AlreadyHasPlayer(const APlayerState* PlayerState)
 	{

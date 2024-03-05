@@ -42,14 +42,19 @@ const UMapInfo* UExtractionGameInstance::GetMapInfo()
 
 void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
-	FPlayerSessionData PlayerData(true, PlayerItems, GemItems);
+	const FPlayerSessionData PlayerData(true, PlayerItems, GemItems);
 	PlayerSessionData = PlayerData;
+}
+
+void UExtractionGameInstance::BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID)
+{
+	const FPartyInfo TempPartyInfo(true, TeamID, PlayerNames);
+	PartyInfo = TempPartyInfo;
 }
 
 void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime)
 {
 	const FPlayerRaidResult RaidResult(true, bSurvived, PlayTime);
-
 	PlayerRaidResult = RaidResult;
 }
 
@@ -362,18 +367,6 @@ void UExtractionGameInstance::GetPlayerData(FString FileName)
 		TArray<uint8> FileContents;
 		UserCloud->GetFileContents(*UserIDRef, FileName, FileContents);
 		GetFileCompleteDelegate.Broadcast(FileName, FileContents);
-	}
-}
-
-void UExtractionGameInstance::SetQuestAsComplete(int32 QuestID)
-{
-	for(int32 i = 0; i < PlayerQuests.Num(); i++)
-	{
-		const int32 ArrayQuestID = PlayerQuests[i].QuestID;
-		if(QuestID == ArrayQuestID)
-		{
-			PlayerQuests[i].bIsComplete = true;
-		}
 	}
 }
 

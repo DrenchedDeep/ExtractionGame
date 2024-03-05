@@ -8,6 +8,7 @@
 #include "Items/ItemActor.h"
 #include "ExtractionGamePlayerController.generated.h"
 
+struct FPartyInfo;
 class UInputMappingContext;
 
 /**
@@ -38,7 +39,8 @@ public:
 	virtual void Client_OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
 	UFUNCTION(Server, Reliable)
 	void Server_PickupItem(AItemActor* ItemActor);
-
+	UFUNCTION(Server, Reliable)
+	void Server_SendPartyInfo(FPartyInfo Party);
 	UFUNCTION(Unreliable, Client)
 	void Client_EnteredExtractionBeacon(AExtractionBeacon* Beacon);
 	UFUNCTION(Unreliable, Client)

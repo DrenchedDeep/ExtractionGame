@@ -12,7 +12,6 @@
 #include "Core/Managers/PoolHandlerSubSystem.h"
 #include "Core/Other/MapInfo.h"
 #include "Managers/CommandHandlerSubsystem.h"
-#include "Quests/QuestStatics.h"
 #include "ExtractionGameInstance.generated.h"
 
 UDELEGATE()
@@ -68,6 +67,28 @@ struct FPlayerSessionData
 };
 
 USTRUCT(BlueprintType)
+struct FPartyInfo
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsValid;
+	UPROPERTY(BlueprintReadOnly)
+	int32 PartyID;
+	UPROPERTY(BlueprintReadOnly)
+	TArray<FString> PlayerNames;
+
+	FPartyInfo(bool bIsValid, int32 PartyID, const TArray<FString>& PlayerNames)
+		: bIsValid(bIsValid),
+		  PartyID(PartyID),
+		  PlayerNames(PlayerNames)
+	{
+	}
+
+	FPartyInfo() = default;
+};
+
+USTRUCT(BlueprintType)
 struct FPlayerRaidResult
 {
 	GENERATED_BODY()
@@ -87,17 +108,6 @@ struct FPlayerRaidResult
 	}
 
 	FPlayerRaidResult() = default;
-};
-
-USTRUCT(BlueprintType)
-struct FPlayerQuestData
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadOnly)
-	bool bIsComplete;
-	UPROPERTY(BlueprintReadOnly)
-	int32 QuestID;
 };
 
 
@@ -133,9 +143,11 @@ public:
 	FPlayerSessionData PlayerSessionData;
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerRaidResult PlayerRaidResult;
-	
+	UPROPERTY(BlueprintReadOnly)
+	FPartyInfo PartyInfo;
 
 	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
+	void BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID);
 	void OnRaidOver(bool bSurvived, float PlayTime);
 
 	void StartSession();
@@ -262,19 +274,6 @@ private:
 			default: return "Unknown Network Failure";
 		}
 	}
-
-
-	//quests
-public:
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	TArray<FPlayerQuestData> GetPlayerQuests() const { return PlayerQuests; }
-
-
-	void SetQuestAsComplete(int32 QuestID);
-	
-private:
-	UPROPERTY()
-	TArray<FPlayerQuestData> PlayerQuests;
 };
 
 
