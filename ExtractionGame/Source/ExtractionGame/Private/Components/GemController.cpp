@@ -181,7 +181,7 @@ void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassO
 }
 
 
-void UGemController::SmartRecompileGems_Implementation()
+void UGemController::SmartRecompileGems_Implementation(bool forceRefresh = false)
 {
 	
 	//if(!GetOwner()->HasAuthority()) return; Not needed, is already a server only function.
@@ -192,7 +192,8 @@ void UGemController::SmartRecompileGems_Implementation()
 	//Character->GetAbilitySystemComponent() = Ch->Character->GetAbilitySystemComponent();
 	//}
 	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP START"))
-	const int val = dirtyFlags;
+	
+	const int val = forceRefresh?255:dirtyFlags;
 	dirtyFlags = None;
 	if((val & HeadFlag) != 0)
 	{
@@ -244,7 +245,7 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 	//if(const AExtractionGetHUDElement()* hud = Cast<AExtractionGetHUDElement()>(Character->GetController<AExtractionGamePlayerController>()->GetHUD()))
 	//	GetHUDElement() = hud->PlayerUIData;
 	SubSystem = Character->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
-	dirtyFlags = 255;
+	//dirtyFlags = 255;
 	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
 	
 	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
@@ -334,22 +335,28 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 			totalPolish = -1;
 	}
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, totalPolish, -1, Character);
-
 	UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d"), bIsLeft, ability);
 	//if(GetOwner()->HasAuthority())
 	//{
 	UPlayerBarDataWidget* hud =GetHUDElement();
+
+	
+	
 	Sadness(bIsLeft, InAbilityClass.bIsFullyAuto);
 	if(bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 		if(hud) hud->SetLeftGems(leftGems);
+		if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 		if(hud) hud->SetRightGems(rightGems);
+		if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
+
+	
 	//}
 }
 

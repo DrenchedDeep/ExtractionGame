@@ -112,7 +112,7 @@ void AExtractionGameCharacter::BeginPlay()
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 
-
+	GemController->SmartRecompileGems(true);
 	
 }
 
@@ -256,7 +256,7 @@ void AExtractionGameCharacter::OnRep_Controller()
 	Super::OnRep_Controller();
 	//SafeBeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller Has authority: %hhd"), HasAuthority())
-	GemController->SmartRecompileGems();
+	//GemController->SmartRecompileGems();
 
 	if(IsLocallyControlled())
 	{

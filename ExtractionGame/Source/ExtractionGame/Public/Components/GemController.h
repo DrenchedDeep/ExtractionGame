@@ -91,7 +91,7 @@ class EXTRACTIONGAME_API UGemController : public UActorComponent
 	UPROPERTY()
 	UInputAction* HeadAbilityAction;
 
-	int dirtyFlags;
+	int dirtyFlags = 255;
 
 	
 public:	
@@ -152,7 +152,7 @@ public:
 	void Server_RemoveGem(EBodyPart slot);
 
 	UFUNCTION(Server, Reliable)
-	void SmartRecompileGems();
+	void SmartRecompileGems(bool forceRefresh = false);
 
 	
 
