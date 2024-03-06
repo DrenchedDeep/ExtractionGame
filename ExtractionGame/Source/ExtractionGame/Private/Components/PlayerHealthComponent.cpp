@@ -175,7 +175,7 @@ void UPlayerHealthComponent::Initialize(const AExtractionGameHUD* hud)
 	}
 }
 
-bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instigator)
+bool UPlayerHealthComponent::ApplyDamage(float Damage, AController* Instigator)
 {
 	if(!bCanTakeDamage)
 	{
@@ -196,6 +196,21 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, const AController* Instig
 
 
 	/*/
+
+	if(Character)
+	{
+		if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Instigator))
+		{
+			TArray<APawn*> PartyPlayers = PC->GetPartyMemberPawns();
+			for(const APawn* PartyPlayer : PartyPlayers)
+			{
+				if(PartyPlayer == Character)
+				{
+					return false;
+				}
+			}
+		}
+	}
 
 
 	if(Instigator && Instigator->GetPawn())

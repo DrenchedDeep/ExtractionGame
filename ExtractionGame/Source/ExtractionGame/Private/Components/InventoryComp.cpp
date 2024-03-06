@@ -92,12 +92,10 @@ void UInventoryComp::TickComponent(float DeltaTime, ELevelTick TickType,
 	FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 	if(Character && Character->IsLocallyControlled())
 	{
 		if(bIsDirty)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("bIsDirty"));
 			bIsDirty = false;
 			OnInventoryChanged.Broadcast();
 		}

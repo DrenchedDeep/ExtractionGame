@@ -23,16 +23,20 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 	TSubclassOf<ASpectatorPawn> SpectatorPawnSubclass;
 	UPROPERTY(EditDefaultsOnly)
 	float RespawnTimer = 5.f;
+	
+	
 	FTimerHandle RespawnTimerHandle;
 
 	UPROPERTY()
 	AActor* PlayerPawnActor;
 
-	
-
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void ReturnToLobby();
+	UFUNCTION(BlueprintCallable)
+	TArray<APawn*> GetPartyMemberPawns();
+
+	
 	UFUNCTION(Reliable, Client)
 	void Client_ReturnToLobby();
 	UFUNCTION(Reliable, Client)
@@ -54,6 +58,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float CurrentRespawnTimer;
 
+	UPROPERTY(BlueprintReadOnly)
+	int32 PartyID;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* PlayerControllerMapping;
@@ -66,12 +73,10 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void OnRep_PlayerState() override;
 	virtual void OnRep_Pawn() override;
-
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void Server_StartExtraction(AExtractionBeacon* Beacon);
-
 	UFUNCTION(Reliable, Client)
 	void Client_OnDeath(const FString& PlayerName);
 	UFUNCTION(Reliable, Client)
@@ -86,10 +91,10 @@ protected:
 	void OnEnteredExtractionBeacon(AExtractionBeacon* Beacon);
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnLeftExtractionBeacon();
+
 	
 //network clock
 private:
-
 	float ServerWorldTimeDelta = 0.f;
 	TArray<float> RTTCircularBuffer;
 protected:

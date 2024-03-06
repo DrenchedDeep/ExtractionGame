@@ -46,7 +46,7 @@ public:
 	virtual void OnDeath(const FString& PlayerName);
 
 	UFUNCTION(BlueprintCallable)
-	virtual bool ApplyDamage(float Damage, const AController* Instigator);
+	virtual bool ApplyDamage(float Damage, AController* Instigator);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
 	TSubclassOf<UGameplayEffect> HealthRegenEffect;

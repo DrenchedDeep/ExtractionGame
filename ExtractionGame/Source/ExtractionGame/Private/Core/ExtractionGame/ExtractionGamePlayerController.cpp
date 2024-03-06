@@ -41,13 +41,32 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	UGameplayStatics::OpenLevel(GetWorld(), "LVL_Entry");
 }
 
+TArray<APawn*> AExtractionGamePlayerController::GetPartyMemberPawns()
+{
+	AExtractionGameState* GameState = GetWorld()->GetGameState<AExtractionGameState>();
+	TArray<APawn*> PartyMembers;
+
+	if(GameState)
+	{
+		FReplicatedPartyInfo PartyInfo = GameState->GetPartyByID(PartyID);
+		for(APlayerState* PS : PartyInfo.PartyMembers)
+		{
+			if(PS->GetPawn())
+			{
+				PartyMembers.Add(PS->GetPawn());
+			}
+		}
+	}
+
+	return PartyMembers;
+}
+
 void AExtractionGamePlayerController::Server_SendPartyInfo_Implementation(FPartyInfo Party)
 {
-	UE_LOG(LogTemp, Warning, TEXT("yay"));
-
 	if(AExtractionGameGameMode* GameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		GameMode->OnPartyInfoRecieved(this, Party);
+		PartyID = Party.PartyID;
 	}
 }
 
@@ -75,7 +94,6 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 
 void AExtractionGamePlayerController::Client_SpawnItems_Implementation()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Client spawning items"));
 	if(const AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
 	{
 //		GameState->GetItemReplicationManager()->SpawnItems();
@@ -164,24 +182,19 @@ void AExtractionGamePlayerController::RespawnTick()
 		{
 			PlayerPawnActor->Destroy();
 		}
-		UE_LOG(LogTemp, Warning, TEXT("RESPAWNING PLAYER"))
 		if(ATDMGameMode* GameMode = Cast<ATDMGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			ATDMPlayerState* PS = Cast<ATDMPlayerState>(PlayerState);
 			GameMode->SpawnPlayer(this, PS->TeamID);
-			UE_LOG(LogTemp, Warning, TEXT("TDM RESPAWN"))
 
 		}
 		else if(const AExtractionGameGameMode* ExtractionGameGameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			ExtractionGameGameMode->RespawnShip(this,0);
-			UE_LOG(LogTemp, Warning, TEXT("EXTRACTION RESPAWN"))
 		}
 		
 		Client_Respawn();
 		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
-		UE_LOG(LogTemp, Warning, TEXT("RESPAWNING COMPLETE"))
-
 	}
 }
 
@@ -259,15 +272,6 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	//This is likely being called more than it needs to be, I changed it too, so hopefully it still works.
-	//UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
-	//Server_SetName(GameInstance->GetPlayerUsername());
-	
-	//It now depends on what we posses... Except this never actually happens in net mode..?
-	
-	UE_LOG(LogTemp, Warning, TEXT("On Possessed by Server: %hs"), (HasAuthority()?"true":"false"))
-	OnRep_Pawn();
-	//OnRep_PlayerState(); Why tf is is this here? -- Because if you are on standalone, or play as server.. These onReps are not needed in final?
 	
 }
 
@@ -294,7 +298,6 @@ void AExtractionGamePlayerController::GetLifetimeReplicatedProps(TArray<FLifetim
 void AExtractionGamePlayerController::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	UE_LOG(LogTemp,Warning,TEXT("OnRep_PlayerState, AUTH: %hhd"), HasAuthority())
 	//APawn* possessed = GetPawn();
 	//if(!possessed) return;
 }
@@ -302,38 +305,23 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 void AExtractionGamePlayerController::OnRep_Pawn()
 {
 	Super::OnRep_Pawn();
-	UE_LOG(LogTemp,Warning,TEXT("OnRep_Pawn, AUTH: %hhd"), HasAuthority())
 
 	APawn* NewPawn = GetPawn();
 	if(!NewPawn) return;
-	UE_LOG(LogTemp,Warning,TEXT("OnRep_Pawn, NAME: %s"), *NewPawn->GetName())
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		Subsystem->ClearAllMappings();
 		
-#if UE_EDITOR
-		if(NewPawn->IsA(ASpaceShip::StaticClass()))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Possessed a MOUNT pawn"))	
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Possessed a PLAYER pawn"))
-		}
-#endif
 		Subsystem->AddMappingContext(NewPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
 	}
 	
-	UE_LOG(LogTemp, Warning, TEXT("CONTROLLER: Possessed a: %s, is Server %hs"), *NewPawn->GetName(), (HasAuthority()?"true":"false"))
 
 	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(NewPawn))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Character Check Succeeded"))
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 		{
 			HUD->CreatePlayerBarDataWidget();
 		
-			UE_LOG(LogTemp, Warning, TEXT("PLAYER HUD BUILT"))
 			character->InitializeUIComponents(HUD);
 		}
 	}
@@ -354,11 +342,10 @@ void AExtractionGamePlayerController::BeginPlay()
 	{
 		FPartyInfo PartyInfo = Cast<UExtractionGameInstance>(GetGameInstance())->PartyInfo;
 
-		UE_LOG(LogTemp, Warning, TEXT("Party info recieved"));
 		if(PartyInfo.bIsValid)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("valid"));
 			Server_SendPartyInfo(PartyInfo);
+			PartyID = PartyInfo.PartyID;
 		}
 	}
 }

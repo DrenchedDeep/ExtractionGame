@@ -39,9 +39,13 @@ class AExtractionGameGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly)
-	bool bSkipShipSequence;
+	bool bSkipPartySequence;
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ASpaceShip> ShipClass;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AExtractionGameCharacter> PlayerClass;
+
+	
 	bool SessionCreated;
 
 public:

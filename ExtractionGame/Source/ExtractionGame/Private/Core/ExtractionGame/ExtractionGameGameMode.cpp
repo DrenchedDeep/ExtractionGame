@@ -5,6 +5,7 @@
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
+#include "Core/ExtractionGame/ExtractionGameState.h"
 #include "Core/ExtractionGame/SpaceShip.h"
 #include "Core/ExtractionGame/Spawnpoint.h"
 #include "Interfaces/OnlineSessionInterface.h"
@@ -22,6 +23,11 @@ void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	RegisterPlayerEOS(NewPlayer);
 
+	if(bSkipPartySequence)
+	{
+		RespawnShip(NewPlayer,0);
+	}
+
 	Super::PostLogin(NewPlayer);
 }
 
@@ -30,19 +36,16 @@ void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPa
 	int32 Index;
 	if(HasParty(PartyInfo.PartyID, Index) && AllParties.IsValidIndex(Index))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("party with id already found"));
 		AllParties[Index].Players.Add(Sender);
 
 		if(AllParties[Index].Players.Num() >= AllParties[Index].ExpectedPlayerCount)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("party is good to spawn"));
 			FVector Location;
 			FRotator Rotation;
 			GetPartySpawnLocation(Location, Rotation);
 			int32 I = 0;
 			for(auto Player : AllParties[Index].Players)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("spawnin for every player"));
 				SpawnShip(Player, Location, Rotation, I);
 				I++;
 			}
@@ -50,24 +53,27 @@ void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPa
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("making party"));
 		FInGameParty NewParty({Sender}, PartyInfo.PartyID, PartyInfo.PlayerNames.Num(), PartyInfo.PlayerNames.Num() == 1);
 		AllParties.Add(NewParty);
 
 		if(NewParty.bAllPlayersConnected)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("all players connected"));
 			FVector Location;
 			FRotator Rotation;
 			GetPartySpawnLocation(Location, Rotation);
 			int32 I = 0;
 			for(auto Player : AllParties[Index].Players)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("spawnin for every player 2"));
 				SpawnShip(Player, Location, Rotation, I);
 				I++;
 			}
 		}
+	}
+
+	AExtractionGameState* GS = GetGameState<AExtractionGameState>();
+	if(GS)
+	{
+		GS->UpdateParties(AllParties);
 	}
 }
 
