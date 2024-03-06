@@ -209,24 +209,9 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 void AExtractionGameCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
-	UE_LOG(LogTemp, Warning, TEXT("Possessed by %s, has Authority: %hhd"), *NewController->GetName(), HasAuthority());
-	//Server GAS initialization
-	/*
-	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
-	{
-		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
-		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		state->CreateStateFuncs();
-		GemController->SetAbilitySystem(AbilitySystemComponent);
-	}
-	GemPlayerState = Cast<AGemPlayerState>(NewController->PlayerState);
-	GemPlayerState->SetHealth(100.f); */
-	//GemController->SmartRecompileGems();
-//	InventoryComponent->InitInventory();
+	
 	if(IsLocallyControlled())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Possessed by %s, has Authority: %hhd"), *NewController->GetName(), HasAuthority());
 		InventoryComponent->InitStartingItems();
 	}
 }
@@ -234,20 +219,6 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 void AExtractionGameCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	
-	//Client GAS initialization
-	UE_LOG(LogTemp, Warning, TEXT("REP_Player state Enter Has authority: %hhd"), HasAuthority());
-	/*
-	if(AGemPlayerState *state = Cast<AGemPlayerState>(GetPlayerState())) // not nullptr
-	{
-		AbilitySystemComponent = Cast<UExtractionAbilitySystemComponent>(state->GetAbilitySystemComponent());
-		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		state->CreateStateFuncs();
-		GemController->SetAbilitySystem(AbilitySystemComponent);
-
-	} */
-	//GemController->SmartRecompileGems();
-//	InventoryComponent->InitInventory();
 }
 
 
@@ -255,7 +226,6 @@ void AExtractionGameCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
 	//SafeBeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("OnRep_Controller Has authority: %hhd"), HasAuthority())
 	//GemController->SmartRecompileGems();
 
 	if(IsLocallyControlled())
@@ -375,7 +345,7 @@ void AExtractionGameCharacter::ToggleInventory()
 	else
 	{
 		OnInventoryClosed();
-		GemController->SmartRecompileGems();
+		GemController->SmartRecompileGems(true);
 	}
 }
 

@@ -110,6 +110,8 @@ void UAbilityHandlerSubSystem::AddAbilityToMap(int32 Index,FAbilityStruct Object
 		return;
 	}
 #endif
+
+	UE_LOG(LogTemp, Warning, TEXT("Adding ability to map: %d"), Index);
 	ObjectMap.Add(Index, Object);
 }
 
@@ -122,6 +124,8 @@ void UAbilityHandlerSubSystem::AddEffectToMap(int32 Index, TSubclassOf<UGameplay
 		return;
 	}
 #endif
+
+	UE_LOG(LogTemp, Warning, TEXT("Adding effect to map: %d"), Index);
 	EffectMap.Add(Index, Object);
 }
 

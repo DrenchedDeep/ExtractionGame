@@ -181,7 +181,7 @@ void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassO
 }
 
 
-void UGemController::SmartRecompileGems_Implementation(bool forceRefresh = false)
+void UGemController::SmartRecompileGems_Implementation(bool forceRefresh)
 {
 	
 	//if(!GetOwner()->HasAuthority()) return; Not needed, is already a server only function.
