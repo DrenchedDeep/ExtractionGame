@@ -23,7 +23,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 
 	const float EndPlayerTime = GetWorld()->GetTimeSeconds() - StartPlayTime;
 
-	GameInstance->OnRaidOver(true, EndPlayerTime);
+	GameInstance->OnRaidOver(false, EndPlayerTime);
 	GameInstance->ShowLoadingScreen();
 	
 	if(GameInstance->CurrentSession)
@@ -344,12 +344,12 @@ void AExtractionGamePlayerController::BeginPlay()
 		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 		Server_SetName(GameInstance->GetPlayerUsername());
 		//Server_SetName(PlayerState->GetPlayerName());
-		StartPlayTime = GetWorld()->GetTimeSeconds();
 	}
-
+	
 	if(IsLocalController())
 	{
 		FPartyInfo PartyInfo = Cast<UExtractionGameInstance>(GetGameInstance())->PartyInfo;
+		StartPlayTime = GetWorld()->GetTimeSeconds();
 
 		if(PartyInfo.bIsValid)
 		{
