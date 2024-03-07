@@ -13,14 +13,30 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/StartupGameMode/BP_StartupGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/StartupGameMode/BP_StartupGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_FirstPersonPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_FirstPersonPlayerController.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_INGameFriendHeader.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_INGameFriendHeader.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_AreaDiscovered.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_AreaDiscovered.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_Ragdoll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_Ragdoll.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendIndicator.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendIndicator.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inventory/ItemActions/WB_ItemActions.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/ItemActions/WB_ItemActions.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/GemController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/GemController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComp.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerInventoryComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerInventoryComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/AbilityHandlerSubSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/AbilityHandlerSubSystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/SpaceShip.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/SpaceShip.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/PlayerInventoryComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/PlayerInventoryComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/SpaceShip.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/SpaceShip.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PlayerStashManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PlayerStashManager.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -473,6 +489,7 @@
       <workItem from="1709592764671" duration="16580000" />
       <workItem from="1709663802508" duration="5655000" />
       <workItem from="1709685601239" duration="995000" />
+      <workItem from="1709780880602" duration="7265000" />
     </task>
     <servers />
   </component>

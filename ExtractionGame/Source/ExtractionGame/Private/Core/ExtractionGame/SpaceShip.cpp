@@ -135,7 +135,10 @@ void ASpaceShip::BeginPlay()
 	}
 	else
 	{
-//		MoveToWorldSpawn();
+		if(bMoveToWorldSpawn)
+		{
+			MoveToWorldSpawn();
+		}
 	}
 }
 void ASpaceShip::OnLook(const FInputActionValue& Value)
@@ -208,7 +211,7 @@ void ASpaceShip::MoveToWorldSpawn()
 	const FVector SpawnPoint(FMath::Cos(angle) * distance,FMath::Sin(angle) * distance,height);
 	const FRotator Rotation(0,FMath::RadiansToDegrees(angle),0);
 
-	//SetActorLocationAndRotation(SpawnPoint, Rotation, false);
+	SetActorLocationAndRotation(SpawnPoint, Rotation, false);
 }
 
 

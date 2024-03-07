@@ -156,6 +156,8 @@ void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove
 
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::Jump);
@@ -219,19 +221,15 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 void AExtractionGameCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+
+	OnPlayerStateUpdated();
+	InventoryComponent->InitStartingItems();
 }
 
 
 void AExtractionGameCharacter::OnRep_Controller()
 {
 	Super::OnRep_Controller();
-	//SafeBeginPlay();
-	//GemController->SmartRecompileGems();
-
-	if(IsLocallyControlled())
-	{
-		InventoryComponent->InitStartingItems();
-	}
 }
 
 void AExtractionGameCharacter::BeginDestroy()
@@ -325,7 +323,6 @@ void AExtractionGameCharacter::Interact()
 {
 	if(GazeTarget)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tried to interact with SOMETHING"))
 		GazeTarget->Execute_OnInteract(GazeTargetActor, this);
 	}
 	

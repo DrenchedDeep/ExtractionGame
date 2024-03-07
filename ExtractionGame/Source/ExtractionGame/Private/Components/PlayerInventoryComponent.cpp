@@ -6,6 +6,7 @@
 #include "Components/ItemObject.h"
 #include "UI/ExtractionGameHUD.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "Engine/ActorChannel.h"
 #include "Net/UnrealNetwork.h"
 #include "Objects/ReplicatedItemObject.h"
 
@@ -23,15 +24,17 @@ void UPlayerInventoryComponent::InitStartingItems()
 	
 	if(GameInstance)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("InitStartingItems"));
 		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
 		{
 			Server_AddItem(Item.Value, Item.Key);
+			UE_LOG(LogTemp, Warning, TEXT("Adding Item: %s"), *Item.Value.ItemName);
 		}
 
 		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Adding Gem"));
 			Server_AddGemRaw(Gem.Value, Gem.Key);
+			UE_LOG(LogTemp, Warning, TEXT("Adding Gem: %s"), *Gem.Value.ItemName);
 		}
 	}
 }
@@ -141,10 +144,32 @@ void UPlayerInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME(UPlayerInventoryComponent, GemItems);
 }
 
+bool UPlayerInventoryComponent::ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch,
+	FReplicationFlags* RepFlags)
+{
+	bool BSuccess = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
+	
+	for(int32 i = 0; i < GemItems.Num(); i++)
+	{
+		if(GemItems[i].Item)
+		{
+			BSuccess |= Channel->ReplicateSubobject(GemItems[i].Item, *Bunch, *RepFlags);
+		}
+	}
+
+	return BSuccess;
+}
+
 void UPlayerInventoryComponent::OnRep_GemItems()
 {
+	if(!Character)
+	{
+		Character = Cast<AExtractionGameCharacter>(GetOwner());
+	}
+	
 	if(Character)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("InitGemUI"));
 		Character->InitGemUI();
 	}
 }

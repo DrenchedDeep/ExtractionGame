@@ -49,7 +49,8 @@ public:
 	// Sets default values for this pawn's properties
 	ASpaceShip();
 
-		
+
+	bool bMoveToWorldSpawn = false;
 
 protected:
 

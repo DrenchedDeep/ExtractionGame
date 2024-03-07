@@ -5,7 +5,9 @@
 #include "Core/Other/PlayerSaveData.h"
 #include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "Objects/ReplicatedItemObject.h"
 #include "EntitySystem/MovieSceneEntityBuilder.h"
+
 
 APlayerStashManager::APlayerStashManager()
 {
@@ -28,8 +30,23 @@ void APlayerStashManager::BeginPlay()
 
 		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
 		{
-			//AddGem()
+			if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
+			{
+				ItemObject->ItemName = Gem.Value.ItemName;
+				ItemObject->ItemType =  Gem.Value.ItemType;
+				ItemObject->Rarity =  Gem.Value.Rarity;
+				ItemObject->Description =  Gem.Value.Description;
+				ItemObject->GemType =  Gem.Value.GemType;
+				ItemObject->DefaultPolish =  Gem.Value.DefaultPolish;
+				ItemObject->Dimensions =  Gem.Value.Dimensions;
+				ItemObject->Icon =  Gem.Value.Icon;
+				ItemObject->IconRotated =  Gem.Value.IconRotated;
+				ItemObject->RowName =  Gem.Value.RowName;
+				AddGem(ItemObject, Gem.Key);
+			}
 		}
+
+		InitGemUI();
 	}
 	else
 	{
@@ -54,7 +71,8 @@ void APlayerStashManager::SaveInventory()
 	
 	const TArray<FName> PartyMembers;
 	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(), GetGemInventory());
-	
+
+	UE_LOG(LogTemp, Warning, TEXT("Saving Inventory"));
 	bool bDisable = true;
 
 	if(bDisable)
@@ -148,6 +166,21 @@ TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> APlayerStashManager::GetGemInventory(
 		Info.DefaultPolish = Item.Value->DefaultPolish;
 
 		GemItems.Add(Item.Key, Info);
+	}
+
+	return GemItems;
+}
+
+TArray<FGemItem> APlayerStashManager::GetGemInventoryStruct()
+{
+	TArray<FGemItem> GemItems;
+
+	for(auto Item : GemInventory)
+	{
+		FGemItem GemItem;
+		GemItem.Item = Item.Value;
+		GemItem.BodyPart = Item.Key;
+		GemItems.Add(GemItem);
 	}
 
 	return GemItems;

@@ -70,6 +70,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	float DefaultPolish;
 
+	UFUNCTION(BlueprintCallable)
+	void SetRarity(ERarityType InRarity) { Rarity = InRarity; }
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginDestroy() override;

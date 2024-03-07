@@ -51,7 +51,7 @@ TArray<APawn*> AExtractionGamePlayerController::GetPartyMemberPawns()
 		FReplicatedPartyInfo PartyInfo = GameState->GetPartyByID(PartyID);
 		for(APlayerState* PS : PartyInfo.PartyMembers)
 		{
-			if(PS->GetPawn())
+			if(PS && PS->GetPawn())
 			{
 				PartyMembers.Add(PS->GetPawn());
 			}
@@ -272,7 +272,16 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	
+	//stupid listen server stuff
+	if(IsLocalController())
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+		{
+			Subsystem->ClearAllMappings();
+		
+			Subsystem->AddMappingContext(InPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
+		}
+	}
 }
 
 void AExtractionGamePlayerController::ClientWasKicked_Implementation(const FText& KickReason)

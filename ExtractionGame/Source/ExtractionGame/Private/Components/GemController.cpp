@@ -191,13 +191,13 @@ void UGemController::SmartRecompileGems_Implementation(bool forceRefresh)
 	//SubSystem = Ch->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
 	//Character->GetAbilitySystemComponent() = Ch->Character->GetAbilitySystemComponent();
 	//}
-	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP START"))
+//	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP START"))
 	
 	const int val = forceRefresh?255:dirtyFlags;
 	dirtyFlags = None;
 	if((val & HeadFlag) != 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK HEAD"))
+	//	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK HEAD"))
 
 		//HeadAbilityAction = Ch->HeadAbilityAction;
 		//HeadEffectHandle.Clear();
@@ -208,24 +208,24 @@ void UGemController::SmartRecompileGems_Implementation(bool forceRefresh)
 	}
 	if((val & BodyFlag) != 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK CHEST"))
+//		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK CHEST"))
 	}
 	if((val & LeftArmFlag) != 0)
 	{
 		//LeftAttackAction = Ch->LeftAttackAction;
-		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK LEFT ARM"))
+	//	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK LEFT ARM"))
 		Character->GetAbilitySystemComponent()->ClearAbility(LeftArmAbilitySpecHandle);
 		RecompileArm(leftGems, true);
 	}
 	if((val & RightArmFlag) != 0)
 	{
 		//RightAttackAction = Ch->RightAttackAction;
-		UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK RIGHT ARM"))
+	//	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP CHECK RIGHT ARM"))
 		Character->GetAbilitySystemComponent()->ClearAbility(RightArmAbilitySpecHandle);
 		RecompileArm(rightGems, false);
 	}
 	//TODO: Gems affect values.
-	UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL, %d"), Character->GetLocalRole())
+	//UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL, %d"), Character->GetLocalRole())
 	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
     ApplyEffect(&ManaRegenHandle, ManaRegenEffect, 1);
 
@@ -246,7 +246,7 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 	//	GetHUDElement() = hud->PlayerUIData;
 	SubSystem = Character->GetGameInstance()->GetSubsystem<UAbilityHandlerSubSystem>();
 	//dirtyFlags = 255;
-	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
+//	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
 	
 	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
 	{
@@ -258,9 +258,9 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 		OnMaxShadowManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxShadowManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxShadowManaChanged);
 		OnWaterManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetWaterManaPoolAttribute()).AddUObject(this, &UGemController::OnWaterManaChanged);
 		OnMaxWaterManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxWaterManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxWaterManaChanged);
-		UE_LOG(LogTemp, Warning, TEXT("Controller LOCAL Loaded"))
+	//	UE_LOG(LogTemp, Warning, TEXT("Controller LOCAL Loaded"))
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Controller Loaded"))
+//	UE_LOG(LogTemp, Warning, TEXT("Controller Loaded"))
 	
 }
 
@@ -335,7 +335,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 			totalPolish = -1;
 	}
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, totalPolish, -1, Character);
-	UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d"), bIsLeft, ability);
+//	UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d"), bIsLeft, ability);
 	//if(GetOwner()->HasAuthority())
 	//{
 	UPlayerBarDataWidget* hud =GetHUDElement();
@@ -347,13 +347,13 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 		if(hud) hud->SetLeftGems(leftGems);
-		if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
+	//	if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 		if(hud) hud->SetRightGems(rightGems);
-		if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
+	//	if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 
 	
@@ -362,7 +362,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 
 void UGemController::RecompileHead()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Recomp Head in code is head null? %d"), HeadGem == nullptr);
+//	UE_LOG(LogTemp, Warning, TEXT("Recomp Head in code is head null? %d"), HeadGem == nullptr);
 	if(!HeadGem) return;
 	const int val = HeadGem->GetPolish();
 	int Score = 1;
@@ -373,7 +373,7 @@ void UGemController::RecompileHead()
 	//Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
 	Score =  Score << (6-(static_cast<int>(HeadGem->GetGemType())*2));//(Score << (6 - static_cast<int>(HeadGem->GetGemType()) * 2));
 	//Earth 1,2,4
-	UE_LOG(LogTemp, Warning, TEXT("Head Ability: %d, %d"), Score, val);
+//	UE_LOG(LogTemp, Warning, TEXT("Head Ability: %d, %d"), Score, val);
 	const TSubclassOf<UGameplayEffect> effect = SubSystem->GetEffectByIndex(Score);
 	//const FGameplayAbilitySpec EffectSpec(effect, val, -1, Character);
 	ApplyEffect(&HeadEffectHandle,effect, val);
@@ -385,7 +385,7 @@ void UGemController::RecompileHead()
 void UGemController::RecompileChest()
 {
 	if(!ChestGem) return;
-	UE_LOG(LogTemp, Warning, TEXT("Pending Impl"));
+//	UE_LOG(LogTemp, Warning, TEXT("Pending Impl"));
 }
 
 UPlayerBarDataWidget* UGemController::GetHUDElement()
@@ -507,10 +507,10 @@ float UGemController::GetManaRegenRate() const
 
 void UGemController::Initialize(const AExtractionGameHUD* hud)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Initializing Gem Controller"))
+//	UE_LOG(LogTemp, Warning, TEXT("Initializing Gem Controller"))
 	if (UPlayerBarDataWidget* PlayerBarWidget = hud->GetPlayerBarWidget())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Yay"))
+	//	UE_LOG(LogTemp, Warning, TEXT("Yay"))
 		// Use PlayerBarWidget since it's not null
 		//GetHUDElement() = PlayerBarWidget;
 	}

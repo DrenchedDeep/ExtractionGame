@@ -216,6 +216,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Health)
 	class UPlayerHealthComponent* PlayerHealthComponent;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnPlayerStateUpdated();
 
 	
 

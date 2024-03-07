@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/PlayerInventoryComponent.h"
 #include "Core/Other/ItemDatabase.h"
 #include "Core/Other/PlayerSaveData.h"
 #include "Components/StashInventoryComponent.h"
@@ -16,6 +17,9 @@ class EXTRACTIONGAME_API APlayerStashManager : public AActor
 
 
 	bool bRanFirstTimeCheck;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UItemObject> ItemObjectSubclass;
 	
 public:	
 	APlayerStashManager();
@@ -49,6 +53,10 @@ public:
 	
 	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GetGemInventory();
 
+	UFUNCTION(BlueprintCallable)
+	TArray<FGemItem> GetGemInventoryStruct();
+	UFUNCTION(BlueprintImplementableEvent)
+	void InitGemUI();
 
 private:
 	TMap<TEnumAsByte<EBodyPart>, UItemObject*> GemInventory;

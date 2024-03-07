@@ -21,14 +21,8 @@ AExtractionGameGameMode::AExtractionGameGameMode()
 
 void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
-	RegisterPlayerEOS(NewPlayer);
-
-	if(bSkipPartySequence)
-	{
-		RespawnShip(NewPlayer,0);
-	}
-
 	Super::PostLogin(NewPlayer);
+	RegisterPlayerEOS(NewPlayer);
 }
 
 void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPartyInfo PartyInfo)
@@ -62,7 +56,7 @@ void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPa
 			FRotator Rotation;
 			GetPartySpawnLocation(Location, Rotation);
 			int32 I = 0;
-			for(auto Player : AllParties[Index].Players)
+			for(auto Player : NewParty.Players)
 			{
 				SpawnShip(Player, Location, Rotation, I);
 				I++;
@@ -90,13 +84,17 @@ void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 Te
 	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(DefaultPawnClass, FVector(0,0,100000), FRotator(0), Parm)))
 	{
 		NewPlayer->Possess(PlayerPawn);
+
+		if(ASpaceShip* Ship = Cast<ASpaceShip>(PlayerPawn))
+		{
+			Ship->bMoveToWorldSpawn = true;
+		}
 	}
 }
 
 void AExtractionGameGameMode::SpawnShip(APlayerController* NewPlayer, const FVector StartLocation,
 	const FRotator Rotator, int32 I)
 {
-	UE_LOG(LogTemp, Warning, TEXT("I is %d"), I);
 	FVector SpawnLocation = StartLocation + FVector(1,0, 0) * ((I + 1) * 10000);
 	
 	FActorSpawnParameters Parm;

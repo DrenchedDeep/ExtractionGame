@@ -70,6 +70,7 @@ TMap<int32, FAddItemInfo> UInventoryComp::GetPlayerInventory()
 		Info.ItemType = Item.Key->ItemType;
 		Info.GemType = Item.Key->GemType;
 		Info.DefaultPolish = Item.Key->DefaultPolish;
+		Info.RowName = Item.Key->RowName;
 
 		int32 Index = TileToIndex(Item.Value);
 		PlayerItems.Add(Index, Info);
