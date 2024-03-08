@@ -151,8 +151,8 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 		CurrentRespawnTimer = RespawnTimer;
 		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AExtractionGamePlayerController::RespawnTick, 1.f, true);
 		Client_OnDeath(PlayerName);
-
-		if(ATDMGameState* GameState = Cast<ATDMGameState>(GetWorld()->GetGameState()))
+		
+		if(AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
 		{
 			GameState->OnPlayerKilled(PlayerName, PlayerState->GetPlayerName(), "KILLED");
 		}
@@ -182,13 +182,8 @@ void AExtractionGamePlayerController::RespawnTick()
 		{
 			PlayerPawnActor->Destroy();
 		}
-		if(ATDMGameMode* GameMode = Cast<ATDMGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
-		{
-			ATDMPlayerState* PS = Cast<ATDMPlayerState>(PlayerState);
-			GameMode->SpawnPlayer(this, PS->TeamID);
 
-		}
-		else if(const AExtractionGameGameMode* ExtractionGameGameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		if(const AExtractionGameGameMode* ExtractionGameGameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			ExtractionGameGameMode->RespawnShip(this,0);
 		}

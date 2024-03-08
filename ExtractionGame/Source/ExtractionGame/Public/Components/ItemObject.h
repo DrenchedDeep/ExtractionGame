@@ -36,7 +36,8 @@ public:
 		FString Desc,
 		EGemType InGemType,
 		float InPolish,
-		FName InRowName)
+		FName InRowName,
+		int32 InItemCost)
 	{
 		Dimensions = Size;
 		this->Icon = InIcon;
@@ -48,7 +49,10 @@ public:
 		this->GemType = InGemType;
 		DefaultPolish = InPolish;
 		RowName = InRowName;
+		ItemCost = InItemCost;
 	}
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	int32 ItemCost;
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	FName RowName;
 	UPROPERTY(BlueprintReadOnly, Replicated)

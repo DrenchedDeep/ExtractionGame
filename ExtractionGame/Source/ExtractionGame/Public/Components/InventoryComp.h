@@ -24,7 +24,8 @@ enum EItemStat
 	ET_AOEDamage,
 	ET_SpeedDebuff,
 	ET_FireRate,
-	ET_Ammo
+	ET_Ammo,
+	ET_Purity
 };
 
 USTRUCT(BlueprintType)
@@ -106,6 +107,8 @@ struct FItemDataStruct : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	FString ItemName;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="General")
+	int32 ItemCost;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
 	TEnumAsByte<EItemTypes> ItemType;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="General")
@@ -141,10 +144,6 @@ struct FItemDataStruct : public FTableRowBase
 	int32 ItemsNeededToCombine = 3;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Combining")
 	FName CombinedItemRowName;
-	
-
-	UPROPERTY(BlueprintReadWrite)
-	bool bFoundInRaid;
 };
 
 USTRUCT(BlueprintType, Blueprintable)
@@ -158,6 +157,8 @@ struct FAddItemInfo
 	UMaterialInterface* Icon;
 	UPROPERTY(BlueprintReadWrite)
 	UMaterialInterface* IconRotated;
+	UPROPERTY(BlueprintReadWrite)
+	int32 ItemCost;
 	UPROPERTY(BlueprintReadWrite)
 	FString ItemName;
 	UPROPERTY(BlueprintReadWrite)
@@ -192,6 +193,14 @@ class EXTRACTIONGAME_API UInventoryComp : public UActorComponent
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float TileSize;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	FString InventoryID = "Inventory";
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bOnlyAllowItemsFromInventoryWithID = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	FString AllowedInventoryID;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bBlockDragDrop = false;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UUserWidget* InventoryWidget;
 public:
@@ -231,6 +240,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	virtual bool IsTileValid(FTile Tile);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	virtual int32 GetInventoryTotalCost();
 	
 	UPROPERTY(BlueprintAssignable)
 	FOInventoryChangedDelegate OnInventoryChanged;
@@ -245,6 +257,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool HasItems(FName ItemRowName, int32 AmountNeeded);
+	
+	UFUNCTION(BlueprintCallable)
+	int32 GetItemCount(FName InItemName);
 
 	TMap<int32,FAddItemInfo> GetPlayerInventory();
 

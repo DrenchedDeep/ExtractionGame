@@ -24,6 +24,7 @@ void UItemObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(UItemObject, GemType);
 	DOREPLIFETIME(UItemObject, DefaultPolish);
 	DOREPLIFETIME(UItemObject, RowName);
+	DOREPLIFETIME(UItemObject, ItemCost);
 }
 
 void UItemObject::BeginDestroy()

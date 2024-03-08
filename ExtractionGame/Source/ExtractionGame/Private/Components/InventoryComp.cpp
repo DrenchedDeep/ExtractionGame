@@ -54,6 +54,20 @@ bool UInventoryComp::HasItems(FName ItemRowName, int32 AmountNeeded)
 	return bHasItems;
 }
 
+int32 UInventoryComp::GetItemCount(FName InItemName)
+{
+	int32 Count = 0;
+	for(int32 i = 0; i < Items.Num(); i++)
+	{
+		if(Items[i] && Items[i]->RowName == InItemName)
+		{
+			Count++;
+		}
+	}
+
+	return Count;
+}
+
 TMap<int32, FAddItemInfo> UInventoryComp::GetPlayerInventory()
 {
 	TMap<int32,FAddItemInfo> PlayerItems;
@@ -71,6 +85,7 @@ TMap<int32, FAddItemInfo> UInventoryComp::GetPlayerInventory()
 		Info.GemType = Item.Key->GemType;
 		Info.DefaultPolish = Item.Key->DefaultPolish;
 		Info.RowName = Item.Key->RowName;
+		Info.ItemCost = Item.Key->ItemCost;
 
 		int32 Index = TileToIndex(Item.Value);
 		PlayerItems.Add(Index, Info);
@@ -159,6 +174,7 @@ void UInventoryComp::Server_AddItem_Implementation(FAddItemInfo ItemInfo, int32 
 	ItemObject->Icon = ItemInfo.Icon;
 	ItemObject->IconRotated = ItemInfo.IconRotated;
 	ItemObject->RowName = ItemInfo.RowName;
+	ItemObject->ItemCost = ItemInfo.ItemCost;
 
 	FTile Tile = IndexToTile(Index);
 	for(int32 i = Tile.X; i < Tile.X + ItemInfo.Dimensions.X; i++)
@@ -341,6 +357,8 @@ TArray<FAddItemInfo> UInventoryComp::GetItemsAsAddItemInfo()
 		Info.ItemType = Item.Key->ItemType;
 		Info.GemType = Item.Key->GemType;
 		Info.DefaultPolish = Item.Key->DefaultPolish;
+		Info.RowName = Item.Key->RowName;
+		Info.ItemCost = Item.Key->ItemCost;
 
 		ItemInfos.Add(Info);
 	}
@@ -406,4 +424,18 @@ bool UInventoryComp::IsTileValid(FTile Tile)
 	}
 
 	return bValid;
+}
+
+int32 UInventoryComp::GetInventoryTotalCost()
+{
+	int32 TotalCost = 0;
+	for(int32 i = 0; i < Items.Num(); i++)
+	{
+		if(Items[i])
+		{
+			TotalCost += Items[i]->ItemCost;
+		}
+	}
+
+	return TotalCost;
 }

@@ -33,6 +33,8 @@ class EXTRACTIONGAME_API AExtractionGameState : public AGameStateBase
 
 public:
 	AExtractionGameState();
+	
+	void OnPlayerKilled(const FString& KillerName, const FString& VictimName, const FString& DeathCause);
 
 	UFUNCTION(BlueprintCallable)
 	TArray<FReplicatedPartyInfo> GetReplicatedParties() const { return ReplicatedParties; }

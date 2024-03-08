@@ -29,6 +29,6 @@ void AMainMenuPlayerController::BeginPlay()
 	if(IsLocalController())
 	{
 		PlayerStashManager = Cast<APlayerStashManager>(GetWorld()->SpawnActor(PlayerStashManagerClass));
-		QuestController = Cast<AQuestController>(GetWorld()->SpawnActor(QuestControllerSubclass));
+		ShopManager = Cast<AShopManager>(GetWorld()->SpawnActor(ShopManagerClass));
 	}
 }

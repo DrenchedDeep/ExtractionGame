@@ -3,11 +3,24 @@
 
 #include "Core/ExtractionGame/ExtractionGameState.h"
 
+#include "Core/ExtractionGame/ExtractionGamePlayerController.h"
 #include "Net/UnrealNetwork.h"
 
 AExtractionGameState::AExtractionGameState()
 {
 	
+}
+
+void AExtractionGameState::OnPlayerKilled(const FString& KillerName, const FString& VictimName,
+	const FString& DeathCause)
+{
+	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		if(AExtractionGamePlayerController* PlayerController = Cast<AExtractionGamePlayerController>(Iterator->Get()))
+		{
+			PlayerController->Client_OnPlayerKilled(KillerName, VictimName, DeathCause);
+		}
+	}
 }
 
 FReplicatedPartyInfo AExtractionGameState::GetPartyByID(int32 PartyID)

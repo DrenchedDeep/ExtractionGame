@@ -24,17 +24,14 @@ void UPlayerInventoryComponent::InitStartingItems()
 	
 	if(GameInstance)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InitStartingItems"));
 		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
 		{
 			Server_AddItem(Item.Value, Item.Key);
-			UE_LOG(LogTemp, Warning, TEXT("Adding Item: %s"), *Item.Value.ItemName);
 		}
 
 		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
 		{
 			Server_AddGemRaw(Gem.Value, Gem.Key);
-			UE_LOG(LogTemp, Warning, TEXT("Adding Gem: %s"), *Gem.Value.ItemName);
 		}
 	}
 }
@@ -59,6 +56,7 @@ void UPlayerInventoryComponent::Server_AddGemRaw_Implementation(FAddItemInfo Ite
 	ItemObject->Icon = Item.Icon;
 	ItemObject->IconRotated = Item.IconRotated;
 	ItemObject->RowName = Item.RowName;
+	ItemObject->ItemCost = Item.ItemCost;
 
 	if(!Character)
 	{
@@ -169,7 +167,6 @@ void UPlayerInventoryComponent::OnRep_GemItems()
 	
 	if(Character)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InitGemUI"));
 		Character->InitGemUI();
 	}
 }

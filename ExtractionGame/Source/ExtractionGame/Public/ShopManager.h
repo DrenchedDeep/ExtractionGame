@@ -12,12 +12,19 @@ class EXTRACTIONGAME_API AShopManager : public AActor
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
+
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FName> StartingItems;
 	
-public:	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStashInventoryComponent* ShopInventory;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UStashInventoryComponent* BuyInventory;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UStashInventoryComponent* SellInventory;
 
 protected:
 	AShopManager();
