@@ -134,9 +134,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Add gem into head slot. WARNING: will delete gems if not handled properly"))
 	void AddGem(EBodyPart slot, AGem* newGem);
+	
+	UFUNCTION(NetMulticast, Reliable)// Intended Error, add this. And also, the error liam mentioned could be cus we moved the thing from playerstate to begin play.
+	void UpdateAllClientVisuals(int flags) const;
 
 	UFUNCTION(BlueprintCallable, Category="Gems", meta=(ToolTip = "Remove the current head gem. WARNING: Can return null ptrs."))
-	void RemoveGem(EBodyPart slot);
+	void RemoveGem(EBodyPart slot); 
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void Server_CreateGem(UItemObject* Item, EBodyPart BodyPart, bool bAddToInventory = false);

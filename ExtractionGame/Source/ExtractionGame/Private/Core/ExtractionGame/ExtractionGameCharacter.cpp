@@ -111,8 +111,6 @@ void AExtractionGameCharacter::BeginPlay()
 	GazeCollisionParams = TraceParams;
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
-
-	GemController->SmartRecompileGems(true);
 	
 }
 
@@ -224,6 +222,7 @@ void AExtractionGameCharacter::OnRep_PlayerState()
 
 	OnPlayerStateUpdated();
 	InventoryComponent->InitStartingItems();
+	GemController->SmartRecompileGems(true);
 }
 
 

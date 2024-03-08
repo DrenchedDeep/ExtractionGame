@@ -62,6 +62,14 @@ void UGemController::AddGem(EBodyPart slot, AGem* newGem)
 	Server_AddGem(slot, newGem);
 }
 
+void UGemController::UpdateAllClientVisuals_Implementation(int flags) const
+{
+	if((flags & HeadFlag) != 0) OnHeadChanged.Broadcast();
+	if((flags & LeftArmFlag) != 0) OnLeftArmChanged.Broadcast();
+	if((flags & RightArmFlag) != 0) OnRightArmChanged.Broadcast();
+	if((flags & BodyFlag) != 0) OnChestChanged.Broadcast();
+}
+
 //Do I need to delete somewhere in here?
 void UGemController::RemoveGem(EBodyPart slot)
 {
@@ -138,31 +146,28 @@ void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 
 void UGemController::OnRep_HeadGem()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Head Gem Equipped...")) // What info can we extract,
-	//OnHeadUpdated();
-	OnHeadChanged.Broadcast();
+	UE_LOG(LogTemp, Warning, TEXT("Head Gem Equipped..."))
+	OnHeadChanged.Broadcast(); // We broadcast here too, so when the player is rendered, it loads correctly
+	//If this has stopped working, make sure the component is replicated.
+	
 }
 
 void UGemController::OnRep_ChestGem()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Chest Gem Equipped...")) // What info can we extract,
-	//OnRightArmUpdated();
+	UE_LOG(LogTemp, Warning, TEXT("Chest Gem Equipped...")) 
 	OnChestChanged.Broadcast();
 }
 
 void UGemController::OnRep_LeftArmGems()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Left Arms Updated... ")) // What info can we extract,
-	//OnLeftArmUpdated();
+	UE_LOG(LogTemp, Warning, TEXT("Left Arms Updated... "))
 	OnLeftArmChanged.Broadcast();
 }
 
 void UGemController::OnRep_RightArmGems()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Right Arms Updated... ")) // What info can we extract,
-	//OnRightArmUpdated();
+	UE_LOG(LogTemp, Warning, TEXT("Right Arms Updated... "))
 	OnRightArmChanged.Broadcast();
-	//The easiest thing we can do, is make this exposed to blueprints, and then apply the proper texture to each gem.
 }
 
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
@@ -224,6 +229,9 @@ void UGemController::SmartRecompileGems_Implementation(bool forceRefresh)
 		Character->GetAbilitySystemComponent()->ClearAbility(RightArmAbilitySpecHandle);
 		RecompileArm(rightGems, false);
 	}
+
+	UpdateAllClientVisuals(val);
+	
 	//TODO: Gems affect values.
 	//UE_LOG(LogTemp, Warning, TEXT("GEM RECOMP FINAL, %d"), Character->GetLocalRole())
 	ApplyEffect(&ManaPoolHandle, ManaPoolEffect, 1);
