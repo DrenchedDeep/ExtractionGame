@@ -17,7 +17,6 @@
 
 AGem** UGemController::GetGemBySlot(EBodyPart slot)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Find: %d"), slot);
 	switch (slot) {
 	case  Head: return &HeadGem;
 	case Chest: return &ChestGem;
@@ -147,7 +146,7 @@ void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 void UGemController::OnRep_HeadGem()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Head Gem Equipped..."))
-	OnHeadChanged.Broadcast(); // We broadcast here too, so when the player is rendered, it loads correctly
+	if(!Character->bInInventory) OnHeadChanged.Broadcast(); // We broadcast here too, so when the player is rendered, it loads correctly
 	//If this has stopped working, make sure the component is replicated.
 	
 }
@@ -155,19 +154,19 @@ void UGemController::OnRep_HeadGem()
 void UGemController::OnRep_ChestGem()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Chest Gem Equipped...")) 
-	OnChestChanged.Broadcast();
+	if(!Character->bInInventory) OnChestChanged.Broadcast();
 }
 
 void UGemController::OnRep_LeftArmGems()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Left Arms Updated... "))
-	OnLeftArmChanged.Broadcast();
+	if(!Character->bInInventory) OnLeftArmChanged.Broadcast();
 }
 
 void UGemController::OnRep_RightArmGems()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Right Arms Updated... "))
-	OnRightArmChanged.Broadcast();
+	if(!Character->bInInventory) OnRightArmChanged.Broadcast();
 }
 
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
@@ -343,7 +342,7 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 			totalPolish = -1;
 	}
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, totalPolish, -1, Character);
-//	UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d"), bIsLeft, ability);
+   	//UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d --> %s"), bIsLeft, ability, *InAbilityClass.GameplayAbilityClass->GetName());
 	//if(GetOwner()->HasAuthority())
 	//{
 	UPlayerBarDataWidget* hud =GetHUDElement();
@@ -355,13 +354,13 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 		if(hud) hud->SetLeftGems(leftGems);
-	//	if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
+		//if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 		if(hud) hud->SetRightGems(rightGems);
-	//	if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
+		//if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 
 	

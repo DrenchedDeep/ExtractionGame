@@ -29,7 +29,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetLeftGems(const  TArray<AGem*>& Gems);
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable) // This would be a client function if we even still want it.
 	void SetRightGems(const TArray<AGem*>& Gems); 
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
