@@ -93,15 +93,19 @@ public:
 	//FGameplayAbilitySpecHandle HeadAbilitySpecHandle;
 
 	UPROPERTY(ReplicatedUsing=OnRep_HeadGem, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	//UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	AGem* HeadGem;
 	
 	UPROPERTY(ReplicatedUsing=OnRep_ChestGem, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	//UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	AGem* ChestGem;
 
 	UPROPERTY(ReplicatedUsing=OnRep_LeftArmGems, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	//UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	TArray<AGem*> leftGems;
 
 	UPROPERTY(ReplicatedUsing=OnRep_RightArmGems, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
+	//UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Gems")
 	TArray<AGem*> rightGems;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
@@ -180,7 +184,7 @@ protected:
 	//UPROPERTY()
 	//UExtractionAttributeSet* AttributeSetBase;
 	UFUNCTION(Client, Reliable)
-	void Sadness(bool left, bool state);
+	void Sadness(const FAbilityStruct& abilityInfo, bool isLeft, int ability, float totalPolish);
 	
 private:
 	void RecompileArm(TArray<AGem*> arm, bool bIsLeft);

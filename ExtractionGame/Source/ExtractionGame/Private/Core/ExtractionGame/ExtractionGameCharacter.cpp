@@ -341,7 +341,7 @@ void AExtractionGameCharacter::ToggleInventory()
 	else
 	{
 		OnInventoryClosed();
-		GemController->SmartRecompileGems(true);
+		GemController->SmartRecompileGems(false);
 	}
 }
 

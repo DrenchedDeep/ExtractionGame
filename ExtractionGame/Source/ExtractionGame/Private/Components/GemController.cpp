@@ -63,6 +63,9 @@ void UGemController::AddGem(EBodyPart slot, AGem* newGem)
 
 void UGemController::UpdateAllClientVisuals_Implementation(int flags) const
 {
+	UE_LOG(LogTemp, Warning, TEXT("Updating visuals? %d"), (GetOwnerRole()))
+	//if(Character->GetLocalRole() != ROLE_SimulatedProxy) return;
+		
 	if((flags & HeadFlag) != 0) OnHeadChanged.Broadcast();
 	if((flags & LeftArmFlag) != 0) OnLeftArmChanged.Broadcast();
 	if((flags & RightArmFlag) != 0) OnRightArmChanged.Broadcast();
@@ -146,7 +149,7 @@ void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 void UGemController::OnRep_HeadGem()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Head Gem Equipped..."))
-	if(!Character->bInInventory) OnHeadChanged.Broadcast(); // We broadcast here too, so when the player is rendered, it loads correctly
+	OnHeadChanged.Broadcast(); // We broadcast here too, so when the player is rendered, it loads correctly
 	//If this has stopped working, make sure the component is replicated.
 	
 }
@@ -154,19 +157,19 @@ void UGemController::OnRep_HeadGem()
 void UGemController::OnRep_ChestGem()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Chest Gem Equipped...")) 
-	if(!Character->bInInventory) OnChestChanged.Broadcast();
+	OnChestChanged.Broadcast();
 }
 
 void UGemController::OnRep_LeftArmGems()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Left Arms Updated... "))
-	if(!Character->bInInventory) OnLeftArmChanged.Broadcast();
+	OnLeftArmChanged.Broadcast();
 }
 
 void UGemController::OnRep_RightArmGems()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Right Arms Updated... "))
-	if(!Character->bInInventory) OnRightArmChanged.Broadcast();
+	 OnRightArmChanged.Broadcast();
 }
 
 void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
@@ -281,10 +284,20 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 }
 
-void UGemController::Sadness_Implementation(bool left, bool state)
+void UGemController::Sadness_Implementation(const FAbilityStruct& abilityInfo, bool isLeft, int ability, float totalPolish)
 {
-	if(left)Character->bIsLeftAutomatic = state;
-	else Character->bIsRightAutomatic = state;
+	UPlayerBarDataWidget* hud =GetHUDElement();
+	
+	if(isLeft)
+	{
+		Character->bIsLeftAutomatic = abilityInfo.bIsFullyAuto;
+		if(hud) hud->SetLeftGems(leftGems, abilityInfo.Image, ability, totalPolish);
+	}
+	else
+	{
+		Character->bIsRightAutomatic = abilityInfo.bIsFullyAuto;
+		if(hud) hud->SetRightGems(rightGems, abilityInfo.Image, ability, -totalPolish);
+	}
 }
 
 //void UGemController::Server_LazyRecompileGems_Implementation()
@@ -337,29 +350,11 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 			totalPolish = -1;
 	}
 	const FGameplayAbilitySpec AbilitySpec(InAbilityClass.GameplayAbilityClass, totalPolish, -1, Character);
-   	//UE_LOG(LogTemp, Warning, TEXT("Recomp arm, is left? {%d} Ability: %d --> %s"), bIsLeft, ability, *InAbilityClass.GameplayAbilityClass->GetName());
-	//if(GetOwner()->HasAuthority())
-	//{
-	UPlayerBarDataWidget* hud =GetHUDElement();
+	
+	if(bIsLeft) LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
+	else RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 
-	
-	
-	Sadness(bIsLeft, InAbilityClass.bIsFullyAuto);
-	if(bIsLeft)
-	{
-		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		if(hud) hud->SetLeftGems(leftGems, InAbilityClass.Image, ability, totalPolish);
-		//if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
-	}
-	else
-	{
-		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		if(hud) hud->SetRightGems(rightGems, InAbilityClass.Image,ability, totalPolish);
-		//if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
-	}
-
-	
-	//}
+	Sadness(InAbilityClass, bIsLeft, ability, totalPolish);
 }
 
 void UGemController::RecompileHead()
