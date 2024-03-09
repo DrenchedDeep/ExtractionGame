@@ -25,7 +25,8 @@ enum EItemStat
 	ET_SpeedDebuff,
 	ET_FireRate,
 	ET_Ammo,
-	ET_Purity
+	Purity,
+	Knockback
 };
 
 USTRUCT(BlueprintType)
@@ -37,6 +38,12 @@ struct FItemStat
 	TEnumAsByte<EItemStat> Stat;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float Value;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	bool bPointToVariable;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	bool bCombineWith;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FString VariableName;
 };
 
 
@@ -201,6 +208,10 @@ class EXTRACTIONGAME_API UInventoryComp : public UActorComponent
 	FString AllowedInventoryID;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	bool bBlockDragDrop = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bShowPriceUI = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bBlockItemActionsButKeepExamine;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UUserWidget* InventoryWidget;
 public:

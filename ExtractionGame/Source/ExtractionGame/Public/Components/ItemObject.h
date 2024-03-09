@@ -37,20 +37,8 @@ public:
 		EGemType InGemType,
 		float InPolish,
 		FName InRowName,
-		int32 InItemCost)
-	{
-		Dimensions = Size;
-		this->Icon = InIcon;
-		this->IconRotated = InIconRotated;
-		ItemName = InName;
-		ItemType = InType;
-		this->Rarity = InRarity;
-		Description = Desc;
-		this->GemType = InGemType;
-		DefaultPolish = InPolish;
-		RowName = InRowName;
-		ItemCost = InItemCost;
-	}
+		int32 InItemCost);
+
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	int32 ItemCost;
 	UPROPERTY(BlueprintReadOnly, Replicated)

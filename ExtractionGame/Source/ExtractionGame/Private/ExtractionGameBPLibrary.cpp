@@ -112,3 +112,57 @@ ScreenPosition = FVector2D( -ScreenBounds.X, -ScreenBounds.X * m );
 
 	OutScreenPosition = ScreenPosition;
 }
+
+ERarityType UExtractionGameBPLibrary::GetRarityTypeFromGemPurity(float Purity)
+{
+	ERarityType Rarity = ERarityType::Common;
+	if(Purity >= 50)
+	{
+		Rarity = ERarityType::Legendary;
+	}
+	else if(Purity >= 40 && Purity < 50)
+	{
+		Rarity = ERarityType::Epic;
+	}
+	else if(Purity >= 25 && Purity < 40)
+	{
+		Rarity = ERarityType::Rare;
+	}
+	else if(Purity >= 15 && Purity < 25)
+	{
+		Rarity = ERarityType::Uncommon;
+	}
+	else if(Purity >= 0 && Purity < 15)
+	{
+		Rarity = ERarityType::Common;
+	}
+
+	return Rarity;
+}
+
+int32 UExtractionGameBPLibrary::GetAdjustedPrice(ERarityType Rarity, int32 BasePrice, float Purity)
+{
+	int32 AdjustedPrice = BasePrice;
+	switch(Rarity)
+	{
+		case ERarityType::Common:
+			AdjustedPrice = BasePrice * (Purity / 100) * 3;
+			break;
+		case ERarityType::Uncommon:
+			AdjustedPrice = BasePrice * (Purity / 100) * 4;
+			break;
+		case ERarityType::Rare:
+			AdjustedPrice = BasePrice * (Purity / 100) * 5;
+			break;
+		case ERarityType::Epic:
+			AdjustedPrice = BasePrice * (Purity / 100) * 6;
+			break;
+		case ERarityType::Legendary:
+			AdjustedPrice = BasePrice * (Purity / 100) * 8;
+			break;
+		default: ;
+	}
+
+	return AdjustedPrice * 10;
+}
+

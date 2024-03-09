@@ -7,6 +7,19 @@
 #include "GameFramework/Actor.h"
 #include "ShopManager.generated.h"
 
+USTRUCT(BlueprintType)
+struct FShopItem
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	FName ItemName;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	bool bOverridePolish;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	float PolishAmount = 25;
+};
+
 UCLASS()
 class EXTRACTIONGAME_API AShopManager : public AActor
 {
@@ -15,7 +28,7 @@ class EXTRACTIONGAME_API AShopManager : public AActor
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<FName> StartingItems;
+	TArray<FShopItem> StartingItems;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStashInventoryComponent* ShopInventory;

@@ -12,10 +12,10 @@ struct FPoolStruct
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(VisibleInstanceOnly)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<APooledObject> pooledSubclass;
 	
-	UPROPERTY(VisibleInstanceOnly)
+	UPROPERTY(EditAnywhere)
 	int numToSpawn = 20;
 };
 

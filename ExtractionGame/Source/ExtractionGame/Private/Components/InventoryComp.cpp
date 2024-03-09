@@ -163,18 +163,18 @@ void UInventoryComp::Server_RemoveItem_Implementation(UItemObject* Item)
 void UInventoryComp::Server_AddItem_Implementation(FAddItemInfo ItemInfo, int32 Index)
 {
 	UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass);
-			
-	ItemObject->ItemName = ItemInfo.ItemName;
-	ItemObject->ItemType = ItemInfo.ItemType;
-	ItemObject->Rarity = ItemInfo.Rarity;
-	ItemObject->Description = ItemInfo.Description;
-	ItemObject->GemType = ItemInfo.GemType;
-	ItemObject->DefaultPolish = ItemInfo.DefaultPolish;
-	ItemObject->Dimensions = ItemInfo.Dimensions;
-	ItemObject->Icon = ItemInfo.Icon;
-	ItemObject->IconRotated = ItemInfo.IconRotated;
-	ItemObject->RowName = ItemInfo.RowName;
-	ItemObject->ItemCost = ItemInfo.ItemCost;
+
+	ItemObject->Init(	ItemInfo.Dimensions,
+						ItemInfo.Icon,
+						ItemInfo.IconRotated,
+						ItemInfo.ItemName,
+						ItemInfo.ItemType,
+						ItemInfo.Rarity,
+						ItemInfo.Description,
+						ItemInfo.GemType,
+						ItemInfo.DefaultPolish,
+						ItemInfo.RowName,
+						ItemInfo.ItemCost);
 
 	FTile Tile = IndexToTile(Index);
 	for(int32 i = Tile.X; i < Tile.X + ItemInfo.Dimensions.X; i++)
@@ -448,12 +448,14 @@ bool UInventoryComp::IsTileValid(FTile Tile)
 
 int32 UInventoryComp::GetInventoryTotalCost()
 {
+	TArray<UItemObject*> TempItems;
 	int32 TotalCost = 0;
 	for(int32 i = 0; i < Items.Num(); i++)
 	{
-		if(Items[i])
+		if(Items[i] && !TempItems.Contains(Items[i]))
 		{
 			TotalCost += Items[i]->ItemCost;
+			TempItems.Add(Items[i]);
 		}
 	}
 
