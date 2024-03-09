@@ -52,28 +52,16 @@ class EXTRACTIONGAME_API UGemController : public UActorComponent
 	UPROPERTY(BlueprintAssignable, Category="Gem Changes")FReplicateGemChangeEvent OnChestChanged;
 
 
-	
-	FDelegateHandle OnEarthManaChangedHandle;
-	FDelegateHandle OnFireManaChangedHandle;
-	FDelegateHandle OnWaterManaChangedHandle;
-	FDelegateHandle OnShadowManaChangedHandle;
+	FDelegateHandle OnLeftManaChangedHandle;
+	FDelegateHandle OnMaxLeftManaChangedHandle;
+	FDelegateHandle OnRightManaChangedHandle;
+	FDelegateHandle OnMaxRightManaChangedHandle;
 
-	FDelegateHandle OnMaxEarthManaChangedHandle;
-	FDelegateHandle OnMaxFireManaChangedHandle;
-	FDelegateHandle OnMaxWaterManaChangedHandle;
-	FDelegateHandle OnMaxShadowManaChangedHandle;
+	virtual void OnLeftManaChanged(const FOnAttributeChangeData& Data);
+	virtual void OnMaxLeftManaChanged(const FOnAttributeChangeData& Data);
+	virtual void OnRightManaChanged(const FOnAttributeChangeData& Data);
+	virtual void OnMaxRightManaChanged(const FOnAttributeChangeData& Data);
 
-	virtual void OnEarthManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnMaxEarthManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnFireManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnMaxFireManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnShadowManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnMaxShadowManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnWaterManaChanged(const FOnAttributeChangeData& Data);
-	virtual void OnMaxWaterManaChanged(const FOnAttributeChangeData& Data);
-
-
-	
 	AGem** GetGemBySlot(EBodyPart slot);
 
 	UPROPERTY()
@@ -157,31 +145,17 @@ public:
 	UFUNCTION(Server, Reliable)
 	void SmartRecompileGems(bool forceRefresh = false);
 
-	
+	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
+	float GetLeftMana() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetEarthMana() const;
+	float GetLeftMaxMana() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetEarthMaxMana() const;
+	float GetRightMana() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetFireMana() const;
-
-	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetFireMaxMana() const;
-
-	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetShadowMana() const;
-
-	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetShadowMaxMana() const;
-	
-	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetWaterMana() const;
-
-	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
-	float GetWaterMaxMana() const;
+	float GetRightMaxMana() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "Player Attributes")
 	float GetManaRegenRate() const;

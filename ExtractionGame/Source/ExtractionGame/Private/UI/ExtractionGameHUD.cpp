@@ -33,6 +33,7 @@ void AExtractionGameHUD::CreatePlayerBarDataWidget()
 	PlayerUIData = CreateWidget<UPlayerBarDataWidget>(GetWorld(), PlayerUIDataSubclass);
 	PlayerUIData->AddToViewport();
 	PlayerUIData->SetVisibility(ESlateVisibility::Visible);
+	UE_LOG(LogTemp, Warning, TEXT("HUD Loaded"))
 }
 
 void AExtractionGameHUD::BeginPlay()

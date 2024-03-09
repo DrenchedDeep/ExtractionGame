@@ -63,58 +63,32 @@ public:
 	UFUNCTION()
 	virtual void OnRep_RegenMana(const FGameplayAttributeData& OldValue);
 
-	#pragma region Earth
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_EarthMana)
-		FGameplayAttributeData EarthManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, EarthManaPool);
+	#pragma region Left
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_LeftMana)
+		FGameplayAttributeData LeftManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, LeftManaPool);
 		UFUNCTION()
-		virtual void OnRep_EarthMana(const FGameplayAttributeData& OldValue);
+		virtual void OnRep_LeftMana(const FGameplayAttributeData& OldValue);
 
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxEarthMana)
-		FGameplayAttributeData MaxEarthManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxEarthManaPool);
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxLeftMana)
+		FGameplayAttributeData MaxLeftManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxLeftManaPool);
 		UFUNCTION()
-		virtual void OnRep_MaxEarthMana(const FGameplayAttributeData& OldValue);
-	# pragma endregion Earth
-	#pragma region Fire
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_FireMana)
-		FGameplayAttributeData FireManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, FireManaPool);
+		virtual void OnRep_MaxLeftMana(const FGameplayAttributeData& OldValue);
+	# pragma endregion Left
+	#pragma region Right
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_RightMana)
+		FGameplayAttributeData RightManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, RightManaPool);
 		UFUNCTION()
-		virtual void OnRep_FireMana(const FGameplayAttributeData& OldValue);
+		virtual void OnRep_RightMana(const FGameplayAttributeData& OldValue);
 
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxFireMana)
-		FGameplayAttributeData MaxFireManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxFireManaPool);
+		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxRightMana)
+		FGameplayAttributeData MaxRightManaPool;
+		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxRightManaPool);
 		UFUNCTION()
-		virtual void OnRep_MaxFireMana(const FGameplayAttributeData& OldValue);
-	# pragma endregion Fire
-	#pragma region Shadow
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_ShadowMana)
-		FGameplayAttributeData ShadowManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, ShadowManaPool);
-		UFUNCTION()
-		virtual void OnRep_ShadowMana(const FGameplayAttributeData& OldValue);
-
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxShadowMana)
-		FGameplayAttributeData MaxShadowManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxShadowManaPool);
-		UFUNCTION()
-		virtual void OnRep_MaxShadowMana(const FGameplayAttributeData& OldValue);
-	# pragma endregion Shadow
-	#pragma region Water
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_WaterMana)
-		FGameplayAttributeData WaterManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, WaterManaPool);
-		UFUNCTION()
-		virtual void OnRep_WaterMana(const FGameplayAttributeData& OldValue);
-		
-		UPROPERTY(BlueprintReadOnly, Category = "GemMana", ReplicatedUsing = OnRep_MaxWaterMana)
-		FGameplayAttributeData MaxWaterManaPool;
-		ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, MaxWaterManaPool);
-		UFUNCTION()
-		virtual void OnRep_MaxWaterMana(const FGameplayAttributeData& OldValue);
-	# pragma endregion Water
+		virtual void OnRep_MaxRightMana(const FGameplayAttributeData& OldValue);
+	# pragma endregion Right
 # pragma endregion Mana
 	/**
 	 * Helper function to proportionally adjust the value of an attribute when it's associated max attribute changes.

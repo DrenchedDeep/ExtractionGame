@@ -273,8 +273,17 @@ void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 		{
 			Subsystem->ClearAllMappings();
-		
-			Subsystem->AddMappingContext(InPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
+
+			if(InPawn->IsA(ASpaceShip::StaticClass()))
+			{
+				Subsystem->AddMappingContext(MountControllerMapping, 0);
+			}
+			else
+			{
+				Subsystem->AddMappingContext(PlayerControllerMapping, 0);
+				OnRep_Pawn();
+			}
+			
 		}
 	}
 }
@@ -304,6 +313,7 @@ void AExtractionGamePlayerController::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 	//APawn* possessed = GetPawn();
 	//if(!possessed) return;
+	
 }
 
 void AExtractionGamePlayerController::OnRep_Pawn()
@@ -320,8 +330,10 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 	}
 	
 
+	UE_LOG(LogTemp, Warning, TEXT("Attaching HUD 1"))
 	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(NewPawn))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Attaching HUD 2"))
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 		{
 			HUD->CreatePlayerBarDataWidget();

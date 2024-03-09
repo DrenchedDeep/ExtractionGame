@@ -20,6 +20,10 @@ struct FAbilityStruct
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
 	TSubclassOf<UGameplayAbility> GameplayAbilityClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
+	UTexture2D* Image;
+	
 };
 
 /**

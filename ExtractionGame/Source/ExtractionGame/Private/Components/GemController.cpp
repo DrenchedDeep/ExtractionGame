@@ -257,14 +257,10 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 	
 	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
 	{
-		OnEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnEarthManaChanged);
-		OnMaxEarthManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxEarthManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxEarthManaChanged);
-		OnFireManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetFireManaPoolAttribute()).AddUObject(this, &UGemController::OnFireManaChanged);
-		OnMaxFireManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxFireManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxFireManaChanged);
-		OnShadowManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetShadowManaPoolAttribute()).AddUObject(this, &UGemController::OnShadowManaChanged);
-		OnMaxShadowManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxShadowManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxShadowManaChanged);
-		OnWaterManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetWaterManaPoolAttribute()).AddUObject(this, &UGemController::OnWaterManaChanged);
-		OnMaxWaterManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxWaterManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxWaterManaChanged);
+		OnLeftManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetLeftManaPoolAttribute()).AddUObject(this, &UGemController::OnLeftManaChanged);
+		OnMaxLeftManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxLeftManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxLeftManaChanged);
+		OnRightManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetRightManaPoolAttribute()).AddUObject(this, &UGemController::OnRightManaChanged);
+		OnMaxRightManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxRightManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxRightManaChanged);
 	//	UE_LOG(LogTemp, Warning, TEXT("Controller LOCAL Loaded"))
 	}
 //	UE_LOG(LogTemp, Warning, TEXT("Controller Loaded"))
@@ -319,7 +315,6 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 
 	//Based on some constant number...
 	int32 ability = 0;
-	//fire, water, light, dark...
 	int iteration= 0;
 	float totalPolish = 0;
 	for (const float val : type)
@@ -353,13 +348,13 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 	if(bIsLeft)
 	{
 		LeftArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		if(hud) hud->SetLeftGems(leftGems);
+		if(hud) hud->SetLeftGems(leftGems, InAbilityClass.Image, ability, totalPolish);
 		//if(LeftArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 	else
 	{
 		RightArmAbilitySpecHandle = Character->GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
-		if(hud) hud->SetRightGems(rightGems);
+		if(hud) hud->SetRightGems(rightGems, InAbilityClass.Image,ability, totalPolish);
 		//if(RightArmAbilitySpecHandle.IsValid()) UE_LOG(LogTemp, Error, TEXT("Recomp arm, but invalid handle??"));
 	}
 
@@ -379,7 +374,7 @@ void UGemController::RecompileHead()
 	
 	//Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
 	Score =  Score << (6-(static_cast<int>(HeadGem->GetGemType())*2));//(Score << (6 - static_cast<int>(HeadGem->GetGemType()) * 2));
-	//Earth 1,2,4
+	//Left 1,2,4
 //	UE_LOG(LogTemp, Warning, TEXT("Head Ability: %d, %d"), Score, val);
 	const TSubclassOf<UGameplayEffect> effect = SubSystem->GetEffectByIndex(Score);
 	//const FGameplayAbilitySpec EffectSpec(effect, val, -1, Character);
@@ -408,109 +403,59 @@ UPlayerBarDataWidget* UGemController::GetHUDElement()
 	return nullptr;
 }
 
-
-void UGemController::OnEarthManaChanged(const FOnAttributeChangeData& Data)
+void UGemController::OnLeftManaChanged(const FOnAttributeChangeData& Data)
 {
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
-	hud->SetEarthManaPercent(Data.NewValue / GetEarthMaxMana());
+	hud->SetLeftManaPercent(Data.NewValue / GetLeftMaxMana());
 }
 
-void UGemController::OnMaxEarthManaChanged(const FOnAttributeChangeData& Data)
+void UGemController::OnMaxLeftManaChanged(const FOnAttributeChangeData& Data)
 {
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
-	hud->SetEarthManaPercent(GetEarthMana() / Data.NewValue);
+	hud->SetLeftManaPercent(GetLeftMana() / Data.NewValue);
 }
 
-void UGemController::OnFireManaChanged(const FOnAttributeChangeData& Data)
+void UGemController::OnRightManaChanged(const FOnAttributeChangeData& Data)
 {
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
-	hud->SetFireManaPercent(Data.NewValue / GetFireMaxMana());
+	hud->SetRightManaPercent(Data.NewValue / GetRightMaxMana());
 }
 
-void UGemController::OnMaxFireManaChanged(const FOnAttributeChangeData& Data)
+void UGemController::OnMaxRightManaChanged(const FOnAttributeChangeData& Data)
 {
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
-	hud->SetFireManaPercent(GetFireMana() / Data.NewValue);
+	hud->SetRightManaPercent(GetRightMana() / Data.NewValue);
 }
 
-void UGemController::OnShadowManaChanged(const FOnAttributeChangeData& Data)
+float UGemController::GetLeftMana() const
 {
-	UPlayerBarDataWidget* hud =GetHUDElement();
-	if(!hud) return;
-	hud->SetShadowManaPercent(Data.NewValue / GetShadowMaxMana());
+	return Character->GetAttributeSet()->GetLeftManaPool();
 }
 
-void UGemController::OnMaxShadowManaChanged(const FOnAttributeChangeData& Data)
+float UGemController::GetLeftMaxMana() const
 {
-	UPlayerBarDataWidget* hud =GetHUDElement();
-	if(!hud) return;
-	hud->SetShadowManaPercent(GetShadowMana() / Data.NewValue);
+	return Character->GetAttributeSet()->GetMaxLeftManaPool();
 }
 
-void UGemController::OnWaterManaChanged(const FOnAttributeChangeData& Data)
+float UGemController::GetRightMana() const
 {
-	UPlayerBarDataWidget* hud =GetHUDElement();
-	if(!hud) return;
-	hud->SetWaterManaPercent(Data.NewValue / GetWaterMaxMana());
+	return Character->GetAttributeSet()->GetRightManaPool();
 }
 
-void UGemController::OnMaxWaterManaChanged(const FOnAttributeChangeData& Data)
+float UGemController::GetRightMaxMana() const
 {
-	UPlayerBarDataWidget* hud =GetHUDElement();
-	if(!hud) return;
-	hud->SetWaterManaPercent(GetWaterMana() / Data.NewValue);
-}
-
-float UGemController::GetEarthMana() const
-{
-	
-	return Character->GetAttributeSet()->GetEarthManaPool();
-}
-
-float UGemController::GetEarthMaxMana() const
-{
-	return Character->GetAttributeSet()->GetMaxEarthManaPool();
-}
-
-float UGemController::GetFireMana() const
-{
-	return Character->GetAttributeSet()->GetFireManaPool();
-}
-
-float UGemController::GetFireMaxMana() const
-{
-	return Character->GetAttributeSet()->GetMaxFireManaPool();
-}
-
-float UGemController::GetShadowMana() const
-{
-	return Character->GetAttributeSet()->GetShadowManaPool();
-}
-
-float UGemController::GetShadowMaxMana() const
-{
-	return Character->GetAttributeSet()->GetMaxShadowManaPool();
-}
-
-float UGemController::GetWaterMana() const
-{
-	return Character->GetAttributeSet()->GetWaterManaPool();
-}
-
-float UGemController::GetWaterMaxMana() const
-{
-	
-	return Character->GetAttributeSet()->GetMaxWaterManaPool();
+	return Character->GetAttributeSet()->GetMaxRightManaPool();
 }
 
 float UGemController::GetManaRegenRate() const
 {
 	return Character->GetAttributeSet()->GetRegenMana();
 }
+
 
 void UGemController::Initialize(const AExtractionGameHUD* hud)
 {

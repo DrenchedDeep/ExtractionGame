@@ -18,15 +18,11 @@ void UExtractionAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenMana, COND_None, REPNOTIFY_OnChanged);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RegenHealth, COND_None, REPNOTIFY_OnChanged);
 	
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, EarthManaPool, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, FireManaPool, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, ShadowManaPool, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, WaterManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, LeftManaPool, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, RightManaPool, COND_None, REPNOTIFY_Always);
 	
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxEarthManaPool, COND_None, REPNOTIFY_OnChanged);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxFireManaPool, COND_None, REPNOTIFY_OnChanged);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxShadowManaPool, COND_None, REPNOTIFY_OnChanged);
-	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxWaterManaPool, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxLeftManaPool, COND_None, REPNOTIFY_OnChanged);
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxRightManaPool, COND_None, REPNOTIFY_OnChanged);
 }
 
 void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -39,23 +35,14 @@ void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attri
 		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
 	}
 	// If a Max value changes, adjust current to keep Current % of Current to Max
-	else if (Attribute == GetMaxEarthManaPoolAttribute())
+	else if (Attribute == GetMaxLeftManaPoolAttribute())
 	{
-		AdjustAttributeForMaxChange(EarthManaPool, MaxEarthManaPool, NewValue, GetEarthManaPoolAttribute());
+		AdjustAttributeForMaxChange(LeftManaPool, MaxLeftManaPool, NewValue, GetLeftManaPoolAttribute());
 	}
-	else if (Attribute == GetMaxFireManaPoolAttribute())
+	else if (Attribute == GetMaxRightManaPoolAttribute())
 	{
-		AdjustAttributeForMaxChange(FireManaPool, MaxFireManaPool, NewValue, GetFireManaPoolAttribute());
+		AdjustAttributeForMaxChange(RightManaPool, MaxRightManaPool, NewValue, GetRightManaPoolAttribute());
 	}
-	else if (Attribute == GetMaxShadowManaPoolAttribute())
-	{
-		AdjustAttributeForMaxChange(ShadowManaPool, MaxShadowManaPool, NewValue, GetShadowManaPoolAttribute());
-	}
-	else if (Attribute == GetMaxWaterManaPoolAttribute())
-	{
-		AdjustAttributeForMaxChange(WaterManaPool, MaxWaterManaPool, NewValue, GetWaterManaPoolAttribute());
-	}
-	
 }
 
 void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -117,21 +104,13 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	//Max Mana is based on gems
 	//
 	
-	if(Data.EvaluatedData.Attribute == GetEarthManaPoolAttribute())
+	if(Data.EvaluatedData.Attribute == GetLeftManaPoolAttribute())
 	{
-		SetEarthManaPool(FMath::Clamp(GetEarthManaPool(), 0.f, GetMaxEarthManaPool()));
+		SetLeftManaPool(FMath::Clamp(GetLeftManaPool(), 0.f, GetMaxLeftManaPool()));
 	}
-	else if(Data.EvaluatedData.Attribute == GetFireManaPoolAttribute())
+	else if(Data.EvaluatedData.Attribute == GetRightManaPoolAttribute())
 	{
-		SetFireManaPool(FMath::Clamp(GetFireManaPool(), 0.f, GetMaxFireManaPool()));
-	}
-	else if(Data.EvaluatedData.Attribute == GetShadowManaPoolAttribute())
-	{
-		SetShadowManaPool(FMath::Clamp(GetShadowManaPool(), 0.f, GetMaxShadowManaPool()));
-	}
-	else if(Data.EvaluatedData.Attribute == GetWaterManaPoolAttribute())
-	{
-		SetWaterManaPool(FMath::Clamp(GetWaterManaPool(), 0.f, GetMaxWaterManaPool()));
+		SetRightManaPool(FMath::Clamp(GetRightManaPool(), 0.f, GetMaxRightManaPool()));
 	}
 	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
@@ -190,43 +169,23 @@ void UExtractionAttributeSet::OnRep_RegenMana(const FGameplayAttributeData& OldV
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, RegenMana, OldValue);
 }
 
-void UExtractionAttributeSet::OnRep_EarthMana(const FGameplayAttributeData& OldValue)
+void UExtractionAttributeSet::OnRep_LeftMana(const FGameplayAttributeData& OldValue)
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, EarthManaPool, OldValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, LeftManaPool, OldValue);
 }
 
-void UExtractionAttributeSet::OnRep_MaxEarthMana(const FGameplayAttributeData& OldValue)
+void UExtractionAttributeSet::OnRep_MaxLeftMana(const FGameplayAttributeData& OldValue)
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxEarthManaPool, OldValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxLeftManaPool, OldValue);
 }
 
 
-void UExtractionAttributeSet::OnRep_FireMana(const FGameplayAttributeData& OldValue)
+void UExtractionAttributeSet::OnRep_RightMana(const FGameplayAttributeData& OldValue)
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, FireManaPool, OldValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, RightManaPool, OldValue);
 }
 
-void UExtractionAttributeSet::OnRep_MaxFireMana(const FGameplayAttributeData& OldValue)
+void UExtractionAttributeSet::OnRep_MaxRightMana(const FGameplayAttributeData& OldValue)
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxFireManaPool, OldValue);
-}
-
-void UExtractionAttributeSet::OnRep_ShadowMana(const FGameplayAttributeData& OldValue)
-{
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, ShadowManaPool, OldValue);
-}
-
-void UExtractionAttributeSet::OnRep_MaxShadowMana(const FGameplayAttributeData& OldValue)
-{
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxShadowManaPool, OldValue);
-}
-
-void UExtractionAttributeSet::OnRep_WaterMana(const FGameplayAttributeData& OldValue)
-{
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, WaterManaPool, OldValue);
-}
-
-void UExtractionAttributeSet::OnRep_MaxWaterMana(const FGameplayAttributeData& OldValue)
-{
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxWaterManaPool, OldValue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, MaxRightManaPool, OldValue);
 }

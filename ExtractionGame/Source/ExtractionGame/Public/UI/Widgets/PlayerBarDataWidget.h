@@ -15,22 +15,22 @@ class EXTRACTIONGAME_API UPlayerBarDataWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetLeftManaPercent(float percent);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetRightManaPercent(float percent);
+
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetHealthPercent(float percent);
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetEarthManaPercent(float percent);
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetFireManaPercent(float percent);
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetShadowManaPercent(float percent);
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetWaterManaPercent(float percent);
+	
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetLeftGems(const  TArray<AGem*>& Gems);
+	void SetLeftGems(const  TArray<AGem*>& Gems, const UTexture2D* AbilityImage, int abilityID, float polish);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable) // This would be a client function if we even still want it.
-	void SetRightGems(const TArray<AGem*>& Gems); 
+	void SetRightGems(const TArray<AGem*>& Gems, const UTexture2D* AbilityImage, int abilityID, float polish); 
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetHeadGems(const AGem* Gems);
