@@ -5,7 +5,6 @@
 #include "Components/ItemObject.h"
 #include "Components/ItemObject.h"
 
-#include "Editor.h"
 #include "ExtractionGameBPLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "Components/InventoryComp.h"
