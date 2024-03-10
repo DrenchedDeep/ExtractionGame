@@ -366,26 +366,6 @@ TArray<FAddItemInfo> UInventoryComp::GetItemsAsAddItemInfo()
 	return ItemInfos;
 }
 
-void UInventoryComp::OrganizeItemsByItemType(EItemTypes ItemType)
-{
-	int32 NumItems = Items.Num();
-	for (int32 i = 0; i < NumItems - 1; i++)
-	{
-		for (int32 j = 0; j < NumItems - i - 1; j++)
-		{
-			if (Items[j] && Items[j + 1] &&
-				Items[j]->ItemType != ItemType && Items[j + 1]->ItemType == ItemType)
-			{
-				UItemObject* Temp = Items[j];
-				Items[j] = Items[j + 1];
-				Items[j + 1] = Temp;
-			}
-		}
-	}
-
-	bIsDirty = true;
-}
-
 FTile UInventoryComp::IndexToTile(int32 Index)
 {
 	const FTile Tile { Index % Columns, Index / Columns };

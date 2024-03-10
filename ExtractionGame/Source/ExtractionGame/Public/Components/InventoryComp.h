@@ -246,9 +246,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual TArray<FAddItemInfo> GetItemsAsAddItemInfo();
 
-	UFUNCTION(BlueprintCallable)
-	virtual void OrganizeItemsByItemType(EItemTypes ItemType);
-
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	virtual FItemIndex GetItemAtIndex(int32 InIndex);
 	

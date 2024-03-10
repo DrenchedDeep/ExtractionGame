@@ -1,0 +1,39 @@
+
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GeyserSpawnpoint.h"
+#include "GameFramework/Actor.h"
+#include "GeyserController.generated.h"
+
+UCLASS()
+class EXTRACTIONGAME_API AGeyserController : public AActor
+{
+	GENERATED_BODY()
+	
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
+	TArray<AGeyserSpawnpoint*> GeyserSpawnpoints;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
+	float GeyserSpawnDelay = 250;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
+	int32 GeyserMaxSpawns = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
+	float GeyserLength = 60;
+	
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	FTimerHandle GeyserSpawnTimer;
+	
+	UFUNCTION()
+	void SpawnGeyser();
+
+	int32 GeyserSpawnCount;
+	int32 LastIndex = -1;
+};
