@@ -22,7 +22,7 @@ class EXTRACTIONGAME_API AGoober : public ACharacterPawnBase, public IInteractab
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AActor> GooberMeatSubclass;
 public:
-	UPROPERTY(ReplicatedUsing=OnRep_Dead);
+	UPROPERTY(ReplicatedUsing=OnRep_Dead, BlueprintReadOnly);
 	bool bIsDead;
 	UPROPERTY(ReplicatedUsing=OnRep_Cooking);
 	bool bIsCooking;
@@ -30,7 +30,7 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	float MaxHealth;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool bIsCooked;
 
 	UFUNCTION(BlueprintCallable)
@@ -44,6 +44,9 @@ public:
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginPlay() override;
+
+	UPROPERTY(Replicated)
+	float CurrentCookTimer = 0;
 	
 	UFUNCTION()
 	virtual void OnRep_Dead();
@@ -65,7 +68,7 @@ protected:
 
 private:
 	float CurrentHealth;
-	float CurrentCookTimer = 0;
+
 
 	
 	UFUNCTION()

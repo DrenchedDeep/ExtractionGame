@@ -68,6 +68,12 @@ void AGoober::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeP
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AGoober, bIsDead);
+	DOREPLIFETIME(AGoober, CurrentCookTimer);
+	DOREPLIFETIME(AGoober, bIsCooked);
+
+	//?
+	DOREPLIFETIME(AGoober, bIsDead);
+	DOREPLIFETIME(AGoober, bIsCooking);
 }
 
 void AGoober::OnRep_Dead()

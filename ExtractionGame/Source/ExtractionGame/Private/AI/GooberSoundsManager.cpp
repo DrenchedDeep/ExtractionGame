@@ -17,14 +17,18 @@ void AGooberSoundsManager::Multicast_PlaySFX_Implementation(const FString& ID, F
 	{
 		if(ID == GooberSounds[i].ID)
 		{
-			int32 RandomSFX = FMath::RandRange(0, GooberSounds[i].Sound.Num());
-
-			if(!GooberSounds[i].Sound.IsValidIndex(RandomSFX))
+			TArray<FPercentAudio> audio = GooberSounds[i].Sound; 
+			for(int j  = audio.Num()-1; j > 0; --j)
 			{
-				RandomSFX = 0;
+				const float rng = FMath::FRand();
+				if(rng <= audio[j].percent) // This is bad probability lol it'd be more optimized if at compile time, we new sum probabilty, took a random in that range, and then just found it's owner by summing.
+				{
+					UGameplayStatics::PlaySoundAtLocation(GetWorld(),  audio[j].Sound, Location, FRotator(), Volume, Pitch, 0.f, GooberSoundAttenuation);
+					return;
+				}
 			}
-			
-			UGameplayStatics::PlaySoundAtLocation(GetWorld(), GooberSounds[i].Sound[RandomSFX], Location, FRotator(), Volume, Pitch, 0.f, GooberSoundAttenuation);
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), audio[0].Sound, Location, FRotator(), Volume, Pitch, 0.f, GooberSoundAttenuation);
+			return;
 		}
 	}
 }

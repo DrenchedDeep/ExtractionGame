@@ -8,6 +8,17 @@
 #include "GooberSoundsManager.generated.h"
 
 USTRUCT()
+struct FPercentAudio
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, meta=(ClampMax = 1, ClampMin = 0))
+	float percent;
+	UPROPERTY(EditAnywhere)
+	USoundWave* Sound;
+};
+
+USTRUCT()
 struct FGooberSFX
 {
 	GENERATED_BODY()
@@ -15,7 +26,7 @@ struct FGooberSFX
 	UPROPERTY(EditAnywhere)
 	FString ID;
 	UPROPERTY(EditAnywhere)
-	TArray<USoundWave*> Sound;
+	TArray<FPercentAudio> Sound;
 };
 UCLASS()
 class EXTRACTIONGAME_API AGooberSoundsManager : public AActor
