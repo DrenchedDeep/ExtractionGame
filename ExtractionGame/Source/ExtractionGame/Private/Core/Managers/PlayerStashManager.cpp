@@ -72,6 +72,7 @@ void APlayerStashManager::SaveInventory()
 	const TArray<FName> PartyMembers;
 	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(), GetGemInventory());
 
+	OnSave();
 	UE_LOG(LogTemp, Warning, TEXT("Saving Inventory"));
 	bool bDisable = true;
 

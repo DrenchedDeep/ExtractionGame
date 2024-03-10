@@ -128,7 +128,6 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	UPROPERTY()UCommandHandlerSubsystem* CommandHandlerSubsystem;
 
 public:
-
 	UAbilityHandlerSubSystem* GetAbilityHandlerSubSystem() const {return AbilityHandlerSubSystem;}
 	
 	const int SESSION_PLAYERCOUNT = 4;

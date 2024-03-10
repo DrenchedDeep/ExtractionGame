@@ -46,6 +46,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SaveInventory();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSave();
 	UFUNCTION(BlueprintCallable)
 	void AddGem(UItemObject* Gem, EBodyPart BodyPart);
 	UFUNCTION(BlueprintCallable)
