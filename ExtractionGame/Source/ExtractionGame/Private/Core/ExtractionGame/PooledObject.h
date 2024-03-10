@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "GameFramework/Actor.h"
 #include "PooledObject.generated.h"
 
@@ -24,8 +25,9 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Pooling")
 	void SetAttributes(float power, FName groupName);
-	//virtual void SetAttributes_Implementation(float power, FName groupName);
 
+	UPROPERTY(BlueprintReadWrite)
+	AExtractionGameCharacter* AbilityOwner;
 
 	
 	
@@ -39,5 +41,6 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Replicated)
 	float Power;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual bool IsNetRelevantFor(const AActor* RealViewer, const AActor* ViewTarget, const FVector& SrcLocation) const override;
 };
 

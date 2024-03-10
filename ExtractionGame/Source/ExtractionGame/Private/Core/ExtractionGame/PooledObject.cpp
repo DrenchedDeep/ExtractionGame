@@ -3,6 +3,7 @@
 
 #include "PooledObject.h"
 
+#include "GameFramework/GameNetworkManager.h"
 #include "Net/UnrealNetwork.h"
 
 // Sets default values
@@ -32,4 +33,15 @@ void APooledObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(APooledObject, Power)
+}
+
+bool APooledObject::IsNetRelevantFor(const AActor* RealViewer, const AActor* ViewTarget,
+	const FVector& SrcLocation) const
+{
+	if(!AbilityOwner)
+	{
+		return Super::IsNetRelevantFor(RealViewer, ViewTarget, SrcLocation);
+	}
+	
+	return (RealViewer && AbilityOwner) && RealViewer->GetUniqueID() != AbilityOwner->GetUniqueID();
 }

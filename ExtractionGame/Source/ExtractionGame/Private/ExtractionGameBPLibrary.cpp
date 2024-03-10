@@ -163,6 +163,6 @@ int32 UExtractionGameBPLibrary::GetAdjustedPrice(ERarityType Rarity, int32 BaseP
 		default: ;
 	}
 
-	return AdjustedPrice * 10;
+	return AdjustedPrice * 3;
 }
 
