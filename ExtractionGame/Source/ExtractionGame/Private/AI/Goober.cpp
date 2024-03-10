@@ -14,6 +14,7 @@ void AGoober::ApplyDamage(float Damage)
 		CurrentHealth = 0;
 		bIsDead = true;
 		BP_OnGooberDeadServer();
+		
 	}
 }
 
