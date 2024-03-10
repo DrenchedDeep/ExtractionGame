@@ -142,27 +142,14 @@ ERarityType UExtractionGameBPLibrary::GetRarityTypeFromGemPurity(float Purity)
 
 int32 UExtractionGameBPLibrary::GetAdjustedPrice(ERarityType Rarity, int32 BasePrice, float Purity)
 {
-	int32 AdjustedPrice = BasePrice;
-	switch(Rarity)
+	int32 AdjustedPrice =  BasePrice * (Purity / 50) * (Rarity + 1);
+	UE_LOG(LogTemp, Warning, TEXT("AdjustedPrice: %d"), (Purity / 50));
+
+	if(AdjustedPrice < BasePrice)
 	{
-		case ERarityType::Common:
-			AdjustedPrice = BasePrice * (Purity / 100) * 3;
-			break;
-		case ERarityType::Uncommon:
-			AdjustedPrice = BasePrice * (Purity / 100) * 4;
-			break;
-		case ERarityType::Rare:
-			AdjustedPrice = BasePrice * (Purity / 100) * 5;
-			break;
-		case ERarityType::Epic:
-			AdjustedPrice = BasePrice * (Purity / 100) * 6;
-			break;
-		case ERarityType::Legendary:
-			AdjustedPrice = BasePrice * (Purity / 100) * 8;
-			break;
-		default: ;
+		AdjustedPrice = BasePrice;
 	}
 
-	return AdjustedPrice * 3;
+	return AdjustedPrice;
 }
 
