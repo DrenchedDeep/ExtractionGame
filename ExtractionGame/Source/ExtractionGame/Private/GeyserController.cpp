@@ -13,12 +13,13 @@ void AGeyserController::BeginPlay()
 
 void AGeyserController::SpawnGeyser()
 {
+	if(GeyserSpawnpoints.IsValidIndex(LastIndex))
+	{
+		GeyserSpawnpoints[LastIndex]->DeactivateGeyser();
+	}
+	
 	if(GeyserSpawnCount < GeyserMaxSpawns)
 	{
-		if(GeyserSpawnpoints.IsValidIndex(LastIndex))
-		{
-			GeyserSpawnpoints[LastIndex]->DeactivateGeyser();
-		}
 		if(GeyserSpawnpoints.Num() > 0)
 		{
 			int32 RandomIndex = FMath::RandRange(0, GeyserSpawnpoints.Num() - 1);

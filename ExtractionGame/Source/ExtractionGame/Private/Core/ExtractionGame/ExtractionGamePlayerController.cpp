@@ -148,8 +148,13 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 		UnPossess();
 		Possess(SP);
 
-		CurrentRespawnTimer = RespawnTimer;
-		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AExtractionGamePlayerController::RespawnTick, 1.f, true);
+		AExtractionGameGameMode* GameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+		if(GameMode && GameMode->bEnableRespawn)
+		{
+			CurrentRespawnTimer = RespawnTimer;
+			GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AExtractionGamePlayerController::RespawnTick, 1.f, true);
+		}
 		Client_OnDeath(PlayerName);
 		
 		if(AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))

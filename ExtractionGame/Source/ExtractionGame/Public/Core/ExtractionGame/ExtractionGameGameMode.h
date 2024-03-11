@@ -50,6 +50,9 @@ class AExtractionGameGameMode : public AGameModeBase
 
 public:
 	AExtractionGameGameMode();
+
+	UPROPERTY(EditDefaultsOnly)
+	bool bEnableRespawn = false;
 	
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
