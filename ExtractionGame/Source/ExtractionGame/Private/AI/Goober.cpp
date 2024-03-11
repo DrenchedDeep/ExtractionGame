@@ -8,7 +8,7 @@
 void AGoober::ApplyDamage(float Damage)
 {
 	CurrentHealth -= Damage;
-
+	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth: %f"), CurrentHealth);
 	if(CurrentHealth <= 0)
 	{
 		CurrentHealth = 0;

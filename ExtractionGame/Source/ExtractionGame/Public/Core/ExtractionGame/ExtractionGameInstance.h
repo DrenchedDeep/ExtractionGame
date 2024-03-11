@@ -12,6 +12,7 @@
 #include "Core/Managers/PoolHandlerSubSystem.h"
 #include "Core/Other/MapInfo.h"
 #include "Managers/CommandHandlerSubsystem.h"
+#include "Online/OnlineSessionNames.h"
 #include "ExtractionGameInstance.generated.h"
 
 UDELEGATE()
@@ -234,10 +235,15 @@ private:
 		FOnlineSessionSearchResult BestSession;
 		for(int i = 0; i < Search->SearchResults.Num(); i++)
 		{
-			if(Search->SearchResults[i].Session.SessionSettings.bUseLobbiesIfAvailable)
+			FString SessionSettings;
+			if(CurrentSession->SessionSettings.Get(SEARCH_KEYWORDS, SessionSettings))
 			{
-				continue;
+				if(SessionSettings == "PartyLOBBY")
+				{
+					continue;
+				}
 			}
+		
 
 			BestSession = Search->SearchResults[i];
 			break;

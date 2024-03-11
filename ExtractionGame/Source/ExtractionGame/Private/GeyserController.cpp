@@ -21,11 +21,11 @@ void AGeyserController::SpawnGeyser()
 		}
 		if(GeyserSpawnpoints.Num() > 0)
 		{
-
-			if(GeyserSpawnpoints.IsValidIndex(GeyserSpawnCount) && !GeyserSpawnpoints[GeyserSpawnCount]->bGeyserActivated)
+			int32 RandomIndex = FMath::RandRange(0, GeyserSpawnpoints.Num() - 1);
+			if(GeyserSpawnpoints.IsValidIndex(RandomIndex) && !GeyserSpawnpoints[RandomIndex]->bGeyserActivated)
 			{
-				GeyserSpawnpoints[GeyserSpawnCount]->ActivateGeyser();
-				LastIndex = GeyserSpawnCount;
+				GeyserSpawnpoints[RandomIndex]->ActivateGeyser();
+				LastIndex = RandomIndex;
 			}
 			
 			GeyserSpawnCount++;

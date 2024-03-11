@@ -81,7 +81,7 @@ void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 Te
 	FActorSpawnParameters Parm;
 	Parm.bNoFail = true;
 	
-	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(DefaultPawnClass, FVector(0,0,100000), FRotator(0), Parm)))
+	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(ShipClass, FVector(0,0,100000), FRotator(0), Parm)))
 	{
 		NewPlayer->Possess(PlayerPawn);
 

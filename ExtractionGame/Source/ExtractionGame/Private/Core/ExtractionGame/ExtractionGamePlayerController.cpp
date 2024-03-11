@@ -183,7 +183,8 @@ void AExtractionGamePlayerController::RespawnTick()
 			PlayerPawnActor->Destroy();
 		}
 
-		if(const AExtractionGameGameMode* ExtractionGameGameMode = Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		if(const AExtractionGameGameMode* ExtractionGameGameMode
+			= Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			ExtractionGameGameMode->RespawnShip(this,0);
 		}
