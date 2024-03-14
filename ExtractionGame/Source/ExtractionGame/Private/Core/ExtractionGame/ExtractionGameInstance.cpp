@@ -403,6 +403,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 	{
 		if(SessionSettings == "PartyLOBBY")
 		{
+			UE_LOG(LogTemp, Warning, TEXT("ExtractionGameInstanceCPP --> Sending player to MainMenu"))
 			ShowLoadingScreen();
 			GetWorld()->ServerTravel("LVL_MainMenu?listen");
 			CurrentLobby = Session->GetNamedSession(SessionName);
@@ -451,6 +452,7 @@ void UExtractionGameInstance::OnJoinSessionCompleted(FName SessionName, EOnJoinS
 			FString Value = Pair.Value.Data.ToString();
 			if(Key == "SEARCHKEYWORDS")
 			{
+				//if(Value == "PartyLOBBY")
 				if(Value == "PartyLOBBY")
 				{
 					ShowLoadingScreen();
@@ -583,6 +585,9 @@ void UExtractionGameInstance::CreateLobby()
 {
 	FOnlineSessionSettings SessionSettings;
 
+	const FName LobbyName = FName(FString::FromInt(FMath::RandRange(0, 10000)));
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	
 	SessionSettings.bIsDedicated = false;
 	SessionSettings.bAllowInvites = true;
 	SessionSettings.NumPublicConnections = 2;
@@ -593,12 +598,12 @@ void UExtractionGameInstance::CreateLobby()
 	SessionSettings.bAntiCheatProtected = false;
 	SessionSettings.bUseLobbiesIfAvailable = false;
 	SessionSettings.bAllowJoinInProgress = true;
+
+	const FUniqueNetIdRepl id = LocalPlayer->GetPreferredUniqueNetId();
 	SessionSettings.Set(SEARCH_KEYWORDS, FString("PartyLOBBY"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
- 
-	const FName LobbyName = FName(FString::FromInt(FMath::RandRange(0, 10000)));
-	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
-	
-	 if(!Session->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(), LobbyName, SessionSettings))
+	//SessionSettings.Set(SEARCH_KEYWORDS, id.ToString(), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
+
+	 if(!Session->CreateSession(*id, LobbyName, SessionSettings))
 	 {
 		 OnCreateLobbyComplete.Broadcast(false);
 	 }
