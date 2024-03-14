@@ -551,9 +551,9 @@ void UExtractionGameInstance::OnFindSessionCompleted(bool bWasSuccess, TSharedRe
 void UExtractionGameInstance::HandleSessionInviteAccepted(const bool bWasSuccessful, const int32 ControllerId,
 	FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult)
 {
-	//TODO: check if session is full, if so reject invite
 	const FName SessionID = FName(*InviteResult.GetSessionIdStr());
 
+	//TODO: check if session is full, if so reject invite
 	if(Session->GetNamedSession(SessionID) && Session->GetNamedSession(SessionID)->NumOpenPublicConnections >= 2)
 	{
 		OnSessionAcceptedResultDelegate.Broadcast(false);

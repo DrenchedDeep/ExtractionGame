@@ -13,18 +13,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/CookZone.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/CookZone.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_DeathScreen.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_DeathScreen.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GesyerSpawnPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GesyerSpawnPoint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_CharacterWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_CharacterWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_PauseMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_PauseMenu.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Fire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Fire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Fire1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Fire1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/TrailEmitter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/TrailEmitter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Gieser.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Gieser.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameInstance.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +67,7 @@
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Managers/ItemSpawner.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Objects/GemItemObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Quests/EliminateQuestBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/RaymarchingTesting/Assets/RayMarching.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://E:/VS2022/VC/Tools/MSVC/14.36.32532/include/cstdlib" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -489,6 +484,10 @@
       <workItem from="1710057152285" duration="7186000" />
       <workItem from="1710098081077" duration="1074000" />
       <workItem from="1710117159970" duration="2791000" />
+      <workItem from="1710367821827" duration="2481000" />
+      <workItem from="1710373321025" duration="601000" />
+      <workItem from="1710434999615" duration="1048000" />
+      <workItem from="1710446177910" duration="600000" />
     </task>
     <servers />
   </component>
