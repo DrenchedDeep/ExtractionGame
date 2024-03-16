@@ -225,15 +225,14 @@ void ASpaceShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	const float dt = GetWorld()->DeltaTimeSeconds;
-	const FVector newLocation = GetActorLocation() + GetActorUpVector() * (-currentSpeed * dt);
+	const FVector newLocation = GetActorLocation() + GetActorUpVector() * (-currentSpeed * DeltaTime);
 	FHitResult hit;
 	if(!movementDirection.IsNearlyZero())
 	{
 		FRotator r = GetActorRotation();
 		
-		const float yaw = movementDirection.X * rotationSpeed * dt;
-		const float pitch = movementDirection.Y * rotationSpeed * dt;
+		const float yaw = movementDirection.X * rotationSpeed * DeltaTime;
+		const float pitch = movementDirection.Y * rotationSpeed * DeltaTime;
 		
 		const float prv = r.Pitch;
 		r.Pitch += pitch;
