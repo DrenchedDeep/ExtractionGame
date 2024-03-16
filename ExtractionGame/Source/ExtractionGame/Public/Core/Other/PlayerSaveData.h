@@ -34,4 +34,8 @@ public:
 	TArray<FSavedInventoryItem> PlayerItems;
 	UPROPERTY()
 	TArray<FSavedInventoryItem> GemItems;
+	
+	UPROPERTY(BlueprintReadWrite)
+	uint8 bHasSeenIntroCutscene;
+	
 };
