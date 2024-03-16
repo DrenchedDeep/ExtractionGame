@@ -6,6 +6,14 @@
 #include "GameFramework/Actor.h"
 #include "GeyserSpawnpoint.generated.h"
 
+UENUM(BlueprintType)
+enum EGeyserStates
+{
+	Smoking,
+	Active,
+	Deactive
+};
+
 UCLASS()
 class EXTRACTIONGAME_API AGeyserSpawnpoint : public AActor
 {
@@ -13,19 +21,27 @@ class EXTRACTIONGAME_API AGeyserSpawnpoint : public AActor
 	
 	
 public:
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnRep_GeyserSpawned)
-	bool bGeyserActivated;
+	void SetGeyserState(EGeyserStates NewState);
+	void ResetGeyser();
 
-	void ActivateGeyser();
-	void DeactivateGeyser();
+	UFUNCTION(BlueprintPure)
+	TEnumAsByte<EGeyserStates> GetGeyserState() const { return State; }
+
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	UFUNCTION()
+	void OnRep_GeyserState();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnGeyserStatusUpdated();
-	
-protected:
-	AGeyserSpawnpoint();
+
+private:
+	UPROPERTY(ReplicatedUsing=OnRep_GeyserState)
+	TEnumAsByte<EGeyserStates> State;
+
+	FTimerHandle GeyserTimer;
+	int32 CurrentGeyserTime;
 
 	UFUNCTION()
-	void OnRep_GeyserSpawned();
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	void GeyserTick();
 };

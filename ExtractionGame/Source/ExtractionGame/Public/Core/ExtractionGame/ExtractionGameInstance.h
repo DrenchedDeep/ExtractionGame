@@ -230,21 +230,21 @@ private:
 
 	bool bHost;
 	bool bCurrentlyFindingSessions;
-	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search)
+	FORCEINLINE FOnlineSessionSearchResult GetBestSession(TSharedRef<FOnlineSessionSearch> Search) const
 	{
 		FOnlineSessionSearchResult BestSession;
 		for(int i = 0; i < Search->SearchResults.Num(); i++)
 		{
 			FString SessionSettings;
-			if(CurrentSession->SessionSettings.Get(SEARCH_KEYWORDS, SessionSettings))
+			if(Search->SearchResults[i].Session.SessionSettings.Get(SEARCH_KEYWORDS, SessionSettings))
 			{
+				UE_LOG(LogTemp, Warning, TEXT("SessionSettings: %s"), *SessionSettings);
 				if(SessionSettings == "PartyLOBBY")
 				{
 					continue;
 				}
 			}
-		
-
+			
 			BestSession = Search->SearchResults[i];
 			break;
 		}

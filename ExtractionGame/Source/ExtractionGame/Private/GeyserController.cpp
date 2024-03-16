@@ -9,31 +9,26 @@ void AGeyserController::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorldTimerManager().SetTimer(GeyserSpawnTimer, this, &AGeyserController::SpawnGeyser, GeyserSpawnDelay, true);
+	SpawnGeyser();
 }
 
 void AGeyserController::SpawnGeyser()
 {
-	if(GeyserSpawnpoints.IsValidIndex(LastIndex))
+	for(auto Geyser : GeyserSpawnpoints)
 	{
-		GeyserSpawnpoints[LastIndex]->DeactivateGeyser();
-	}
-	
-	if(GeyserSpawnCount < GeyserMaxSpawns)
-	{
-		if(GeyserSpawnpoints.Num() > 0)
+		if(Geyser->GetGeyserState() != EGeyserStates::Deactive)
 		{
-			int32 RandomIndex = FMath::RandRange(0, GeyserSpawnpoints.Num() - 1);
-			if(GeyserSpawnpoints.IsValidIndex(RandomIndex) && !GeyserSpawnpoints[RandomIndex]->bGeyserActivated)
-			{
-				GeyserSpawnpoints[RandomIndex]->ActivateGeyser();
-				LastIndex = RandomIndex;
-			}
-			
-			GeyserSpawnCount++;
+			Geyser->ResetGeyser();
 		}
 	}
-	else
+
+	int32 RandomChanceOfSpawning = FMath::RandRange(1, 2);
+
+	if(RandomChanceOfSpawning == 1)
 	{
-		GetWorldTimerManager().ClearTimer(GeyserSpawnTimer);
+	//	return;
 	}
+
+	int32 RandomGeyser = FMath::RandRange(0, GeyserSpawnpoints.Num() - 1);
+	GeyserSpawnpoints[RandomGeyser]->SetGeyserState(EGeyserStates::Smoking);
 }

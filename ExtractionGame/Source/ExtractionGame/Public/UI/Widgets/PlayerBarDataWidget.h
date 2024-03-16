@@ -24,7 +24,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetHealthPercent(float percent);
-	
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetEssencePercent(float percent);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetLeftGems(const  TArray<AGem*>& Gems, const UTexture2D* AbilityImage, int abilityID, float polish);

@@ -11,6 +11,7 @@ UCLASS()
 class EXTRACTIONGAME_API AGeyserController : public AActor
 {
 	GENERATED_BODY()
+
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
@@ -18,13 +19,10 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
 	float GeyserSpawnDelay = 250;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
-	int32 GeyserMaxSpawns = 2;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController")
 	float GeyserLength = 60;
-	
+
 protected:
 	virtual void BeginPlay() override;
 

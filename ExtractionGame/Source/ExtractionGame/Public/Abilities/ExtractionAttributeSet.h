@@ -34,6 +34,15 @@ public:
 	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, Health);
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldValue);
+
+
+	UPROPERTY(BlueprintReadOnly, Category = "Essence", ReplicatedUsing = OnRep_Essence)
+	FGameplayAttributeData Essence;
+	ATTRIBUTE_ACCESSORS(UExtractionAttributeSet, Essence);
+	UFUNCTION()
+	virtual void OnRep_Essence(const FGameplayAttributeData& OldValue);
+
+
 	/** MaxHealth is its own attribute, since GameplayEffects may modify it */
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing=OnRep_MaxHealth)
 	FGameplayAttributeData MaxHealth;

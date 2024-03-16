@@ -18,7 +18,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "Net/UnrealNetwork.h"
-
+#include "UI/ExtractionGameHUD.h"
 
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -204,6 +204,7 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalLook);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalLook);
+	DOREPLIFETIME(AExtractionGameCharacter, EssenceUpdate);
 }
 
 void AExtractionGameCharacter::PossessedBy(AController* NewController)
@@ -432,6 +433,47 @@ void AExtractionGameCharacter::ChangeGaze()
 UExtractionAttributeSet* AExtractionGameCharacter::GetAttributeSet() const
 {
 	return AttributeSetBase;
+}
+
+void AExtractionGameCharacter::AddEssence(float Amount)
+{
+	float NewEssence = GetEssence() + Amount;
+	GetAttributeSet()->SetEssence(NewEssence);
+	UE_LOG(LogTemp, Warning, TEXT("adding essence"));
+
+	EssenceUpdate++;
+	OnRep_EssenceUpdate();
+}
+
+void AExtractionGameCharacter::RemoveEssence(float Amount)
+{
+	float NewEssence = GetEssence() - Amount;
+	GetAttributeSet()->SetEssence(NewEssence);
+
+	EssenceUpdate++;
+	OnRep_EssenceUpdate();
+}
+
+float AExtractionGameCharacter::GetEssence() const
+{
+	return GetAttributeSet()->GetEssence();
+}
+
+void AExtractionGameCharacter::OnRep_EssenceUpdate()
+{
+	if(IsLocallyControlled())
+	{
+
+		if(APlayerController* PC = Cast<APlayerController>(GetController()))
+		{
+			if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
+			{
+				HUD->PlayerUIData->SetEssencePercent(GetEssence() / 100);
+			}
+		}
+		
+		OnEssenceUpdated();
+	}
 }
 
 UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const

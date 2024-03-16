@@ -122,6 +122,11 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	{
 		SetHealth(GetMaxHealth());
 	}
+
+	if(Data.EvaluatedData.Attribute == GetEssenceAttribute())
+	{
+		SetEssence(GetEssence());
+	}
 	
 }
 
@@ -147,6 +152,11 @@ void UExtractionAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttribu
 void UExtractionAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, Health, OldValue);
+}
+
+void UExtractionAttributeSet::OnRep_Essence(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UExtractionAttributeSet, Essence, OldValue);
 }
 
 void UExtractionAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)

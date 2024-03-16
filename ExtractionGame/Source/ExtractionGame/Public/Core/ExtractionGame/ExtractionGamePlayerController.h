@@ -30,6 +30,7 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 	UPROPERTY()
 	AActor* PlayerPawnActor;
 
+	
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void ReturnToLobby();
@@ -60,6 +61,8 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 PartyID;
+
+	bool bInitStartedItems = false;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)

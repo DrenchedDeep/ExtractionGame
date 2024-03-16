@@ -302,5 +302,26 @@ public:
 	
 	
 	
-	 
+
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void AddEssence(float Amount);
+
+	UFUNCTION(BlueprintCallable)
+	void RemoveEssence(float Amount);
+	
+	UFUNCTION(BlueprintCallable)
+	float GetEssence() const;
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnEssenceUpdated();
+private:
+	UFUNCTION()
+	void OnRep_EssenceUpdate();
+	
+	UPROPERTY(ReplicatedUsing=OnRep_EssenceUpdate)
+	int32 EssenceUpdate;
+
 };

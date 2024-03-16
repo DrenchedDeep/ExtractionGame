@@ -6,6 +6,7 @@
 #include "Components/ItemObject.h"
 #include "UI/ExtractionGameHUD.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "Core/ExtractionGame/ExtractionGamePlayerController.h"
 #include "Engine/ActorChannel.h"
 #include "Net/UnrealNetwork.h"
 #include "Objects/ReplicatedItemObject.h"
@@ -21,19 +22,27 @@ void UPlayerInventoryComponent::InitStartingItems()
 	{
 		Character = Cast<AExtractionGameCharacter>(GetOwner());
 	}
-	
-	if(GameInstance)
-	{
-		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
-		{
-			Server_AddItem(Item.Value, Item.Key);
-		}
 
-		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
+	AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Character->GetController());
+
+	if(PC && !PC->bInitStartedItems)
+	{
+		if(GameInstance)
 		{
-			Server_AddGemRaw(Gem.Value, Gem.Key);
+			for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
+			{
+				Server_AddItem(Item.Value, Item.Key);
+			}
+
+			for(auto Gem : GameInstance->PlayerSessionData.GemItems)
+			{
+				Server_AddGemRaw(Gem.Value, Gem.Key);
+			}
+
+			PC->bInitStartedItems = true;
 		}
 	}
+	
 }
 
 void UPlayerInventoryComponent::Server_AddGem_Implementation(UItemObject* Item, EBodyPart BodyPart)

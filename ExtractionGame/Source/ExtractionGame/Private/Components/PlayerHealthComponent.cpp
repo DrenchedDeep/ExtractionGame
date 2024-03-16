@@ -18,7 +18,6 @@ float UPlayerHealthComponent::GetMaxHealth() const
 void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigator)
 {
 	Character->GetAttributeSet()->SetHealth(Health);
-	
 	if(Health < 0)
 	{
 		bCanTakeDamage = false;
