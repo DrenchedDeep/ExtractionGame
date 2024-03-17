@@ -13,34 +13,17 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuPlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_LightningObject.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_LightningObject.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GesyerSpawnPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GesyerSpawnPoint.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GeyserController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GeyserController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_NewBars.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_NewBars.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_Ragdoll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Misc/BP_Ragdoll.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Extraction/WB_ExtractionNotification.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Extraction/WB_ExtractionNotification.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Y_Bot_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Character/Y_Bot_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/wizard.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Character/wizard.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/CoreActions/IMC_Core.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/CoreActions/IMC_Core.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_Entry.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_Entry.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Fire/Materials/M_smoke_subUV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Fire/Materials/M_smoke_subUV.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Water_Material.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Water_Material.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/ExtractionBeacon/M_EnergySmoke.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/ExtractionBeacon/M_EnergySmoke.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/ExtractionBeacon/NS_ExtractionBeaconShockwave.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/ExtractionBeacon/NS_ExtractionBeaconShockwave.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Gieser.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Gieser.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Abilities/ExtractionAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Abilities/ExtractionAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerInventoryComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerInventoryComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserSpawnpoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserSpawnpoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Abilities/ExtractionAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Abilities/ExtractionAttributeSet.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameInstance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameInstance.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGamePlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGamePlayerController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserSpawnpoint.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserSpawnpoint.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/UI/Widgets/PlayerBarDataWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/UI/Widgets/PlayerBarDataWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +42,7 @@
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/ExtractionGame/UHT/PlayerInventoryComponent.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/ExtractionGame/UHT/PooledObject.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberSoundsManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Components/HamiltonController.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Components/InventoryComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Components/ItemObject.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -67,6 +51,7 @@
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/ExtractionGameBPLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/ExtractionGamePlayerState.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/HamiltonBuildOutline.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Items/GemItemActor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Items/ItemActor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/MainMenuSpaceShip.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -75,6 +60,7 @@
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Objects/GemItemObject.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Private/Quests/EliminateQuestBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberSoundsManager.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Components/HamiltonController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Components/InventoryComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Components/ItemObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGamePlayerController.h" root0="FORCE_HIGHLIGHTING" />
@@ -84,6 +70,7 @@
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/ExtractionGameBPLibrary.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/ExtractionGamePlayerState.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/HamiltonBuildOutline.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Items/GemItemActor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/Items/ItemActor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ExtractionGame/Public/MainMenuSpaceShip.h" root0="FORCE_HIGHLIGHTING" />
@@ -513,7 +500,7 @@
       <workItem from="1710434999615" duration="1048000" />
       <workItem from="1710446177910" duration="600000" />
       <workItem from="1710548877855" duration="5568000" />
-      <workItem from="1710614463635" duration="4808000" />
+      <workItem from="1710614463635" duration="12048000" />
     </task>
     <servers />
   </component>

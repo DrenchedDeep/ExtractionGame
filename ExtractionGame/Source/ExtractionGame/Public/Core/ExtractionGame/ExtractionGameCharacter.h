@@ -12,6 +12,7 @@
 #include "Core/CharacterPawnBase.h"
 #include "ExtractionGameCharacter.generated.h"
 
+class UHamiltonController;
 class UPlayerInventoryComponent;
 class UGemController;
 class UExtractionAbilitySystemComponent;
@@ -33,7 +34,8 @@ class AExtractionGameCharacter : public ACharacterPawnBase, public IAbilitySyste
 
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Mesh, meta = (AllowPrivateAccess = "true"))
+	UHamiltonController* HamiltonController;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 	/*------------------- Input actions -----------------------*/
@@ -90,6 +92,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* SettingsAction;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* HamiltonAction;
+	
 	void Move(const FInputActionValue& Value);
 	void ResetMove();
 	void Look(const FInputActionValue& Value);
@@ -104,6 +109,12 @@ private:
 
 	void ToggleInventory();
 	void ToggleSettings();
+
+	void HamiltonPressed();
+	void HamiltonReleased();
+
+	void HamiltonStartPressed();
+	void HamiltonStartReleased();
 
 	void HandleGaze();
 	void ChangeGaze();
@@ -164,6 +175,12 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void LeftAttackPressed();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void HamiltonProcessStarted();
+	UFUNCTION(BlueprintImplementableEvent)
+	void HamiltonProcessStopped();
+	
 	void InitializeUIComponents(const class AExtractionGameHUD* HUD) const;
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -299,10 +316,6 @@ public:
 	
 	virtual  UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UExtractionAttributeSet* GetAttributeSet() const;
-	
-	
-	
-
 
 public:
 	UFUNCTION(BlueprintCallable)

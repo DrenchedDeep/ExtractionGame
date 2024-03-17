@@ -14,6 +14,7 @@
 #include "Components/PlayerMovementComponent.h"
 //#include "Core/ExtractionGame/TDMPlayerState.h"
 #include "Components/GemController.h"
+#include "Components/HamiltonController.h"
 #include "Components/PlayerInventoryComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/LocalPlayer.h"
@@ -78,6 +79,8 @@ AExtractionGameCharacter::AExtractionGameCharacter(const FObjectInitializer& Obj
 	AbilitySystemComponent = CreateDefaultSubobject<UExtractionAbilitySystemComponent>(TEXT("GAS Ability Controller"));
 	AbilitySystemComponent->SetIsReplicated(true);
 
+	HamiltonController = CreateDefaultSubobject<UHamiltonController>(TEXT("HamiltonController"));
+
 	// Mixed mode means we only are replicated the GEs to ourself, not the GEs to simulated proxies. If another GDPlayerState (Hero) receives a GE,
 	// we won't be told about it by the Server. Attributes, GameplayTags, and GameplayCues will still replicate to us.
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
@@ -111,6 +114,8 @@ void AExtractionGameCharacter::BeginPlay()
 	GazeCollisionParams = TraceParams;
 
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
+	GetAttributeSet()->SetEssence(0);
+	OnRep_EssenceUpdate();
 	
 }
 
@@ -179,9 +184,18 @@ void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		
 		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::StartFireLeft);
 		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::StartFireRight);
-
+		
 		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::StopFireLeft);
 		EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::StopFireRight);
+
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::HamiltonStartPressed);
+		EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::HamiltonStartReleased);
+
+		
+		EnhancedInputComponent->BindAction(HamiltonAction, ETriggerEvent::Started, this, &AExtractionGameCharacter::HamiltonPressed);
+		EnhancedInputComponent->BindAction(HamiltonAction, ETriggerEvent::Completed, this, &AExtractionGameCharacter::HamiltonReleased);
+
+		
 	}
 
 }
@@ -273,7 +287,7 @@ void AExtractionGameCharacter::Move(const FInputActionValue& Value)
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 
 	//bad solution, clients can get rid of issliding check and move while sliding (do we want the player to move while sliding??)
-	if (Controller != nullptr && !IsSliding && bCanMove)
+	if (Controller != nullptr && !IsSliding && bCanMove && !HamiltonController->bIsTickingHamilton)
 	{
 		LocalVerticalMovement = MovementVector.Y;
 		LocalHorizontalMovement = MovementVector.X;
@@ -289,7 +303,7 @@ void AExtractionGameCharacter::Look(const FInputActionValue& Value)
 	
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr && !HamiltonController->bIsTickingHamilton)
 	{
 		LocalVerticalLook = FirstPersonCameraComponent->GetComponentRotation().Pitch;
 		LocalHorizontalLook = LookAxisVector.X;
@@ -364,6 +378,32 @@ void AExtractionGameCharacter::ToggleSettings()
 	else
 	{
 		OnSettingsClosed();
+	}
+}
+
+void AExtractionGameCharacter::HamiltonPressed()
+{
+	HamiltonController->OnHamiltonPressed();
+}
+
+void AExtractionGameCharacter::HamiltonReleased()
+{
+	HamiltonController->OnHamiltonReleased();
+}
+
+void AExtractionGameCharacter::HamiltonStartPressed()
+{
+	if(HamiltonController->bIsBuildingOutline)
+	{
+		HamiltonController->StartHamiltonProcess();
+	}
+}
+
+void AExtractionGameCharacter::HamiltonStartReleased()
+{
+	if(HamiltonController->bIsBuildingOutline)
+	{
+		HamiltonController->StopHamiltonProcess();
 	}
 }
 
