@@ -23,6 +23,9 @@ void UExtractionAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxLeftManaPool, COND_None, REPNOTIFY_OnChanged);
 	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, MaxRightManaPool, COND_None, REPNOTIFY_OnChanged);
+	
+	DOREPLIFETIME_CONDITION_NOTIFY(UExtractionAttributeSet, Essence, COND_None, REPNOTIFY_OnChanged);
+
 }
 
 void UExtractionAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)

@@ -477,6 +477,11 @@ UExtractionAttributeSet* AExtractionGameCharacter::GetAttributeSet() const
 
 void AExtractionGameCharacter::AddEssence(float Amount)
 {
+	if(GetEssence() >= 100)
+	{
+		return;
+	}
+	
 	float NewEssence = GetEssence() + Amount;
 	GetAttributeSet()->SetEssence(NewEssence);
 	UE_LOG(LogTemp, Warning, TEXT("adding essence"));
@@ -487,6 +492,11 @@ void AExtractionGameCharacter::AddEssence(float Amount)
 
 void AExtractionGameCharacter::RemoveEssence(float Amount)
 {
+	if(GetEssence() <= 0)
+	{
+		return;
+	}
+	
 	float NewEssence = GetEssence() - Amount;
 	GetAttributeSet()->SetEssence(NewEssence);
 
