@@ -180,6 +180,9 @@ public:
 	void HamiltonProcessStarted();
 	UFUNCTION(BlueprintImplementableEvent)
 	void HamiltonProcessStopped();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void HamiltonStartedEverybody(bool Cancelled);
 	
 	void InitializeUIComponents(const class AExtractionGameHUD* HUD) const;
 

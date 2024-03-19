@@ -4,6 +4,7 @@
 #include "Components/HamiltonController.h"
 
 #include "Camera/CameraComponent.h"
+#include "Net/UnrealNetwork.h"
 
 
 void UHamiltonController::StartHamiltonProcess()
@@ -16,6 +17,7 @@ void UHamiltonController::StartHamiltonProcess()
 		}
 	}
 
+	Server_HamiltonStarted();
 	bIsTickingHamilton = true;
 	const float Tickrate = 1.f / 30.f;
 	GetWorld()->GetTimerManager().SetTimer(HamiltonBuildTimerHandle, this,
@@ -49,6 +51,7 @@ void UHamiltonController::StopHamiltonProcess()
 
 void UHamiltonController::OnHamiltonPressed()
 {
+	/*/
 	if(BuildOutlineActor)
 	{
 		BuildOutlineActor->Destroy();
@@ -56,11 +59,16 @@ void UHamiltonController::OnHamiltonPressed()
 
 	 BuildOutlineActor = GetWorld()->SpawnActor<AHamiltonBuildOutline>(BuildOutlineActorClass, FVector::ZeroVector, FRotator::ZeroRotator);
 
-	float Tickrate = 1.f / 30.f;
-	GetWorld()->GetTimerManager().SetTimer(BuildOutlineTimerHandle, this,
-		&UHamiltonController::TickBuildOutline, Tickrate, true);
+/*/
+	StartHamiltonProcess();
 
-	bIsBuildingOutline = true;
+	
+	//float Tickrate = 1.f / 30.f;
+	
+//	GetWorld()->GetTimerManager().SetTimer(BuildOutlineTimerHandle, this,
+	//	&UHamiltonController::TickBuildOutline, Tickrate, true);
+
+//	bIsBuildingOutline = true;
 }
 
 void UHamiltonController::OnHamiltonReleased()
@@ -70,6 +78,7 @@ void UHamiltonController::OnHamiltonReleased()
 		BuildOutlineActor->Destroy();
 	}
 
+	Server_CancelHamilton();
 	GetWorld()->GetTimerManager().ClearTimer(BuildOutlineTimerHandle);
 	bIsBuildingOutline = false;
 }
@@ -81,6 +90,30 @@ void UHamiltonController::BeginPlay()
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 }
 
+void UHamiltonController::Server_CancelHamilton_Implementation()
+{
+	Multicast_UpdateHamilton(true);
+}
+
+void UHamiltonController::Multicast_UpdateHamilton_Implementation(bool Cancelled)
+{
+	if(!Character)
+	{
+		Character = Cast<AExtractionGameCharacter>(GetOwner());
+	}
+	
+	if(Character && !Character->IsLocallyControlled())
+	{
+		Character->HamiltonStartedEverybody(Cancelled);
+	}
+}
+
+
+void UHamiltonController::Server_HamiltonStarted_Implementation()
+{
+	Multicast_UpdateHamilton(false);
+}
+
 void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 {
 	if(HamiltonActor)
@@ -88,7 +121,16 @@ void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 		HamiltonActor->Destroy();
 	}
 
-	HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, Location, FRotator::ZeroRotator);
+	if(!Character)
+	{
+		Character = Cast<AExtractionGameCharacter>(GetOwner());
+	}
+
+	if(Character)
+	{
+		FVector SpawnLocation = Character->GetActorLocation() + Character->GetActorForwardVector() * SpawnOffsetFromPlayer.X + Character->GetActorRightVector() * SpawnOffsetFromPlayer.Y + Character->GetActorUpVector() * SpawnOffsetFromPlayer.Z;
+		HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, SpawnLocation, FRotator::ZeroRotator);
+	}
 }
 
 void UHamiltonController::TickBuildOutline()
@@ -125,7 +167,12 @@ void UHamiltonController::TickHamiltonBuild()
 	if(HamiltonTickTime >=	HamiltonMaxTime)
 	{
 		StopHamiltonProcess();
+	//	Server_SpawnHamilton(LastSpawnLocation);
+	}
+
+	if(HamiltonTickTime >= HamiltonSpawnTime)
+	{
 		Server_SpawnHamilton(LastSpawnLocation);
-		
 	}
 }
+

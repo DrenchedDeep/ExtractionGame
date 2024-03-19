@@ -20,7 +20,10 @@ class EXTRACTIONGAME_API UHamiltonController : public UActorComponent
 	TSubclassOf<AActor> HamiltonActorClass;
 	UPROPERTY(EditAnywhere)
 	float HamiltonMaxTime = 2.f;
-	
+	UPROPERTY(EditAnywhere)
+	float HamiltonSpawnTime = 0.5f;
+	UPROPERTY(EditAnywhere)
+	FVector SpawnOffsetFromPlayer;
 public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsBuildingOutline = false;
@@ -45,9 +48,15 @@ protected:
 	
 	UFUNCTION(Server, Reliable)
 	void Server_SpawnHamilton(FVector Location);
+	UFUNCTION(Server, Reliable)
+	void Server_HamiltonStarted();
+	UFUNCTION(Server, Unreliable)
+	void Server_CancelHamilton();
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_UpdateHamilton(bool Cancelled);
 private:
 	float HamiltonTickTime;
-	
+
 	UPROPERTY()
 	AHamiltonBuildOutline* BuildOutlineActor;
 	UPROPERTY()
