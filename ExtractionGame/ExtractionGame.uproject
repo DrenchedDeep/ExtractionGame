@@ -65,6 +65,10 @@
 				"Win64",
 				"Android"
 			]
+		},
+		{
+			"Name": "MovieRenderPipeline",
+			"Enabled": true
 		}
 	]
 }
