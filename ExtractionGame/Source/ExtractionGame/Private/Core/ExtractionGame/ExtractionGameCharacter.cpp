@@ -393,18 +393,12 @@ void AExtractionGameCharacter::HamiltonReleased()
 
 void AExtractionGameCharacter::HamiltonStartPressed()
 {
-	if(HamiltonController->bIsBuildingOutline)
-	{
-		HamiltonController->StartHamiltonProcess();
-	}
+
 }
 
 void AExtractionGameCharacter::HamiltonStartReleased()
 {
-	if(HamiltonController->bIsBuildingOutline)
-	{
-		HamiltonController->StopHamiltonProcess();
-	}
+
 }
 
 void AExtractionGameCharacter::HandleGaze()

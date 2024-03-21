@@ -4,19 +4,17 @@
 #include "Components/HamiltonController.h"
 
 #include "Camera/CameraComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
 
 void UHamiltonController::StartHamiltonProcess()
 {
-	if(BuildOutlineActor)
+	if(!IsLocationBuildable())
 	{
-		if(!BuildOutlineActor->IsLocationBuildable())
-		{
-			return;
-		}
+		return;
 	}
-
+	
 	Server_HamiltonStarted();
 	bIsTickingHamilton = true;
 	const float Tickrate = 1.f / 30.f;
@@ -38,11 +36,6 @@ void UHamiltonController::StopHamiltonProcess()
 		HamiltonTickTime = 0.f;
 	}
 
-	if(BuildOutlineActor)
-	{
-		BuildOutlineActor->Destroy();
-	}
-
 	if(Character)
 	{
 		Character->HamiltonProcessStopped();
@@ -51,36 +44,12 @@ void UHamiltonController::StopHamiltonProcess()
 
 void UHamiltonController::OnHamiltonPressed()
 {
-	/*/
-	if(BuildOutlineActor)
-	{
-		BuildOutlineActor->Destroy();
-	}
-
-	 BuildOutlineActor = GetWorld()->SpawnActor<AHamiltonBuildOutline>(BuildOutlineActorClass, FVector::ZeroVector, FRotator::ZeroRotator);
-
-/*/
 	StartHamiltonProcess();
-
-	
-	//float Tickrate = 1.f / 30.f;
-	
-//	GetWorld()->GetTimerManager().SetTimer(BuildOutlineTimerHandle, this,
-	//	&UHamiltonController::TickBuildOutline, Tickrate, true);
-
-//	bIsBuildingOutline = true;
 }
 
 void UHamiltonController::OnHamiltonReleased()
 {
-	if(BuildOutlineActor)
-	{
-		BuildOutlineActor->Destroy();
-	}
-
 	Server_CancelHamilton();
-	GetWorld()->GetTimerManager().ClearTimer(BuildOutlineTimerHandle);
-	bIsBuildingOutline = false;
 }
 
 void UHamiltonController::BeginPlay()
@@ -133,32 +102,6 @@ void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 	}
 }
 
-void UHamiltonController::TickBuildOutline()
-{
-	if(BuildOutlineActor)
-	{
-		BuildOutlineActor->UpdateMaterials();
-		FHitResult Hit;
-
-		const FVector StartLocation = Character->GetFirstPersonCameraComponent()->GetComponentLocation();
-		 FVector EndLocation = StartLocation + Character->GetFirstPersonCameraComponent()->GetForwardVector() * 1000.f;
-		if(GetWorld()->LineTraceSingleByChannel(Hit, StartLocation,EndLocation, ECC_Visibility))
-		{
-			BuildOutlineActor->SetActorLocation(Hit.Location);
-			LastSpawnLocation = Hit.Location;
-		}
-		else
-		{
-			EndLocation = EndLocation + FVector::DownVector * 1000.f;
-
-			if(GetWorld()->LineTraceSingleByChannel(Hit, StartLocation,EndLocation, ECC_Visibility))
-			{
-				BuildOutlineActor->SetActorLocation(Hit.Location);
-				LastSpawnLocation = Hit.Location;
-			}
-		}
-	}
-}
 
 void UHamiltonController::TickHamiltonBuild()
 {
@@ -174,5 +117,42 @@ void UHamiltonController::TickHamiltonBuild()
 	{
 		Server_SpawnHamilton(LastSpawnLocation);
 	}
+}
+
+bool UHamiltonController::IsLocationBuildable()
+{
+	bool bBuildable = true;
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGeyserSpawnpoint::StaticClass(), FoundActors);
+	for(auto GeyserSpawnpoint : FoundActors)
+	{
+		if(FVector::Dist(GeyserSpawnpoint->GetActorLocation(), Character->GetActorLocation()) < 10000)
+		{
+			bBuildable = false;
+			break;
+		}
+	}
+
+	//check up
+	FHitResult Hit;
+	FVector SpawnLocation = Character->GetActorLocation() + Character->GetActorForwardVector() * SpawnOffsetFromPlayer.X + Character->GetActorRightVector() * SpawnOffsetFromPlayer.Y + Character->GetActorUpVector() * SpawnOffsetFromPlayer.Z;
+	FVector End = SpawnLocation + FVector(0, 0, 10000);
+
+	FCollisionQueryParams TraceParams;
+	TraceParams.AddIgnoredActor(Character);
+	if(GetWorld()->LineTraceSingleByChannel(Hit, SpawnLocation, End, ECC_Visibility, TraceParams))
+	{
+		bBuildable = false;
+	}
+
+	//check down
+	End = SpawnLocation - FVector(0, 0, 500);
+	if(!GetWorld()->LineTraceSingleByChannel(Hit, SpawnLocation, End, ECC_Visibility, TraceParams))
+	{
+		bBuildable = false;
+	}
+	
+	return bBuildable;
 }
 

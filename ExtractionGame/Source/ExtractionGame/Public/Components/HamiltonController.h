@@ -13,9 +13,7 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class EXTRACTIONGAME_API UHamiltonController : public UActorComponent
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> BuildOutlineActorClass;
+	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> HamiltonActorClass;
 	UPROPERTY(EditAnywhere)
@@ -25,8 +23,6 @@ class EXTRACTIONGAME_API UHamiltonController : public UActorComponent
 	UPROPERTY(EditAnywhere)
 	FVector SpawnOffsetFromPlayer;
 public:
-	UPROPERTY(BlueprintReadOnly)
-	bool bIsBuildingOutline = false;
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsTickingHamilton = false;
 
@@ -54,11 +50,10 @@ protected:
 	void Server_CancelHamilton();
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_UpdateHamilton(bool Cancelled);
+	
 private:
 	float HamiltonTickTime;
-
-	UPROPERTY()
-	AHamiltonBuildOutline* BuildOutlineActor;
+	
 	UPROPERTY()
 	AActor* HamiltonActor;
 	UPROPERTY()
@@ -66,10 +61,9 @@ private:
 	UPROPERTY()
 	AExtractionGameCharacter* Character;
 	
-	FTimerHandle BuildOutlineTimerHandle;
 	FTimerHandle HamiltonBuildTimerHandle;
 	UFUNCTION()
-	void TickBuildOutline();
-	UFUNCTION()
 	void TickHamiltonBuild();
+
+	bool IsLocationBuildable();
 };
