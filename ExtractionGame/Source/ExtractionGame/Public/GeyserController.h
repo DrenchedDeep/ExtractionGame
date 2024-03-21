@@ -29,9 +29,13 @@ protected:
 private:
 	FTimerHandle GeyserSpawnTimer;
 	
+	UPROPERTY()
+	AGeyserSpawnpoint* SmokingGeiser;
+	UPROPERTY()
+	AGeyserSpawnpoint* ActiveGeyser;
+	
 	UFUNCTION()
 	void SpawnGeyser();
 
 	int32 GeyserSpawnCount;
-	int32 LastIndex = -1;
 };

@@ -8,27 +8,35 @@ void AGeyserController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(GeyserSpawnTimer, this, &AGeyserController::SpawnGeyser, GeyserSpawnDelay, true);
-	SpawnGeyser();
+	if(HasAuthority())
+	{
+		for(auto Geyser : GeyserSpawnpoints)
+		{
+			Geyser->SetGeyserState(EGeyserStates::Deactive);
+		}
+		GetWorldTimerManager().SetTimer(GeyserSpawnTimer, this, &AGeyserController::SpawnGeyser, GeyserSpawnDelay, true);
+		SpawnGeyser();
+	}
 }
 
 void AGeyserController::SpawnGeyser()
 {
-	for(auto Geyser : GeyserSpawnpoints)
+	if(ActiveGeyser)
 	{
-		if(Geyser->GetGeyserState() != EGeyserStates::Deactive)
-		{
-			Geyser->ResetGeyser();
-		}
+		ActiveGeyser->SetGeyserState(EGeyserStates::Deactive);
 	}
 
-	int32 RandomChanceOfSpawning = FMath::RandRange(1, 2);
-
-	if(RandomChanceOfSpawning == 1)
+	if(SmokingGeiser)
 	{
-	//	return;
+		SmokingGeiser->SetGeyserState(EGeyserStates::Active);
+		ActiveGeyser = SmokingGeiser;
 	}
 
-	int32 RandomGeyser = FMath::RandRange(0, GeyserSpawnpoints.Num() - 1);
-	GeyserSpawnpoints[RandomGeyser]->SetGeyserState(EGeyserStates::Smoking);
+	int32 RandomIndex = FMath::RandRange(0, GeyserSpawnpoints.Num() - 1);
+	
+	if(GeyserSpawnpoints.IsValidIndex(RandomIndex))
+	{
+		SmokingGeiser = GeyserSpawnpoints[RandomIndex];
+		SmokingGeiser->SetGeyserState(EGeyserStates::Smoking);
+	}
 }

@@ -26,7 +26,7 @@ void AGeyserSpawnpoint::SetGeyserState(EGeyserStates NewState)
 	if(State == EGeyserStates::Smoking)
 	{
 		CurrentGeyserTime = 0;
-		GetWorld()->GetTimerManager().SetTimer(	GeyserTimer, this, &AGeyserSpawnpoint::GeyserTick, 1.f, true);
+	//	GetWorld()->GetTimerManager().SetTimer(	GeyserTimer, this, &AGeyserSpawnpoint::GeyserTick, 1.f, true);
 	}
 }
 
