@@ -71,9 +71,35 @@ void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPa
 	}
 }
 
+void AExtractionGameGameMode::SetGameModeState(EGameModeState NewState)
+{
+	GameModeState = NewState;
+
+	if(AExtractionGameState* GS = GetGameState<AExtractionGameState>())
+	{
+		GS->SetState(GameModeState);
+	}
+
+	if(GameModeState == EGameModeState::WaitingForPlayers)
+	{
+		GetWorld()->GetTimerManager().SetTimer(CheckToStartMatchTimerHandle,
+			this, &AExtractionGameGameMode::CheckToStartMatch, 1.f, true);
+	}
+	else if(GameModeState == EGameModeState::Playing)
+	{
+		GetWorld()->GetTimerManager().SetTimer(MatchTimerHandle,
+			this, &AExtractionGameGameMode::TickMatch, 1.f, true);
+
+		GetWorld()->GetTimerManager().ClearTimer(CheckToStartMatchTimerHandle);
+	}
+	
+}
+
 void AExtractionGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SetGameModeState(WaitingForPlayers);
 }
 
 void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 TeamID) const
@@ -101,9 +127,11 @@ void AExtractionGameGameMode::SpawnShip(APlayerController* NewPlayer, const FVec
 	Parm.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	Parm.bNoFail = true;
 	
-	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(ShipClass, SpawnLocation, Rotator, Parm)))
+	if(ASpaceShip* PlayerPawn = Cast<ASpaceShip>(GetWorld()->SpawnActor<ASpaceShip>(ShipClass, SpawnLocation, Rotator, Parm)))
 	{
 		NewPlayer->Possess(PlayerPawn);
+		PlayerPawn->bBlockMovement = bBlockMovementTillMatchReady;
+		SpawnedSpaceships++;
 	}
 }
 
@@ -177,6 +205,48 @@ void AExtractionGameGameMode::RegisterPlayerEOS(APlayerController* NewPlayer)
 			}
 
 		}
+	}
+}
+
+bool AExtractionGameGameMode::AllPlayersReady()
+{
+	const bool bPlayersReady = SpawnedSpaceships >= MinPlayersBeforeStarting;
+
+	return bPlayersReady;
+}
+
+void AExtractionGameGameMode::CheckToStartMatch()
+{
+	if(GetGameModeState() != EGameModeState::WaitingForPlayers)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(CheckToStartMatchTimerHandle);
+		return;
+	}
+
+	if(AllPlayersReady())
+	{
+		SetGameModeState(EGameModeState::Playing);
+	}
+}
+
+void AExtractionGameGameMode::TickMatch()
+{
+	if(GetGameModeState() != EGameModeState::Playing)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(MatchTimerHandle);
+		return;
+	}
+
+	MatchLength--;
+
+	if(AExtractionGameState* GS = GetGameState<AExtractionGameState>())
+	{
+		GS->SetMatchTimer(MatchLength);
+	}
+
+	if(MatchLength <= 0)
+	{
+		SetGameModeState(EGameModeState::EndingGame);
 	}
 }
 

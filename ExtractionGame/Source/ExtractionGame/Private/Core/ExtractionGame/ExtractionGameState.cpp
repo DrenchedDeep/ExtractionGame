@@ -57,12 +57,20 @@ void AExtractionGameState::UpdateParties(TArray<FInGameParty> Parties)
 	ReplicatedParties = NewReplicatedParties;
 }
 
+void AExtractionGameState::SetState(TEnumAsByte<EGameModeState> NewState)
+{
+	ExtractionGameState = NewState;
+	OnExtractionGameStateUpdated();
+}
+
 void AExtractionGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AExtractionGameState, GooberSounds);
 	DOREPLIFETIME(AExtractionGameState, ReplicatedParties);
+	DOREPLIFETIME(AExtractionGameState, MatchTimer);
+	DOREPLIFETIME(AExtractionGameState, ExtractionGameState);
 }
 
 void AExtractionGameState::BeginPlay()
@@ -70,4 +78,9 @@ void AExtractionGameState::BeginPlay()
 	Super::BeginPlay();
 
 	GooberSounds = GetWorld()->SpawnActor<AGooberSoundsManager>(GooberSoundSubclass);
+}
+
+void AExtractionGameState::OnRep_ExtractionGameState()
+{
+	OnExtractionGameStateUpdated();
 }

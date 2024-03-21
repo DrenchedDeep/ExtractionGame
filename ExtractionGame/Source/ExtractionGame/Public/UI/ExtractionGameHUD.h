@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UI/Widgets/DeathWidget.h"
 #include "GameHUD.h"
+#include "Core/ExtractionGame/ExtractionGameGameMode.h"
 #include "UI/Widgets/InventoryWidget.h"
 #include "UI/Widgets/PlayerBarDataWidget.h"
 #include "ExtractionGameHUD.generated.h"
@@ -54,6 +55,9 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateExtractionTimerWidget(float ExtractionTimer);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnGameStateChanged(EGameModeState NewState);
 	
 	UPROPERTY(BlueprintReadWrite)
 	UUserWidget* ExtractionWidget;

@@ -49,7 +49,8 @@ public:
 	// Sets default values for this pawn's properties
 	ASpaceShip();
 
-
+	UPROPERTY(Replicated)
+	bool bBlockMovement = false;
 	bool bMoveToWorldSpawn = false;
 
 protected:

@@ -33,18 +33,31 @@ struct FInGameParty
 	FInGameParty() = default;
 };
 
+UENUM(BlueprintType)
+enum EGameModeState
+{
+	WaitingForPlayers,
+	Playing,
+	EndingGame
+};
+
 UCLASS(minimalapi)
 class AExtractionGameGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly)
-	bool bSpawnImmediately;
+	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ASpaceShip> ShipClass;
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AExtractionGameCharacter> PlayerClass;
 
+	
+	UPROPERTY(EditDefaultsOnly)
+	bool bBlockMovementTillMatchReady = true;
+	UPROPERTY(EditDefaultsOnly)
+	int32 MinPlayersBeforeStarting = 4;
+	UPROPERTY(EditDefaultsOnly)
+	int32 MatchLength = 300;
 	
 	bool SessionCreated;
 
@@ -54,23 +67,38 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	bool bEnableRespawn = false;
 	
-	virtual void PostLogin(APlayerController* NewPlayer) override;
-	virtual void BeginPlay() override;
 
 	void RespawnShip(APlayerController* NewPlayer, int32 TeamID) const;
 	void SpawnShip(APlayerController* NewPlayer, const FVector StartLocation, const FRotator Rotator, int32 I);
 	void GetPartySpawnLocation(FVector& OutLocation, FRotator& OutRotation) const;
 	
 	void OnPartyInfoRecieved(APlayerController* Sender, FPartyInfo PartyInfo);
+
+	TEnumAsByte<EGameModeState>	GetGameModeState() const { return GameModeState; }
+	void SetGameModeState(EGameModeState NewState);
 	
 protected:
+	virtual void PostLogin(APlayerController* NewPlayer) override;
+	virtual void BeginPlay() override;
 	bool bAllExistingPlayersRegistered;
 	virtual void RegisterPlayerEOS(APlayerController* NewPlayer);
+	virtual bool AllPlayersReady();
 
+	UFUNCTION()
+	void CheckToStartMatch();
+	UFUNCTION()
+	void TickMatch();
 private:
 	TArray<FInGameParty> AllParties;
-
+	int32 SpawnedSpaceships;
+	
+	EGameModeState GameModeState;
+	
 	bool HasParty(int32 InID, int32& OutIndex);
+
+
+	FTimerHandle CheckToStartMatchTimerHandle;
+	FTimerHandle MatchTimerHandle;
 };
 
 

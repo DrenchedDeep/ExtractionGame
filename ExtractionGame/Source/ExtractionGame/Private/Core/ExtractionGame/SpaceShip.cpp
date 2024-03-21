@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
+#include "Core/ExtractionGame/ExtractionGameState.h"
 #include "Core/Other/MapInfo.h"
 #include "Net/UnrealNetwork.h"
 
@@ -183,6 +184,7 @@ void ASpaceShip::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifeti
 	DOREPLIFETIME(ASpaceShip, movementDirection)
 	DOREPLIFETIME(ASpaceShip, currentSpeed)
 	DOREPLIFETIME(ASpaceShip, isCrashed)
+	DOREPLIFETIME(ASpaceShip, bBlockMovement);
 }
 
 void ASpaceShip::ClientCrashLand_Implementation(FHitResult HitResult)
@@ -224,6 +226,14 @@ void ASpaceShip::PostLoad()
 void ASpaceShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if(AExtractionGameState* GS = GetWorld()->GetGameState<AExtractionGameState>())
+	{
+		if(GS->GetExtractionGameState() == WaitingForPlayers && bBlockMovement)
+		{
+			return;
+		}
+	}
+
 	
 	const FVector newLocation = GetActorLocation() + GetActorUpVector() * (-currentSpeed * DeltaTime);
 	FHitResult hit;

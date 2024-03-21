@@ -41,15 +41,33 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	FReplicatedPartyInfo GetPartyByID(int32 PartyID);
+
+	UFUNCTION(BlueprintCallable)
+	TEnumAsByte<EGameModeState> GetExtractionGameState() const { return ExtractionGameState; }
+
+	UFUNCTION(BlueprintCallable)
+	float GetMatchTimer() const { return MatchTimer; }
 	
 	void UpdateParties(TArray<FInGameParty> Parties);
+	void SetMatchTimer(int32 NewMatchTimer) { MatchTimer = NewMatchTimer; }
+	void SetState(TEnumAsByte<EGameModeState> NewState);
 	
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	virtual void OnRep_ExtractionGameState();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnExtractionGameStateUpdated();
 private:
 	UPROPERTY(Replicated)
 	TArray<FReplicatedPartyInfo> ReplicatedParties;
+
+	UPROPERTY(Replicated)
+	int32 MatchTimer;
+	
+	UPROPERTY(ReplicatedUsing=OnRep_ExtractionGameState)
+	TEnumAsByte<EGameModeState> ExtractionGameState;
 };
