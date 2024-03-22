@@ -2,9 +2,11 @@
 
 #include "Core/ExtractionGame/ExtractionGameGameMode.h"
 
+#include "ExtractionGamePlayerState.h"
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
+#include "Core/ExtractionGame/ExtractionGamePlayerController.h"
 #include "Core/ExtractionGame/ExtractionGameState.h"
 #include "Core/ExtractionGame/SpaceShip.h"
 #include "Core/ExtractionGame/Spawnpoint.h"
@@ -92,6 +94,10 @@ void AExtractionGameGameMode::SetGameModeState(EGameModeState NewState)
 
 		GetWorld()->GetTimerManager().ClearTimer(CheckToStartMatchTimerHandle);
 	}
+	else if(GameModeState == EGameModeState::EndingGame)
+	{
+		EndGame();
+	}
 	
 }
 
@@ -100,6 +106,7 @@ void AExtractionGameGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	SetGameModeState(WaitingForPlayers);
+	EndMatchController = GetWorld()->SpawnActor<AEndMatchController>(EndMatchControllerClass);
 }
 
 void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 TeamID) const
@@ -215,6 +222,78 @@ bool AExtractionGameGameMode::AllPlayersReady()
 	return bPlayersReady;
 }
 
+void AExtractionGameGameMode::EndGame()
+{
+	//get top three players
+	TopThreePlayers.Reset();
+	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		const AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Iterator->Get());
+		if(AExtractionGamePlayerState* PS = Cast<AExtractionGamePlayerState>(PC->PlayerState))
+		{
+			float Essence = PS->GetEssence();
+			if(TopThreePlayers.Num() == 0)
+			{
+				TopThreePlayers.Add(PS);
+			}
+			else if(TopThreePlayers.Num() == 1)
+			{
+				if(Essence > TopThreePlayers[0]->GetEssence())
+				{
+					TopThreePlayers.Insert(PS, 0);
+				}
+				else
+				{
+					TopThreePlayers.Add(PS);
+				}
+			}
+			else if(TopThreePlayers.Num() == 2)
+			{
+				if(Essence > TopThreePlayers[0]->GetEssence())
+				{
+					TopThreePlayers.Insert(PS, 0);
+				}
+				else if(Essence > TopThreePlayers[1]->GetEssence())
+				{
+					TopThreePlayers.Insert(PS, 1);
+				}
+				else
+				{
+					TopThreePlayers.Add(PS);
+				}
+			}
+			else
+			{
+				if(Essence > TopThreePlayers[0]->GetEssence())
+				{
+					TopThreePlayers.Insert(PS, 0);
+					TopThreePlayers.Pop();
+				}
+				else if(Essence > TopThreePlayers[1]->GetEssence())
+				{
+					TopThreePlayers.Insert(PS, 1);
+					TopThreePlayers.Pop();
+				}
+				else if(Essence > TopThreePlayers[2]->GetEssence())
+				{
+					TopThreePlayers.Insert(PS, 2);
+					TopThreePlayers.Pop();
+				}
+			}
+		}
+	}
+
+	if(AExtractionGameState* GS = GetGameState<AExtractionGameState>())
+	{
+		GS->SetTopThreePlayers(TopThreePlayers);
+		GS->SetBlockMovement(true);
+	}
+
+	
+	GetWorld()->GetTimerManager().SetTimer(EndGameTimerHandle,
+		this, &AExtractionGameGameMode::EndGameTimer, TimeBeforeEndGame, false);
+}
+
 void AExtractionGameGameMode::CheckToStartMatch()
 {
 	if(GetGameModeState() != EGameModeState::WaitingForPlayers)
@@ -248,6 +327,22 @@ void AExtractionGameGameMode::TickMatch()
 	{
 		SetGameModeState(EGameModeState::EndingGame);
 	}
+}
+
+void AExtractionGameGameMode::EndGameTimer()
+{
+	for(FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		if(AExtractionGamePlayerController* PlayerController = Cast<AExtractionGamePlayerController>(Iterator->Get()))
+		{
+			if(PlayerController->GetPawn())
+			{
+				PlayerController->GetPawn()->Destroy();
+			}
+		}
+	}
+
+	SetGameModeState(PostEndingGame);
 }
 
 bool AExtractionGameGameMode::HasParty(int32 InID, int32& OutIndex)

@@ -15,5 +15,23 @@ class EXTRACTIONGAME_API AExtractionGamePlayerState : public APlayerState
 	GENERATED_BODY()
 
 public:
-	 
+	UFUNCTION(BlueprintCallable)
+	float GetEssence() const { return ExtractedEssence; }
+	UFUNCTION(BlueprintCallable)
+	int32 GetKills() const { return Kills; }
+	UFUNCTION(BlueprintCallable)
+	int32 GetDeaths() const { return Deaths; }
+
+	void AddEssence(int32 EssenceToAdd) { ExtractedEssence += EssenceToAdd; }
+	void AddKill() { Kills++; }
+	void AddDeath() { Deaths++; }
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+private:
+	UPROPERTY(Replicated)
+	int32 ExtractedEssence;
+	UPROPERTY(Replicated)
+	int32 Kills;
+	UPROPERTY(Replicated)
+	int32 Deaths;
 };

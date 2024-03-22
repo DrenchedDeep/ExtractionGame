@@ -38,7 +38,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	}
 
 
-	UGameplayStatics::OpenLevel(GetWorld(), "LVL_Entry");
+	UGameplayStatics::OpenLevel(GetWorld(), "LVL_MainMenu");
 }
 
 TArray<APawn*> AExtractionGamePlayerController::GetPartyMemberPawns()

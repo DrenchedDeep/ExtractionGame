@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EndMatchController.h"
 #include "ExtractionGameCharacter.h"
 #include "ExtractionGameInstance.h"
 #include "SpaceShip.h"
@@ -38,7 +39,15 @@ enum EGameModeState
 {
 	WaitingForPlayers,
 	Playing,
-	EndingGame
+	EndingGame,
+	PostEndingGame
+};
+
+UENUM(BlueprintType)
+enum EEndGameState
+{
+	ShowingOutcome,
+	UpToUser,
 };
 
 UCLASS(minimalapi)
@@ -50,7 +59,8 @@ class AExtractionGameGameMode : public AGameModeBase
 	TSubclassOf<ASpaceShip> ShipClass;
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AExtractionGameCharacter> PlayerClass;
-
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AEndMatchController> EndMatchControllerClass;
 	
 	UPROPERTY(EditDefaultsOnly)
 	bool bBlockMovementTillMatchReady = true;
@@ -58,7 +68,8 @@ class AExtractionGameGameMode : public AGameModeBase
 	int32 MinPlayersBeforeStarting = 4;
 	UPROPERTY(EditDefaultsOnly)
 	int32 MatchLength = 300;
-	
+	UPROPERTY(EditDefaultsOnly)
+	int32 TimeBeforeEndGame = 5;
 	bool SessionCreated;
 
 public:
@@ -83,22 +94,31 @@ protected:
 	bool bAllExistingPlayersRegistered;
 	virtual void RegisterPlayerEOS(APlayerController* NewPlayer);
 	virtual bool AllPlayersReady();
+	virtual void EndGame();
 
 	UFUNCTION()
 	void CheckToStartMatch();
 	UFUNCTION()
 	void TickMatch();
+	UFUNCTION()
+	void EndGameTimer();
 private:
 	TArray<FInGameParty> AllParties;
 	int32 SpawnedSpaceships;
 	
 	EGameModeState GameModeState;
-	
+	EEndGameState EndGameState;
 	bool HasParty(int32 InID, int32& OutIndex);
 
 
 	FTimerHandle CheckToStartMatchTimerHandle;
 	FTimerHandle MatchTimerHandle;
+	FTimerHandle EndGameTimerHandle;
+
+	UPROPERTY()
+	TArray<AExtractionGamePlayerState*> TopThreePlayers;
+	UPROPERTY()
+	AEndMatchController* EndMatchController;
 };
 
 

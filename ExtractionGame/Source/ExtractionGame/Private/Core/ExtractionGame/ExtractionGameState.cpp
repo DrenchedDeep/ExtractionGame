@@ -36,6 +36,7 @@ FReplicatedPartyInfo AExtractionGameState::GetPartyByID(int32 PartyID)
 	return FReplicatedPartyInfo();
 }
 
+
 void AExtractionGameState::UpdateParties(TArray<FInGameParty> Parties)
 {
 	TArray<FReplicatedPartyInfo> NewReplicatedParties;
@@ -63,6 +64,18 @@ void AExtractionGameState::SetState(TEnumAsByte<EGameModeState> NewState)
 	OnExtractionGameStateUpdated();
 }
 
+void AExtractionGameState::SetTopThreePlayers(TArray<AExtractionGamePlayerState*> NewTopThreePlayers)
+{
+	TopThreePlayers = NewTopThreePlayers;
+	OnTopThreePlayersUpdated();
+}
+
+void AExtractionGameState::SetBlockMovement(bool bInBlockMovement)
+{
+	bBlockMovement = bInBlockMovement;
+	OnRep_BlockMovement();
+}
+
 void AExtractionGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -71,6 +84,7 @@ void AExtractionGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
 	DOREPLIFETIME(AExtractionGameState, ReplicatedParties);
 	DOREPLIFETIME(AExtractionGameState, MatchTimer);
 	DOREPLIFETIME(AExtractionGameState, ExtractionGameState);
+	DOREPLIFETIME(AExtractionGameState, TopThreePlayers);
 }
 
 void AExtractionGameState::BeginPlay()
@@ -84,3 +98,22 @@ void AExtractionGameState::OnRep_ExtractionGameState()
 {
 	OnExtractionGameStateUpdated();
 }
+
+void AExtractionGameState::OnRep_TopThreePlayers()
+{
+	OnTopThreePlayersUpdated();
+}
+
+void AExtractionGameState::OnRep_BlockMovement()
+{
+	if(APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+	{
+		if(bBlockMovement && PC)
+		{
+			PC->SetInputMode(	FInputModeUIOnly());
+			PC->StopMovement();
+		}
+	}
+}
+
+
