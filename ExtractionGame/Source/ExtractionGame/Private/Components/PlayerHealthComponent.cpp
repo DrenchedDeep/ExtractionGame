@@ -205,7 +205,7 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, AController* Instigator)
 			{
 				if(PartyPlayer == Character)
 				{
-					return false;
+					//return false;
 				}
 			}
 		}
