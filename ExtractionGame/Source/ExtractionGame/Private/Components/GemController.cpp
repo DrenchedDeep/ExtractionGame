@@ -146,7 +146,7 @@ void UGemController::Server_AddGem_Implementation(EBodyPart slot, AGem* newGem)
 	//LazyRecompileGems();
 } 
 
-void UGemController::OnRep_HeadGem()
+void UGemController::OnRep_HeadGem() const
 {
 	UE_LOG(LogTemp, Warning, TEXT("Head Gem Equipped..."))
 	OnHeadChanged.Broadcast(); // We broadcast here too, so when the player is rendered, it loads correctly
@@ -154,19 +154,19 @@ void UGemController::OnRep_HeadGem()
 	
 }
 
-void UGemController::OnRep_ChestGem()
+void UGemController::OnRep_ChestGem() const
 {
 	UE_LOG(LogTemp, Warning, TEXT("Chest Gem Equipped...")) 
 	OnChestChanged.Broadcast();
 }
 
-void UGemController::OnRep_LeftArmGems()
+void UGemController::OnRep_LeftArmGems() const
 {
 	UE_LOG(LogTemp, Warning, TEXT("Left Arms Updated... "))
 	OnLeftArmChanged.Broadcast();
 }
 
-void UGemController::OnRep_RightArmGems()
+void UGemController::OnRep_RightArmGems() const
 {
 	UE_LOG(LogTemp, Warning, TEXT("Right Arms Updated... "))
 	 OnRightArmChanged.Broadcast();
@@ -287,7 +287,10 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 void UGemController::Sadness_Implementation(const FAbilityStruct& abilityInfo, bool isLeft, int ability, float totalPolish)
 {
 	UPlayerBarDataWidget* hud =GetHUDElement();
+	//Bro the hud doesn't exist when making the left arm, but not the right arm :(
+	UE_LOG(LogTemp, Warning, TEXT("Sadness Called %i is hud? %i"), isLeft, hud != nullptr)
 	
+	//BUG when both left and right, only one happens?
 	if(isLeft)
 	{
 		Character->bIsLeftAutomatic = abilityInfo.bIsFullyAuto;
@@ -296,7 +299,7 @@ void UGemController::Sadness_Implementation(const FAbilityStruct& abilityInfo, b
 	else
 	{
 		Character->bIsRightAutomatic = abilityInfo.bIsFullyAuto;
-		if(hud) hud->SetRightGems(rightGems, abilityInfo.Image, ability, -totalPolish);
+		 hud->SetRightGems(rightGems, abilityInfo.Image, ability, -totalPolish);
 	}
 }
 
@@ -393,6 +396,7 @@ UPlayerBarDataWidget* UGemController::GetHUDElement()
 		if(const AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(x->GetHUD()))
 		{
 			PlayerBarsWidget = HUD->GetPlayerBarWidget();
+			return PlayerBarsWidget;
 		}
 	}
 	return nullptr;
