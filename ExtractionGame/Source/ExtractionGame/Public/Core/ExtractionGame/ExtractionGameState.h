@@ -48,8 +48,19 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	TArray<AExtractionGamePlayerState*> GetTopThreePlayers() const { return TopThreePlayers; }
+	
 	UFUNCTION(BlueprintCallable)
 	float GetMatchTimer() const { return MatchTimer; }
+
+	UFUNCTION(BlueprintCallable)
+	void AddGoobersKilled(int32 GoobersKilledToAdd) { GoobersKilled += GoobersKilledToAdd; }
+
+	void UpdateTotalPlayerKills() { TotalPlayerKills++; }
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetGoobersKilled() const { return GoobersKilled; }
+	UFUNCTION(BlueprintCallable)
+	int32 GetTotalPlayerKills() const { return TotalPlayerKills; }
 	
 	void UpdateParties(TArray<FInGameParty> Parties);
 	void SetMatchTimer(int32 NewMatchTimer) { MatchTimer = NewMatchTimer; }
@@ -76,7 +87,10 @@ private:
 	TArray<FReplicatedPartyInfo> ReplicatedParties;
 	UPROPERTY(Replicated)
 	int32 MatchTimer;
-
+	UPROPERTY(Replicated)
+	int32 GoobersKilled;
+	UPROPERTY(Replicated)
+	int32 TotalPlayerKills;
 	
 	UPROPERTY(ReplicatedUsing=OnRep_BlockMovement)
 	bool bBlockMovement;

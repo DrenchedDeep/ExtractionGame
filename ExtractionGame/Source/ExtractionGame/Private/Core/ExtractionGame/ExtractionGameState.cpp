@@ -85,6 +85,9 @@ void AExtractionGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
 	DOREPLIFETIME(AExtractionGameState, MatchTimer);
 	DOREPLIFETIME(AExtractionGameState, ExtractionGameState);
 	DOREPLIFETIME(AExtractionGameState, TopThreePlayers);
+	DOREPLIFETIME(AExtractionGameState, bBlockMovement);
+	DOREPLIFETIME(AExtractionGameState, GoobersKilled);
+	DOREPLIFETIME(AExtractionGameState, TotalPlayerKills);
 }
 
 void AExtractionGameState::BeginPlay()

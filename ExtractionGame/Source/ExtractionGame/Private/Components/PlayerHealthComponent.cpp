@@ -2,6 +2,7 @@
 #include "Core/ExtractionGame/ExtractionGameCharacter.h"
 #include "UI/ExtractionGameHUD.h"
 #include "Core/ExtractionGame/ExtractionGamePlayerController.h"
+#include "Core/ExtractionGame/ExtractionGameState.h"
 #include "Core/ExtractionGame/TDMPlayerState.h"
 #include "Net/UnrealNetwork.h"
 
@@ -22,10 +23,9 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 	{
 		bCanTakeDamage = false;
 
-		if(ATDMPlayerState* OwnerPlayerState = Character->GetPlayerState<ATDMPlayerState>())
+		if(AExtractionGamePlayerState* OwnerPlayerState = Character->GetPlayerState<AExtractionGamePlayerState>())
 		{
-			OwnerPlayerState->Deaths++;
-			OwnerPlayerState->OnRep_Deaths();
+			OwnerPlayerState->AddDeath();
 		}
 		
 		if(!Instigator)
@@ -34,10 +34,9 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 			return;
 		}
 
-		if(ATDMPlayerState* InstigatorPlayerState = Instigator->GetPlayerState<ATDMPlayerState>())
+		if(AExtractionGamePlayerState* InstigatorPlayerState = Instigator->GetPlayerState<AExtractionGamePlayerState>())
 		{
-			InstigatorPlayerState->Kills++;
-			InstigatorPlayerState->OnRep_Kills();
+			InstigatorPlayerState->AddKill();
 
 			OnDeath(Instigator->PlayerState->GetPlayerName());
 		}
@@ -196,7 +195,8 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, AController* Instigator)
 
 	/*/
 
-	if(Character)
+	/*/
+	if(Character && Instigator)
 	{
 		if(AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Instigator))
 		{
@@ -210,11 +210,17 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, AController* Instigator)
 			}
 		}
 	}
+	/*/
 
 
 	if(Instigator && Instigator->GetPawn())
 	{
 		Client_ApplyDamage(Instigator->GetPawn()->GetActorLocation());
+	}
+
+	if(AExtractionGameState* GS = GetWorld()->GetGameState<AExtractionGameState>())
+	{
+		GS->UpdateTotalPlayerKills();
 	}
 	
 	SetHealth(GetHealth() - Damage, Instigator);

@@ -491,6 +491,11 @@ void AExtractionGameCharacter::RemoveEssence(float Amount)
 		return;
 	}
 	
+	if(AExtractionGamePlayerState* PS = Cast<AExtractionGamePlayerState>(GetPlayerState()))
+	{
+		PS->AddEssence(Amount);
+	}
+	
 	float NewEssence = GetEssence() - Amount;
 	GetAttributeSet()->SetEssence(NewEssence);
 

@@ -22,7 +22,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32 GetDeaths() const { return Deaths; }
 
-	void AddEssence(int32 EssenceToAdd) { ExtractedEssence += EssenceToAdd; }
+	void AddEssence(int32 EssenceToAdd);
 	void AddKill() { Kills++; }
 	void AddDeath() { Deaths++; }
 protected:
