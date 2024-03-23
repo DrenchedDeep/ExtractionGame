@@ -29,10 +29,10 @@ public:
 	void SetEssencePercent(float percent);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetLeftGems(const  TArray<AGem*>& Gems, const UTexture2D* AbilityImage, int abilityID, float polish);
+	void SetLeftGems(const  TArray<AGem*>& Gems, UTexture2D* AbilityImage, int abilityID, float polish);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable) // This would be a client function if we even still want it.
-	void SetRightGems(const TArray<AGem*>& Gems, const UTexture2D* AbilityImage, int abilityID, float polish); 
+	void SetRightGems(const TArray<AGem*>& Gems, UTexture2D* AbilityImage, int abilityID, float polish); 
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetHeadGems(const AGem* Gems);

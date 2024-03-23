@@ -199,13 +199,13 @@ private:
 
 	
 	UFUNCTION()
-	void OnRep_HeadGem();
+	void OnRep_HeadGem() const;
 	UFUNCTION()
-	void OnRep_ChestGem();
+	void OnRep_ChestGem() const;
 	UFUNCTION()
-	void OnRep_LeftArmGems();
+	void OnRep_LeftArmGems() const;
 	UFUNCTION()
-	void OnRep_RightArmGems();
+	void OnRep_RightArmGems() const;
 
 	void ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const;
 
