@@ -605,12 +605,12 @@ void UExtractionGameInstance::CreateLobby()
 	SessionSettings.Set(SEARCH_KEYWORDS, FString("PartyLOBBY"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 	//SessionSettings.Set(SEARCH_KEYWORDS, id.ToString(), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 
-	/*/
+	 //This is needed to transition from entry level to main menu. If there's an issue with this, then please change LVL_Entry as well.
 	 if(!Session->CreateSession(*id, LobbyName, SessionSettings))
 	 {
 		 OnCreateLobbyComplete.Broadcast(false);
 	 }
-	 /*/
+	 
 }
 
 void UExtractionGameInstance::DestroySession()
