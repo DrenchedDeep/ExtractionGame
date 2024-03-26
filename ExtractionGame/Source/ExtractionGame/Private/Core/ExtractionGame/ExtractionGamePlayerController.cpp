@@ -77,7 +77,10 @@ void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FStrin
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
 		HUD->DeathWidget->AddToViewport();
+		HUD->GetPlayerBarWidget()->RemoveFromParent();
 		HUD->DeathWidget->ShowScreen(PlayerName);
+		HUD->ToggleCompass(false);
+		HUD->ToggleStats(false);
 	}
 }
 
@@ -92,6 +95,7 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 	{
 		HUD->DeathWidget->RemoveFromParent();
 		HUD->ToggleRespawnWidget(true);
+	//	HUD->GetPlayerBarWidget().
 		HUD->GetPlayerBarWidget()->RemoveFromParent();
 	}
 
@@ -102,13 +106,6 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 	}
 }
 
-void AExtractionGamePlayerController::Client_SpawnItems_Implementation()
-{
-	if(const AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
-	{
-//		GameState->GetItemReplicationManager()->SpawnItems();
-	}
-}
 
 void AExtractionGamePlayerController::Server_PickupItem_Implementation(AItemActor* ItemActor)
 {
@@ -370,15 +367,19 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 		
 		Subsystem->AddMappingContext(NewPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
 	}
-	
 
-	UE_LOG(LogTemp, Warning, TEXT("Attaching HUD 1"))
+	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	{
+		HUD->ToggleCompass(true);
+		HUD->ToggleStats(true);
+	}
+
 	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(NewPawn))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Attaching HUD 2"))
 		if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 		{
 			HUD->CreatePlayerBarDataWidget();
+			HUD->GetPlayerBarWidget()->AddToViewport();
 		
 			character->InitializeUIComponents(HUD);
 		}
@@ -388,6 +389,7 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 void AExtractionGamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	RespawnsLeft = 3;
 	if(HasAuthority())
 	{
 		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());

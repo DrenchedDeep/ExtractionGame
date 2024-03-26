@@ -62,6 +62,11 @@ public:
 	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
 	void ToggleRespawnWidget(bool bEnable);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void ToggleCompass(bool bEnable);
+	UFUNCTION(BlueprintImplementableEvent)
+	void ToggleStats(bool bEnable);
+	
 	UPROPERTY(BlueprintReadWrite)
 	UUserWidget* ExtractionWidget;
 private:

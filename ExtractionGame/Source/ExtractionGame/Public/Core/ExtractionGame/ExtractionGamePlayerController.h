@@ -53,9 +53,6 @@ public:
 	void Client_EnteredExtractionBeacon(AExtractionBeacon* Beacon);
 	UFUNCTION(Unreliable, Client)
 	void Client_LeftExtractionBeacon();
-	//reason i put it here is cuz i think its more reliable and cleaner to use client rpcs for important things like spawning items
-	UFUNCTION(Reliable, Client)
-	void Client_SpawnItems();
 
 	virtual void OnDeath(const FString& PlayerName);
 	

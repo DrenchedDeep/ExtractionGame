@@ -74,7 +74,6 @@ void APlayerStashManager::SaveInventory()
 	//disable for now
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
-	const TArray<FName> PartyMembers;
 	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),
 		StashInventory->GetPlayerInventory() , GetGemInventory());
 

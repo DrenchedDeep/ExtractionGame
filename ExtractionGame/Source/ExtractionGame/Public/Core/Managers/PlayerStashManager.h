@@ -39,9 +39,7 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	TSubclassOf<UPlayerSaveData> PlayerSavedDataSubclass;
-
-	UPROPERTY(EditDefaultsOnly)
-	UItemDatabase* ItemDatabase;
+	
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveInventory();
