@@ -25,7 +25,7 @@ void UPlayerInventoryComponent::InitStartingItems()
 
 	AExtractionGamePlayerController* PC = Cast<AExtractionGamePlayerController>(Character->GetController());
 
-	if(PC && !PC->bInitStartedItems)
+	if(PC)
 	{
 		if(GameInstance)
 		{

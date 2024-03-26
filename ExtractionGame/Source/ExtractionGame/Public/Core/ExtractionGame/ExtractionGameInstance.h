@@ -54,13 +54,16 @@ struct FPlayerSessionData
 	UPROPERTY()
 	TMap<int32, FAddItemInfo> PlayerItems;
 	UPROPERTY()
+	TMap<int32, FAddItemInfo> StashItems;
+	UPROPERTY()
 	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems;
 
 	FPlayerSessionData(bool bIsValid, const TMap<int32, FAddItemInfo>& PlayerItems,
-		const TMap<TEnumAsByte<EBodyPart>, FAddItemInfo>& GemItems)
+		const TMap<TEnumAsByte<EBodyPart>, FAddItemInfo>& GemItems, const TMap<int32, FAddItemInfo>& InStashItems)
 		: bIsValid(bIsValid),
 		  PlayerItems(PlayerItems),
-		  GemItems(GemItems)
+		  GemItems(GemItems),
+	StashItems(InStashItems)
 	{
 	}
 
@@ -100,7 +103,6 @@ struct FPlayerRaidResult
 	bool bSurvived;
 	UPROPERTY(BlueprintReadOnly)
 	float PlayTime;
-
 	FPlayerRaidResult(bool bIsValid, bool bSurvived, float PlayTime)
 		: bIsValid(bIsValid),
 		  bSurvived(bSurvived),
@@ -146,7 +148,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	FPartyInfo PartyInfo;
 
-	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
+	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<int32, FAddItemInfo> StashItems,
+		TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
 	void BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID);
 	void OnRaidOver(bool bSurvived, float PlayTime);
 

@@ -15,6 +15,7 @@
 #include "Core/ExtractionGame/SpaceShip.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/SpectatorPawn.h"
+#include "Camera/CameraActor.h"
 #include "Net/UnrealNetwork.h"
 
 void AExtractionGamePlayerController::ReturnToLobby()
@@ -34,6 +35,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
 		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(),
+			PlayerCharacter->InventoryComponent->GetPlayerInventory(),
 			PlayerCharacter->InventoryComponent->GetGemInventory());
 	}
 
@@ -89,6 +91,14 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
 		HUD->DeathWidget->RemoveFromParent();
+		HUD->ToggleRespawnWidget(true);
+		HUD->GetPlayerBarWidget()->RemoveFromParent();
+	}
+
+	if(RespawnManager)
+	{
+		AActor* CamActor = Cast<AActor>(RespawnManager->RespawnCamera);
+		SetViewTargetWithBlend(CamActor);
 	}
 }
 
@@ -164,6 +174,25 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 	}
 }
 
+void AExtractionGamePlayerController::RespawnPressed()
+{
+	Server_RespawnPressed();
+
+	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	{
+		HUD->ToggleRespawnWidget(false);
+	}
+}
+
+void AExtractionGamePlayerController::Server_RespawnPressed_Implementation()
+{
+	if(const AExtractionGameGameMode* ExtractionGameGameMode
+	= Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		ExtractionGameGameMode->RespawnShip(this,0);
+	}
+}
+
 
 void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const FString& KillerName,
                                                                            const FString& VictimName, const FString& DeathCause)
@@ -183,16 +212,20 @@ void AExtractionGamePlayerController::RespawnTick()
 
 	if(CurrentRespawnTimer <= 0)
 	{
+
 		if(PlayerPawnActor)
 		{
 			PlayerPawnActor->Destroy();
+	//		UnPossess();
 		}
+		/*/
 
 		if(const AExtractionGameGameMode* ExtractionGameGameMode
 			= Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			ExtractionGameGameMode->RespawnShip(this,0);
 		}
+		/*/
 		
 		Client_Respawn();
 		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
@@ -268,6 +301,8 @@ void AExtractionGamePlayerController::Client_ReturnToLobby_Implementation()
 	ReturnToLobby();
 }
 
+
+
 //This is a server side only function.
 void AExtractionGamePlayerController::OnPossess(APawn* InPawn)
 {
@@ -311,6 +346,7 @@ void AExtractionGamePlayerController::GetLifetimeReplicatedProps(TArray<FLifetim
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AExtractionGamePlayerController, CurrentRespawnTimer);
+	DOREPLIFETIME(AExtractionGamePlayerController, RespawnsLeft);
 }
 
 //TODO delete
@@ -370,6 +406,8 @@ void AExtractionGamePlayerController::BeginPlay()
 			PartyID = PartyInfo.PartyID;
 		}
 	}
+
+	RespawnManager = Cast<ARespawnManager>(UGameplayStatics::GetActorOfClass(GetWorld(), RespawnManagerSubclass));
 }
 
 void AExtractionGamePlayerController::Server_StartExtraction_Implementation(AExtractionBeacon* Beacon)

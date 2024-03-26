@@ -57,22 +57,11 @@ protected:
 	void BP_OnGooberDeadAll();
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnGooberDeadServer();
-
-		
-	//UFUNCTION(BlueprintImplementableEvent)
-	//void OnCookTimerEnd();
-	//UFUNCTION(BlueprintImplementableEvent)
-	//void OnCookTimerStart();
-	//UFUNCTION(BlueprintImplementableEvent)
-	//void UpdateCookedProgress(float CurrentProgress);
-
+	
 private:
 	float CurrentHealth;
-
-
 	
 	UFUNCTION()
 	void OnCookTimerTick();
-
 	FTimerHandle CookTimerHandle;
 };

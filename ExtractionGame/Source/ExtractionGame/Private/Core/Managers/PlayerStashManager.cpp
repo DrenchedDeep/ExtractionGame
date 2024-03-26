@@ -28,6 +28,11 @@ void APlayerStashManager::BeginPlay()
 			PlayerInventory->TryAddItemByAddItemInfo(Item.Value);
 		}
 
+		for(auto Item : GameInstance->PlayerSessionData.StashItems)
+		{
+			StashInventory->TryAddItemByAddItemInfo(Item.Value);
+		}
+
 		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
 		{
 			if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
@@ -70,7 +75,8 @@ void APlayerStashManager::SaveInventory()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	const TArray<FName> PartyMembers;
-	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(), GetGemInventory());
+	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),
+		StashInventory->GetPlayerInventory() , GetGemInventory());
 
 	OnSave();
 	UE_LOG(LogTemp, Warning, TEXT("Saving Inventory"));

@@ -59,7 +59,6 @@ protected:
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	bool isCrashed;
 	
-	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -157,4 +156,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
+
+private:
+	FTimerHandle ExplodeTimerHandle;
+
+	void OnExplode();
 };

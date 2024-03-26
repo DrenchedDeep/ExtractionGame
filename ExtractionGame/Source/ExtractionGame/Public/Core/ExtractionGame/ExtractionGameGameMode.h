@@ -92,6 +92,7 @@ protected:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void BeginPlay() override;
 	bool bAllExistingPlayersRegistered;
+	
 	virtual void RegisterPlayerEOS(APlayerController* NewPlayer);
 	virtual bool AllPlayersReady();
 	virtual void EndGame();

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RespawnManager.h"
 #include "Extraction/ExtractionBeacon.h"
 #include "GameFramework/PlayerController.h"
 #include "Items/ItemActor.h"
@@ -22,6 +23,9 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ASpectatorPawn> SpectatorPawnSubclass;
 	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ARespawnManager> RespawnManagerSubclass;
+
+	UPROPERTY(EditDefaultsOnly)
 	float RespawnTimer = 5.f;
 	
 	
@@ -36,7 +40,6 @@ public:
 	virtual void ReturnToLobby();
 	UFUNCTION(BlueprintCallable)
 	TArray<APawn*> GetPartyMemberPawns();
-
 	
 	UFUNCTION(Reliable, Client)
 	void Client_ReturnToLobby();
@@ -64,6 +67,19 @@ public:
 
 	bool bInitStartedItems = false;
 
+	UFUNCTION(BlueprintCallable)
+	void RespawnPressed();
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetRespawnsLeft() const { return RespawnsLeft; }
+private:
+	UPROPERTY(Replicated)
+	int32 RespawnsLeft;
+	UPROPERTY()
+	ARespawnManager* RespawnManager;
+
+	UFUNCTION(Server, Reliable)
+	void Server_RespawnPressed();
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* PlayerControllerMapping;

@@ -59,6 +59,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnGameStateChanged(EGameModeState NewState);
 	
+	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
+	void ToggleRespawnWidget(bool bEnable);
+
 	UPROPERTY(BlueprintReadWrite)
 	UUserWidget* ExtractionWidget;
 private:

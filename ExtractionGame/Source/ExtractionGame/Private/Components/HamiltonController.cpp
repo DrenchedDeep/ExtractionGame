@@ -147,7 +147,7 @@ bool UHamiltonController::IsLocationBuildable()
 	}
 
 	//check down
-	End = SpawnLocation - FVector(0, 0, 500);
+	End = SpawnLocation - FVector(0, 0, 50);
 	if(!GetWorld()->LineTraceSingleByChannel(Hit, SpawnLocation, End, ECC_Visibility, TraceParams))
 	{
 		bBuildable = false;

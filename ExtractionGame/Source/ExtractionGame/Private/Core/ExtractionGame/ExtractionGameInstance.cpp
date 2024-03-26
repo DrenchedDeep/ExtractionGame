@@ -40,9 +40,11 @@ const UMapInfo* UExtractionGameInstance::GetMapInfo()
 	return MapInfo[GetWorld()->GetName()];
 }
 
-void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
+
+void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems,
+	TMap<int32, FAddItemInfo> StashItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
-	const FPlayerSessionData PlayerData(true, PlayerItems, GemItems);
+	const FPlayerSessionData PlayerData(true, PlayerItems, GemItems, StashItems);
 	PlayerSessionData = PlayerData;
 }
 
@@ -603,10 +605,12 @@ void UExtractionGameInstance::CreateLobby()
 	SessionSettings.Set(SEARCH_KEYWORDS, FString("PartyLOBBY"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 	//SessionSettings.Set(SEARCH_KEYWORDS, id.ToString(), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 
+	/*/
 	 if(!Session->CreateSession(*id, LobbyName, SessionSettings))
 	 {
 		 OnCreateLobbyComplete.Broadcast(false);
 	 }
+	 /*/
 }
 
 void UExtractionGameInstance::DestroySession()
