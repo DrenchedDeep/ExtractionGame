@@ -61,7 +61,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
 	void ToggleRespawnWidget(bool bEnable);
-
+	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
+	void OnGameOver(bool bOut);
 	UFUNCTION(BlueprintImplementableEvent)
 	void ToggleCompass(bool bEnable);
 	UFUNCTION(BlueprintImplementableEvent)

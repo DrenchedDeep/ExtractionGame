@@ -14,26 +14,23 @@
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_FirstPersonPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_FirstPersonPlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_RespawnStashManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_RespawnStashManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendHeader.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendHeader.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Slots/WB_GemSlot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Slots/WB_GemSlot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/Inventory/WB_MainMenuStash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/Inventory/WB_MainMenuStash.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Respawn/WB_Respawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Respawn/WB_Respawn.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Respawn/WB_RespawnClassButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Respawn/WB_RespawnClassButton.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Respawn/WB_RespawnStash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Respawn/WB_RespawnStash.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/StartUp/WB_LoginMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/StartUp/WB_LoginMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_PlayerInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_PlayerInventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_DeathScreen.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_DeathScreen.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_KillNotification.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_KillNotification.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inventory/ItemActions/WB_ItemActions.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/ItemActions/WB_ItemActions.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Inventory/WB_Item.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/WB_Item.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_Startup.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_Startup.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGamePlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGamePlayerController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PlayerStashManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PlayerStashManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/UI/ExtractionGameHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/UI/ExtractionGameHUD.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -522,7 +519,7 @@
       <workItem from="1711328421917" duration="909000" />
       <workItem from="1711386455115" duration="1892000" />
       <workItem from="1711408238905" duration="9283000" />
-      <workItem from="1711474607152" duration="5915000" />
+      <workItem from="1711474607152" duration="9474000" />
     </task>
     <servers />
   </component>

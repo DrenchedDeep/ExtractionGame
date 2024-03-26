@@ -89,8 +89,23 @@ void AExtractionGamePlayerController::Server_SetName_Implementation(const FStrin
 	PlayerState->SetPlayerName(PlayerName);
 }
 
-void AExtractionGamePlayerController::Client_Respawn_Implementation()
+void AExtractionGamePlayerController::Client_Respawn_Implementation(bool bOut)
 {
+	AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD());
+
+	HUD->DeathWidget->RemoveFromParent();
+	HUD->GetPlayerBarWidget()->RemoveFromParent();
+
+	if(bOut)
+	{
+		HUD->OnGameOver(true);
+	}
+	else
+	{
+		HUD->ToggleRespawnWidget(true);
+	}
+
+	/*/
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
 		HUD->DeathWidget->RemoveFromParent();
@@ -98,12 +113,8 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation()
 	//	HUD->GetPlayerBarWidget().
 		HUD->GetPlayerBarWidget()->RemoveFromParent();
 	}
-
-	if(RespawnManager)
-	{
-		AActor* CamActor = Cast<AActor>(RespawnManager->RespawnCamera);
-		SetViewTargetWithBlend(CamActor);
-	}
+	/*/
+	
 }
 
 
@@ -162,6 +173,7 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 			CurrentRespawnTimer = RespawnTimer;
 			GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AExtractionGamePlayerController::RespawnTick, 1.f, true);
 		}
+
 		Client_OnDeath(PlayerName);
 		
 		if(AExtractionGameState* GameState = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
@@ -209,23 +221,25 @@ void AExtractionGamePlayerController::RespawnTick()
 
 	if(CurrentRespawnTimer <= 0)
 	{
+		if(RespawnsLeft <= 0)
+		{
+			//kick player
+			RespawnsLeft = 0;
+		}
+
+
+		Client_Respawn(RespawnsLeft == 0);
+
 
 		if(PlayerPawnActor)
 		{
 			PlayerPawnActor->Destroy();
-	//		UnPossess();
 		}
-		/*/
 
-		if(const AExtractionGameGameMode* ExtractionGameGameMode
-			= Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
-		{
-			ExtractionGameGameMode->RespawnShip(this,0);
-		}
-		/*/
-		
-		Client_Respawn();
+		RespawnsLeft--;
+
 		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
+
 	}
 }
 
@@ -368,10 +382,16 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 		Subsystem->AddMappingContext(NewPawn->IsA(ASpaceShip::StaticClass())? MountControllerMapping : PlayerControllerMapping, 0);
 	}
 
-	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+	if(AExtractionGameState* GS = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
 	{
-		HUD->ToggleCompass(true);
-		HUD->ToggleStats(true);
+		if(GS->GetExtractionGameState() == EGameModeState::Playing)
+		{
+			if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
+			{
+				HUD->ToggleCompass(true);
+				HUD->ToggleStats(true);
+			}
+		}
 	}
 
 	if(const AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(NewPawn))

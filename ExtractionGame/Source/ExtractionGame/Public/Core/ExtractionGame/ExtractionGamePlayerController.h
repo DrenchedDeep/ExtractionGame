@@ -96,7 +96,7 @@ protected:
 	UFUNCTION(Reliable, Client)
 	void Client_OnDeath(const FString& PlayerName);
 	UFUNCTION(Reliable, Client)
-	void Client_Respawn();
+	void Client_Respawn(bool bOver);
 	UFUNCTION(Reliable, Server)
 	void Server_SetName(const FString& PlayerName);
 	
