@@ -54,8 +54,8 @@ void AExtractionGameCharacter::HamiltonFinished()
 	
 	if(IsLocallyControlled()) return;
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	if(!inst || inst->SaveData->bTutorialExtraction) return;
-	inst->SaveData->bTutorialExtraction = true;
+	if(!inst || !inst->SaveData|| inst->SaveData->GetTutorialExtraction()) return;
+	inst->SaveData->SetTutorialExtraction(true);
 	inst->TutorialHamilton();
 }
 
@@ -132,8 +132,8 @@ void AExtractionGameCharacter::BeginPlay()
 	
 	if(IsLocallyControlled()) return;
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	if(!inst || inst->SaveData->bTutorialCrashLand) return;
-	inst->SaveData->bTutorialCrashLand = true;
+	if(!inst || !inst->SaveData || inst->SaveData->GetTutorialCrashLand()) return;
+	inst->SaveData->SetTutorialCrashLand(true);
 	inst->TutorialCrashLand();
 	
 }
@@ -370,8 +370,8 @@ void AExtractionGameCharacter::ToggleInventory()
 	if(bInInventory)
 	{
 		OnInventoryOpened();
-		 UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-		if(!inst || inst->SaveData->bTutorialInventory) return;
+		UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+		if(!inst || !inst->SaveData||inst->SaveData->GetTutorialInventory()) return;
 		inst->TutorialOpenInventory();
 	}
 	else
@@ -381,9 +381,9 @@ void AExtractionGameCharacter::ToggleInventory()
 
 		if(GemController->HasAnyNumGems())
 		{
-			 UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-			if(!inst || inst->SaveData->bTutorialInventory) return;
-			inst->SaveData->bTutorialInventory = true;
+			UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+			if(!inst || !inst->SaveData|| inst->SaveData->GetTutorialInventory()) return;
+			inst->SaveData->SetTutorialInventory(true);
 			inst->TutorialInvClosedGemEquipped();
 		}
 		
@@ -527,8 +527,8 @@ void AExtractionGameCharacter::RemoveEssence(float Amount)
 	{
 		PS->AddEssence(Amount);
 	}
-	
-	float NewEssence = GetEssence() - Amount;
+
+	const float NewEssence = GetEssence() - Amount;
 	GetAttributeSet()->SetEssence(NewEssence);
 
 	EssenceUpdate++;
@@ -554,7 +554,7 @@ void AExtractionGameCharacter::OnRep_EssenceUpdate()
 
 	if(GetAttributeSet()->GetEssence() < TutorialEssenceThreshold) return;
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	if(!inst || inst->SaveData->bTutorialExtraction) return;
+	if(!inst || !inst->SaveData || inst->SaveData->GetTutorialExtraction()) return;
 	inst->TutorialExtractSoon();
 	
 	

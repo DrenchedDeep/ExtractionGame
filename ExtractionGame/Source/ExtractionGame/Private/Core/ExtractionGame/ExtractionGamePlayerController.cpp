@@ -84,8 +84,8 @@ void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FStrin
 	}
 
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	if(!inst || inst->SaveData->BTutorialDeath) return;
-	inst->SaveData->BTutorialDeath = true;
+	if(!inst || !inst->SaveData || inst->SaveData->GetTutorialDeath()) return;
+	inst->SaveData->SetTutorialDeath(true);
 	inst->TutorialFirstDeath();
 	
 }
