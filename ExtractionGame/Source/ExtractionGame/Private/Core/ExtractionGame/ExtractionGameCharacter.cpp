@@ -48,6 +48,17 @@ void AExtractionGameCharacter::ServerUpdateGazeUnreliable_Implementation(FVector
 }
 
 
+void AExtractionGameCharacter::HamiltonFinished()
+{
+	HamiltonProcessStopped();
+	
+	if(IsLocallyControlled()) return;
+	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+	if(!inst || inst->SaveData->bTutorialExtraction) return;
+	inst->SaveData->bTutorialExtraction = true;
+	inst->TutorialHamilton();
+}
+
 void AExtractionGameCharacter::InitializeUIComponents(const AExtractionGameHUD* HUD) const
 {
 	GemController->Initialize(HUD);
@@ -116,6 +127,14 @@ void AExtractionGameCharacter::BeginPlay()
 	PlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
 	GetAttributeSet()->SetEssence(0);
 	OnRep_EssenceUpdate();
+
+	//If we're controlling this pawn
+	
+	if(IsLocallyControlled()) return;
+	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+	if(!inst || inst->SaveData->bTutorialCrashLand) return;
+	inst->SaveData->bTutorialCrashLand = true;
+	inst->TutorialCrashLand();
 	
 }
 
@@ -156,7 +175,6 @@ void AExtractionGameCharacter::Server_SetInput_Implementation(float VerticalMove
 	VerticalLook = VertLook;
 	HorizontalLook = HorLook;
 }
-
 void AExtractionGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -352,11 +370,23 @@ void AExtractionGameCharacter::ToggleInventory()
 	if(bInInventory)
 	{
 		OnInventoryOpened();
+		 UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+		if(!inst || inst->SaveData->bTutorialInventory) return;
+		inst->TutorialOpenInventory();
 	}
 	else
 	{
 		OnInventoryClosed();
 		GemController->SmartRecompileGems(false);
+
+		if(GemController->HasAnyNumGems())
+		{
+			 UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+			if(!inst || inst->SaveData->bTutorialInventory) return;
+			inst->SaveData->bTutorialInventory = true;
+			inst->TutorialInvClosedGemEquipped();
+		}
+		
 	}
 }
 
@@ -475,8 +505,10 @@ void AExtractionGameCharacter::AddEssence(float Amount)
 	{
 		return;
 	}
+
 	
-	float NewEssence = GetEssence() + Amount;
+
+	const float NewEssence = GetEssence() + Amount;
 	GetAttributeSet()->SetEssence(NewEssence);
 	UE_LOG(LogTemp, Warning, TEXT("adding essence"));
 
@@ -510,19 +542,24 @@ float AExtractionGameCharacter::GetEssence() const
 
 void AExtractionGameCharacter::OnRep_EssenceUpdate()
 {
-	if(IsLocallyControlled())
+	if(!IsLocallyControlled()) return;
+	
+	if(const APlayerController* PC = Cast<APlayerController>(GetController()))
 	{
-
-		if(APlayerController* PC = Cast<APlayerController>(GetController()))
+		if(const AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
 		{
-			if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(PC->GetHUD()))
-			{
-				HUD->PlayerUIData->SetEssencePercent(GetEssence() / 100);
-			}
+			HUD->PlayerUIData->SetEssencePercent(GetEssence() / 100);
 		}
-		
-		OnEssenceUpdated();
 	}
+
+	if(GetAttributeSet()->GetEssence() < TutorialEssenceThreshold) return;
+	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+	if(!inst || inst->SaveData->bTutorialExtraction) return;
+	inst->TutorialExtractSoon();
+	
+	
+	OnEssenceUpdated();
+	
 }
 
 UAbilitySystemComponent* AExtractionGameCharacter::GetAbilitySystemComponent() const

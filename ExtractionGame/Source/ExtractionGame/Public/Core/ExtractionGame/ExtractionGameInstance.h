@@ -130,16 +130,39 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 	UPROPERTY()UPoolHandlerSubSystem* PoolHandlerSubSystem;
 	UPROPERTY()UCommandHandlerSubsystem* CommandHandlerSubsystem;
 
+	FTimerHandle CanVOHandle;
+	void AllowVO();
+	
+
+protected:
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Tutorial") float VODelayLength;
+	UPROPERTY(BlueprintReadOnly) bool CanTutorialVO;
+	
 public:
 	UAbilityHandlerSubSystem* GetAbilityHandlerSubSystem() const {return AbilityHandlerSubSystem;}
 	
 	const int SESSION_PLAYERCOUNT = 4;
 
+
+
+	
+	UFUNCTION(BlueprintCallable, Category="Tutorial") void VoiceOverCooldown(); 
+	UFUNCTION(BlueprintImplementableEvent, Category="Tutorial") void TutorialHamilton(); 
+	UFUNCTION(BlueprintImplementableEvent, Category="Tutorial")void TutorialCrashLand();
+	UFUNCTION(BlueprintImplementableEvent, Category="Tutorial")void TutorialOpenInventory();
+	UFUNCTION(BlueprintImplementableEvent, Category="Tutorial")void TutorialInvClosedGemEquipped();
+	UFUNCTION(BlueprintImplementableEvent, Category="Tutorial")void TutorialExtractSoon();
+	UFUNCTION(BlueprintImplementableEvent, Category="Tutorial") void TutorialFirstDeath();
+	
 	UExtractionGameInstance();
 	virtual void Init() override;
 	virtual void Shutdown() override;
 	virtual void SetupOnlineSubsystem();
 	const UMapInfo* GetMapInfo();
+
+	UPROPERTY(BlueprintReadWrite)
+	UPlayerSaveData* SaveData;
 
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerSessionData PlayerSessionData;

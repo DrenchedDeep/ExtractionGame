@@ -200,6 +200,15 @@ void ASpaceShip::ClientOnCrush_Implementation(FHitResult HitResult)
 	OnCrush(HitResult);
 }
 
+void ASpaceShip::LocalClientCrashLand_Implementation()
+{
+	const UExtractionGameInstance* inst  = Cast<UExtractionGameInstance>(GetGameInstance());
+	if(!inst->SaveData->bTutorialCrashLand)
+	{
+		inst->SaveData->bTutorialCrashLand = true;
+		TutorialCrashLand();
+	}
+}
 void ASpaceShip::MoveToWorldSpawn()
 {
 	if(!HasAuthority()) return;
@@ -284,6 +293,7 @@ void ASpaceShip::Tick(float DeltaTime)
 		SetActorTickEnabled(false);
 		ClientCrashLand(hit);
 		CrashLand(hit);
+		LocalClientCrashLand();
 	}
 	
 	//AddMovementInput(GetActorForwardVector(), currentSpeed);

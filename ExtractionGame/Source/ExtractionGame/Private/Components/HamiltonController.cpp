@@ -38,7 +38,7 @@ void UHamiltonController::StopHamiltonProcess()
 
 	if(Character)
 	{
-		Character->HamiltonProcessStopped();
+		Character->HamiltonFinished();
 	}
 }
 

@@ -136,6 +136,12 @@ protected:
 
 	UFUNCTION(NetMulticast, Reliable)
 	void ClientOnCrush(FHitResult HitResult);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void TutorialCrashLand();
+
+	UFUNCTION(Client, Reliable)
+	void LocalClientCrashLand();
 	
 	
 	UFUNCTION(BlueprintCallable)

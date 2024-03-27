@@ -322,6 +322,11 @@ void AExtractionGameGameMode::TickMatch()
 	{
 		GS->SetMatchTimer(MatchLength);
 	}
+	
+
+	if(MatchLength == MatchShortTimeIndicator)
+		LowMatchTime();
+	
 
 	if(MatchLength <= 0)
 	{

@@ -13,6 +13,21 @@
 #include "Kismet/GameplayStatics.h"
 #include "Online/OnlineSessionNames.h"
 
+void UExtractionGameInstance::AllowVO()
+{
+	CanTutorialVO = true;
+}
+
+void UExtractionGameInstance::VoiceOverCooldown()
+{
+	CanTutorialVO = false;
+	GetTimerManager().ClearTimer(CanVOHandle);
+	GetTimerManager().SetTimer(CanVOHandle, this, &UExtractionGameInstance::AllowVO, VODelayLength, false);
+}
+
+
+
+
 UExtractionGameInstance::UExtractionGameInstance()
 {
 	
@@ -42,7 +57,7 @@ const UMapInfo* UExtractionGameInstance::GetMapInfo()
 
 
 void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems,
-	TMap<int32, FAddItemInfo> StashItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
+                                                     TMap<int32, FAddItemInfo> StashItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
 	const FPlayerSessionData PlayerData(true, PlayerItems, GemItems, StashItems);
 	PlayerSessionData = PlayerData;

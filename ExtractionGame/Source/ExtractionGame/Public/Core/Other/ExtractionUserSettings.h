@@ -19,6 +19,7 @@ protected:
 	UPROPERTY(Config) int EffectVolume;
 	UPROPERTY(Config) int MusicVolume;
 	UPROPERTY(Config) int AmbientVolume;
+	UPROPERTY(Config) int VoiceVolume;
 	
 	
 public:
@@ -37,5 +38,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)void SetAmbientVolume(int newValue) { AmbientVolume = newValue; }
 	UFUNCTION(BlueprintPure)int GetAmbientVolume() const { return AmbientVolume; }
+
+	UFUNCTION(BlueprintCallable)void SetVoiceVolume(int newValue) { AmbientVolume = newValue; }
+	UFUNCTION(BlueprintPure)int GetVoiceVolume() const { return AmbientVolume; }
 	
 };

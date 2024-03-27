@@ -171,6 +171,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32 GetArmGemCount(bool bIsLeft) const;
 
+	UPROPERTY()
+	bool hasGem;
+	
+	UFUNCTION(BlueprintCallable)
+	bool HasAnyNumGems();
+
 protected:
 	
 	//virtual void InitializeComponent() override;

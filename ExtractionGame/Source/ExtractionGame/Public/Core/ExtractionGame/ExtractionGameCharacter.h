@@ -178,8 +178,11 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void HamiltonProcessStarted();
-	UFUNCTION(BlueprintImplementableEvent)
-	void HamiltonProcessStopped();
+
+	void HamiltonFinished();
+	
+	UFUNCTION(BlueprintImplementableEvent) void HamiltonProcessStopped(); 
+	
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void HamiltonStartedEverybody(bool Cancelled);
@@ -268,7 +271,16 @@ public:
 	void OnDeathClient();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnAttacked(FVector FromLocation);
+
+	
+	
+	
 protected:
+
+
+
+	
+	
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PossessedBy(AController* NewController) override;
@@ -292,9 +304,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilities")
 	TArray<TSubclassOf<UGameplayEffect>> PassiveGameplayEffects;
 
+
+
 	
 	UPROPERTY()
 	uint8 bAbilitiesInitialized:1;
+
+	
+	
 
 
 public:
@@ -333,6 +350,9 @@ public:
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnEssenceUpdated();
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Tutorial") float TutorialEssenceThreshold;
+	
 private:
 	UFUNCTION()
 	void OnRep_EssenceUpdate();

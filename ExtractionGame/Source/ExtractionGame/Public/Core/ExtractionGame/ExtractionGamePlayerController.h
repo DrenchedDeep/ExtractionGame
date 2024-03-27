@@ -100,6 +100,7 @@ protected:
 	UFUNCTION(Reliable, Server)
 	void Server_SetName(const FString& PlayerName);
 	
+	
 	virtual void RespawnTick();
 
 

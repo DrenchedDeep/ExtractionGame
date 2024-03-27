@@ -1,6 +1,7 @@
 #include "Components/PlayerMovementComponent.h"
 
 #include "Components/CapsuleComponent.h"
+#include "Core/ExtractionGame/ExtractionGameInstance.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/GameStateBase.h"
 #include "Net/UnrealNetwork.h"
@@ -13,6 +14,9 @@ void UPlayerMovementComponent::BeginPlay()
 		Character->GetAbilitySystemComponent()->
 	GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetSpeedAttribute()).AddUObject(this, &UPlayerMovementComponent::OnSpeedChanged);
 	ApplyEffect(&SpeedHandle, BaseSpeedEffect, 1);
+
+	
+	
 }
 
 UPlayerMovementComponent::UPlayerMovementComponent(): Sprint_MaxWalkSpeed(0), Walk_MaxWalkSpeed(0), currentSpeed(0),

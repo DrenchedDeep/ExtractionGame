@@ -35,7 +35,14 @@ public:
 	UPROPERTY()
 	TArray<FSavedInventoryItem> GemItems;
 	
-	UPROPERTY(BlueprintReadWrite)
-	uint8 bHasSeenIntroCutscene;
+	UPROPERTY(BlueprintReadWrite) bool bHasSeenIntroCutscene;
+	
+	UPROPERTY(BlueprintReadWrite) bool bTutorialCrashLand; // After the player crash lands for the first time
+	UPROPERTY(BlueprintReadWrite) bool bTutorialInventory; // After the player equips a gem, and closes their inventory for the first time. Spam opening and closing a gem will cause the voiceline to be repeated.
+	UPROPERTY(BlueprintReadWrite) bool bTutorialExtraction; // After the player has enough essence to extract, and starts extracting for the first time.
+	UPROPERTY(BlueprintReadWrite) bool BTutorialDeath; // After the player has died for the very first time
+
+	
+
 	
 };

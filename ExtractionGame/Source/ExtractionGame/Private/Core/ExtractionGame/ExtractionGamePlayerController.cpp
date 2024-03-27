@@ -82,6 +82,12 @@ void AExtractionGamePlayerController::Client_OnDeath_Implementation(const FStrin
 		HUD->ToggleCompass(false);
 		HUD->ToggleStats(false);
 	}
+
+	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
+	if(!inst || inst->SaveData->BTutorialDeath) return;
+	inst->SaveData->BTutorialDeath = true;
+	inst->TutorialFirstDeath();
+	
 }
 
 void AExtractionGamePlayerController::Server_SetName_Implementation(const FString& PlayerName)

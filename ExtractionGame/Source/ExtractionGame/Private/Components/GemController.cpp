@@ -232,6 +232,10 @@ void UGemController::SmartRecompileGems_Implementation(bool forceRefresh)
 		RecompileArm(rightGems, false);
 	}
 
+	//Lazy.
+	hasGem = HeadGem || leftGems[0] || rightGems[0] || leftGems[1] || rightGems[1]; 
+	
+
 	UpdateAllClientVisuals(val);
 	
 	//TODO: Gems affect values.
@@ -517,4 +521,9 @@ int32 UGemController::GetArmGemCount(bool bIsLeft) const
 		}
 	}
 	return count;
+}
+
+bool UGemController::HasAnyNumGems()
+{
+	return hasGem;
 }
