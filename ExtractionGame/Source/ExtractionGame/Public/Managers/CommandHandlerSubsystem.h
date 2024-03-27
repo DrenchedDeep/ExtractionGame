@@ -55,6 +55,8 @@ class EXTRACTIONGAME_API UCommandHandlerSubsystem : public UGameInstanceSubsyste
 	UFUNCTION(Exec) void SetAbilityFireRate(int E, int F, int S, int W, float val);
 	UFUNCTION(Exec) void SetAbilityCost(int E, int F, int S, int W, float val) const;
 
+	UFUNCTION(Exec) void ClearSaveData() const;
+
 	UFUNCTION(Server, Reliable, WithValidation) void SetAbilityDamageServer(int idx, float val);
 	UFUNCTION(Server, Reliable, WithValidation) void SetAbilityFireRateServer(int idx, float val);
 	UFUNCTION(Server, Reliable, WithValidation) void SetAbilityCostServer(int idx, float val);

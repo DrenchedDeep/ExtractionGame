@@ -6,6 +6,7 @@
 #include "Core/ExtractionGame/ExtractionGameInstance.h"
 #include "Core/Managers/AbilityHandlerSubSystem.h"
 #include "Engine/DamageEvents.h"
+#include "Items/ItemActor.h"
 #include "Net/UnrealNetwork.h"
 
 void UCommandHandlerSubsystem::SetTimeOfDay(float time) const
@@ -305,6 +306,12 @@ void UCommandHandlerSubsystem::SetAbilityCost(int E, int F, int S, int W, float 
 	const int32 index = AbilitiesSubSystem->ConvertToIntID(E,F,S,W);
 
 	
+}
+
+void UCommandHandlerSubsystem::ClearSaveData() const
+{
+	UGameplayStatics::DeleteGameInSlot("Game", 0);
+	UGameplayStatics::OpenLevel(GetWorld(), FName("LVL_Entry"));
 }
 
 void UCommandHandlerSubsystem::KillSelfServer_Implementation(APlayerController* target)
