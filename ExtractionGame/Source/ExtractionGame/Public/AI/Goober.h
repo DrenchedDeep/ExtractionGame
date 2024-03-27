@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GooberManager.h"
 #include "GooberTask.h"
 #include "Core/CharacterPawnBase.h"
 #include "Core/ExtractionGame/Cookable.h"
@@ -11,7 +10,16 @@
 #include "GameFramework/Actor.h"
 #include "Goober.generated.h"
 
+UENUM(BlueprintType)
+enum EGooberStates
+{
+	EG_Friendly,
+	EG_AngryExplode,
+	EG_AngryFireball,
+	EG_AngryWaterSplash
+};
 
+class AGooberSpawnCluster;
 UCLASS()
 class EXTRACTIONGAME_API AGoober : public ACharacterPawnBase, public IInteractable, public ICookable
 {
@@ -41,6 +49,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StopCook();
 	
+	void Init(AGooberSpawnCluster* InGooberSpawnCluster);
+	UFUNCTION(BlueprintCallable)
+	void SetGooberState(EGooberStates InState) {GooberState = InState;}
+	UFUNCTION(BlueprintCallable)
+	TEnumAsByte<EGooberStates> GetGooberState() const { return GooberState; }
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginPlay() override;
@@ -59,9 +72,13 @@ protected:
 	void BP_OnGooberDeadServer();
 	
 private:
+	UPROPERTY()
+	AGooberSpawnCluster* GooberSpawn;
 	float CurrentHealth;
 	
 	UFUNCTION()
 	void OnCookTimerTick();
 	FTimerHandle CookTimerHandle;
+
+	EGooberStates GooberState;
 };

@@ -34,11 +34,10 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 			return;
 		}
 
+		OnDeath(Instigator->PlayerState->GetPlayerName());
 		if(AExtractionGamePlayerState* InstigatorPlayerState = Instigator->GetPlayerState<AExtractionGamePlayerState>())
 		{
 			InstigatorPlayerState->AddKill();
-
-			OnDeath(Instigator->PlayerState->GetPlayerName());
 		}
 	}
 }

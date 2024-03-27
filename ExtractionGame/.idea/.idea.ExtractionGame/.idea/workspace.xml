@@ -13,13 +13,19 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BB_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BB_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberFriendly.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberFriendly.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AttackPlayer.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/DamageTypes/BP_Explosive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/DamageTypes/BP_Explosive.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/mGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/mGem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Explosion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Explosion.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/Goober.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/Goober.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -507,7 +513,8 @@
       <workItem from="1711328421917" duration="909000" />
       <workItem from="1711386455115" duration="1892000" />
       <workItem from="1711408238905" duration="9283000" />
-      <workItem from="1711474607152" duration="10948000" />
+      <workItem from="1711474607152" duration="15170000" />
+      <workItem from="1711511545427" duration="3900000" />
     </task>
     <servers />
   </component>

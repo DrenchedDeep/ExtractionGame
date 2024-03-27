@@ -3,6 +3,7 @@
 
 #include "AI/Goober.h"
 
+#include "GooberSpawnCluster.h"
 #include "Net/UnrealNetwork.h"
 
 void AGoober::ApplyDamage(float Damage)
@@ -14,7 +15,12 @@ void AGoober::ApplyDamage(float Damage)
 		CurrentHealth = 0;
 		bIsDead = true;
 		BP_OnGooberDeadServer();
-		
+
+
+		if(GooberSpawn)
+		{
+			GooberSpawn->UnRegisterGoober(this);
+		}
 	}
 }
 
@@ -30,6 +36,11 @@ void AGoober::StopCook()
 	bIsCooking = false;
 	OnRep_Cooking();
 	UE_LOG(LogTemp, Warning, TEXT("StopCook"));
+}
+
+void AGoober::Init(AGooberSpawnCluster* InGooberSpawnCluster)
+{
+	GooberSpawn = InGooberSpawnCluster;
 }
 
 void AGoober::OnRep_Cooking()
