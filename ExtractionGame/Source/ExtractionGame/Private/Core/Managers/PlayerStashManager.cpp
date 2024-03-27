@@ -170,6 +170,7 @@ TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> APlayerStashManager::GetGemInventory(
 		Info.ItemType = Item.Value->ItemType;
 		Info.GemType = Item.Value->GemType;
 		Info.DefaultPolish = Item.Value->DefaultPolish;
+		Info.RowName = Item.Value->RowName;
 
 		GemItems.Add(Item.Key, Info);
 	}
