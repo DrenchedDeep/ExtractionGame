@@ -2,8 +2,6 @@
 
 
 #include "Components/ItemObject.h"
-#include "Components/ItemObject.h"
-#include "Components/ItemObject.h"
 
 #include "ExtractionGameBPLibrary.h"
 #include "Net/UnrealNetwork.h"

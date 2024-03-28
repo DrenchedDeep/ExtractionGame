@@ -3,18 +3,26 @@
 
 #include "GeyserController.h"
 
+TWeakObjectPtr<AGeyserController> AGeyserController::SingletonInstance = nullptr;
+
+
+void AGeyserController::GeyserNearlyReadyEveryone_Implementation()
+{
+	GeyserNearlyReady(SmokingGeiser);
+}
 
 void AGeyserController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	SingletonInstance = this;
 	if(HasAuthority())
 	{
 		for(const auto Geyser : GeyserSpawnpoints)
 		{
 			Geyser->SetGeyserState(EGeyserStates::Deactive);
+			Geyser->InitGeyser(GeyserSmokeDuration, GeyserActiveDuration);
 		}
-		GetWorldTimerManager().SetTimer(GeyserSpawnTimer, this, &AGeyserController::NearlySpawnGeyser, GeyserSpawnDelay - GeyserNearlyReadyTime, true);
+		GetWorldTimerManager().SetTimer(GeyserSpawnTimer, this, &AGeyserController::NearlySpawnGeyser, GeyserSpawnDelay - GeyserNearlyReadyTime, false);
 		//SpawnGeyser();
 	}
 }
@@ -31,8 +39,9 @@ void AGeyserController::SpawnGeyser()
 		SmokingGeiser->SetGeyserState(EGeyserStates::Active);
 		ActiveGeyser = SmokingGeiser;
 	}
-
 	
+	GetWorldTimerManager().ClearTimer(GeyserSpawnTimer);
+	GetWorldTimerManager().SetTimer(GeyserSpawnTimer, this, &AGeyserController::NearlySpawnGeyser, GeyserSpawnDelay - GeyserNearlyReadyTime, false);
 }
 
 void AGeyserController::NearlySpawnGeyser()
@@ -46,7 +55,5 @@ void AGeyserController::NearlySpawnGeyser()
 	
 	SmokingGeiser = GeyserSpawnpoints[RandomIndex];
 	SmokingGeiser->SetGeyserState(EGeyserStates::Smoking);
-	GeyserNearlyReady(SmokingGeiser);
-	
-	
+	GeyserNearlyReadyEveryone();
 }

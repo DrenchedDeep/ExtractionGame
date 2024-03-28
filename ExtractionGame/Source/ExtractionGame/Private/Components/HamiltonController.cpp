@@ -3,6 +3,7 @@
 
 #include "Components/HamiltonController.h"
 
+#include "GeyserController.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
@@ -10,14 +11,27 @@
 
 void UHamiltonController::StartHamiltonProcess()
 {
-	if(!IsLocationBuildable())
+	if(Character->GetEssence() < MinEssenceThreshold)
 	{
+		UE_LOG(LogTemp,Warning,TEXT("Not enough essence, cannot begin process"))
 		return;
 	}
 	
+	if(bIsTickingHamilton)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Hamilton must already be active, or building"))
+		return;
+	}
+	
+	if(!IsLocationBuildable())
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Cannot build here"))
+		return;
+	}
+	UE_LOG(LogTemp,Warning,TEXT("Initiating Hamilton"))
 	Server_HamiltonStarted();
 	bIsTickingHamilton = true;
-	const float Tickrate = 1.f / 30.f;
+	constexpr float Tickrate = 1.f / 30.f;
 	GetWorld()->GetTimerManager().SetTimer(HamiltonBuildTimerHandle, this,
 		&UHamiltonController::TickHamiltonBuild, Tickrate, true);
 
@@ -49,6 +63,9 @@ void UHamiltonController::OnHamiltonPressed()
 
 void UHamiltonController::OnHamiltonReleased()
 {
+	//Cannot cancel it if any of these succeed.. It doesn't matter if you cancel while one is built or if you can't afford it.
+	if(HamiltonBuilt || Character->GetEssence() < MinEssenceThreshold) return;
+	
 	Server_CancelHamilton();
 }
 
@@ -109,12 +126,14 @@ void UHamiltonController::TickHamiltonBuild()
 
 	if(HamiltonTickTime >=	HamiltonMaxTime)
 	{
+		HamiltonBuilt = false;
 		StopHamiltonProcess();
 	//	Server_SpawnHamilton(LastSpawnLocation);
 	}
 
 	if(HamiltonTickTime >= HamiltonSpawnTime)
 	{
+		HamiltonBuilt = true;
 		Server_SpawnHamilton(LastSpawnLocation);
 	}
 }
@@ -123,10 +142,11 @@ bool UHamiltonController::IsLocationBuildable()
 {
 	bool bBuildable = true;
 
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGeyserSpawnpoint::StaticClass(), FoundActors);
+	TArray<AGeyserSpawnpoint*> FoundActors = AGeyserController::GetGeyserSpawns();
 	for(auto GeyserSpawnpoint : FoundActors)
 	{
+		//Why do we care if the geyser isn't active?
+		if(GeyserSpawnpoint->GetGeyserState() != EGeyserStates::Active) continue;
 		if(FVector::Dist(GeyserSpawnpoint->GetActorLocation(), Character->GetActorLocation()) < 10000)
 		{
 			bBuildable = false;

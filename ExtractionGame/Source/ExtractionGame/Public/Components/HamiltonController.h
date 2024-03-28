@@ -22,6 +22,11 @@ class EXTRACTIONGAME_API UHamiltonController : public UActorComponent
 	float HamiltonSpawnTime = 0.5f;
 	UPROPERTY(EditAnywhere)
 	FVector SpawnOffsetFromPlayer;
+
+	UPROPERTY(EditAnywhere)
+	float MinEssenceThreshold;
+	UPROPERTY()bool HamiltonBuilt;
+
 public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsTickingHamilton = false;
@@ -32,6 +37,9 @@ public:
 	void OnHamiltonPressed();
 	void OnHamiltonReleased();
 
+	UFUNCTION(BlueprintPure, BlueprintCallable)
+	float GetMinEssenceThreshold() const {return MinEssenceThreshold;} 
+	
 
 	UFUNCTION(BlueprintPure)
 	float GetHamiltonProcessTime() const { return HamiltonTickTime; }

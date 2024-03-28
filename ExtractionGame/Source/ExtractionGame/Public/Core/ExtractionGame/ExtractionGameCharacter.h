@@ -351,8 +351,6 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnEssenceUpdated();
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Tutorial") float TutorialEssenceThreshold;
-	
 private:
 	UFUNCTION()
 	void OnRep_EssenceUpdate();

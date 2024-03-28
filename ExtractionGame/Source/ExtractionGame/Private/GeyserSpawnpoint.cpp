@@ -35,6 +35,12 @@ void AGeyserSpawnpoint::ResetGeyser()
 	SetGeyserState(EGeyserStates::Deactive);
 }
 
+void AGeyserSpawnpoint::InitGeyser(float smokeTime, float activeTime)
+{
+	SmokeTime = smokeTime;
+	ActiveTime = activeTime;
+}
+
 void AGeyserSpawnpoint::OnRep_GeyserState()
 {
 	OnGeyserStatusUpdated();
@@ -44,13 +50,13 @@ void AGeyserSpawnpoint::GeyserTick()
 {
 	CurrentGeyserTime++;
 
-	if(State == EGeyserStates::Smoking && CurrentGeyserTime >= 10)
+	if(State == EGeyserStates::Smoking && CurrentGeyserTime >= SmokeTime)
 	{
 		SetGeyserState(EGeyserStates::Active);
 	}
 
 	
-	if(State == EGeyserStates::Active && CurrentGeyserTime >= 45)
+	if(State == EGeyserStates::Active && CurrentGeyserTime >= SmokeTime + ActiveTime)
 	{
 		ResetGeyser();
 		GetWorld()->GetTimerManager().ClearTimer(GeyserTimer);

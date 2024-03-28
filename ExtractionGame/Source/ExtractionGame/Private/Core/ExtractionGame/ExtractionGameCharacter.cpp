@@ -556,7 +556,8 @@ void AExtractionGameCharacter::OnRep_EssenceUpdate()
 		}
 	}
 
-	if(GetAttributeSet()->GetEssence() < TutorialEssenceThreshold) return;
+	if(HamiltonController->bIsTickingHamilton || GetAttributeSet()->GetEssence() < HamiltonController->GetMinEssenceThreshold()) return;
+	UE_LOG(LogTemp, Warning, TEXT("Client has enough essence to extract: %f >= %f"), GetAttributeSet()->GetEssence(), HamiltonController->GetMinEssenceThreshold() )
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
 	if(!inst || !inst->SaveData || inst->SaveData->GetTutorialExtraction()) return;
 	inst->TutorialExtractSoon();

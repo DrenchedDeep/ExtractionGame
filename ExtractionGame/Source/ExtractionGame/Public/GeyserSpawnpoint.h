@@ -24,6 +24,11 @@ public:
 	void SetGeyserState(EGeyserStates NewState);
 	void ResetGeyser();
 
+	void InitGeyser(float smokeTime, float activeTime);
+
+	float SmokeTime;
+	float ActiveTime;
+
 	UFUNCTION(BlueprintPure)
 	TEnumAsByte<EGeyserStates> GetGeyserState() const { return State; }
 
