@@ -76,6 +76,21 @@ void AExtractionGameState::SetBlockMovement(bool bInBlockMovement)
 	OnRep_BlockMovement();
 }
 
+void AExtractionGameState::GetSpaceShipSpawnInfo(FVector& OutLocation, FRotator& OutRotation)
+{
+	const UMapInfo* MapInfo = Cast<UExtractionGameInstance>(GetGameInstance())->GetMapInfo();
+	
+	const float distance = FMath::RandRange(MapInfo->InnerRing(), MapInfo->OuterRing());
+	const float height = FMath::RandRange(MapInfo->MinHeight(), MapInfo->MaxHeight()) + MapInfo->AdditionalUpOffset();
+	const float angle = FMath::RandRange(0.f, 6.28f);
+
+	const FVector SpawnPoint(FMath::Cos(angle) * distance,FMath::Sin(angle) * distance,height);
+	const FRotator Rotation(0,FMath::RadiansToDegrees(angle),0);
+
+	OutLocation = SpawnPoint;
+	OutRotation = Rotation;
+}
+
 void AExtractionGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

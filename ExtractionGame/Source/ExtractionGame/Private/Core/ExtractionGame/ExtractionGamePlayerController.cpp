@@ -110,16 +110,6 @@ void AExtractionGamePlayerController::Client_Respawn_Implementation(bool bOut)
 	{
 		HUD->ToggleRespawnWidget(true);
 	}
-
-	/*/
-	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
-	{
-		HUD->DeathWidget->RemoveFromParent();
-		HUD->ToggleRespawnWidget(true);
-	//	HUD->GetPlayerBarWidget().
-		HUD->GetPlayerBarWidget()->RemoveFromParent();
-	}
-	/*/
 	
 }
 
@@ -191,7 +181,21 @@ void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 
 void AExtractionGamePlayerController::RespawnPressed()
 {
-	Server_RespawnPressed();
+	FVector SpawnLoc;
+	FRotator SpawnRot;
+
+	if(AExtractionGameState* GS = Cast<AExtractionGameState>(GetWorld()->GetGameState()))
+	{
+		GS->GetSpaceShipSpawnInfo(SpawnLoc, SpawnRot);
+	}
+
+	OnRespawnPressed(SpawnLoc, SpawnRot);
+
+	FTimerDelegate RespawnDelegate =
+		FTimerDelegate::CreateUObject( this, &AExtractionGamePlayerController::SendSpawnRequestToServer, SpawnLoc, SpawnRot );
+
+	GetWorld()->GetTimerManager().SetTimer(DelaySendRequestToSpawnServer, RespawnDelegate, 1.5f, false);
+
 
 	if(AExtractionGameHUD* HUD = Cast<AExtractionGameHUD>(GetHUD()))
 	{
@@ -199,14 +203,16 @@ void AExtractionGamePlayerController::RespawnPressed()
 	}
 }
 
-void AExtractionGamePlayerController::Server_RespawnPressed_Implementation()
+
+ void AExtractionGamePlayerController::Server_RespawnPressed_Implementation(FVector Location, FRotator Rotation)
 {
 	if(const AExtractionGameGameMode* ExtractionGameGameMode
-	= Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+		= Cast<AExtractionGameGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
-		ExtractionGameGameMode->RespawnShip(this,0);
+		ExtractionGameGameMode->RespawnShip(this,0, Location, Rotation);
 	}
 }
+
 
 
 void AExtractionGamePlayerController::Client_OnPlayerKilled_Implementation(const FString& KillerName,
@@ -247,6 +253,11 @@ void AExtractionGamePlayerController::RespawnTick()
 		GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
 
 	}
+}
+
+void AExtractionGamePlayerController::SendSpawnRequestToServer(FVector InSpawnLocation, FRotator InSpawnRotator)
+{
+	Server_RespawnPressed(InSpawnLocation, InSpawnRotator);
 }
 
 float AExtractionGamePlayerController::GetServerWorldTimeDelta() const

@@ -216,6 +216,16 @@ void UPlayerMovementComponent::PhysCustom(float deltaTime, int32 Iterations)
 	}
 }
 
+void UPlayerMovementComponent::PhysFalling(float deltaTime, int32 Iterations)
+{
+	Super::PhysFalling(deltaTime, Iterations);
+}
+
+void UPlayerMovementComponent::PhysFlying(float deltaTime, int32 Iterations)
+{
+	Super::PhysFlying(deltaTime, Iterations);
+}
+
 bool UPlayerMovementComponent::IsMovingOnGround() const
 {
 	return Super::IsMovingOnGround() || IsPlayerMovementMode(PMOVE_Slide);

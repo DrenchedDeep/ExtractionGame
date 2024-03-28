@@ -27,7 +27,8 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 
 	UPROPERTY(EditDefaultsOnly)
 	float RespawnTimer = 5.f;
-	
+	UPROPERTY(EditDefaultsOnly)
+	float RespawnDelay = 1.5f;
 	
 	FTimerHandle RespawnTimerHandle;
 
@@ -76,7 +77,7 @@ private:
 	ARespawnManager* RespawnManager;
 
 	UFUNCTION(Server, Reliable)
-	void Server_RespawnPressed();
+	void Server_RespawnPressed(FVector Location, FRotator Rotation);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* PlayerControllerMapping;
@@ -109,7 +110,12 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnLeftExtractionBeacon();
 
-	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnRespawnPressed(FVector OutSpawnLocation, FRotator OutSpawnRotator);
+
+	FTimerHandle DelaySendRequestToSpawnServer;
+	UFUNCTION()
+	void SendSpawnRequestToServer(FVector InSpawnLocation, FRotator InSpawnRotator);
 //network clock
 private:
 	float ServerWorldTimeDelta = 0.f;
@@ -137,6 +143,7 @@ private:
 	UFUNCTION(Client, Unreliable)
 	void ClientUpdateWorldTime(float ClientTimestamp, float ServerTimestamp);
 
-
+	FVector ClientSpawnLocation;
 	float StartPlayTime;
 };
+

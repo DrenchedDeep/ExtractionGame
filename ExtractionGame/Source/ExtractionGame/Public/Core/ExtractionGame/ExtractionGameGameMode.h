@@ -82,7 +82,7 @@ public:
 	bool bEnableRespawn = false;
 	
 
-	void RespawnShip(APlayerController* NewPlayer, int32 TeamID) const;
+	void RespawnShip(APlayerController* NewPlayer, int32 TeamID, FVector SpawnLocation, FRotator SpawnRotation) const;
 	void SpawnShip(APlayerController* NewPlayer, const FVector StartLocation, const FRotator Rotator, int32 I);
 	void GetPartySpawnLocation(FVector& OutLocation, FRotator& OutRotation) const;
 	

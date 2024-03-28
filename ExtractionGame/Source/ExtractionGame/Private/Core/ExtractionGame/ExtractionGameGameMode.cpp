@@ -109,24 +109,30 @@ void AExtractionGameGameMode::BeginPlay()
 	EndMatchController = GetWorld()->SpawnActor<AEndMatchController>(EndMatchControllerClass);
 }
 
-void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 TeamID) const
+
+void AExtractionGameGameMode::RespawnShip(APlayerController* NewPlayer, int32 TeamID, FVector SpawnLocation,
+	FRotator SpawnRotation) const
 {
 	FActorSpawnParameters Parm;
 	Parm.bNoFail = true;
-	
-	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(ShipClass, FVector(0,0,100000), FRotator(0), Parm)))
+
+	const FVector PawnSpawnLocation = SpawnLocation == FVector::Zero() ? FVector(0,0, 10000) : SpawnLocation;
+	if(APawn* PlayerPawn = Cast<APawn>(GetWorld()->SpawnActor<ASpaceShip>(ShipClass, PawnSpawnLocation, SpawnRotation, Parm)))
 	{
 		NewPlayer->Possess(PlayerPawn);
 
-		if(ASpaceShip* Ship = Cast<ASpaceShip>(PlayerPawn))
+		if(SpawnLocation == FVector::Zero())
 		{
-			Ship->bMoveToWorldSpawn = true;
+			if(ASpaceShip* Ship = Cast<ASpaceShip>(PlayerPawn))
+			{
+				Ship->bMoveToWorldSpawn = true;
+			}
 		}
 	}
 }
 
 void AExtractionGameGameMode::SpawnShip(APlayerController* NewPlayer, const FVector StartLocation,
-	const FRotator Rotator, int32 I)
+                                        const FRotator Rotator, int32 I)
 {
 	FVector SpawnLocation = StartLocation + FVector(1,0, 0) * ((I + 1) * 10000);
 	

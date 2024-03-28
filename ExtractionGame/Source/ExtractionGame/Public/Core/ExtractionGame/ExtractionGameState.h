@@ -67,6 +67,8 @@ public:
 	void SetState(TEnumAsByte<EGameModeState> NewState);
 	void SetTopThreePlayers(TArray<AExtractionGamePlayerState*> NewTopThreePlayers);
 	void SetBlockMovement(bool bInBlockMovement);
+
+	void GetSpaceShipSpawnInfo(FVector& OutLocation, FRotator& OutRotation);
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginPlay() override;

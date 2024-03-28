@@ -101,6 +101,8 @@ protected:
 	virtual void UpdateCharacterStateBeforeMovement(float DeltaSeconds) override;
 	virtual void UpdateCharacterStateAfterMovement(float DeltaSeconds) override;
 	virtual void PhysCustom(float deltaTime, int32 Iterations) override;
+	virtual void PhysFalling(float deltaTime, int32 Iterations) override;
+	virtual void PhysFlying(float deltaTime, int32 Iterations) override;
 
 	virtual bool IsMovingOnGround() const override;
 	virtual bool CanCrouchInCurrentState() const override;
