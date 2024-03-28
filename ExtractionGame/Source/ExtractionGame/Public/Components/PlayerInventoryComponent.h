@@ -22,6 +22,9 @@ struct FGemItem
 
 	UPROPERTY(BlueprintReadOnly)
 	TEnumAsByte<EBodyPart> BodyPart;
+
+	UPROPERTY(BlueprintReadOnly)
+	float Polish;
 };
 
 
@@ -34,7 +37,7 @@ public:
 	void InitStartingItems();
 	
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void Server_AddGem(class UItemObject* Item, EBodyPart BodyPart);
+	void Server_AddGem(class UItemObject* Item, EBodyPart BodyPart, float polish);
 	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void Server_AddGemRaw(FAddItemInfo Item, EBodyPart BodyPart);
 	UFUNCTION(BlueprintCallable, Server, Reliable)

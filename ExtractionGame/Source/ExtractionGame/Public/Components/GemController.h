@@ -134,7 +134,7 @@ public:
 	void RemoveGem(EBodyPart slot); 
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void Server_CreateGem(UItemObject* Item, EBodyPart BodyPart, bool bAddToInventory = false);
+	void Server_CreateGem(UItemObject* Item, EBodyPart BodyPart, float purity, bool bAddToInventory = false);
 	UFUNCTION(Client, Reliable)
 	void Client_OnGemCreated(int GemSlotID, AGem* Gem);
 

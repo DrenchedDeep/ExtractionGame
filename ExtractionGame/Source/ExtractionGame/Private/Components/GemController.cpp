@@ -78,7 +78,7 @@ void UGemController::RemoveGem(EBodyPart slot)
 	Server_RemoveGem(slot);
 }
 
-void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPart BodyPart, bool bAddToInventory)
+void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPart BodyPart, float purity, bool bAddToInventory)
 {
 	if(Item)
 	{
@@ -86,7 +86,7 @@ void UGemController::Server_CreateGem_Implementation(UItemObject* Item, EBodyPar
 
 		if(bAddToInventory)
 		{
-			Character->InventoryComponent->Server_AddGem(Item, BodyPart);
+			Character->InventoryComponent->Server_AddGem(Item, BodyPart, purity);
 		}
 	}
 }

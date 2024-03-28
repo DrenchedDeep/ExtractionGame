@@ -45,9 +45,9 @@ void UPlayerInventoryComponent::InitStartingItems()
 	
 }
 
-void UPlayerInventoryComponent::Server_AddGem_Implementation(UItemObject* Item, EBodyPart BodyPart)
+void UPlayerInventoryComponent::Server_AddGem_Implementation(UItemObject* Item, EBodyPart BodyPart, float polish)
 {
-	GemItems.Add(FGemItem{Item, BodyPart});
+	GemItems.Add(FGemItem{Item, BodyPart, polish});
 	OnRep_GemItems();
 }
 
@@ -74,10 +74,10 @@ void UPlayerInventoryComponent::Server_AddGemRaw_Implementation(FAddItemInfo Ite
 
 	if(Character)
 	{
-		Character->GemController->Server_CreateGem(ItemObject, BodyPart);
+		Character->GemController->Server_CreateGem(ItemObject, BodyPart, ItemObject->DefaultPolish);
 	}
 
-	GemItems.Add(FGemItem{ItemObject, BodyPart});
+	GemItems.Add(FGemItem{ItemObject, BodyPart, ItemObject->DefaultPolish});
 	OnRep_GemItems();
 }
 
