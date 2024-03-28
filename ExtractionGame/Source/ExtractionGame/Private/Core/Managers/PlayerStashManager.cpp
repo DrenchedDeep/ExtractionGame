@@ -141,6 +141,7 @@ void APlayerStashManager::AddGem(UItemObject* Gem, EBodyPart BodyPart)
 	}
 	
 	GemInventory.Add(BodyPart, Gem);
+	OnGemInventoryChanged();
 }
 
 void APlayerStashManager::RemoveGem(EBodyPart BodyPart)
@@ -151,6 +152,7 @@ void APlayerStashManager::RemoveGem(EBodyPart BodyPart)
 	}
 	
 	GemInventory.Remove(BodyPart);
+	OnGemInventoryChanged();
 }
 
 
@@ -187,6 +189,7 @@ TArray<FGemItem> APlayerStashManager::GetGemInventoryStruct()
 		FGemItem GemItem;
 		GemItem.Item = Item.Value;
 		GemItem.BodyPart = Item.Key;
+		GemItem.Polish = Item.Value->DefaultPolish;
 		GemItems.Add(GemItem);
 	}
 
