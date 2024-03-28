@@ -45,9 +45,12 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void OnDeath(const FString& PlayerName);
 
+	
+
 	UFUNCTION(BlueprintCallable)
 	virtual bool ApplyDamage(float Damage, AController* Instigator);
-
+	UFUNCTION(BlueprintCallable)
+	virtual bool HealPlayer(float HealAmount);
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
 	TSubclassOf<UGameplayEffect> HealthRegenEffect;
 

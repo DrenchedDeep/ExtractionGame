@@ -106,7 +106,8 @@ void UPlayerHealthComponent::BeginPlay()
 	
 		OnHealthChangedHandle =
 			Character->GetAbilitySystemComponent()->
-		GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnHealthChanged);
+		GetGameplayAttributeValueChangeDelegate
+		(Character->GetAttributeSet()->GetHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnHealthChanged);
 		OnMaxHealthChangedHandle =
 			Character->GetAbilitySystemComponent()->
 		GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxHealthAttribute()).AddUObject(this, &UPlayerHealthComponent::OnMaxHealthChanged);
@@ -233,6 +234,19 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, AController* Instigator)
 	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), GetHealth());
 	return true;
 }
+
+bool UPlayerHealthComponent::HealPlayer(float HealAmount)
+{
+	bool bCanHeal = GetHealth() < GetMaxHealth();
+
+	if(bCanHeal)
+	{
+		SetHealth(GetHealth() + HealAmount, nullptr);
+	}
+
+	return bCanHeal;
+}
+
 void UPlayerHealthComponent::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassOf<UGameplayEffect> effect, float level) const
 {
 	UE_LOG(LogTemp, Warning, TEXT("APPLY EFFECT CHECK A"))
