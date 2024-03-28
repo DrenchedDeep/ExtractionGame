@@ -25,13 +25,20 @@ public:
 	UFUNCTION(BlueprintPure)
 	TArray<AGoober*> GetAllGoobers();
 
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void Multicast_PlayExplosion(FVector Location);
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void Multicast_PickupGem(AActor* GemActor, AGoober* Goober);
 	void AddToRespawnStream(AGooberSpawnCluster* Cluster);
 protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	void TickGooberRespawnHandle();
-	
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayExplosionEffect(FVector Location);
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayPickupGem(AActor* GemActor, AGoober* Goober);
 private:
 	UPROPERTY()
 	TArray<AGooberSpawnCluster*> SpawnClusters;

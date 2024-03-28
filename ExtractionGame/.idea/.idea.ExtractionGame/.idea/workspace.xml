@@ -13,17 +13,23 @@
   <component name="ChangeListManager">
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BPI_GooberAttractable.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BPI_GooberAttractable.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BB_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BB_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberEnemy.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberFriendly.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberFriendly.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AttackPlayer.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/DamageTypes/BP_Explosive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/DamageTypes/BP_Explosive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryExplode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryExplode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryFireball.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryFireball.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/FriendlyTasks/BTTask_MoveAround.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/FriendlyTasks/BTTask_MoveAround.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/Spawning/BP_GooberManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/Spawning/BP_GooberManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_AirVent.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_AirVent.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Hamilton/BP_Hamilton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Hamilton/BP_Hamilton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Fire/BP_FireGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Fire/BP_FireGem.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Explosion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Explosion.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/AB_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/AB_Goober.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GooberSpawnCluster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GooberSpawnCluster.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/Goober.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/Goober.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" afterDir="false" />
     </list>
@@ -514,7 +520,8 @@
       <workItem from="1711386455115" duration="1892000" />
       <workItem from="1711408238905" duration="9283000" />
       <workItem from="1711474607152" duration="15170000" />
-      <workItem from="1711511545427" duration="3900000" />
+      <workItem from="1711511545427" duration="8317000" />
+      <workItem from="1711568399351" duration="704000" />
     </task>
     <servers />
   </component>

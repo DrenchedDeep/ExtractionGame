@@ -42,7 +42,10 @@ void AGooberSpawnCluster::SpawnGoober()
 	if(GooberSpawnPoints.IsValidIndex(RandomSpawnPoint))
 	{
 		FVector SpawnLocation = GooberSpawnPoints[RandomSpawnPoint]->GetActorLocation();
-		AGoober* Goober = Cast<AGoober>(GetWorld()->SpawnActor<AGoober>(GooberManager->GooberSubclass, SpawnLocation, FRotator::ZeroRotator));
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+		AGoober* Goober =
+			Cast<AGoober>(GetWorld()->SpawnActor<AGoober>(GooberManager->GooberSubclass, SpawnLocation, FRotator::ZeroRotator, SpawnParameters));
 
 		if(Goober)
 		{

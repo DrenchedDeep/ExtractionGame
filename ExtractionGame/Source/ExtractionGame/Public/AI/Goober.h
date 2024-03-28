@@ -80,5 +80,6 @@ private:
 	void OnCookTimerTick();
 	FTimerHandle CookTimerHandle;
 
-	EGooberStates GooberState;
+	UPROPERTY(Replicated)
+	TEnumAsByte<EGooberStates> GooberState;
 };

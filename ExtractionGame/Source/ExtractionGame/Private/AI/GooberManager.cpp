@@ -20,6 +20,17 @@ TArray<AGoober*> AGooberManager::GetAllGoobers()
 	return OutGoobers;
 }
 
+void AGooberManager::Multicast_PlayExplosion_Implementation(FVector Location)
+{
+	PlayExplosionEffect(Location);
+}
+
+
+void AGooberManager::Multicast_PickupGem_Implementation(AActor* GemActor, AGoober* Goober)
+{
+	PlayPickupGem(GemActor, Goober);
+}
+
 void AGooberManager::AddToRespawnStream(AGooberSpawnCluster* Cluster)
 {
 	if(bOnlyAllowSameClusterInStreamOnce && SpawnBuffer.Contains(Cluster))
