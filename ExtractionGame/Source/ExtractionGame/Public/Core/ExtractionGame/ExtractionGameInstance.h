@@ -137,7 +137,7 @@ class EXTRACTIONGAME_API UExtractionGameInstance : public UGameInstance
 protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Tutorial") float VODelayLength;
-	UPROPERTY(BlueprintReadOnly) bool CanTutorialVO;
+	UPROPERTY(BlueprintReadOnly) bool CanTutorialVO = true;
 	
 public:
 	UAbilityHandlerSubSystem* GetAbilityHandlerSubSystem() const {return AbilityHandlerSubSystem;}

@@ -38,6 +38,7 @@ class EXTRACTIONGAME_API UPlayerSaveData : public USaveGame
 	UPROPERTY()
 	bool BTutorialDeath; // After the player has died for the very first time
 
+	UPlayerSaveData();
 
 public:
 	UPROPERTY()

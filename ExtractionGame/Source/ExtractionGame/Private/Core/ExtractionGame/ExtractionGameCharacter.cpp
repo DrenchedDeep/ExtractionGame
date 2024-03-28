@@ -129,13 +129,17 @@ void AExtractionGameCharacter::BeginPlay()
 	OnRep_EssenceUpdate();
 
 	//If we're controlling this pawn
-	
+
+	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1A"))
 	if(IsLocallyControlled()) return;
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	if(!inst || !inst->SaveData || inst->SaveData->GetTutorialCrashLand()) return;
+	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1B %d << Should be false?"), !inst)
+	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1C %d << Should be false?"), !inst->SaveData)
+	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1D %d << Should be false?"), inst->SaveData->GetTutorialCrashLand())
+	if(inst->SaveData->GetTutorialCrashLand()) return;
 	inst->SaveData->SetTutorialCrashLand(true);
 	inst->TutorialCrashLand();
-	
+	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1E"))
 }
 
 void AExtractionGameCharacter::Tick(float DeltaSeconds)
