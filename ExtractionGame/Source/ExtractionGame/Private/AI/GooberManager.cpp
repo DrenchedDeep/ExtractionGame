@@ -31,6 +31,16 @@ void AGooberManager::Multicast_PickupGem_Implementation(AActor* GemActor, AGoobe
 	PlayPickupGem(GemActor, Goober);
 }
 
+void AGooberManager::Multicast_Attack_Implementation(AGoober* Goober)
+{
+	PlayAttackAnim(Goober);
+}
+
+void AGooberManager::Multicast_ResetGem_Implementation(AActor* Gem)
+{
+	ResetGemSize(Gem);
+}
+
 void AGooberManager::AddToRespawnStream(AGooberSpawnCluster* Cluster)
 {
 	if(bOnlyAllowSameClusterInStreamOnce && SpawnBuffer.Contains(Cluster))

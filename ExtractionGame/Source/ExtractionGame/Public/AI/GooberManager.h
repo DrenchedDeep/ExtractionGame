@@ -29,6 +29,11 @@ public:
 	void Multicast_PlayExplosion(FVector Location);
 	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
 	void Multicast_PickupGem(AActor* GemActor, AGoober* Goober);
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void Multicast_Attack(AGoober* Goober);
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void Multicast_ResetGem(AActor* Gem);
+	
 	void AddToRespawnStream(AGooberSpawnCluster* Cluster);
 protected:
 	virtual void BeginPlay() override;
@@ -39,6 +44,10 @@ protected:
 	void PlayExplosionEffect(FVector Location);
 	UFUNCTION(BlueprintImplementableEvent)
 	void PlayPickupGem(AActor* GemActor, AGoober* Goober);
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayAttackAnim(AGoober* Goober);
+	UFUNCTION(BlueprintImplementableEvent)
+	void ResetGemSize(AActor* Gem);
 private:
 	UPROPERTY()
 	TArray<AGooberSpawnCluster*> SpawnClusters;

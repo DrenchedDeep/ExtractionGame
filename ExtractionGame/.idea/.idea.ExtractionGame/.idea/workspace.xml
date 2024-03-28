@@ -14,11 +14,24 @@
     <list default="true" id="2c454b48-36aa-41e8-babc-b38b1b332dc2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/Inventory/WB_MainMenuStash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/Inventory/WB_MainMenuStash.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Managers/PlayerStashManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PlayerStashManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PlayerStashManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberFriendly.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/BT_GooberFriendly.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryExplode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryExplode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryFireball.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/EnemyTasks/BTTask_AngryFireball.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/FriendlyTasks/BTTask_ChasePlayer.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/FriendlyTasks/BTTask_ChasePlayer.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/FriendlyTasks/BTTask_MoveAround.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BehaviourTrees/FriendlyTasks/BTTask_MoveAround.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/Spawning/BP_GooberManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/Spawning/BP_GooberManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_HomingProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_HomingProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ShotgunProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ShotgunProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/GA_RootAbility.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/GA_RootAbility.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Shadow/BP_ShadowGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/Shadow/BP_ShadowGem.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/AB_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/AB_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goober_Anim_rest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goober_Anim_rest.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goober_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goober_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -510,7 +523,7 @@
       <workItem from="1711474607152" duration="15170000" />
       <workItem from="1711511545427" duration="8317000" />
       <workItem from="1711568399351" duration="704000" />
-      <workItem from="1711641164883" duration="745000" />
+      <workItem from="1711641164883" duration="3033000" />
     </task>
     <servers />
   </component>
