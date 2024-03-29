@@ -51,10 +51,13 @@ void AExtractionGameCharacter::ServerUpdateGazeUnreliable_Implementation(FVector
 void AExtractionGameCharacter::HamiltonFinished()
 {
 	HamiltonProcessStopped();
+
+	UE_LOG(LogTemp, Warning, TEXT("Client has Hamiltonned!"))
 	
-	if(IsLocallyControlled()) return;
+	
+	if(!IsLocallyControlled()) return;
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	if(!inst || !inst->SaveData|| inst->SaveData->GetTutorialExtraction()) return;
+	if( inst->SaveData->GetTutorialExtraction()) return;
 	inst->SaveData->SetTutorialExtraction(true);
 	inst->TutorialHamilton();
 }
@@ -130,16 +133,11 @@ void AExtractionGameCharacter::BeginPlay()
 
 	//If we're controlling this pawn
 
-	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1A"))
-	if(IsLocallyControlled()) return;
+	if(!IsLocallyControlled()) return;
 	UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1B %d << Should be false?"), !inst)
-	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1C %d << Should be false?"), !inst->SaveData)
-	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1D %d << Should be false?"), inst->SaveData->GetTutorialCrashLand())
 	if(inst->SaveData->GetTutorialCrashLand()) return;
 	inst->SaveData->SetTutorialCrashLand(true);
 	inst->TutorialCrashLand();
-	UE_LOG(LogTemp,Warning,TEXT("Extraction Game Caharcter Text 1E"))
 }
 
 void AExtractionGameCharacter::Tick(float DeltaSeconds)
@@ -361,7 +359,6 @@ void AExtractionGameCharacter::Interact()
 	{
 		GazeTarget->Execute_OnInteract(GazeTargetActor, this);
 	}
-	
 	//UE_LOG(LogTemp, Warning, TEXT("Tried to interact with NOTHING"))
 }
 
@@ -375,7 +372,7 @@ void AExtractionGameCharacter::ToggleInventory()
 	{
 		OnInventoryOpened();
 		UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-		if(!inst || !inst->SaveData||inst->SaveData->GetTutorialInventory()) return;
+		if(inst->SaveData->GetTutorialInventory()) return;
 		inst->TutorialOpenInventory();
 	}
 	else
@@ -386,7 +383,7 @@ void AExtractionGameCharacter::ToggleInventory()
 		if(GemController->HasAnyNumGems())
 		{
 			UExtractionGameInstance* inst = Cast<UExtractionGameInstance>(GetGameInstance());
-			if(!inst || !inst->SaveData|| inst->SaveData->GetTutorialInventory()) return;
+			if( inst->SaveData->GetTutorialInventory()) return;
 			inst->SaveData->SetTutorialInventory(true);
 			inst->TutorialInvClosedGemEquipped();
 		}

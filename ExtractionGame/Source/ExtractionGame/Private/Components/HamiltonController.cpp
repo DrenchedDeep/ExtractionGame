@@ -43,6 +43,7 @@ void UHamiltonController::StartHamiltonProcess()
 
 void UHamiltonController::StopHamiltonProcess()
 {
+	UE_LOG(LogTemp, Warning, TEXT("HamiltonController -> Stop Hamilton Process"))
 	if(bIsTickingHamilton)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(HamiltonBuildTimerHandle);
@@ -115,7 +116,7 @@ void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 	if(Character)
 	{
 		FVector SpawnLocation = Character->GetActorLocation() + Character->GetActorForwardVector() * SpawnOffsetFromPlayer.X + Character->GetActorRightVector() * SpawnOffsetFromPlayer.Y + Character->GetActorUpVector() * SpawnOffsetFromPlayer.Z;
-		HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, SpawnLocation, FRotator::ZeroRotator);
+		HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, SpawnLocation, FRotator::ZeroRotator );
 	}
 }
 

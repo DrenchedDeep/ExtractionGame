@@ -24,9 +24,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController") float GeyserSmokeDuration = 15;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController") float GeyserActiveDuration = 30;
 
-
-	UFUNCTION(Client, Reliable) void GeyserNearlyReadyEveryone();
-	UFUNCTION(BlueprintImplementableEvent) void GeyserNearlyReady(AGeyserSpawnpoint* geyser);
 	
 	static TArray<AGeyserSpawnpoint*> GetGeyserSpawns()
 	{

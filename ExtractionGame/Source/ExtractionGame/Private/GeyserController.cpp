@@ -6,10 +6,6 @@
 TWeakObjectPtr<AGeyserController> AGeyserController::SingletonInstance = nullptr;
 
 
-void AGeyserController::GeyserNearlyReadyEveryone_Implementation()
-{
-	GeyserNearlyReady(SmokingGeiser);
-}
 
 void AGeyserController::BeginPlay()
 {
@@ -55,5 +51,4 @@ void AGeyserController::NearlySpawnGeyser()
 	
 	SmokingGeiser = GeyserSpawnpoints[RandomIndex];
 	SmokingGeiser->SetGeyserState(EGeyserStates::Smoking);
-	GeyserNearlyReadyEveryone();
 }
