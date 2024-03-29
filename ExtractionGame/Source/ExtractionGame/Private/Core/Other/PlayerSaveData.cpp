@@ -52,3 +52,43 @@ void UPlayerSaveData::SetTutorialDeath(bool state)
 	UE_LOG(LogTemp, Warning, TEXT("Saving data"))
 
 }
+
+void UPlayerSaveData::SetStashInventory(TMap<int32, FAddItemInfo> InInventory)
+{
+	for(auto Item : InInventory)
+	{
+		FSavedInventoryItem NewItem;
+		NewItem.ItemInfo = Item.Value;
+		NewItem.Index = Item.Key;
+		StashItems.Add(NewItem);
+	}
+
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+}
+
+void UPlayerSaveData::SetPlayerInventory(TMap<int32, FAddItemInfo> InInventory)
+{
+	for(auto Item : InInventory)
+	{
+		FSavedInventoryItem NewItem;
+		NewItem.ItemInfo = Item.Value;
+		NewItem.Index = Item.Key;
+		PlayerItems.Add(NewItem);
+	}
+
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+}
+
+void UPlayerSaveData::SetGemInventory(TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> InInventory)
+{
+	for(auto Item : InInventory)
+	{
+		FSavedInventoryItem NewItem;
+		NewItem.ItemInfo = Item.Value;
+		NewItem.Index = Item.Key;
+		GemItems.Add(NewItem);
+	}
+
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+}
+

@@ -64,6 +64,40 @@ void APlayerStashManager::BeginPlay()
 
 	//LoadInventory();
 
+	if(!GameInstance->SaveData->GetTutorialInventory())
+	{
+		InitStartingItems();
+	}
+	else
+	{
+		for(auto Item : GameInstance->SaveData->PlayerItems)
+		{
+			PlayerInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
+		}
+
+		for(auto Item :GameInstance->SaveData->StashItems)
+		{
+			StashInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
+		}
+
+		for(auto Gem : GameInstance->SaveData->GemItems)
+		{
+			if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
+			{
+				ItemObject->ItemName = Gem.ItemInfo.ItemName;
+				ItemObject->ItemType =  Gem.ItemInfo.ItemType;
+				ItemObject->Rarity =  Gem.ItemInfo.Rarity;
+				ItemObject->Description =  Gem.ItemInfo.Description;
+				ItemObject->GemType =  Gem.ItemInfo.GemType;
+				ItemObject->DefaultPolish =  Gem.ItemInfo.DefaultPolish;
+				ItemObject->Dimensions =  Gem.ItemInfo.Dimensions;
+				ItemObject->Icon =  Gem.ItemInfo.Icon;
+				ItemObject->IconRotated =  Gem.ItemInfo.IconRotated;
+				ItemObject->RowName =  Gem.ItemInfo.RowName;
+				AddGem(ItemObject, static_cast<EBodyPart>(Gem.Index));
+			}
+		}
+	}
 }
 
 
@@ -71,66 +105,17 @@ void APlayerStashManager::BeginPlay()
 
 void APlayerStashManager::SaveInventory()
 {
-	//disable for now
+	//disable for nowz
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),
 		StashInventory->GetPlayerInventory() , GetGemInventory());
 
 	OnSave();
-	UE_LOG(LogTemp, Warning, TEXT("Saving Inventory"));
-	bool bDisable = true;
-
-	if(bDisable)
-	{
-		return;
-	}
-	const FString FileName = TEXT("PlayerSaveData");
-
-	bool bHasSavedSlot = UGameplayStatics::DoesSaveGameExist(FileName, 0);
-
-	if(bHasSavedSlot)
-	{
-		UGameplayStatics::DeleteGameInSlot(FileName, 0);
-	}
-
-	UPlayerSaveData* PlayerSavedData = Cast<UPlayerSaveData>(UGameplayStatics::CreateSaveGameObject(PlayerSavedDataSubclass));
-
-	//UE_LOG(LogTemp, Warning, TEXT("Stash Length: %i"), StashInventory->StashItems.Num());
-	//UE_LOG(LogTemp, Warning, TEXT("Player Length: %i"), PlayerInventory->StashItems.Num());
-	/*/
-	for(int i = 0; i < StashInventory->GetItemsAsAddItemInfo().Num(); i++)
-	{
-		const FAddItemInfo InventoryItem = StashInventory->GetItemsAsAddItemInfo()[i];
-		
-		const uint32 Value = (static_cast<uint32>(InventoryItem.SlotID) << 16)
-		| (static_cast<uint32>(InventoryItem.ItemID->ItemID) << 8) | InventoryItem.StackSize;
-
-		FSavedInventoryItem SavedInventoryItem(Value);
-		PlayerSavedData->StashItems.Add(SavedInventoryItem);
-	}
-
-	for(int i = 0; i < PlayerInventory->StashItems.Num(); i++)
-	{
-		const FInventoryItem InventoryItem = PlayerInventory->StashItems[i];
-
-		if(InventoryItem.ItemID == nullptr)
-		{
-			continue;
-		}
-		
-		const uint32 Value = (static_cast<uint32>(InventoryItem.SlotID) << 16)
-		| (static_cast<uint32>(InventoryItem.ItemID->ItemID) << 8) | InventoryItem.StackSize;
-
-		FSavedInventoryItem SavedInventoryItem(Value);
-		PlayerSavedData->PlayerItems.Add(SavedInventoryItem);
-	}
-
-	UGameplayStatics::SaveGameToSlot(PlayerSavedData, FileName, 0);
-
-	TArray<uint8> SavedData = GameInstance->ConvertSavedFileToInt(PlayerSavedData);
-	GameInstance->UpdatePlayerData(FileName, SavedData);
-	/*/
+	
+	GameInstance->SaveData->SetGemInventory(GetGemInventory());
+	GameInstance->SaveData->SetPlayerInventory(PlayerInventory->GetPlayerInventory());
+	GameInstance->SaveData->SetStashInventory(StashInventory->GetPlayerInventory());
 }
 
 void APlayerStashManager::AddGem(UItemObject* Gem, EBodyPart BodyPart)

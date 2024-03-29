@@ -48,6 +48,8 @@ public:
 	void OnSave();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnGemInventoryChanged();
+	UFUNCTION(BlueprintImplementableEvent)
+	void InitStartingItems();
 	UFUNCTION(BlueprintCallable)
 	void AddGem(UItemObject* Gem, EBodyPart BodyPart);
 	UFUNCTION(BlueprintCallable)
