@@ -36,6 +36,13 @@ void UPlayerSaveData::SetTutorialInventory(bool state)
 
 }
 
+void UPlayerSaveData::SetExtractedEssence(float InExtractedEssence)
+{
+	ExtractedEssence = InExtractedEssence;
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+
+}
+
 void UPlayerSaveData::SetTutorialExtraction(bool state)
 {
 	if(bTutorialExtraction == state) return;
@@ -53,8 +60,17 @@ void UPlayerSaveData::SetTutorialDeath(bool state)
 
 }
 
+void UPlayerSaveData::SetLoadInventory(bool state)
+{
+	bLoadInventoryStartingItems = state;
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+
+}
+
 void UPlayerSaveData::SetStashInventory(TMap<int32, FAddItemInfo> InInventory)
 {
+	StashItems.Reset();
+
 	for(auto Item : InInventory)
 	{
 		FSavedInventoryItem NewItem;
@@ -68,6 +84,7 @@ void UPlayerSaveData::SetStashInventory(TMap<int32, FAddItemInfo> InInventory)
 
 void UPlayerSaveData::SetPlayerInventory(TMap<int32, FAddItemInfo> InInventory)
 {
+	PlayerItems.Reset();
 	for(auto Item : InInventory)
 	{
 		FSavedInventoryItem NewItem;
@@ -81,6 +98,7 @@ void UPlayerSaveData::SetPlayerInventory(TMap<int32, FAddItemInfo> InInventory)
 
 void UPlayerSaveData::SetGemInventory(TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> InInventory)
 {
+	GemItems.Reset();
 	for(auto Item : InInventory)
 	{
 		FSavedInventoryItem NewItem;

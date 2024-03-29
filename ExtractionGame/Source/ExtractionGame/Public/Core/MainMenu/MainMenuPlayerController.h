@@ -29,6 +29,9 @@ public:
 
 	bool bWantsToHost = false;
 
+	UPROPERTY(BlueprintReadOnly)
+	float ExtractedEssence;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	APlayerStashManager* PlayerStashManager;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

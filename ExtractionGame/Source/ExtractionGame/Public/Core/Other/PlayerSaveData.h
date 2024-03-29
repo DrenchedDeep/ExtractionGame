@@ -34,6 +34,10 @@ class EXTRACTIONGAME_API UPlayerSaveData : public USaveGame
 	bool bTutorialExtraction; // After the player has enough essence to extract, and starts extracting for the first time.
 	UPROPERTY()
 	bool BTutorialDeath; // After the player has died for the very first time
+	UPROPERTY()
+	bool bLoadInventoryStartingItems;
+	UPROPERTY()
+	float ExtractedEssence;
 	UPlayerSaveData();
 
 public:
@@ -50,6 +54,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialInventory() const { return bTutorialInventory;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialExtraction() const { return bTutorialExtraction;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialDeath() const { return BTutorialDeath;}
+	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetLoadInventory() const { return bLoadInventoryStartingItems;}
+	UFUNCTION(BlueprintCallable, BlueprintPure) float GetExtractedEssence() const { return ExtractedEssence;}
+
 	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FSavedInventoryItem> GetStashInventory() const { return StashItems; }
 	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FSavedInventoryItem> GetPlayerInventory() const { return PlayerItems; }
 	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FSavedInventoryItem> GetGemInventory() const { return GemItems; }
@@ -58,8 +65,10 @@ public:
 	UFUNCTION(BlueprintCallable) void SetSeenCutscene(bool state);
 	UFUNCTION(BlueprintCallable) void SetTutorialCrashLand(bool state);
 	UFUNCTION(BlueprintCallable) void SetTutorialInventory(bool state);
+	UFUNCTION(BlueprintCallable) void SetExtractedEssence(float InExtractedEssence);
 	UFUNCTION(BlueprintCallable) void SetTutorialExtraction(bool state);
 	UFUNCTION(BlueprintCallable) void SetTutorialDeath(bool state);
+	UFUNCTION(BlueprintCallable) void SetLoadInventory(bool state);
 	UFUNCTION(BlueprintCallable) void SetStashInventory(TMap<int32, FAddItemInfo> InInventory);
 	UFUNCTION(BlueprintCallable) void SetPlayerInventory(TMap<int32, FAddItemInfo> InInventory);
 	UFUNCTION(BlueprintCallable) void SetGemInventory(TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> InInventory);

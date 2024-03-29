@@ -21,10 +21,16 @@
 void AExtractionGamePlayerController::ReturnToLobby()
 {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+	const AExtractionGamePlayerState* PS = Cast<AExtractionGamePlayerState>(PlayerState);
 
+	if(!PS || !GameInstance)
+	{
+		return;
+	}
+	
 	const float EndPlayerTime = GetWorld()->GetTimeSeconds() - StartPlayTime;
 
-	GameInstance->OnRaidOver(false, EndPlayerTime);
+	GameInstance->OnRaidOver(RespawnsLeft > 0, EndPlayerTime, PS->GetEssence());
 	GameInstance->ShowLoadingScreen();
 	
 	if(GameInstance->CurrentSession)

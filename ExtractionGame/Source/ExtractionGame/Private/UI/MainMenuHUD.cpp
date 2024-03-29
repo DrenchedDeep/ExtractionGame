@@ -29,7 +29,7 @@ void AMainMenuHUD::BeginPlay()
 		MainMenuWidget->SetVisibility(ESlateVisibility::Hidden);
 		RaidOverWidget->SetVisibility(ESlateVisibility::Visible);
 		
-		const FPlayerRaidResult TempRaidResult(false,false, 0.0f);
+		const FPlayerRaidResult TempRaidResult(false,false, 0.0f, 0);
 		GameInstance->PlayerRaidResult = TempRaidResult;
 	}
 }

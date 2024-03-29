@@ -64,12 +64,17 @@ void APlayerStashManager::BeginPlay()
 
 	//LoadInventory();
 
-	if(!GameInstance->SaveData->GetTutorialInventory())
+	if(!GameInstance->SaveData->GetLoadInventory())
 	{
 		InitStartingItems();
+		GameInstance->TotalExtractedEssence = 75;
+		GameInstance->SaveData->SetLoadInventory(true);
+		GameInstance->SaveData->SetExtractedEssence(GameInstance->TotalExtractedEssence);
+
 	}
 	else
 	{
+		GameInstance->TotalExtractedEssence = GameInstance->SaveData->GetExtractedEssence();
 		for(auto Item : GameInstance->SaveData->PlayerItems)
 		{
 			PlayerInventory->TryAddItemByAddItemInfo(Item.ItemInfo);

@@ -56,6 +56,29 @@ const UMapInfo* UExtractionGameInstance::GetMapInfo()
 }
 
 
+bool UExtractionGameInstance::RemoveFromTotalEssence(float AMT)
+{
+	bool bSuccess = true;
+	
+	if(TotalExtractedEssence - AMT < 0)
+	{
+		bSuccess = false;
+	}
+
+	TotalExtractedEssence -= AMT;
+	SaveData->SetExtractedEssence(TotalExtractedEssence);
+
+	return bSuccess;
+}
+
+bool UExtractionGameInstance::AddToTotalEssence(float AMT)
+{
+	TotalExtractedEssence += AMT;
+	SaveData->SetExtractedEssence(TotalExtractedEssence);
+
+	return true;
+}
+
 void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems,
                                                      TMap<int32, FAddItemInfo> StashItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
 {
@@ -69,9 +92,14 @@ void UExtractionGameInstance::BuildPartySessionData(TArray<FString> PlayerNames,
 	PartyInfo = TempPartyInfo;
 }
 
-void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime)
+void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence)
 {
-	const FPlayerRaidResult RaidResult(true, bSurvived, PlayTime);
+	const FPlayerRaidResult RaidResult(true, bSurvived, PlayTime, ExtractedEssence);
+
+	if(SaveData)
+	{
+		TotalExtractedEssence += ExtractedEssence;
+	}
 	PlayerRaidResult = RaidResult;
 }
 

@@ -103,13 +103,18 @@ struct FPlayerRaidResult
 	bool bSurvived;
 	UPROPERTY(BlueprintReadOnly)
 	float PlayTime;
-	FPlayerRaidResult(bool bIsValid, bool bSurvived, float PlayTime)
+	UPROPERTY(BlueprintReadOnly)
+	float ExtractedEssence;
+
+	FPlayerRaidResult(bool bIsValid, bool bSurvived, float PlayTime, float ExtractedEssence)
 		: bIsValid(bIsValid),
 		  bSurvived(bSurvived),
-		  PlayTime(PlayTime)
+		  PlayTime(PlayTime),
+		  ExtractedEssence(ExtractedEssence)
 	{
 	}
 
+	
 	FPlayerRaidResult() = default;
 };
 
@@ -170,11 +175,17 @@ public:
 	FPlayerRaidResult PlayerRaidResult;
 	UPROPERTY(BlueprintReadOnly)
 	FPartyInfo PartyInfo;
+	UPROPERTY(BlueprintReadOnly)
+	float TotalExtractedEssence;
 
+	UFUNCTION(BlueprintCallable)
+	bool RemoveFromTotalEssence(float AMT);
+	UFUNCTION(BlueprintCallable)
+	bool AddToTotalEssence(float AMT);
 	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<int32, FAddItemInfo> StashItems,
 		TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
 	void BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID);
-	void OnRaidOver(bool bSurvived, float PlayTime);
+	void OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence);
 
 	void StartSession();
 	void StopSession();

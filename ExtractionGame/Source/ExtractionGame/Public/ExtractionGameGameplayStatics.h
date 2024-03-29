@@ -13,5 +13,7 @@ UCLASS()
 class EXTRACTIONGAME_API UExtractionGameGameplayStatics : public UGameplayStatics
 {
 	GENERATED_BODY()
-	
+
+
+public:
 };

@@ -10,6 +10,18 @@
 #include "GameFramework/Actor.h"
 #include "PlayerStashManager.generated.h"
 
+USTRUCT(BlueprintType)
+struct FAddItemStashManager
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float Polish;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FName Item;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Count;
+};
 UCLASS()
 class EXTRACTIONGAME_API APlayerStashManager : public AActor
 {
@@ -29,7 +41,7 @@ public:
 	bool bInventorySaved;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<FName> StartingItems;
+	TArray<FAddItemStashManager> StartingItems;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStashInventoryComponent* PlayerInventory;
