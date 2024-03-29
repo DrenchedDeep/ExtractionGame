@@ -162,6 +162,11 @@ void UPlayerHealthComponent::OnRep_IsDead()
 		if(Character->IsLocallyControlled())
 		{
 			Character->OnDeathClient();
+
+			if(UExtractionGameInstance* GI = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance()))
+			{
+				GI->ResetPlayerAndGemInventory();
+			}
 		}
 		Character->OnDeathEvent();
 	}

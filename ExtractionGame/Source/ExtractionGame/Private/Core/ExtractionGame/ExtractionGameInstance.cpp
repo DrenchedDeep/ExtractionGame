@@ -92,6 +92,15 @@ void UExtractionGameInstance::BuildPartySessionData(TArray<FString> PlayerNames,
 	PartyInfo = TempPartyInfo;
 }
 
+void UExtractionGameInstance::ResetPlayerAndGemInventory()
+{
+	if(PlayerSessionData.bIsValid)
+	{
+		PlayerSessionData.GemItems.Reset();
+		PlayerSessionData.PlayerItems.Reset();
+	}
+}
+
 void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence)
 {
 	const FPlayerRaidResult RaidResult(true, bSurvived, PlayTime, ExtractedEssence);

@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "RespawnManager.h"
+#include "RespawnStashManager.h"
+#include "Core/Managers/PlayerStashManager.h"
 #include "Extraction/ExtractionBeacon.h"
 #include "GameFramework/PlayerController.h"
 #include "Items/ItemActor.h"
@@ -62,6 +64,8 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 PartyID;
+	UPROPERTY(BlueprintReadWrite)
+	ARespawnStashManager* RespawnManager;
 
 	bool bInitStartedItems = false;
 
@@ -73,8 +77,6 @@ public:
 private:
 	UPROPERTY(Replicated)
 	int32 RespawnsLeft;
-	UPROPERTY()
-	ARespawnManager* RespawnManager;
 
 	UFUNCTION(Server, Reliable)
 	void Server_RespawnPressed(FVector Location, FRotator Rotation);

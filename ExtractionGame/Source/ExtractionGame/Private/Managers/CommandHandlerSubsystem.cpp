@@ -311,6 +311,19 @@ void UCommandHandlerSubsystem::SetAbilityCost(int E, int F, int S, int W, float 
 void UCommandHandlerSubsystem::ClearSaveData() const
 {
 	UGameplayStatics::DeleteGameInSlot("Game", 0);
+
+	if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
+	{
+		GameInstance->bLoadedInventoryOnStart = false;
+
+		if(GameInstance->PlayerSessionData.bIsValid)
+		{
+			GameInstance->PlayerSessionData.GemItems.Reset();
+			GameInstance->PlayerSessionData.StashItems.Reset();
+			GameInstance->PlayerSessionData.PlayerItems.Reset();
+
+		}
+	}
 	UGameplayStatics::OpenLevel(GetWorld(), FName("LVL_Entry"));
 }
 

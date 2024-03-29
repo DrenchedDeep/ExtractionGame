@@ -74,7 +74,10 @@ void APlayerStashManager::BeginPlay()
 	}
 	else
 	{
+		if(!GameInstance->bHasLoadedSaveInventory)
+		{
 		GameInstance->TotalExtractedEssence = GameInstance->SaveData->GetExtractedEssence();
+			
 		for(auto Item : GameInstance->SaveData->PlayerItems)
 		{
 			PlayerInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
@@ -85,22 +88,26 @@ void APlayerStashManager::BeginPlay()
 			StashInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
 		}
 
-		for(auto Gem : GameInstance->SaveData->GemItems)
-		{
-			if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
+	
+			for(auto Gem : GameInstance->SaveData->GemItems)
 			{
-				ItemObject->ItemName = Gem.ItemInfo.ItemName;
-				ItemObject->ItemType =  Gem.ItemInfo.ItemType;
-				ItemObject->Rarity =  Gem.ItemInfo.Rarity;
-				ItemObject->Description =  Gem.ItemInfo.Description;
-				ItemObject->GemType =  Gem.ItemInfo.GemType;
-				ItemObject->DefaultPolish =  Gem.ItemInfo.DefaultPolish;
-				ItemObject->Dimensions =  Gem.ItemInfo.Dimensions;
-				ItemObject->Icon =  Gem.ItemInfo.Icon;
-				ItemObject->IconRotated =  Gem.ItemInfo.IconRotated;
-				ItemObject->RowName =  Gem.ItemInfo.RowName;
-				AddGem(ItemObject, static_cast<EBodyPart>(Gem.Index));
+				if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
+				{
+					ItemObject->ItemName = Gem.ItemInfo.ItemName;
+					ItemObject->ItemType =  Gem.ItemInfo.ItemType;
+					ItemObject->Rarity =  Gem.ItemInfo.Rarity;
+					ItemObject->Description =  Gem.ItemInfo.Description;
+					ItemObject->GemType =  Gem.ItemInfo.GemType;
+					ItemObject->DefaultPolish =  Gem.ItemInfo.DefaultPolish;
+					ItemObject->Dimensions =  Gem.ItemInfo.Dimensions;
+					ItemObject->Icon =  Gem.ItemInfo.Icon;
+					ItemObject->IconRotated =  Gem.ItemInfo.IconRotated;
+					ItemObject->RowName =  Gem.ItemInfo.RowName;
+					AddGem(ItemObject, static_cast<EBodyPart>(Gem.Index));
+				}
 			}
+
+			GameInstance->bHasLoadedSaveInventory = true;
 		}
 	}
 }

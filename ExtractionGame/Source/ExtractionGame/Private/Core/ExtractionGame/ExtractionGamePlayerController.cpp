@@ -41,7 +41,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
 		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(),
-			PlayerCharacter->InventoryComponent->GetPlayerInventory(),
+			RespawnManager->StashInventory->GetPlayerInventory(),
 			PlayerCharacter->InventoryComponent->GetGemInventory());
 	}
 
@@ -452,7 +452,7 @@ void AExtractionGamePlayerController::BeginPlay()
 		}
 	}
 
-	RespawnManager = Cast<ARespawnManager>(UGameplayStatics::GetActorOfClass(GetWorld(), RespawnManagerSubclass));
+//	RespawnManager = Cast<ARespawnManager>(UGameplayStatics::GetActorOfClass(GetWorld(), RespawnManagerSubclass));
 }
 
 void AExtractionGamePlayerController::Server_StartExtraction_Implementation(AExtractionBeacon* Beacon)

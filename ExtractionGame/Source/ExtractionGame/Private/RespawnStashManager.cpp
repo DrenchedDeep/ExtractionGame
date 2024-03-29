@@ -85,7 +85,7 @@ void ARespawnStashManager::RemoveGem(EBodyPart BodyPart)
 }
 
 void ARespawnStashManager::Save()
-{
+ {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),

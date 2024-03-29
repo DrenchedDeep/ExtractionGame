@@ -178,6 +178,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	float TotalExtractedEssence;
 
+	bool bHasLoadedSaveInventory;
 	UFUNCTION(BlueprintCallable)
 	bool RemoveFromTotalEssence(float AMT);
 	UFUNCTION(BlueprintCallable)
@@ -185,6 +186,7 @@ public:
 	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<int32, FAddItemInfo> StashItems,
 		TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
 	void BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID);
+	void ResetPlayerAndGemInventory();
 	void OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence);
 
 	void StartSession();
