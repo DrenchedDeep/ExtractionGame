@@ -459,7 +459,7 @@ void UExtractionGameInstance::OnCreateSessionCompleted(FName SessionName, bool b
 		{
 			UE_LOG(LogTemp, Warning, TEXT("ExtractionGameInstanceCPP --> Sending player to MainMenu"))
 			ShowLoadingScreen();
-			GetWorld()->ServerTravel("LVL_MainMenu?listen");
+			GetWorld()->ServerTravel("LVL_MainMenu");
 			CurrentLobby = Session->GetNamedSession(SessionName);
 		}
 		else if(SessionSettings == "GameplaySession")
@@ -637,6 +637,9 @@ void UExtractionGameInstance::Shutdown()
 
 void UExtractionGameInstance::CreateLobby()
 {
+	GetWorld()->ServerTravel("LVL_MainMenu");
+
+	/*/
 	FOnlineSessionSettings SessionSettings;
 
 	const FName LobbyName = FName(FString::FromInt(FMath::RandRange(0, 10000)));
@@ -662,6 +665,7 @@ void UExtractionGameInstance::CreateLobby()
 	 {
 		 OnCreateLobbyComplete.Broadcast(false);
 	 }
+	 /*/
 	 
 }
 
