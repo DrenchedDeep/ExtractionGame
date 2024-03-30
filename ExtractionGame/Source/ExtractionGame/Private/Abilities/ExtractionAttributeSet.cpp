@@ -109,14 +109,17 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	
 	if(Data.EvaluatedData.Attribute == GetLeftManaPoolAttribute())
 	{
+	//	OnRep_LeftMana(GetLeftManaPool());
 		SetLeftManaPool(FMath::Clamp(GetLeftManaPool(), 0.f, GetMaxLeftManaPool()));
 	}
 	else if(Data.EvaluatedData.Attribute == GetRightManaPoolAttribute())
 	{
+		//OnRep_RightMana(GetRightManaPool());
 		SetRightManaPool(FMath::Clamp(GetRightManaPool(), 0.f, GetMaxRightManaPool()));
 	}
 	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
+	//	OnRep_Health(GetHealth());
 		// Handle other health changes such as from healing or direct modifiers
 		// First clamp it
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
@@ -124,10 +127,12 @@ void UExtractionAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	else if(Data.EvaluatedData.Attribute == GetMaxHealthAttribute())
 	{
 		SetHealth(GetMaxHealth());
+	//	OnRep_MaxHealth(GetMaxHealth());
 	}
 
 	if(Data.EvaluatedData.Attribute == GetEssenceAttribute())
 	{
+	//	OnRep_Essence(GetEssence());
 		SetEssence(GetEssence());
 	}
 	

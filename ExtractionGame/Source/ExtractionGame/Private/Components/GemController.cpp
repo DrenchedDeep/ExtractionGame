@@ -262,7 +262,7 @@ void UGemController::BeginPlay() // If this isn't working, we init inventory on 
 	//dirtyFlags = 255;
 //	UE_LOG(LogTemp, Warning, TEXT("Loading Gem Controller"));
 	
-	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
+	if(Character->GetLocalRole() != ROLE_SimulatedProxy)
 	{
 		OnLeftManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetLeftManaPoolAttribute()).AddUObject(this, &UGemController::OnLeftManaChanged);
 		OnMaxLeftManaChangedHandle = Character->GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(Character->GetAttributeSet()->GetMaxLeftManaPoolAttribute()).AddUObject(this, &UGemController::OnMaxLeftManaChanged);
@@ -290,10 +290,10 @@ void UGemController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 void UGemController::Sadness_Implementation(const FAbilityStruct& abilityInfo, bool isLeft, int ability, float totalPolish)
 {
+	
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	//Bro the hud doesn't exist when making the left arm, but not the right arm :(
 	UE_LOG(LogTemp, Warning, TEXT("Sadness Called %i is hud? %i"), isLeft, hud != nullptr)
-	
 	//BUG when both left and right, only one happens?
 	if(isLeft)
 	{
@@ -303,7 +303,8 @@ void UGemController::Sadness_Implementation(const FAbilityStruct& abilityInfo, b
 	else
 	{
 		Character->bIsRightAutomatic = abilityInfo.bIsFullyAuto;
-		 hud->SetRightGems(rightGems, abilityInfo.Image, ability, -totalPolish);
+
+		if(hud) hud->SetRightGems(rightGems, abilityInfo.Image, ability, -totalPolish);
 	}
 }
 

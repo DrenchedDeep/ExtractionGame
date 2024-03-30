@@ -91,7 +91,7 @@ void UPlayerHealthComponent::BeginPlay()
 	//	GameHUD = hud->PlayerUIData;
 	bIsDead = false;
 
-	if(Character->GetLocalRole() == ROLE_AutonomousProxy)
+	if(Character->GetLocalRole() != ROLE_SimulatedProxy)
 	{
 		if(const AExtractionGamePlayerController* x = Cast<AExtractionGamePlayerController>(Character->GetController()))
 		{

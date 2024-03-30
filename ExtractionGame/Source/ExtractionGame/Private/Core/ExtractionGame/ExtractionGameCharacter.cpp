@@ -248,6 +248,7 @@ void AExtractionGameCharacter::PossessedBy(AController* NewController)
 	if(IsLocallyControlled())
 	{
 		InventoryComponent->InitStartingItems();
+		GemController->SmartRecompileGems(true);
 	}
 }
 
