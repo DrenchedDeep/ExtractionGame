@@ -44,6 +44,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ApplyDamage(float Damage);
 
+	void MoveToGeyser(AActor* Geyser);
+	
 	UFUNCTION(BlueprintCallable)
 	void StartCook();
 	UFUNCTION(BlueprintCallable)
@@ -70,7 +72,8 @@ protected:
 	void BP_OnGooberDeadAll();
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnGooberDeadServer();
-	
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_MoveToGeyser(AActor* Geyser);
 private:
 	UPROPERTY()
 	AGooberSpawnCluster* GooberSpawn;

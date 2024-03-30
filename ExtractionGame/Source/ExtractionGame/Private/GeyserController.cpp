@@ -3,6 +3,8 @@
 
 #include "GeyserController.h"
 
+#include "AI/GooberManager.h"
+
 TWeakObjectPtr<AGeyserController> AGeyserController::SingletonInstance = nullptr;
 
 
@@ -33,6 +35,7 @@ void AGeyserController::SpawnGeyser()
 	if(SmokingGeiser)
 	{
 		SmokingGeiser->SetGeyserState(EGeyserStates::Active);
+		AGooberManager::GooberInstance->OnGeyserOpened(SmokingGeiser);
 		ActiveGeyser = SmokingGeiser;
 	}
 	

@@ -17,8 +17,7 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UActorComponent
 	UPROPERTY(Transient) AExtractionGameCharacter* Character;
 	UPROPERTY(Transient)UPlayerBarDataWidget* PlayerBarsWidget;
 	
-	UPROPERTY(ReplicatedUsing=OnRep_IsDead) // this is usually done with a tag...
-	bool bIsDead;
+
 
 	bool bCanTakeDamage = true;
 
@@ -32,7 +31,8 @@ class EXTRACTIONGAME_API UPlayerHealthComponent : public UActorComponent
 
 	
 public:
-	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnRep_IsDead) // this is usually done with a tag...
+	bool bIsDead;
 	float GetHealth() const;
 
 	float GetMaxHealth() const;

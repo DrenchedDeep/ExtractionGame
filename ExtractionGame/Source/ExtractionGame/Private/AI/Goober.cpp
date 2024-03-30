@@ -24,6 +24,11 @@ void AGoober::ApplyDamage(float Damage)
 	}
 }
 
+void AGoober::MoveToGeyser(AActor* Geyser)
+{
+	BP_MoveToGeyser(Geyser);
+}
+
 void AGoober::StartCook()
 {
 	bIsCooking = true;

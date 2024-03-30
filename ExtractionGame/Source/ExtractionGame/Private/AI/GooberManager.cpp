@@ -4,6 +4,7 @@
 #include "AI/GooberManager.h"
 #include "Kismet/GameplayStatics.h"
 
+TWeakObjectPtr<AGooberManager> AGooberManager::GooberInstance = nullptr;
 
 TArray<AGoober*> AGooberManager::GetAllGoobers()
 {
@@ -51,10 +52,29 @@ void AGooberManager::AddToRespawnStream(AGooberSpawnCluster* Cluster)
 	SpawnBuffer.Add(Cluster);
 }
 
+void AGooberManager::OnGeyserOpened(AGeyserSpawnpoint* Geyser)
+{
+	TArray<AGoober*> AllGoobers = GetAllGoobers();
+
+	for(auto Goober : AllGoobers)
+	{
+		if(Goober->GetGooberState() != EGooberStates::EG_Friendly)
+		{
+			float Dist = (Goober->GetActorLocation() - Geyser->GetActorLocation()).Length();
+
+			if(Dist <= GooberGeyserRange)
+			{
+				Goober->MoveToGeyser(Geyser);
+			}
+		}
+	}
+}
+
 void AGooberManager::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GooberInstance = this;
 	if(HasAuthority())
 	{
 		TArray<AActor*> FoundActors;
