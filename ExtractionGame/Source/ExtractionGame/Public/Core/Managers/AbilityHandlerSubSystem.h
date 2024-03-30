@@ -23,7 +23,6 @@ struct FAbilityStruct
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
 	UTexture2D* Image;
-	
 };
 
 /**

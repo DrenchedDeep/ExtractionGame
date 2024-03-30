@@ -58,7 +58,7 @@ void AGooberManager::OnGeyserOpened(AGeyserSpawnpoint* Geyser)
 
 	for(auto Goober : AllGoobers)
 	{
-		if(Goober->GetGooberState() != EGooberStates::EG_Friendly)
+		if(Goober && Goober->GetGooberState() != EGooberStates::EG_Friendly)
 		{
 			float Dist = (Goober->GetActorLocation() - Geyser->GetActorLocation()).Length();
 
