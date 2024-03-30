@@ -330,10 +330,6 @@ void AExtractionGameGameMode::TickMatch()
 	}
 	
 
-	if(MatchLength == MatchShortTimeIndicator)
-		LowMatchTime();
-	
-
 	if(MatchLength <= 0)
 	{
 		SetGameModeState(EGameModeState::EndingGame);
@@ -352,6 +348,8 @@ void AExtractionGameGameMode::EndGameTimer()
 			}
 		}
 	}
+
+	
 
 	SetGameModeState(PostEndingGame);
 }

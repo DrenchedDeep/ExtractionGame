@@ -134,4 +134,13 @@ void AExtractionGameState::OnRep_BlockMovement()
 	}
 }
 
+void AExtractionGameState::OnRep_MatchTimer()
+{
+	if(!warningVoiceline && MatchTimer < RemainingTimeWarning)
+	{
+		warningVoiceline = true;
+		GameNearlyOverBoys();
+	}
+}
+
 

@@ -68,7 +68,6 @@ class AExtractionGameGameMode : public AGameModeBase
 	int32 MinPlayersBeforeStarting = 4;
 	
 	UPROPERTY(EditDefaultsOnly)int32 MatchLength = 300;
-	UPROPERTY(EditDefaultsOnly)int32 MatchShortTimeIndicator = 30;
 	
 	UPROPERTY(EditDefaultsOnly)
 	int32 TimeBeforeEndGame = 5;
@@ -100,8 +99,6 @@ protected:
 	virtual bool AllPlayersReady();
 	virtual void EndGame();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void LowMatchTime();
 
 	
 	UFUNCTION()

@@ -63,7 +63,7 @@ public:
 	int32 GetTotalPlayerKills() const { return TotalPlayerKills; }
 	
 	void UpdateParties(TArray<FInGameParty> Parties);
-	void SetMatchTimer(int32 NewMatchTimer) { MatchTimer = NewMatchTimer; }
+	void SetMatchTimer(int32 NewMatchTimer) { MatchTimer = NewMatchTimer; OnRep_MatchTimer(); }
 	void SetState(TEnumAsByte<EGameModeState> NewState);
 	void SetTopThreePlayers(TArray<AExtractionGamePlayerState*> NewTopThreePlayers);
 	void SetBlockMovement(bool bInBlockMovement);
@@ -83,11 +83,19 @@ protected:
 	void OnExtractionGameStateUpdated();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnTopThreePlayersUpdated();
+
+	bool warningVoiceline;
+
+	UPROPERTY(EditDefaultsOnly)int32 RemainingTimeWarning;
+	UFUNCTION(BlueprintImplementableEvent) void GameNearlyOverBoys();
+	
+	UFUNCTION()
+	void OnRep_MatchTimer();
 	
 private:
 	UPROPERTY(Replicated)
 	TArray<FReplicatedPartyInfo> ReplicatedParties;
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing = OnRep_MatchTimer)
 	int32 MatchTimer;
 	UPROPERTY(Replicated)
 	int32 GoobersKilled;

@@ -308,6 +308,14 @@ void UCommandHandlerSubsystem::SetAbilityCost(int E, int F, int S, int W, float 
 	
 }
 
+void UCommandHandlerSubsystem::GiveEssence(float amount) const
+{
+	if(AExtractionGameCharacter* character = Cast<AExtractionGameCharacter>(GetGameInstance()->GetFirstLocalPlayerController()->GetCharacter()))
+	{
+		character->AddEssence(amount);
+	}
+}
+
 void UCommandHandlerSubsystem::ClearSaveData() const
 {
 	UGameplayStatics::DeleteGameInSlot("Game", 0);
