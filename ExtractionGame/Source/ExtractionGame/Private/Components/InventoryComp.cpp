@@ -209,6 +209,13 @@ void UInventoryComp::OnRep_Items()
 
 void UInventoryComp::Server_AddItemByObject_Implementation(UItemObject* Item, int32 Index)
 {
+
+	if(!Item)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Inventory Component: Added an item that doesn't exist."))
+		return;
+	}
+	
 	FTile Tile = IndexToTile(Index);
 	for(int32 i = Tile.X; i < Tile.X + Item->GetDimensions().X; i++)
 	{

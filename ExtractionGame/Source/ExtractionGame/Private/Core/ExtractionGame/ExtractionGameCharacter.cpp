@@ -34,7 +34,7 @@ void AExtractionGameCharacter::ToggleControlLocks(bool x)
 	//else Controller->DisableInput(GetLocalViewingPlayerController());
 }
 
-
+/*
 void AExtractionGameCharacter::ServerUpdateGaze_Implementation(FVector newGaze)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Looking in direction: %s"), *newGaze.ToString())
@@ -46,7 +46,7 @@ void AExtractionGameCharacter::ServerUpdateGazeUnreliable_Implementation(FVector
 {
 	GazeLocation = newGaze;
 }
-
+*/
 
 void AExtractionGameCharacter::HamiltonFinished()
 {
@@ -144,23 +144,23 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if(IsLocallyControlled())
+	if(!IsLocallyControlled())
 	{
-		Server_SetInput(LocalVerticalMovement, LocalHorizontalMovement, LocalVerticalLook, LocalHorizontalLook);
-		HandleGaze();
+		UE_LOG(LogTemp, Warning, TEXT("Extraction Character I do not own this actor, I'm not ticking it."))
+		SetActorTickEnabled(false);
+		return;
+	}
+	
+	Server_SetInput(LocalVerticalMovement, LocalHorizontalMovement, LocalVerticalLook, LocalHorizontalLook);
+	HandleGaze();
 
-		//Warning constant maybe not needed expense
-		ServerUpdateGazeUnreliable(GazeLocation);
-	}
+	//Warning constant maybe not needed expense
+	//ServerUpdateGazeUnreliable(GazeLocation);
+	
 
-	if(bWantsToLeftFire)
-	{
-		LeftAttackPressed();
-	}
-	if(bWantsToRightFire)
-	{
-		RightAttackPressed();
-	}
+	if(bWantsToLeftFire)LeftAttackPressed();
+	if(bWantsToRightFire)RightAttackPressed();
+	
 	
 }
 
@@ -230,15 +230,18 @@ void AExtractionGameCharacter::ResetMove()
 void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	
+
+	//Can these be owner only too?
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalMovement);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalMovement);
 	DOREPLIFETIME(AExtractionGameCharacter, IsSliding);
 	DOREPLIFETIME(AExtractionGameCharacter, IsSprinting);
-	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalLook);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalLook);
-	DOREPLIFETIME(AExtractionGameCharacter, EssenceUpdate);
+
+	DOREPLIFETIME_CONDITION(AExtractionGameCharacter, SlideTimer, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(AExtractionGameCharacter, EssenceUpdate, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(AExtractionGameCharacter, GazeLocation, COND_OwnerOnly);
 }
 
 void AExtractionGameCharacter::PossessedBy(AController* NewController)
