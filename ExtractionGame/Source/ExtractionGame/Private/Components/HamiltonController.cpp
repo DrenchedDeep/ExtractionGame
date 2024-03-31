@@ -137,14 +137,16 @@ void UHamiltonController::TickHamiltonBuild()
 	if(HamiltonTickTime >=	HamiltonMaxTime)
 	{
 		HamiltonBuilt = false;
+		bSentRPC = false;
 		StopHamiltonProcess();
 	//	Server_SpawnHamilton(LastSpawnLocation);
 	}
 
-	if(HamiltonTickTime >= HamiltonSpawnTime)
+	if(HamiltonTickTime >= HamiltonSpawnTime && !bSentRPC)
 	{
 		HamiltonBuilt = true;
 		Server_SpawnHamilton(LastSpawnLocation);
+		bSentRPC = true;
 	}
 }
 

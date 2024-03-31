@@ -64,7 +64,7 @@ protected:
 	
 private:
 	float HamiltonTickTime;
-	
+	bool bSentRPC;
 	UPROPERTY()
 	AActor* HamiltonActor;
 	UPROPERTY()

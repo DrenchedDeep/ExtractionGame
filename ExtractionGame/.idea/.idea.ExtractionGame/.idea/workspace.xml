@@ -12,8 +12,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f798a846-776e-4208-8209-0adf4aa32b3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/Animations/AB_Wizard.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/Animations/AB_Wizard.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/CoreActions/IACore_Hamilton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/CoreActions/IACore_Hamilton.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/HamiltonController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/HamiltonController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/HamiltonController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/HamiltonController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
