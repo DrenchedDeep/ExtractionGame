@@ -22,8 +22,16 @@ void APooledObject::SetActiveState(bool isOn)
 	SetActiveCustom(isOn);
 }
 
+void APooledObject::SetLifeSpan(float InLifespan)
+{
+	//super::SetLifeSpan(InLifespan);
+	GetWorldTimerManager().ClearTimer(timer);
+	GetWorldTimerManager().SetTimer(timer, this,  &APooledObject::ReturnToPool, InLifespan, false);
+}
+
 void APooledObject::ReturnToPool()
 {
+	GetWorldTimerManager().ClearTimer(timer);
 	//OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
 	SetActorTickEnabled(false);
 	SetActiveState(false);

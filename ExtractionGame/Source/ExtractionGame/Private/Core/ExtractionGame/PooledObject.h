@@ -13,7 +13,7 @@ UCLASS(Abstract, Blueprintable)
 class EXTRACTIONGAME_API APooledObject : public AActor
 {
 	GENERATED_BODY()
-	
+	FTimerHandle timer;
 public:	
 	// Sets default values for this actor's properties
 	APooledObject();
@@ -34,6 +34,8 @@ public:
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category="Pooled Object")
 	void SetActiveCustom(bool isOn);
+
+	virtual void SetLifeSpan(float InLifespan) override;
 	
 	UFUNCTION(BlueprintCallable, Category="Pooled Object")
 	void ReturnToPool();
