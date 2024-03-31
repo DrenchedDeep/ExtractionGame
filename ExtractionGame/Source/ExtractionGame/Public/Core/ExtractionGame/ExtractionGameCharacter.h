@@ -161,7 +161,8 @@ private:
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnInventoryOpened();
-
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetHamiltonActor(AActor* Hamilton);
 	
 	
 	UFUNCTION(BlueprintImplementableEvent)

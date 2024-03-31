@@ -1,9 +1,4 @@
-
-
-
 #include "GooberSpawnCluster.h"
-
-#include "NavigationSystem.h"
 #include "AI/GooberManager.h"
 
 void AGooberSpawnCluster::SpawnGoobers(AGooberManager* InGooberManager)

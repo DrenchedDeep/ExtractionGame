@@ -22,17 +22,17 @@ void AExtractionGamePlayerController::ReturnToLobby()
 {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
 	const AExtractionGamePlayerState* PS = Cast<AExtractionGamePlayerState>(PlayerState);
-	const AExtractionGameState* GS = Cast<AExtractionGameState>(GetWorld()->GetGameState());
+	//const AExtractionGameState* GS = Cast<AExtractionGameState>(GetWorld()->GetGameState());
 
-	if(!PS || !GameInstance || GS)
+	if(!PS || !GameInstance)
 	{
 		return;
 	}
 	
 	const float EndPlayerTime = GetWorld()->GetTimeSeconds() - StartPlayTime;
-	const bool bAlive = (RespawnsLeft > 0 && GS->GetExtractionGameState() != EGameModeState::Playing);
+	//const bool bAlive = (RespawnsLeft > 0 && GS->GetExtractionGameState() != EGameModeState::Playing);
 	
-	GameInstance->OnRaidOver(bAlive, EndPlayerTime, PS->GetEssence());
+	GameInstance->OnRaidOver(true, EndPlayerTime, PS->GetEssence());
 	GameInstance->ShowLoadingScreen();
 	
 	if(GameInstance->CurrentSession)

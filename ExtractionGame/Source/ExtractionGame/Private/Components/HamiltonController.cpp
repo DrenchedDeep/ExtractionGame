@@ -25,10 +25,9 @@ void UHamiltonController::StartHamiltonProcess()
 	
 	if(!IsLocationBuildable())
 	{
-		UE_LOG(LogTemp,Warning,TEXT("Cannot build here"))
 		return;
 	}
-	UE_LOG(LogTemp,Warning,TEXT("Initiating Hamilton"))
+	
 	Server_HamiltonStarted();
 	bIsTickingHamilton = true;
 	constexpr float Tickrate = 1.f / 30.f;
@@ -77,6 +76,14 @@ void UHamiltonController::BeginPlay()
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 }
 
+void UHamiltonController::Client_SetHamilton_Implementation(AActor* InActor)
+{
+	if(Character)
+	{
+		Character->SetHamiltonActor(InActor);
+	}
+}
+
 void UHamiltonController::Server_CancelHamilton_Implementation()
 {
 	Multicast_UpdateHamilton(true);
@@ -118,6 +125,8 @@ void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 		FVector SpawnLocation = Character->GetActorLocation() + Character->GetActorForwardVector() * SpawnOffsetFromPlayer.X + Character->GetActorRightVector() * SpawnOffsetFromPlayer.Y + Character->GetActorUpVector() * SpawnOffsetFromPlayer.Z;
 		HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, SpawnLocation, FRotator::ZeroRotator );
 	}
+
+	Client_SetHamilton(Character);
 }
 
 

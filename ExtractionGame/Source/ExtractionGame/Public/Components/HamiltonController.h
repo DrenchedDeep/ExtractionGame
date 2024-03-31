@@ -58,6 +58,9 @@ protected:
 	void Server_CancelHamilton();
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_UpdateHamilton(bool Cancelled);
+	UFUNCTION(Client, Reliable)
+	void Client_SetHamilton(AActor* InActor);
+	
 	
 private:
 	float HamiltonTickTime;
