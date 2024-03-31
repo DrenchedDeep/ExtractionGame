@@ -49,6 +49,7 @@ public:
 	
 protected:
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	UFUNCTION(Server, Reliable)
 	void Server_SpawnHamilton(FVector Location);
@@ -60,12 +61,14 @@ protected:
 	void Multicast_UpdateHamilton(bool Cancelled);
 	UFUNCTION(Client, Reliable)
 	void Client_SetHamilton(AActor* InActor);
-	
+
+	UFUNCTION()
+	void OnRep_HamiltonActor();
 	
 private:
 	float HamiltonTickTime;
 	bool bSentRPC;
-	UPROPERTY()
+	UPROPERTY(ReplicatedUsing=OnRep_HamiltonActor)
 	AActor* HamiltonActor;
 	UPROPERTY()
 	FVector LastSpawnLocation;

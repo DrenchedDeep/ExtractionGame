@@ -76,6 +76,21 @@ void UHamiltonController::BeginPlay()
 	Character = Cast<AExtractionGameCharacter>(GetOwner());
 }
 
+void UHamiltonController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UHamiltonController, HamiltonActor);
+}
+
+void UHamiltonController::OnRep_HamiltonActor()
+{
+	if(Character)
+	{
+		Character->SetHamiltonActor(HamiltonActor);
+	}
+}
+
 void UHamiltonController::Client_SetHamilton_Implementation(AActor* InActor)
 {
 	if(Character)
@@ -126,7 +141,7 @@ void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 		HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, SpawnLocation, FRotator::ZeroRotator );
 	}
 
-	Client_SetHamilton(HamiltonActor);
+	//Client_SetHamilton(HamiltonActor);
 }
 
 
