@@ -12,24 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f798a846-776e-4208-8209-0adf4aa32b3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/DockStuff/DockBeam/DockBeamMouldyMAT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/DockStuff/DockBeam/DockBeamMouldyMAT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/DockStuff/DockBeam/DockBeamNoMould.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/DockStuff/DockBeam/DockBeamNoMould.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/DockStuff/DockPole/DockPoleMAT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/DockStuff/DockPole/DockPoleMAT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Grass/Grass_Mat_RVT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Grass/Grass_Mat_RVT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_Bush.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_Bush.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_BushMPC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_BushMPC.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StaticMesh.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StaticMesh.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/Animations/AB_Wizard.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/Animations/AB_Wizard.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/HamiltonController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/HamiltonController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGamePlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GooberSpawnCluster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GooberSpawnCluster.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/HamiltonController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Components/HamiltonController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

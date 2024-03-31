@@ -126,7 +126,7 @@ void UHamiltonController::Server_SpawnHamilton_Implementation(FVector Location)
 		HamiltonActor = GetWorld()->SpawnActor<AActor>(HamiltonActorClass, SpawnLocation, FRotator::ZeroRotator );
 	}
 
-	Client_SetHamilton(Character);
+	Client_SetHamilton(HamiltonActor);
 }
 
 
