@@ -7,7 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="" />
+    <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Main_Menu/SpaceDisk_LoadingBayReto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Main_Menu/SpaceDisk_LoadingBayReto.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_lod3_Var1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_lod3_Var1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/PlayerSpawnBS/SpaceBowlUnreal_SpaceShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/PlayerSpawnBS/SpaceBowlUnreal_SpaceShip.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Rib.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Rib.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/SM_MERGED_BP_WatchTower2_C_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/SM_MERGED_BP_WatchTower2_C_1.uasset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +25,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://D:/Unreal/UE_5.3/Engine/Source/Runtime/Landscape/Private/LandscapeHLODBuilder.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -227,6 +240,8 @@
       <workItem from="1711694677049" duration="4397000" />
       <workItem from="1711738506204" duration="10857000" />
       <workItem from="1711844618863" duration="1250000" />
+      <workItem from="1711983907901" duration="1766000" />
+      <workItem from="1711992506649" duration="1920000" />
     </task>
     <servers />
   </component>
