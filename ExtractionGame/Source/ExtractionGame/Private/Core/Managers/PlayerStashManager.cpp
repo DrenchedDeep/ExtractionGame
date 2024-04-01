@@ -193,6 +193,124 @@ TArray<FGemItem> APlayerStashManager::GetGemInventoryStruct()
 	return GemItems;
 }
 
+FAbilityStruct APlayerStashManager::GetLeftArmAbilityInfo()
+{
+	TArray<UItemObject*> LeftArmGems;
+
+	for(auto Gem : GemInventory)
+	{
+		if(Gem.Key >= EBodyPart::LeftArm0 && Gem.Key <= EBodyPart::LeftArm1)
+		{
+			LeftArmGems.Add(Gem.Value);
+		}
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("length: %d"), LeftArmGems.Num());
+
+	float type [] = {0,0,0,0};
+	for(auto Gem : LeftArmGems)
+	{
+		if(!Gem)
+		{
+			continue;
+		}
+
+		switch(Gem->GemType)
+		{
+		case EGemType::Earth:
+			type [0]+=Gem->DefaultPolish;
+			break;
+		case EGemType::Fire:
+			type [1]+=Gem->DefaultPolish;
+			break;
+		case EGemType::Shadow:
+			type [2]+=Gem->DefaultPolish;
+			break;
+		case EGemType::Water:
+			type [3]+=Gem->DefaultPolish;
+			break;
+		default:  ;
+		}
+	}
+
+	int32 ability = 0;
+	int iteration= 0;
+	float totalPolish = 0;
+	for (const float val : type)
+	{
+		totalPolish += val;
+		int Score;
+		if(val >= 150) Score = 3;
+		else if(val >= 75) Score = 2;
+		else if (val > 0) Score = 1;
+		else Score = 0;
+		ability |= Score << (8-(++iteration*2));
+	}
+
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+	const FAbilityStruct InAbilityClass = GameInstance->GetAbilityHandlerSubSystem()->GetAbilityByIndex(ability);
+
+	return InAbilityClass;
+}
+
+FAbilityStruct APlayerStashManager::GetRightArmAbilityInfo()
+{
+	TArray<UItemObject*> RightArmGems;
+
+	for(auto Gem : GemInventory)
+	{
+		if(Gem.Key >= EBodyPart::RightArm0 && Gem.Key <= EBodyPart::RightArm1)
+		{
+			RightArmGems.Add(Gem.Value);
+		}
+	}
+
+	float type [] = {0,0,0,0};
+	for(auto Gem : RightArmGems)
+	{
+		if(!Gem)
+		{
+			continue;;
+		}
+
+		switch(Gem->GemType)
+		{
+		case EGemType::Earth:
+			type [0]+=Gem->DefaultPolish;
+			break;
+		case EGemType::Fire:
+			type [1]+=Gem->DefaultPolish;
+			break;
+		case EGemType::Shadow:
+			type [2]+=Gem->DefaultPolish;
+			break;
+		case EGemType::Water:
+			type [3]+=Gem->DefaultPolish;
+			break;
+		default:  ;
+		}
+	}
+
+	int32 ability = 0;
+	int iteration= 0;
+	float totalPolish = 0;
+	for (const float val : type)
+	{
+		totalPolish += val;
+		int Score;
+		if(val >= 150) Score = 3;
+		else if(val >= 75) Score = 2;
+		else if (val > 0) Score = 1;
+		else Score = 0;
+		ability |= Score << (8-(++iteration*2));
+	}
+
+	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
+	const FAbilityStruct InAbilityClass = GameInstance->GetAbilityHandlerSubSystem()->GetAbilityByIndex(ability);
+
+	return InAbilityClass;
+}
+
 /*/
 void APlayerStashManager::LoadInventory()
 {

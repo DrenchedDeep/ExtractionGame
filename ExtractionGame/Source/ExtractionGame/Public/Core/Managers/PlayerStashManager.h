@@ -22,6 +22,7 @@ struct FAddItemStashManager
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Count;
 };
+
 UCLASS()
 class EXTRACTIONGAME_API APlayerStashManager : public AActor
 {
@@ -42,6 +43,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FAddItemStashManager> StartingItems;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TArray<FAddItemStashManager> GemStartingItems;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStashInventoryComponent* PlayerInventory;
@@ -73,6 +76,11 @@ public:
 	TArray<FGemItem> GetGemInventoryStruct();
 	UFUNCTION(BlueprintImplementableEvent)
 	void InitGemUI();
+
+	UFUNCTION(BlueprintCallable)
+	FAbilityStruct GetLeftArmAbilityInfo();
+	UFUNCTION(BlueprintCallable)
+	FAbilityStruct GetRightArmAbilityInfo();
 
 private:
 	TMap<TEnumAsByte<EBodyPart>, UItemObject*> GemInventory;

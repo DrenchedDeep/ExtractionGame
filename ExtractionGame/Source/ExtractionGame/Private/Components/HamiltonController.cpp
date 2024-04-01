@@ -184,7 +184,8 @@ bool UHamiltonController::IsLocationBuildable()
 
 	//check up
 	FHitResult Hit;
-	FVector SpawnLocation = Character->GetActorLocation() + Character->GetActorForwardVector() * SpawnOffsetFromPlayer.X + Character->GetActorRightVector() * SpawnOffsetFromPlayer.Y + Character->GetActorUpVector() * SpawnOffsetFromPlayer.Z;
+	FVector SpawnLocation = Character->GetActorLocation() + Character->GetActorForwardVector() * SpawnOffsetFromPlayer.X + Character->GetActorRightVector() * SpawnOffsetFromPlayer.Y + 0;
+	SpawnLocation.Z = Character->GetActorLocation().Z;
 	FVector End = SpawnLocation + FVector(0, 0, 10000);
 
 	FCollisionQueryParams TraceParams;
@@ -195,7 +196,7 @@ bool UHamiltonController::IsLocationBuildable()
 	}
 
 	//check down
-	End = SpawnLocation - FVector(0, 0, 50);
+	End = Character->GetActorLocation() - FVector(0, 0, 300);
 	if(!GetWorld()->LineTraceSingleByChannel(Hit, SpawnLocation, End, ECC_Visibility, TraceParams))
 	{
 		bBuildable = false;

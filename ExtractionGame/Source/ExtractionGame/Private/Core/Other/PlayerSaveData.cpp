@@ -110,3 +110,21 @@ void UPlayerSaveData::SetGemInventory(TMap<TEnumAsByte<EBodyPart>, FAddItemInfo>
 	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
 }
 
+void UPlayerSaveData::AddToSavedAbility(FString Ability)
+{
+	SavedAbilityNames.Add(Ability);
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+}
+
+void UPlayerSaveData::ClearSavedAbility(FString Ability)
+{
+	SavedAbilityNames.Reset();
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+}
+
+void UPlayerSaveData::SetDoneMainMenuTutorial(bool state)
+{
+	bDoneMainMenuTutorial = state;
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+
+}

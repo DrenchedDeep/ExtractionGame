@@ -23,6 +23,12 @@ struct FAbilityStruct
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
 	UTexture2D* Image;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
+	FString AbilityDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
+	FString AbilityName;
 };
 
 /**

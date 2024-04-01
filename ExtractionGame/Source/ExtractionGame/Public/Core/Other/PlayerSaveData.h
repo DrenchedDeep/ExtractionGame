@@ -37,7 +37,13 @@ class EXTRACTIONGAME_API UPlayerSaveData : public USaveGame
 	UPROPERTY()
 	bool bLoadInventoryStartingItems;
 	UPROPERTY()
+	bool bDoneMainMenuTutorial;
+	UPROPERTY()
 	float ExtractedEssence;
+
+	UPROPERTY()
+	TArray<FString> SavedAbilityNames; 
+	
 	UPlayerSaveData();
 
 public:
@@ -55,8 +61,11 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialExtraction() const { return bTutorialExtraction;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialDeath() const { return BTutorialDeath;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetLoadInventory() const { return bLoadInventoryStartingItems;}
+	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetDoneMainMenuTutorial() const { return bDoneMainMenuTutorial;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) float GetExtractedEssence() const { return ExtractedEssence;}
+	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FString> GetSavedAbilities() const { return SavedAbilityNames;}
 
+	
 	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FSavedInventoryItem> GetStashInventory() const { return StashItems; }
 	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FSavedInventoryItem> GetPlayerInventory() const { return PlayerItems; }
 	UFUNCTION(BlueprintCallable, BlueprintPure) TArray<FSavedInventoryItem> GetGemInventory() const { return GemItems; }
@@ -72,6 +81,9 @@ public:
 	UFUNCTION(BlueprintCallable) void SetStashInventory(TMap<int32, FAddItemInfo> InInventory);
 	UFUNCTION(BlueprintCallable) void SetPlayerInventory(TMap<int32, FAddItemInfo> InInventory);
 	UFUNCTION(BlueprintCallable) void SetGemInventory(TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> InInventory);
+	UFUNCTION(BlueprintCallable) void AddToSavedAbility(FString Ability);
+	UFUNCTION(BlueprintCallable) void ClearSavedAbility(FString Ability);
+	UFUNCTION(BlueprintCallable) void SetDoneMainMenuTutorial(bool state);
 
 
 
