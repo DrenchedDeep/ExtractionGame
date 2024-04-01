@@ -8,6 +8,7 @@
 
 void AGoober::ApplyDamage(float Damage)
 {
+	if(CurrentHealth == 0 ) return;  
 	CurrentHealth -= Damage;
 	UE_LOG(LogTemp, Warning, TEXT("CurrentHealth: %f"), CurrentHealth);
 	if(CurrentHealth <= 0)
@@ -67,16 +68,14 @@ void AGoober::OnRep_Cooking()
 void AGoober::OnCookTimerTick()
 {
 	CurrentCookTimer += 1;
-
-	Execute_OnCookTick(this, CurrentCookTimer / MaxCookTime);
-	//UpdateCookedProgress();
-	
 	if(CurrentCookTimer >= MaxCookTime)
 	{
 		bIsCooked = true;
 		GetWorldTimerManager().ClearTimer(CookTimerHandle);
 		CookTimerHandle.Invalidate();
+		CurrentCookTimer = MaxCookTime;
 	}
+	Execute_OnCookTick(this, CurrentCookTimer / MaxCookTime);
 }
 
 
@@ -106,10 +105,22 @@ void AGoober::BeginPlay()
 	}
 }
 
+void AGoober::OnRep_BoogerAids()
+{
+	if(CurrentCookTimer >= MaxCookTime)
+	{
+		bIsCooked = true;
+		GetWorldTimerManager().ClearTimer(CookTimerHandle);
+		CookTimerHandle.Invalidate();
+		CurrentCookTimer = MaxCookTime;
+	}
+	Execute_OnCookTick(this, CurrentCookTimer / MaxCookTime);
+}
+
 void AGoober::AddCook(float amount)
 {
 	CurrentCookTimer += amount;
-	if(CurrentCookTimer > MaxCookTime)
+	if(CurrentCookTimer >= MaxCookTime)
 	{
 		bIsCooked = true;
 		GetWorldTimerManager().ClearTimer(CookTimerHandle);

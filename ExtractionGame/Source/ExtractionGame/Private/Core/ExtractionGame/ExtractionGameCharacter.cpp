@@ -34,14 +34,14 @@ void AExtractionGameCharacter::ToggleControlLocks(bool x)
 	//else Controller->DisableInput(GetLocalViewingPlayerController());
 }
 
-/*
+
 void AExtractionGameCharacter::ServerUpdateGaze_Implementation(FVector newGaze)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Looking in direction: %s"), *newGaze.ToString())
 	GazeLocation = newGaze;
 }
 
-
+/*
 void AExtractionGameCharacter::ServerUpdateGazeUnreliable_Implementation(FVector newGaze)
 {
 	GazeLocation = newGaze;
@@ -239,9 +239,8 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 	DOREPLIFETIME(AExtractionGameCharacter, VerticalLook);
 	DOREPLIFETIME(AExtractionGameCharacter, HorizontalLook);
 
-	DOREPLIFETIME_CONDITION(AExtractionGameCharacter, SlideTimer, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(AExtractionGameCharacter, EssenceUpdate, COND_OwnerOnly);
-	DOREPLIFETIME_CONDITION(AExtractionGameCharacter, GazeLocation, COND_OwnerOnly);
+	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
+	DOREPLIFETIME(AExtractionGameCharacter, EssenceUpdate);
 }
 
 void AExtractionGameCharacter::PossessedBy(AController* NewController)

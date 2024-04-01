@@ -60,8 +60,11 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void BeginPlay() override;
 
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing = OnRep_BoogerAids)
 	float CurrentCookTimer = 0;
+
+	UFUNCTION()
+	void OnRep_BoogerAids();
 	
 	UFUNCTION(BlueprintCallable)
 	void AddCook(float amount);

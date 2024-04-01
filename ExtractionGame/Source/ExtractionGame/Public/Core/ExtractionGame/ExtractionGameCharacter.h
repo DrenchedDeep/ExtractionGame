@@ -196,13 +196,13 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnHealthChanged(float healthPercent);
 	
-	UPROPERTY(BlueprintReadOnly, Replicated)
+	UPROPERTY(BlueprintReadOnly)
 	FVector GazeLocation;
 
-	/*
+	
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void ServerUpdateGaze(FVector newGaze);
-	
+	/*
 	UFUNCTION(Server, Unreliable, BlueprintCallable)
 	void ServerUpdateGazeUnreliable(FVector newGaze);
 */
