@@ -498,6 +498,101 @@ EBodyPart UGemController::GetNextAvaliableArmGemSlot(bool bIsLeft) const
 	return None;
 }
 
+FAbilityStruct UGemController::GetLeftArmAbilityInfo()
+{
+
+	float type [] = {0,0,0,0};
+	for(auto Gem : leftGems)
+	{
+		if(!Gem)
+		{
+			continue;
+		}
+
+		switch(Gem->GetGemType())
+		{
+		case EGemType::Earth:
+			type [0]+=Gem->GetPolish();
+			break;
+		case EGemType::Fire:
+			type [1]+=Gem->GetPolish();
+			break;
+		case EGemType::Shadow:
+			type [2]+=Gem->GetPolish();
+			break;
+		case EGemType::Water:
+			type [3]+=Gem->GetPolish();
+			break;
+		default:  ;
+		}
+	}
+
+	int32 ability = 0;
+	int iteration= 0;
+	float totalPolish = 0;
+	for (const float val : type)
+	{
+		totalPolish += val;
+		int Score;
+		if(val >= 150) Score = 3;
+		else if(val >= 75) Score = 2;
+		else if (val > 0) Score = 1;
+		else Score = 0;
+		ability |= Score << (8-(++iteration*2));
+	}
+
+	const FAbilityStruct InAbilityClass = SubSystem->GetAbilityByIndex(ability);
+
+	return InAbilityClass;
+}
+
+FAbilityStruct UGemController::GetRightArmAbilityInfo()
+{
+	float type [] = {0,0,0,0};
+	for(auto Gem : rightGems)
+	{
+		if(!Gem)
+		{
+			continue;
+		}
+
+		switch(Gem->GetGemType())
+		{
+		case EGemType::Earth:
+			type [0]+=Gem->GetPolish();
+			break;
+		case EGemType::Fire:
+			type [1]+=Gem->GetPolish();
+			break;
+		case EGemType::Shadow:
+			type [2]+=Gem->GetPolish();
+			break;
+		case EGemType::Water:
+			type [3]+=Gem->GetPolish();
+			break;
+		default:  ;
+		}
+	}
+
+	int32 ability = 0;
+	int iteration= 0;
+	float totalPolish = 0;
+	for (const float val : type)
+	{
+		totalPolish += val;
+		int Score;
+		if(val >= 150) Score = 3;
+		else if(val >= 75) Score = 2;
+		else if (val > 0) Score = 1;
+		else Score = 0;
+		ability |= Score << (8-(++iteration*2));
+	}
+
+	const FAbilityStruct InAbilityClass = SubSystem->GetAbilityByIndex(ability);
+
+	return InAbilityClass;
+}
+
 int32 UGemController::GetArmGemCount(bool bIsLeft) const
 {
 	int32 count = 0;

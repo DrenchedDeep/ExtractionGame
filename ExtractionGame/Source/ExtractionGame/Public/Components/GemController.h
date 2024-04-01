@@ -169,6 +169,11 @@ public:
 	EBodyPart GetNextAvaliableArmGemSlot(bool bIsLeft) const;
 
 	UFUNCTION(BlueprintCallable)
+FAbilityStruct GetLeftArmAbilityInfo();
+	UFUNCTION(BlueprintCallable)
+	FAbilityStruct GetRightArmAbilityInfo();
+	
+	UFUNCTION(BlueprintCallable)
 	int32 GetArmGemCount(bool bIsLeft) const;
 
 	UPROPERTY()

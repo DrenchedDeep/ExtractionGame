@@ -98,6 +98,7 @@ void UExtractionGameInstance::ResetPlayerAndGemInventory()
 	{
 		PlayerSessionData.GemItems.Reset();
 		PlayerSessionData.PlayerItems.Reset();
+		
 	}
 }
 

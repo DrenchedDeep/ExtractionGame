@@ -10,6 +10,15 @@ class UGameplayAbility;
 /**
  * MyStruct definition
  */
+
+UENUM(BlueprintType)
+enum EAbilityAnimType
+{
+	EA_None,
+	EA_Punch,
+	EA_Lob,
+	EA_Throw
+};
 USTRUCT(BlueprintType)
 struct FAbilityStruct
 {
@@ -29,6 +38,9 @@ struct FAbilityStruct
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
 	FString AbilityName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "MyStruct")
+	TEnumAsByte<EAbilityAnimType> AnimType;
 };
 
 /**
