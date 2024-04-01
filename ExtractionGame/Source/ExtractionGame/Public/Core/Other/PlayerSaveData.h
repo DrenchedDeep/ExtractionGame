@@ -20,6 +20,7 @@ struct FSavedInventoryItem
 	FAddItemInfo ItemInfo;
 };
 
+
 UCLASS()
 class EXTRACTIONGAME_API UPlayerSaveData : public USaveGame
 {

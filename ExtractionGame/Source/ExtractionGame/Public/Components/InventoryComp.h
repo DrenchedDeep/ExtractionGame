@@ -26,7 +26,8 @@ enum EItemStat
 	ET_FireRate,
 	ET_Ammo,
 	Purity,
-	Knockback
+	Knockback,
+	Mana
 };
 
 USTRUCT(BlueprintType)
