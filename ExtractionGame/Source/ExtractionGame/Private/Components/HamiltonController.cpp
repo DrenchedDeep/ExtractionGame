@@ -25,6 +25,7 @@ void UHamiltonController::StartHamiltonProcess()
 	
 	if(!IsLocationBuildable())
 	{
+		if(Character) Character->OnHamiltonBuildRejected();
 		return;
 	}
 	

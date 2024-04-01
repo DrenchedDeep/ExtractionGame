@@ -49,13 +49,13 @@ struct FPlayerSessionData
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	bool bIsValid;
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TMap<int32, FAddItemInfo> PlayerItems;
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TMap<int32, FAddItemInfo> StashItems;
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems;
 
 	FPlayerSessionData(bool bIsValid, const TMap<int32, FAddItemInfo>& PlayerItems,

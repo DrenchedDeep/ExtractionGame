@@ -33,6 +33,7 @@ void AExtractionGamePlayerController::ReturnToLobby()
 	//const bool bAlive = (RespawnsLeft > 0 && GS->GetExtractionGameState() != EGameModeState::Playing);
 	
 	GameInstance->OnRaidOver(true, EndPlayerTime, PS->GetEssence());
+	GameInstance->AddToTotalEssence(PS->GetEssence());
 	GameInstance->ShowLoadingScreen();
 	
 	if(GameInstance->CurrentSession)
