@@ -9,14 +9,14 @@
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Main_Menu/SpaceDisk_LoadingBayReto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Main_Menu/SpaceDisk_LoadingBayReto.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_lod3_Var1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_lod3_Var1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/PlayerSpawnBS/SpaceBowlUnreal_SpaceShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/PlayerSpawnBS/SpaceBowlUnreal_SpaceShip.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Rib.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Rib.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/SM_MERGED_BP_WatchTower2_C_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/SM_MERGED_BP_WatchTower2_C_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectilePlacable.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectilePlacable.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataAssets/DStr_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataAssets/DStr_AttackInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Vertabrae_updated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Vertabrae_updated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_OnHit.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_OnHit.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBomb.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBomb.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +241,7 @@
       <workItem from="1711738506204" duration="10857000" />
       <workItem from="1711844618863" duration="1250000" />
       <workItem from="1711983907901" duration="1766000" />
-      <workItem from="1711992506649" duration="1920000" />
+      <workItem from="1711992506649" duration="2627000" />
     </task>
     <servers />
   </component>
