@@ -105,3 +105,16 @@ void AGoober::BeginPlay()
 		CurrentHealth = MaxHealth;
 	}
 }
+
+void AGoober::AddCook(float amount)
+{
+	CurrentCookTimer += amount;
+	if(CurrentCookTimer > MaxCookTime)
+	{
+		bIsCooked = true;
+		GetWorldTimerManager().ClearTimer(CookTimerHandle);
+		CookTimerHandle.Invalidate();
+		CurrentCookTimer = MaxCookTime;
+	}
+	Execute_OnCookTick(this, CurrentCookTimer / MaxCookTime);
+}

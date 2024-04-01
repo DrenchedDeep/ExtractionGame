@@ -63,6 +63,9 @@ protected:
 	UPROPERTY(Replicated)
 	float CurrentCookTimer = 0;
 	
+	UFUNCTION(BlueprintCallable)
+	void AddCook(float amount);
+	
 	UFUNCTION()
 	virtual void OnRep_Dead();
 	UFUNCTION()
