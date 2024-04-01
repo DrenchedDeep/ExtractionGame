@@ -273,10 +273,9 @@ public:
 	void OnDeathClient();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnAttacked(FVector FromLocation);
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHamiltonBuildRejected();
 
-	
-	
-	
 protected:
 
 
