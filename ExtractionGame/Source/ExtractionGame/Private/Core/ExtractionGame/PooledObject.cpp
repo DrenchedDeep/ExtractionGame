@@ -7,7 +7,7 @@
 #include "Net/UnrealNetwork.h"
 
 // Sets default values
-APooledObject::APooledObject(): Power(0)
+APooledObject::APooledObject(): AbilityOwner(nullptr), Power(0)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -32,9 +32,12 @@ void APooledObject::SetLifeSpan(float InLifespan)
 void APooledObject::ReturnToPool()
 {
 	GetWorldTimerManager().ClearTimer(timer);
+	timer.Invalidate();
 	//OnPooledObjectDespawn.Broadcast(this, *GetClass()->GetName());
 	SetActorTickEnabled(false);
 	SetActiveState(false);
+
+	UE_LOG(LogTemp, Warning ,TEXT("Returning to Pool"))
 }
 
 void APooledObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

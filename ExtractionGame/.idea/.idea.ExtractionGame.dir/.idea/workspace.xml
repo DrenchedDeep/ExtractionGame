@@ -8,17 +8,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Effects/AbilityEffects/GE_Freeze.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_WaveProjectile.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ParticleSystems/Meshes/wave.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectilePlacable.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectilePlacable.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/Frost/BP_FrostBomb.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/DuoType/GA_S1W1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/DuoType/GA_S1W1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataAssets/DStr_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataAssets/DStr_AttackInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/DuoType/GA_F1W2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/DuoType/GA_F1W2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W2.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_FireWave.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_ShadowHome.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_ShadowHome.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Wave.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Wave.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Materials/m_SpeedEffectNoDepthParticle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Materials/m_SpeedEffectNoDepthParticle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Materials/mi_MagicWave.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Materials/mi_MagicWave.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBomb.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBomb.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Abilities/AbilityObjectPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Abilities/AbilityObjectPool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/PooledObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/PooledObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Abilities/AbilityObjectPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Abilities/AbilityObjectPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PoolHandlerSubSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PoolHandlerSubSystem.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

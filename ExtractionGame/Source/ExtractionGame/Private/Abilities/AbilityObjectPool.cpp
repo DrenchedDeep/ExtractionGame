@@ -8,9 +8,14 @@ APooledObject* AAbilityObjectPool::SpawnPoolObject(FString map)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Spawning object from pool: %s"), *map);
 
-	ObjectPool[map].index = ++ObjectPool[map].index % ObjectPool[map].pool.Num();
+	int index = ++ObjectPool[map].index;
+	if(index >= ObjectPool[map].pool.Num())
+	{
+		index = 0;
+		ObjectPool[map].index = 0;
+	}
 	
-	APooledObject* out = ObjectPool[map].pool[ObjectPool[map].index];//= nullptr;
+	APooledObject* out = ObjectPool[map].pool[index];//= nullptr;
 
 	//if(!out) return nullptr;
 	
@@ -24,9 +29,18 @@ void AAbilityObjectPool::BeginPlay()
 	Super::BeginPlay();
 
 	UWorld* const world = GetWorld();
-	GetGameInstance()->GetSubsystem<UPoolHandlerSubSystem>()->SetPool(this);
 	
 	verify(world);
+	
+	const AAbilityObjectPool* inst = GetGameInstance()->GetSubsystem<UPoolHandlerSubSystem>()->GetPool();
+	if (inst != nullptr && inst != this)
+	{
+		Destroy();
+		return;
+	}
+	GetGameInstance()->GetSubsystem<UPoolHandlerSubSystem>()->SetPool(this);
+	
+
 	
 	for (const auto pool : PooledObjectSubclass)
 	{

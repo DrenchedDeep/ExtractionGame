@@ -21,6 +21,7 @@ public:
 	APooledObject* SpawnObject(FString type);
 	
 	void SetPool(AAbilityObjectPool* newPool);
+	AAbilityObjectPool* GetPool() const {return Pool;}
 	
 	
 };
