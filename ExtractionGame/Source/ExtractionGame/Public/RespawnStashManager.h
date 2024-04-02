@@ -39,7 +39,10 @@ protected:
 	
 	UFUNCTION(BlueprintCallable)
 	void Save();
-
+	UFUNCTION(BlueprintCallable)
+	FAbilityStruct GetLeftArmAbilityInfo();
+	UFUNCTION(BlueprintCallable)
+	FAbilityStruct GetRightArmAbilityInfo();
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdateGemUI();
 private:

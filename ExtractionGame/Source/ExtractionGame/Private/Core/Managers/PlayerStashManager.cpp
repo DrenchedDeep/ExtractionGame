@@ -253,6 +253,8 @@ FAbilityStruct APlayerStashManager::GetLeftArmAbilityInfo()
 	return InAbilityClass;
 }
 
+
+
 FAbilityStruct APlayerStashManager::GetRightArmAbilityInfo()
 {
 	TArray<UItemObject*> RightArmGems;
