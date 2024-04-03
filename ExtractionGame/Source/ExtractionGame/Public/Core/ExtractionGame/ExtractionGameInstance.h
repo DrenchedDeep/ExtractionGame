@@ -198,7 +198,7 @@ public:
 	UFUNCTION(BlueprintCallable) bool TryAutoLogin();
 	UFUNCTION(BlueprintCallable) bool LogOut();
 	
-	UFUNCTION(Exec)
+	UFUNCTION(Exec, BlueprintCallable)
 	void SetWantsToHost(bool bWantsToHost);
 
 	UFUNCTION(BlueprintCallable)
