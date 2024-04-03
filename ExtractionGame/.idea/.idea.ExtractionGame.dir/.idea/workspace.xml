@@ -8,24 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_WaveProjectile.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ParticleSystems/Meshes/wave.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_ProjectileBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/DuoType/GA_F1W2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/DuoType/GA_F1W2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_FireWave.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_ShadowHome.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_ShadowHome.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Wave.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Wave.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Materials/m_SpeedEffectNoDepthParticle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Materials/m_SpeedEffectNoDepthParticle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Materials/mi_MagicWave.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Materials/mi_MagicWave.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBomb.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBomb.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Abilities/AbilityObjectPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Abilities/AbilityObjectPool.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/PooledObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/PooledObject.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Abilities/AbilityObjectPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Abilities/AbilityObjectPool.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PoolHandlerSubSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Managers/PoolHandlerSubSystem.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_AbilityHover.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Inventory/Inventories/WB_CharacterInventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_NewAbilityUnlocked.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_NewAbilityUnlocked.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,6 +236,7 @@
       <workItem from="1711844618863" duration="1250000" />
       <workItem from="1711983907901" duration="1766000" />
       <workItem from="1711992506649" duration="2627000" />
+      <workItem from="1712108937719" duration="673000" />
     </task>
     <servers />
   </component>
