@@ -176,6 +176,7 @@ void UGemController::ApplyEffect(FActiveGameplayEffectHandle* handle, TSubclassO
 {
 	//If we were previously generating, STOP.
 	if(handle->IsValid()) Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(*handle);
+
 	
 	FGameplayEffectContextHandle EffectContext = Character->GetAbilitySystemComponent()->MakeEffectContext();
 	EffectContext.AddSourceObject(Character);
@@ -367,21 +368,28 @@ void UGemController::RecompileArm(TArray<AGem*> arm,  bool bIsLeft)
 
 void UGemController::RecompileHead()
 {
+	//IF we already have an ability, let's remove it.
+	if(HeadEffectHandle.IsValid())
+	Character->GetAbilitySystemComponent()->RemoveActiveGameplayEffect(HeadEffectHandle);
+
 //	UE_LOG(LogTemp, Warning, TEXT("Recomp Head in code is head null? %d"), HeadGem == nullptr);
 	if(!HeadGem) return;
 	const int val = HeadGem->GetPolish();
 	int Score = 1;
+
+	//Let's just say everything is level 1. It's easier.
+	//if(val >= 150) Score = 3;
+	//else if(val >= 75) Score = 2;
 	
-	if(val >= 150) Score = 3;
-	else if(val >= 75) Score = 2;
-	
-	//Score = (Score << (8-static_cast<int>(HeadGem->GetGemType())*2)) << 8;
 	Score =  Score << (6-(static_cast<int>(HeadGem->GetGemType())*2));//(Score << (6 - static_cast<int>(HeadGem->GetGemType()) * 2));
 	//Left 1,2,4
 //	UE_LOG(LogTemp, Warning, TEXT("Head Ability: %d, %d"), Score, val);
 	const TSubclassOf<UGameplayEffect> effect = SubSystem->GetEffectByIndex(Score);
 	//const FGameplayAbilitySpec EffectSpec(effect, val, -1, Character);
 	ApplyEffect(&HeadEffectHandle,effect, val);
+
+	//UE_LOG(LogTemp, Warning, TEXT("Applying effect to self: "))
+	
 	UPlayerBarDataWidget* hud =GetHUDElement();
 	if(!hud) return;
 	hud->SetHeadGems(HeadGem);
