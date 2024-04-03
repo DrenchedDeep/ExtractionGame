@@ -7,7 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="" />
+    <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_BurstProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -232,7 +237,7 @@
       <workItem from="1711844618863" duration="1250000" />
       <workItem from="1711983907901" duration="1766000" />
       <workItem from="1711992506649" duration="2627000" />
-      <workItem from="1712108937719" duration="4734000" />
+      <workItem from="1712108937719" duration="6546000" />
     </task>
     <servers />
   </component>
