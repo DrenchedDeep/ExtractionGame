@@ -31,7 +31,8 @@ class EXTRACTIONGAME_API AExtractionGamePlayerController : public APlayerControl
 	float RespawnTimer = 5.f;
 	UPROPERTY(EditDefaultsOnly)
 	float RespawnDelay = 1.5f;
-	
+	UPROPERTY(EditDefaultsOnly)
+	int32 Respawns = 3;
 	FTimerHandle RespawnTimerHandle;
 
 	UPROPERTY()
@@ -56,6 +57,8 @@ public:
 	void Client_EnteredExtractionBeacon(AExtractionBeacon* Beacon);
 	UFUNCTION(Unreliable, Client)
 	void Client_LeftExtractionBeacon();
+	UFUNCTION(BlueprintCallable, Reliable, Server)
+	void Server_SpawnSpectator();
 
 	virtual void OnDeath(const FString& PlayerName);
 	

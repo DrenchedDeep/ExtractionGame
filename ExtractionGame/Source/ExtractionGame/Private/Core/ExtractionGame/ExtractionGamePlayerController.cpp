@@ -154,6 +154,15 @@ void AExtractionGamePlayerController::Client_LeftExtractionBeacon_Implementation
 	OnLeftExtractionBeacon();
 }
 
+void AExtractionGamePlayerController::Server_SpawnSpectator_Implementation()
+{
+	FActorSpawnParameters SpawnParameters;
+	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	ASpectatorPawn* SP =  GetWorld()->SpawnActor<ASpectatorPawn>(SpectatorPawnSubclass, FVector(0,0,2000), FRotator(), SpawnParameters);
+	UnPossess();
+	Possess(SP);
+}
+
 void AExtractionGamePlayerController::OnDeath(const FString& PlayerName)
 {
 	if(GetPawn())
@@ -435,7 +444,7 @@ void AExtractionGamePlayerController::OnRep_Pawn()
 void AExtractionGamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	RespawnsLeft = 3;
+	RespawnsLeft = Respawns;
 	if(HasAuthority())
 	{
 		UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
