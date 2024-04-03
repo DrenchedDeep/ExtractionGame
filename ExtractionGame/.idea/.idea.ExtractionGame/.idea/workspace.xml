@@ -12,8 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f798a846-776e-4208-8209-0adf4aa32b3a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_S3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_S3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_GravityBasedProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_GravityBasedProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
