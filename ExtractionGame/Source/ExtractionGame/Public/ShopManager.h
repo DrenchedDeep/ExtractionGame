@@ -15,6 +15,8 @@ struct FShopItem
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	FName ItemName;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	int32 Count;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	bool bOverridePolish;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	float PolishAmount = 25;
