@@ -94,12 +94,13 @@ void UExtractionGameInstance::BuildPartySessionData(TArray<FString> PlayerNames,
 
 void UExtractionGameInstance::ResetPlayerAndGemInventory()
 {
-	if(PlayerSessionData.bIsValid)
-	{
-		PlayerSessionData.GemItems.Reset();
-		PlayerSessionData.PlayerItems.Reset();
-		
-	}
+	FPlayerSessionData SessionData;
+	SessionData.bIsValid = true;
+	SessionData.PlayerItems.Reset();
+	SessionData.StashItems = PlayerSessionData.StashItems;
+	SessionData.GemItems.Reset();
+
+	PlayerSessionData = SessionData;
 }
 
 void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence)
