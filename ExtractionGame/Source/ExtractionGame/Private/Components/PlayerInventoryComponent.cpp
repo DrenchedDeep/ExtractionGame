@@ -144,6 +144,16 @@ TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> UPlayerInventoryComponent::GetGemInve
 	return Gems;
 }
 
+void UPlayerInventoryComponent::AddInventoryToSavedStash()
+{
+	UExtractionGameInstance* GI = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance());
+
+	if(GI)
+	{
+		GI->AddToStash(GetPlayerInventory());
+	}
+}
+
 void UPlayerInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

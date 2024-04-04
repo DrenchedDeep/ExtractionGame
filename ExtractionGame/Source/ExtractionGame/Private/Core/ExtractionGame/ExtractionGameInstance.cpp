@@ -129,6 +129,26 @@ void UExtractionGameInstance::StopSession()
 	}
 }
 
+void UExtractionGameInstance::AddToStash(TMap<int32, FAddItemInfo> Items)
+{
+	TMap<int32, FAddItemInfo> NewStash = PlayerSessionData.StashItems;
+
+	for(auto Itm : Items)
+	{
+		NewStash.Add(Itm.Key, Itm.Value);
+	}
+
+
+	FPlayerSessionData SessionData;
+	SessionData.bIsValid = true;
+	SessionData.PlayerItems = PlayerSessionData.PlayerItems;
+	SessionData.StashItems = NewStash;
+	SessionData.GemItems = PlayerSessionData.GemItems;
+
+	PlayerSessionData = SessionData;
+}
+
+
 
 void UExtractionGameInstance::Init()
 {

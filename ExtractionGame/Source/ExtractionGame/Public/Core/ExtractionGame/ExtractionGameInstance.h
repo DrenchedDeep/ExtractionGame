@@ -191,6 +191,7 @@ public:
 
 	void StartSession();
 	void StopSession();
+	void AddToStash(TMap<int32, FAddItemInfo> Items);
 	
 	UFUNCTION(BlueprintCallable) void JoinSession(bool bCreateSession);
 	UFUNCTION(BlueprintCallable) void CreateLobby();
