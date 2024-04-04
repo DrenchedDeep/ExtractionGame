@@ -89,7 +89,7 @@ void ARespawnStashManager::Save()
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
 	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),
-		StashInventory->GetPlayerInventory() , GetGemInventory());
+		StashInventory->GetPlayerInventory(), GetGemInventory());
 
 }
 
