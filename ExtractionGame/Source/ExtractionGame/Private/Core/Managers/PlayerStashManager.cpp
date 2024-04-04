@@ -53,10 +53,6 @@ void APlayerStashManager::BeginPlay()
 
 		InitGemUI();
 	}
-	else
-	{
-		GameInstance->ReadPlayerData("PlayerSaveData");
-	}
 	
 	//GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
 //	GameInstance->UserReadCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnFilesRead);
@@ -64,6 +60,10 @@ void APlayerStashManager::BeginPlay()
 
 	//LoadInventory();
 
+	if(!GameInstance->SaveData)
+	{
+		return;
+	}
 	if(!GameInstance->SaveData->GetLoadInventory())
 	{
 		InitStartingItems();
