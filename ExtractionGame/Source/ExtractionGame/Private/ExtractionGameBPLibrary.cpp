@@ -116,11 +116,11 @@ ScreenPosition = FVector2D( -ScreenBounds.X, -ScreenBounds.X * m );
 ERarityType UExtractionGameBPLibrary::GetRarityTypeFromGemPurity(float Purity)
 {
 	ERarityType Rarity = ERarityType::Common;
-	if(Purity >= 50)
+	if(Purity >= 75)
 	{
 		Rarity = ERarityType::Legendary;
 	}
-	else if(Purity >= 40 && Purity < 50)
+	else if(Purity >= 40 && Purity < 75)
 	{
 		Rarity = ERarityType::Epic;
 	}
@@ -156,10 +156,10 @@ int32 UExtractionGameBPLibrary::GetAdjustedPrice(ERarityType Rarity, int32 BaseP
 		AdjustedPrice = 25;
 		break;
 	case ERarityType::Epic:
-		AdjustedPrice = 100;
+		AdjustedPrice = 75;
 		break;
 	case ERarityType::Legendary:
-		AdjustedPrice = 500;
+		AdjustedPrice = 150;
 		break;
 	default:
 		AdjustedPrice = 100;
