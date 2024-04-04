@@ -9,18 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/BP_GameInstance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/BP_GameInstance.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/MainMenuGameMode/BP_MainMenuGameState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/Gimbal/Gimbal1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/Gimbal/Gimbal1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/LVLSQMaster_Level.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/LVLSQMaster_Level.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/PreDesert/LVLSQ_DesertEntry.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/PreDesert/LVLSQ_DesertEntry.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_Entry.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_Entry.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_PREDesert.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_PREDesert.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_Explosion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_Explosion.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +240,7 @@
       <workItem from="1712108937719" duration="10735000" />
       <workItem from="1712170015940" duration="462000" />
       <workItem from="1712170568924" duration="1042000" />
-      <workItem from="1712179895816" duration="4659000" />
+      <workItem from="1712179895816" duration="6052000" />
     </task>
     <servers />
   </component>
