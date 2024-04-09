@@ -8,6 +8,20 @@
 #include "GameFramework/Actor.h"
 #include "RespawnStashManager.generated.h"
 
+
+USTRUCT()
+struct FFrameInput
+{
+	GENERATED_BODY()
+
+	FVector MovementInput;
+	FVector LookInput;
+
+	bool bFirePressed;
+	bool bJumpPressed;
+	bool bCrouchPressed;
+	bool bGrenadePressed;
+};
 UCLASS()
 class EXTRACTIONGAME_API ARespawnStashManager : public AActor
 {
