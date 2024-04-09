@@ -8,10 +8,507 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/MI_EggHouse.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/MI_MonsterSkull.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/MI_PotteryBase.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/MI_cooker.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/Mi_Bazar0.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/Mi_BazarStand1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/Mi_BazarStand2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Basic/Mi_WoodProps.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/MI_MonsterSkull.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/MM_VTBasicLitColorNormORM.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/MM_VTBlendLitColorNormORM.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Cinematics/CineSOunds/TakeWhatYouCan.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/CineSOunds/TakeWhatYouCan.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Maps_Material/M_Sand_Landscape.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Maps_Material/M_Sand_Landscape.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Bazaar_stand2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Bazaar_stand2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/DomeMaterial.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/DomeMaterial.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Hut_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Hut_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/WoodenObjs0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/WoodenObjs0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Reusable/BoneMat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Reusable/BoneMat.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/Cliff_Rocks_Low_Unwraped.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/Cliff_Rocks_Low_Unwraped.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Stand_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Stand_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Egg2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Egg2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Structural/Pottery_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Structural/Pottery_Base.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Asteroid/Asteroid_WorldGridMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Asteroid/Asteroid_WorldGridMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Asteroid/Asteroid_WorldGridMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Asteroid/Asteroid_WorldGridMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Asteroid/Asteroid_WorldGridMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Asteroid/Asteroid_WorldGridMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_1_None_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_1_None_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_1_None_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_1_None_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_1_None_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_1_None_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_2_None_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_2_None_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_2_None_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_2_None_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_2_None_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Stand_2_None_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_1_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_1_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_1_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_1_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_1_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_1_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/House_1_None_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/House_1_None_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/House_1_None_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/House_1_None_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/House_1_None_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/House_1_None_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/BigMonsterSkull/Monster_Skull_LP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/BigMonsterSkull/Monster_Skull_LP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/BigMonsterSkull/Monster_Skull_LP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/BigMonsterSkull/Monster_Skull_LP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/BigMonsterSkull/Monster_Skull_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/BigMonsterSkull/Monster_Skull_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bomb/Bomb_MainCol.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bomb/Bomb_MainCol.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bomb/Bomb_Normals.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bomb/Bomb_Normals.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bomb/Bomb_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bomb/Bomb_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_CanyonRockyGround_xgimega_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_CanyonRockyGround_xgimega_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_CanyonSandstoneRidge_ventdee_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_CanyonSandstoneRidge_ventdee_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_CanyonSandstoneRock_vglledjg_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_CanyonSandstoneRock_vglledjg_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff_2/Canyon_Piece_2_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff_2/Canyon_Piece_2_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff_2/Canyon_Piece_2_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff_2/Canyon_Piece_2_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff_2/Canyon_Piece_2_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff_2/Canyon_Piece_2_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff_Wide/Cliff_Rocks_Low_Unwraped_Cube_001_004_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff_Wide/Cliff_Rocks_Low_Unwraped_Cube_001_004_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff_Wide/Cliff_Rocks_Low_Unwraped_Cube_001_004_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff_Wide/Cliff_Rocks_Low_Unwraped_Cube_001_004_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff_Wide/Cliff_Rocks_Low_Unwraped_Cube_001_004_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff_Wide/Cliff_Rocks_Low_Unwraped_Cube_001_004_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Container/Material_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Container/Material_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Container/Material_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Container/Material_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Container/Material_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Container/Material_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Metallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Metallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_Displacement.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_Displacement.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_DrySand_xflsfhs_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_DrySand_xflsfhs_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_2DClouds.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_2DClouds.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_CloudNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_CloudNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_CloudNoiseOneChannel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_CloudNoiseOneChannel.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_DetailNewNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_DetailNewNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_DetailNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_DetailNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_DetailNoiseOneChannel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_DetailNoiseOneChannel.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_WeatherNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_WeatherNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_WeatherNoiseBetter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/T_WeatherNoiseBetter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_CloudNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_CloudNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_CloudNoiseOneChannel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_CloudNoiseOneChannel.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_DetailNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_DetailNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_DetailNoiseOneChannel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_DetailNoiseOneChannel.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_DetailnewNoise.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Cloud/VT_DetailnewNoise.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Cloudy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Cloudy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Document_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Document_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_DynamicVolumetricSky_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_DynamicVolumetricSky_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Foggy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Foggy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_LightRainy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_LightRainy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_LightSnowy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_LightSnowy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_OcclusionComponent_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_OcclusionComponent_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_PartlyCloudy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_PartlyCloudy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Rainy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Rainy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_RenderQueue_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_RenderQueue_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Snowy_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Snowy_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Sun_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_Sun_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_WindComponent_Icon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Icon/T_WindComponent_Icon.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Sky/T_Moon_Phases.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Sky/T_Moon_Phases.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Sky/T_NightTimeSky.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Sky/T_NightTimeSky.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Sky/T_Stars.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Sky/T_Stars.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_FLSnowNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_FLSnowNormal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_FLSnowRoughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_FLSnowRoughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_Rain.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_Rain.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_RainEffect.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_RainEffect.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_Rain_Splash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_Rain_Splash.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_RippleNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_RippleNormal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SLSnowNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SLSnowNormal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SLSnowRoughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SLSnowRoughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SnowDiff.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SnowDiff.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SnowNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SnowNormal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SnowParticle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_SnowParticle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_WaveNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/DynamicVolumetricSky/Weather/T_WaveNormal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Egg/DefaultMaterial_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Egg/DefaultMaterial_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Egg/DefaultMaterial_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Egg/DefaultMaterial_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Egg/DefaultMaterial_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Egg/DefaultMaterial_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gem/Gemmask.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gem/Gemmask.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_GiganticCanyonSandstoneHoodoo_vj2mecuga_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_GiganticCanyonSandstoneHoodoo_vj2mecuga_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Goober/GooberPack1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Goober/GooberPack1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Goober/GooberPack2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Goober/GooberPack2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Metallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Metallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Cliff_veoneio/T_HugeCanyonSandstoneCliff_veoneio_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Cliff_veoneio/T_HugeCanyonSandstoneCliff_veoneio_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Cliff_veoneio/T_Huge_Canyon_Sandstone_Cliff_veoneio_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Cliff_veoneio/T_Huge_Canyon_Sandstone_Cliff_veoneio_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Cliff_veoneio/T_Huge_Canyon_Sandstone_Cliff_veoneio_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Cliff_veoneio/T_Huge_Canyon_Sandstone_Cliff_veoneio_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Spire_ulbwebv/T_HugeCanyonSandstoneSpire_ulbwebv_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Spire_ulbwebv/T_HugeCanyonSandstoneSpire_ulbwebv_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Spire_ulbwebv/T_Huge_Canyon_Sandstone_Spire_ulbwebv_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Spire_ulbwebv/T_Huge_Canyon_Sandstone_Spire_ulbwebv_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Spire_ulbwebv/T_Huge_Canyon_Sandstone_Spire_ulbwebv_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Huge_Canyon_Sandstone_Spire_ulbwebv/T_Huge_Canyon_Sandstone_Spire_ulbwebv_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/IceWall/ice_wall_Material_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/IceWall/ice_wall_Material_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/IceWall/ice_wall_Material_MR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/IceWall/ice_wall_Material_MR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/IceWall/ice_wall_Material_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/IceWall/ice_wall_Material_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Icicle/Icicle_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Icicle/Icicle_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Icicle/Icicle_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Icicle/Icicle_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Icicle/Icicle_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Icicle/Icicle_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Jug/Jug_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Jug/Jug_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Jug/Jug_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Jug/Jug_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Big_1/Big_Land_1_LP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Big_1/Big_Land_1_LP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Big_1/Big_Land_1_LP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Big_1/Big_Land_1_LP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Big_1/Big_Land_1_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Big_1/Big_Land_1_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_1/Landscape_Spike_LP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_1/Landscape_Spike_LP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_1/Landscape_Spike_LP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_1/Landscape_Spike_LP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_1/Landscape_Spike_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_1/Landscape_Spike_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_2_Spike/Landscape_Spike_Thin_1_LP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_2_Spike/Landscape_Spike_Thin_1_LP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_2_Spike/Landscape_Spike_Thin_1_LP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_2_Spike/Landscape_Spike_Thin_1_LP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_2_Spike/Landscape_Spike_Thin_1_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Landscape_Piece_2_Spike/Landscape_Spike_Thin_1_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Massive_Canyon_Sandstone_Cliff_vjrmfb1ab/T_MassiveCanyonSandstoneCliff_vjrmfb1ab_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Massive_Canyon_Sandstone_Cliff_vjrmfb1ab/T_MassiveCanyonSandstoneCliff_vjrmfb1ab_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Massive_Canyon_Sandstone_Cliff_vjrmfb1ab/T_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Massive_Canyon_Sandstone_Cliff_vjrmfb1ab/T_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Massive_Canyon_Sandstone_Cliff_vjrmfb1ab/T_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Massive_Canyon_Sandstone_Cliff_vjrmfb1ab/T_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/Cloud02_8x8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/Cloud02_8x8.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/Explosion01-light_5x5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/Explosion01-light_5x5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/FireBall03-temperature_8x8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/FireBall03-temperature_8x8.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/FireBall03_8x8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/FlipBooks/FireBall03_8x8.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_00.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_00.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_19.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_19.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_22.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_22.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_23.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_23.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_29.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_29.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_39.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_39.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_44.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_44.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_45.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_45.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_46.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_46.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_47.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_47.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_48.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_48.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_49.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_49.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_50.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_50.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_53.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_53.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_54.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_54.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_56.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_56.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_59.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_59.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_62.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_62.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_64.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_64.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_66.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Gradients/T_Random_66.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Masks_Merged/T_NoiseMask_Merged_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_24.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_24.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_29.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_29.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_30.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_30.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_31.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_31.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_39.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_39.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_41.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_41.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_45.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_45.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_46.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_46.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_53.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_53.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_61.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_61.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_64.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_64.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_68.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_68.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_69.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_69.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_70.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_70.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_71.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_71.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_72.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_72.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_73.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_73.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_74.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_74.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_75.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_75.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_76.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_76.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_77.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_77.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_78.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_78.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_79.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_79.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_80.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Noise_Normals/T_NoiseNormal_80.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/Material_Setup.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/Material_Setup.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/MergedNoise_Settings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/MergedNoise_Settings.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/NoiseGradient_Settings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/NoiseGradient_Settings.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/NoiseNormal_Settings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/Luos_FreeGiveAway/Luos_FreeGiveAway/Settings_And_Examples/NoiseNormal_Settings.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/flame_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/flame_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/flame_06_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/flame_06_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_01_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_01_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_02_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_02_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_03_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_03_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_04_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_04_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/muzzle_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/spark_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/spark_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/spark_06_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/spark_06_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_01_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_01_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_02_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_02_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_03_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_03_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_04_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_04_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_06_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_06_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_07_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/Rotated/trace_07_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/circle_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/dirt_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/dirt_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/dirt_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/dirt_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/dirt_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/dirt_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/fire_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/fire_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/fire_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/fire_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flame_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flare_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/flare_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/light_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/light_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/light_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/light_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/light_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/light_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/magic_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/muzzle_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scorch_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scorch_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scorch_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scorch_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scorch_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scorch_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scratch_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/scratch_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/slash_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_08.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_08.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_09.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_09.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_10.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/smoke_10.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/spark_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_08.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_08.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_09.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/star_09.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/symbol_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/symbol_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/symbol_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/symbol_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/trace_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/twirl_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/twirl_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/twirl_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/twirl_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/twirl_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/twirl_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Black_background_/window_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/flame_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/flame_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/flame_06_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/flame_06_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_01_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_01_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_02_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_02_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_03_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_03_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_04_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_04_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/muzzle_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/spark_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/spark_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/spark_06_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/spark_06_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_01_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_01_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_02_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_02_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_03_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_03_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_04_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_04_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_05_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_05_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_06_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_06_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_07_rotated.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/Rotated/trace_07_rotated.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/circle_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/dirt_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/dirt_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/dirt_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/dirt_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/dirt_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/dirt_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/fire_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/fire_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/fire_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/fire_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flame_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flare_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/flare_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/light_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/light_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/light_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/light_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/light_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/light_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/magic_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/muzzle_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scorch_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scorch_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scorch_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scorch_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scorch_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scorch_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scratch_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/scratch_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/slash_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_08.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_08.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_09.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_09.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_10.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/smoke_10.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/spark_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_08.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_08.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_09.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/star_09.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/symbol_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/symbol_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/symbol_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/symbol_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_05.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_05.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_06.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_06.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_07.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/trace_07.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/twirl_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/twirl_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/twirl_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/twirl_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/twirl_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/twirl_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_01.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_02.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_02.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_03.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_03.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_04.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/PNG__Transparent_/window_04.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/Preview.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ParticleTextures/kenney_particle-pack/Preview.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Planets/Solarsystemscope_texture_8k_mars.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Planets/Solarsystemscope_texture_8k_mars.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Planets/stock_image___saturn_rings_by_alpha_element_d6ifske-fullview-removebg-preview.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Planets/stock_image___saturn_rings_by_alpha_element_d6ifske-fullview-removebg-preview.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Metallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Metallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank0/Plank_DefaultMaterial_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Metallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Metallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank1/Plank_DefaultMaterial_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Plank_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Rope_Tie_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Rope_Tie_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Rope_Tie_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Rope_Tie_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Rope_Tie_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Plank_N_Rope/Rope_Tie_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Poker/Material_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Poker/Material_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Poker/Material_Metallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Poker/Material_Metallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Poker/Material_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Poker/Material_Normal_OpenGL.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Pottery_Base/Pottery_Base_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_Emissive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_Emissive.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Metallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Metallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/QuickSand/DefaultMaterial_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/RVT_Test/Cliff_Substance_Fixed_Cube_001_002_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/RVT_Test/Cliff_Substance_Fixed_Cube_001_002_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/RVT_Test/Cliff_Substance_Fixed_Cube_001_002_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/RVT_Test/Cliff_Substance_Fixed_Cube_001_002_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/RVT_Test/Cliff_Substance_Fixed_Cube_001_002_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/RVT_Test/Cliff_Substance_Fixed_Cube_001_002_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rib/Material_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rib/Material_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rib/Material_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rib/Material_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rib/Material_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rib/Material_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rippled_Sand_xd0mda1/T_RippledSand_xd0mda1_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rippled_Sand_xd0mda1/T_RippledSand_xd0mda1_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rippled_Sand_xd0mda1/T_Rippled_Sand_xd0mda1_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rippled_Sand_xd0mda1/T_Rippled_Sand_xd0mda1_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rippled_Sand_xd0mda1/T_Rippled_Sand_xd0mda1_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rippled_Sand_xd0mda1/T_Rippled_Sand_xd0mda1_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Arch_thedegyfa/T_RomanArch_thedegyfa_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Arch_thedegyfa/T_RomanArch_thedegyfa_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Arch_thedegyfa/T_Roman_Arch_thedegyfa_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Arch_thedegyfa/T_Roman_Arch_thedegyfa_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Arch_thedegyfa/T_Roman_Arch_thedegyfa_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Arch_thedegyfa/T_Roman_Arch_thedegyfa_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Broken_Column_Base_tfkpeglda/T_RomanBrokenColumnBase_tfkpeglda_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Broken_Column_Base_tfkpeglda/T_RomanBrokenColumnBase_tfkpeglda_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Broken_Column_Base_tfkpeglda/T_Roman_Broken_Column_Base_tfkpeglda_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Broken_Column_Base_tfkpeglda/T_Roman_Broken_Column_Base_tfkpeglda_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Broken_Column_Base_tfkpeglda/T_Roman_Broken_Column_Base_tfkpeglda_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Broken_Column_Base_tfkpeglda/T_Roman_Broken_Column_Base_tfkpeglda_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Column_tipjbg0fa/T_RomanColumn_tipjbg0fa_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Column_tipjbg0fa/T_RomanColumn_tipjbg0fa_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Column_tipjbg0fa/T_Roman_Column_tipjbg0fa_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Column_tipjbg0fa/T_Roman_Column_tipjbg0fa_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Column_tipjbg0fa/T_Roman_Column_tipjbg0fa_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Column_tipjbg0fa/T_Roman_Column_tipjbg0fa_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Stone_Floor_tkkrcayfa/T_RomanStoneFloor_tkkrcayfa_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Stone_Floor_tkkrcayfa/T_RomanStoneFloor_tkkrcayfa_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Stone_Floor_tkkrcayfa/T_Roman_Stone_Floor_tkkrcayfa_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Stone_Floor_tkkrcayfa/T_Roman_Stone_Floor_tkkrcayfa_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Roman_Stone_Floor_tkkrcayfa/T_Roman_Stone_Floor_tkkrcayfa_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Roman_Stone_Floor_tkkrcayfa/T_Roman_Stone_Floor_tkkrcayfa_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rough_Rock_xfipfe0/T_RoughRock_xfipfe0_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rough_Rock_xfipfe0/T_RoughRock_xfipfe0_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rough_Rock_xfipfe0/T_Rough_Rock_xfipfe0_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rough_Rock_xfipfe0/T_Rough_Rock_xfipfe0_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Rough_Rock_xfipfe0/T_Rough_Rock_xfipfe0_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Rough_Rock_xfipfe0/T_Rough_Rock_xfipfe0_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/SmokeBeacon/Material_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/SmokeBeacon/Material_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/SmokeBeacon/Material_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/SmokeBeacon/Material_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/SmokeBeacon/Material_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/SmokeBeacon/Material_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_ambientocclusion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_ambientocclusion.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_basecolor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_basecolor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Trap/Metal-Gray.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Trap/Metal-Gray.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Tree_1/Tree_1_LP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Tree_1/Tree_1_LP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Tree_1/Tree_1_LP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Tree_1/Tree_1_LP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Tree_1/Tree_1_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Tree_1/Tree_1_LP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_1/Tree_1_trunk_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_1/Tree_1_trunk_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_1/Tree_1_trunk_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_1/Tree_1_trunk_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_1/Tree_1_trunk_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_1/Tree_1_trunk_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_2/Tree_2_Trunk_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_2/Tree_2_Trunk_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_2/Tree_2_Trunk_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_2/Tree_2_Trunk_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_2/Tree_2_Trunk_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_2/Tree_2_Trunk_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_3/Tree_3_Trunk_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_3/Tree_3_Trunk_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_3/Tree_3_Trunk_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_3/Tree_3_Trunk_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_3/Tree_3_Trunk_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Tree_Mats/Trees_3/Tree_3_Trunk_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/WoodenObjs/WoodenObjs0_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/WoodenObjs/WoodenObjs0_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/WoodenObjs/WoodenObjs0_MetallicRoughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/WoodenObjs/WoodenObjs0_MetallicRoughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/WoodenObjs/WoodenObjs0_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/WoodenObjs/WoodenObjs0_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserSpawnpoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserSpawnpoint.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +518,8 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://D:/Unreal/UE_5.3/Engine/Source/Runtime/Landscape/Private/LandscapeHLODBuilder.cpp" root0="FORCE_HIGHLIGHTING" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -39,39 +536,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Uproject.ExtractionGame.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLogSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Uproject.ExtractionGame.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "ezargs.lastUsed": "",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "UnrealLogSettings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\gabek\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\gabek\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\gabek\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\darry\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\darry\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\darry\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ExtractionGame" type="Uproject" factoryName="rider.uproject">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
       <configuration_2>
         <option name="CONFIGURATION" value="DebugGame Client" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -80,9 +579,9 @@
       <configuration_3>
         <option name="CONFIGURATION" value="DebugGame Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="D:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -91,9 +590,9 @@
       <configuration_4>
         <option name="CONFIGURATION" value="DebugGame Server" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -102,8 +601,8 @@
       <configuration_5>
         <option name="CONFIGURATION" value="DebugGame" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -113,9 +612,9 @@
       <configuration_6>
         <option name="CONFIGURATION" value="Development Client" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -124,9 +623,9 @@
       <configuration_7>
         <option name="CONFIGURATION" value="Development Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="D:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -135,9 +634,9 @@
       <configuration_8>
         <option name="CONFIGURATION" value="Development Server" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -146,8 +645,8 @@
       <configuration_9>
         <option name="CONFIGURATION" value="Development" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -157,9 +656,9 @@
       <configuration_10>
         <option name="CONFIGURATION" value="Shipping Client" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-Shipping.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-Shipping.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -168,9 +667,9 @@
       <configuration_11>
         <option name="CONFIGURATION" value="Shipping Server" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-Shipping.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-Shipping.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -179,14 +678,465 @@
       <configuration_12>
         <option name="CONFIGURATION" value="Shipping" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-Shipping.exe" />
-        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-Shipping.exe" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
       </configuration_12>
+      <configuration_13>
+        <option name="CONFIGURATION" value="Debug Client" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_13>
+      <configuration_14>
+        <option name="CONFIGURATION" value="Debug" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_14>
+      <configuration_15>
+        <option name="CONFIGURATION" value="Debug Server" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_15>
+      <configuration_16>
+        <option name="CONFIGURATION" value="DebugGame Client" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameClient-Linux-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_16>
+      <configuration_17>
+        <option name="CONFIGURATION" value="DebugGame" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGame-Linux-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_17>
+      <configuration_18>
+        <option name="CONFIGURATION" value="DebugGame Server" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameServer-Linux-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_18>
+      <configuration_19>
+        <option name="CONFIGURATION" value="Development Client" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameClient" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_19>
+      <configuration_20>
+        <option name="CONFIGURATION" value="Development" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_20>
+      <configuration_21>
+        <option name="CONFIGURATION" value="Development Server" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameServer" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_21>
+      <configuration_22>
+        <option name="CONFIGURATION" value="Shipping Client" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameClient-Linux-Shipping" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_22>
+      <configuration_23>
+        <option name="CONFIGURATION" value="Shipping" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGame-Linux-Shipping" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_23>
+      <configuration_24>
+        <option name="CONFIGURATION" value="Shipping Server" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameServer-Linux-Shipping" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_24>
+      <configuration_25>
+        <option name="CONFIGURATION" value="Test Client" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_25>
+      <configuration_26>
+        <option name="CONFIGURATION" value="Test" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_26>
+      <configuration_27>
+        <option name="CONFIGURATION" value="Test Server" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_27>
+      <configuration_28>
+        <option name="CONFIGURATION" value="Debug Client" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_28>
+      <configuration_29>
+        <option name="CONFIGURATION" value="Debug" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_29>
+      <configuration_30>
+        <option name="CONFIGURATION" value="Debug Server" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_30>
+      <configuration_31>
+        <option name="CONFIGURATION" value="DebugGame Client" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameClient-LinuxArm64-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_31>
+      <configuration_32>
+        <option name="CONFIGURATION" value="DebugGame" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGame-LinuxArm64-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_32>
+      <configuration_33>
+        <option name="CONFIGURATION" value="DebugGame Server" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameServer-LinuxArm64-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_33>
+      <configuration_34>
+        <option name="CONFIGURATION" value="Development Client" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameClient" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_34>
+      <configuration_35>
+        <option name="CONFIGURATION" value="Development" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_35>
+      <configuration_36>
+        <option name="CONFIGURATION" value="Development Server" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameServer" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_36>
+      <configuration_37>
+        <option name="CONFIGURATION" value="Shipping Client" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameClient-LinuxArm64-Shipping" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_37>
+      <configuration_38>
+        <option name="CONFIGURATION" value="Shipping" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGame-LinuxArm64-Shipping" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_38>
+      <configuration_39>
+        <option name="CONFIGURATION" value="Shipping Server" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameServer-LinuxArm64-Shipping" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_39>
+      <configuration_40>
+        <option name="CONFIGURATION" value="Test Client" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_40>
+      <configuration_41>
+        <option name="CONFIGURATION" value="Test" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_41>
+      <configuration_42>
+        <option name="CONFIGURATION" value="Test Server" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_42>
+      <configuration_43>
+        <option name="CONFIGURATION" value="Debug Client" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_43>
+      <configuration_44>
+        <option name="CONFIGURATION" value="Debug Editor" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_44>
+      <configuration_45>
+        <option name="CONFIGURATION" value="Debug" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_45>
+      <configuration_46>
+        <option name="CONFIGURATION" value="Debug Server" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_46>
+      <configuration_47>
+        <option name="CONFIGURATION" value="Test Client" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_47>
+      <configuration_48>
+        <option name="CONFIGURATION" value="Test" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_48>
+      <configuration_49>
+        <option name="CONFIGURATION" value="Test Server" />
+        <option name="PLATFORM" value="Win64" />
+        <option name="EXECUTABLE_PATH" value="" />
+        <option name="WORKING_DIRECTORY" value="" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_49>
+      <configuration_50>
+        <option name="CONFIGURATION" value="DebugGame Editor" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Linux\UnrealEditor-Linux-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_50>
+      <configuration_51>
+        <option name="CONFIGURATION" value="DebugGame Editor" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\LinuxArm64\UnrealEditor-LinuxArm64-DebugGame" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_51>
+      <configuration_52>
+        <option name="CONFIGURATION" value="Development Editor" />
+        <option name="PLATFORM" value="Linux" />
+        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Linux\UnrealEditor" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_52>
+      <configuration_53>
+        <option name="CONFIGURATION" value="Development Editor" />
+        <option name="PLATFORM" value="LinuxArm64" />
+        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\LinuxArm64\UnrealEditor" />
+        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+      </configuration_53>
       <method v="2">
         <option name="Build" />
       </method>
@@ -241,6 +1191,8 @@
       <workItem from="1712170015940" duration="462000" />
       <workItem from="1712170568924" duration="1042000" />
       <workItem from="1712179895816" duration="6052000" />
+      <workItem from="1712515233377" duration="1415000" />
+      <workItem from="1712548735771" duration="5132000" />
     </task>
     <servers />
   </component>
@@ -248,6 +1200,7 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

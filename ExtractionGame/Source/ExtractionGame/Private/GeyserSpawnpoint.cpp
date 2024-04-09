@@ -2,7 +2,6 @@
 
 
 #include "GeyserSpawnpoint.h"
-
 #include "GeyserController.h"
 #include "Net/UnrealNetwork.h"
 
