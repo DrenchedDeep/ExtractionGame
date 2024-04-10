@@ -9,6 +9,114 @@
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Maps_Material/M_Sand_Landscape.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Maps_Material/M_Sand_Landscape.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Basic/MI_cooker.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Basic/MI_cooker.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Canyon_Sandstone_Ridge_ventdee_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Huge_Canyon_Sandstone_Cliff_veoneio_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Huge_Canyon_Sandstone_Spire_ulbwebv_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Roman_Arch_thedegyfa_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Roman_Broken_Column_Base_tfkpeglda_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Roman_Column_tipjbg0fa_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Megascans/MI_Roman_Stone_Floor_tkkrcayfa_2K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Bazaar_Table1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Bazaar_Table2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Bazaar_stand1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Bazaar_stand2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/DomeMaterial.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Earth_Crystal_Prop.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Egg.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Hut_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Material.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Monster_Skull.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Monster_Skull.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Oven.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/ShortVase.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/TallVase.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Crystal_Prop_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Crystal_Prop_Inst1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase1_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase1_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase1_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase1_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase1_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase1_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase2_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase2_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase2_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase2_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase2_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/Game_Vase2_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/OvenLP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/OvenLP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/OvenLP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/OvenLP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/OvenLP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/OvenLP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/PotteryLP_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/PotteryLP_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/PotteryLP_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/PotteryLP_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Materials/Pngs/PotteryLP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Pngs/PotteryLP_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Meshes/Game_Vase2Unreal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Game_Vase2Unreal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Meshes/Game_VaseUnreal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Game_VaseUnreal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/eyecaps.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/eyecaps.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goob0_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goob0_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goob0_MetallicRoughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goob0_MetallicRoughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goob0_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goob0_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goober_goob0_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goober_goob0_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goober_goob0_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/goober_goob0_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/m_goobcooked.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Characters/m_goobcooked.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Canyon_Sandstone_Ridge_ventdee_lod3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Canyon_Sandstone_Ridge_ventdee_lod3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_lod3_Var1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_lod3_Var1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Huge_Canyon_Sandstone_Cliff_veoneio_lod3_Var1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Huge_Canyon_Sandstone_Cliff_veoneio_lod3_Var1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Huge_Canyon_Sandstone_Spire_ulbwebv_lod3_Var1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Huge_Canyon_Sandstone_Spire_ulbwebv_lod3_Var1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_lod3_Var1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Massive_Canyon_Sandstone_Cliff_vjrmfb1ab_lod3_Var1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Arch_thedegyfa_lod3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Arch_thedegyfa_lod3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Broken_Column_Base_tfkpeglda_lod3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Broken_Column_Base_tfkpeglda_lod3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Column_tipjbg0fa_lod3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Column_tipjbg0fa_lod3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Stone_Floor_tkkrcayfa_lod3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Megascans/S_Roman_Stone_Floor_tkkrcayfa_lod3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Stand_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Stand_2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Table_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Table_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Table_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Table_2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Table_3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Bazaar_Table_3.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Egg.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Egg.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Vase_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Vase_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Vase_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Vase_2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Water_Gem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Water_Gem.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/cooker.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/MinorProps/cooker.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Structural/Game_Vase2Unreal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Structural/Game_Vase2Unreal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Structural/Game_VaseUnreal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Structural/Game_VaseUnreal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Structural/OvenLP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Structural/OvenLP.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Structural/Thatch_Roof.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/Structural/Thatch_Roof.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/CanyonCliffOne.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/CanyonCliffOne.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Dome.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Dome.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Hut_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Hut_1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Bazaar/Bazaar_Table_2_None_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_CanyonRockyGround_xgimega_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_CanyonRockyGround_xgimega_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Rocky_Ground_xgimega/T_Canyon_Rocky_Ground_xgimega_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_CanyonSandstoneRidge_ventdee_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_CanyonSandstoneRidge_ventdee_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Ridge_ventdee/T_Canyon_Sandstone_Ridge_ventdee_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_CanyonSandstoneRock_vglledjg_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_CanyonSandstoneRock_vglledjg_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Canyon_Sandstone_Rock_vglledjg/T_Canyon_Sandstone_Rock_vglledjg_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_BaseColor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_BaseColor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cliff/CanyonOneLow_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Metallic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Cooker/DefaultMaterial_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dome/DomeBlender_Displacement.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_DrySand_xflsfhs_2K_ORDp.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_DrySand_xflsfhs_2K_ORDp.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Dry_Sand_xflsfhs/T_Dry_Sand_xflsfhs_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_GiganticCanyonSandstoneHoodoo_vj2mecuga_2K_DpR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_GiganticCanyonSandstoneHoodoo_vj2mecuga_2K_DpR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_D.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_D.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga/T_Gigantic_Canyon_Sandstone_Hoodoo_vj2mecuga_2K_N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Metallic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/GooberEgg/DefaultMaterial_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/GooberEgg/mGooberEgg.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_Normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_Normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_OcclusionRoughnessMetallic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/Props/EarthCrystal_lp_DefaultMaterial_OcclusionRoughnessMetallic.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_ambientocclusion.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_basecolor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_basecolor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_height.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_normal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Styalized_ThatchRoof_normal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Textures/ThatchRoof/Thatch.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
