@@ -8,17 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_RespawnShip.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Blueprint/BP_GoodSky.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Blueprint/BP_GoodSky.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Resource/Data/DataTable/DataTable_GoodSky.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Resource/Data/DataTable/DataTable_GoodSky.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Resource/Materials/M_GoodSky_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Resource/Materials/M_GoodSky_Base.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Resource/Materials/M_GoodSky_Sun_Stars.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Resource/Materials/M_GoodSky_Sun_Stars.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Resource/Mesh/SM_GoodSky_Hemisphere.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Resource/Mesh/SM_GoodSky_Hemisphere.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GoodSky/Resource/Mesh/SM_GoodSky_Sphere.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GoodSky/Resource/Mesh/SM_GoodSky_Sphere.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_PlacableDeathbeam.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Blueprints/BP_PlacableDeathbeam.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Fireball.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Fireball.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,6 +242,7 @@
       <workItem from="1712179895816" duration="6052000" />
       <workItem from="1712782581673" duration="1290000" />
       <workItem from="1712850069346" duration="1262000" />
+      <workItem from="1712931476827" duration="594000" />
     </task>
     <servers />
   </component>
