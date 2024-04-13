@@ -11,20 +11,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f798a846-776e-4208-8209-0adf4aa32b3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Managers/BP_PlayerStashManager.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendIndicator.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/Friends/WB_FriendIndicator.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/Inventory/WB_MainMenuStash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/Inventory/WB_MainMenuStash.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Widgets/MainMenu/WB_MainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Inventory/BP_Item_DD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Inventory/BP_Item_DD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map_Empty.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map_Empty.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_MainMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_MainMenu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/mGem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/mGem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/RespawnStashManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/RespawnStashManager.h" afterDir="false" />
-    </list>
+    <list default="true" id="f798a846-776e-4208-8209-0adf4aa32b3a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -361,6 +348,7 @@
       <workItem from="1712125797100" duration="729000" />
       <workItem from="1712182683853" duration="7837000" />
       <workItem from="1712614058910" duration="1850000" />
+      <workItem from="1712976658656" duration="647000" />
     </task>
     <servers />
   </component>
