@@ -158,8 +158,8 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 	//ServerUpdateGazeUnreliable(GazeLocation);
 	
 
-	if(bWantsToLeftFire)LeftAttackPressed();
-	if(bWantsToRightFire)RightAttackPressed();
+	if(bWantsToLeftFire && bIsLeftAutomatic) LeftAttackPressed();
+	if(bWantsToRightFire && bIsRightAutomatic) RightAttackPressed();
 	
 	
 }
@@ -241,6 +241,11 @@ void AExtractionGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 
 	DOREPLIFETIME(AExtractionGameCharacter, SlideTimer);
 	DOREPLIFETIME(AExtractionGameCharacter, EssenceUpdate);
+	
+	//DOREPLIFETIME(AExtractionGameCharacter, bWantsToLeftFire);
+	//DOREPLIFETIME(AExtractionGameCharacter, bWantsToRightFire);
+	//DOREPLIFETIME_CONDITION(AExtractionGameCharacter, bWantsToLeftFire, COND_OwnerOnly);
+	//DOREPLIFETIME_CONDITION(AExtractionGameCharacter, bWantsToRightFire, COND_OwnerOnly);
 }
 
 void AExtractionGameCharacter::PossessedBy(AController* NewController)
@@ -496,6 +501,20 @@ void AExtractionGameCharacter::ChangeGaze()
 	if(!GazeTarget) return;
 	GazeTarget->Execute_OnCancelFocus(GazeTargetActor);
 	GazeTarget = nullptr;
+}
+
+//There was to be a better way to do this
+void AExtractionGameCharacter::SetShootRight_Implementation(bool state)
+{
+	bWantsToRightFire = state;
+	UE_LOG(LogTemp, Warning, TEXT("Firing right server"))
+
+}
+
+void AExtractionGameCharacter::SetShootLeft_Implementation(bool state)
+{
+	bWantsToLeftFire = state;
+	UE_LOG(LogTemp, Warning, TEXT("Firing left server"))
 }
 
 UExtractionAttributeSet* AExtractionGameCharacter::GetAttributeSet() const
