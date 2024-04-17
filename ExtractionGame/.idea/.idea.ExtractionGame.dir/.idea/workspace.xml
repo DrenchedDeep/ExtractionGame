@@ -8,66 +8,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/MM_SandyORMLit.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/MM_SandyORMLitHeight.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/Mi_dome.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Materials/Master/Mi_dome2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/NewDomeORM.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Roughness2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/NewHutORM2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/NewHutORM.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/GA_Punch.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/GA_Punch.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/GA_RootAbility.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/GA_RootAbility.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Abilities/Functors/Abilities/MonoType/GA_W3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/TDM/BP_TDMHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/TDM/BP_TDMHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_FirstPersonGameMode.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Gems/BP_GoldChest.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Sounds/BP_Music.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Sounds/BP_Music.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/Player/WB_PlayerBars.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Widgets/WB_AudioSettings.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/Desert/LVLSQ_DesertEntry.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/Desert/LvlSqMaster_Desert.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/LVLSQ_DesertEntry.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/PreDesert/LevelSQ_DesertBRoll.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DataAssets/DataTables/DT_AttackInfo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DataAssets/GameCycles.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/tex/uv_Emission.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/tex/uv_Roughness.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/wizard_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Character/Wizard/wizard_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Maps/SessionMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Maps/SessionMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/MainMenu/BeginGame.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Build/Windows/Application.ico" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map2.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map2.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/LVL_PREDesert.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/LVL_PREDesert.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Basic/Mi_Bazar0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Master/MI_MonsterSkull.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Earth_Gem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Earth_Gem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Fire_Crystal_Prop_Inst.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Shadow_Crystal_Prop_Inst1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Crystal_Prop_Inst1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Gem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/Models/Props/Water_Gem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/World/cubemap.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Game_Vase2Unreal.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Game_VaseUnreal.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goob0_BaseColor__3_.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/goob0_Roughness.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/m_cooked.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Characters/m_cooked_Inst.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Earth_Gem.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Vase_1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/MinorProps/Vase_2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/Mongo/Mango.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_1_Full_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_1_Full_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_1_trunk_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_1_trunk_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_2_Full_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_2_Full_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_2_Trunk_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_2_Trunk_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_3_Full_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_3_Full_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_3_Trunk_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_3_Trunk_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Models/Props/World/Foliage/Tree_Bush_Inst.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Beam.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/Ability/NS_Beam.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Sound_Effects_SFX/BGM/athing.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Textures/Gem/Gem_lp_DefaultMaterial_BaseColor.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/T_Goober.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/WB_LoginPanel.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/ExtractionGame/ExtractionGameCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Metallic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/NoSand/Mi_Dome_Roughness.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Metallic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/DomeStuff/Sandy/Mi_Dome_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Base_color.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Base_color.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Height.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Height.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Metallic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Normal_OpenGL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Normal_OpenGL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Roughness.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/SebsTextures/HutStuff/MI_Hut_Roughness.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,13 +85,13 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\darry\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\darry\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\darry\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\gabek\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\gabek\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\gabek\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Native Core Dump Debug.UEMinidump.dmp">
+  <component name="RunManager" selected="Uproject.ExtractionGame">
     <configuration name="UEMinidump.dmp" type="DebugDump" factoryName=".Net Dump" temporary="true">
       <option name="DUMP_FILE_PATH" value="$USER_HOME$/Downloads/Saved/Saved/Crashes/UECC-Windows-F57CF8BE41F14F0CF5C55A9134CD78E2_0000/UEMinidump.dmp" />
       <method v="2" />
@@ -138,10 +107,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-DebugGame.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-DebugGame.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -151,10 +120,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="D:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -164,10 +133,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-DebugGame.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-DebugGame.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -177,10 +146,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-DebugGame.exe" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-DebugGame.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -190,10 +159,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -203,10 +172,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="D:\Unreal\UE_5.3\Engine\Binaries\Win64\UnrealEditor.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -216,10 +185,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -229,10 +198,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame.exe" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -242,10 +211,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-Shipping.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameClient-Win64-Shipping.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -255,10 +224,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-Shipping.exe" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGameServer-Win64-Shipping.exe" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -268,10 +237,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-Shipping.exe" />
+        <option name="EXECUTABLE_PATH" value="C:\Users\gabek\Documents\ExtractionGame\ExtractionGame\Binaries\Win64\ExtractionGame-Win64-Shipping.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="P:\Unreal\UE_5.3" />
+        <option name="WORKING_DIRECTORY" value="D:\Unreal\UE_5.3" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -279,7 +248,7 @@
       <configuration_12>
         <option name="CONFIGURATION" value="DebugGame Client" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameClient-Linux-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -292,7 +261,7 @@
       <configuration_13>
         <option name="CONFIGURATION" value="DebugGame Client" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameClient-LinuxArm64-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -305,7 +274,7 @@
       <configuration_14>
         <option name="CONFIGURATION" value="DebugGame Editor" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Linux\UnrealEditor-Linux-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -318,7 +287,7 @@
       <configuration_15>
         <option name="CONFIGURATION" value="DebugGame Editor" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\LinuxArm64\UnrealEditor-LinuxArm64-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -331,7 +300,7 @@
       <configuration_16>
         <option name="CONFIGURATION" value="DebugGame Server" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameServer-Linux-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -344,7 +313,7 @@
       <configuration_17>
         <option name="CONFIGURATION" value="DebugGame Server" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameServer-LinuxArm64-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -357,7 +326,7 @@
       <configuration_18>
         <option name="CONFIGURATION" value="DebugGame" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGame-Linux-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -370,7 +339,7 @@
       <configuration_19>
         <option name="CONFIGURATION" value="DebugGame" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGame-LinuxArm64-DebugGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -383,7 +352,7 @@
       <configuration_20>
         <option name="CONFIGURATION" value="Development Client" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameClient" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -396,7 +365,7 @@
       <configuration_21>
         <option name="CONFIGURATION" value="Development Client" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameClient" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -409,7 +378,7 @@
       <configuration_22>
         <option name="CONFIGURATION" value="Development Editor" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\Linux\UnrealEditor" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -422,7 +391,7 @@
       <configuration_23>
         <option name="CONFIGURATION" value="Development Editor" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="P:\Unreal\UE_5.3\Engine\Binaries\LinuxArm64\UnrealEditor" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -435,7 +404,7 @@
       <configuration_24>
         <option name="CONFIGURATION" value="Development Server" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameServer" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -448,7 +417,7 @@
       <configuration_25>
         <option name="CONFIGURATION" value="Development Server" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameServer" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -461,7 +430,7 @@
       <configuration_26>
         <option name="CONFIGURATION" value="Development" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -474,7 +443,7 @@
       <configuration_27>
         <option name="CONFIGURATION" value="Development" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGame" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -487,7 +456,7 @@
       <configuration_28>
         <option name="CONFIGURATION" value="Shipping Client" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameClient-Linux-Shipping" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -500,7 +469,7 @@
       <configuration_29>
         <option name="CONFIGURATION" value="Shipping Client" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameClient-LinuxArm64-Shipping" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -513,7 +482,7 @@
       <configuration_30>
         <option name="CONFIGURATION" value="Shipping Server" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGameServer-Linux-Shipping" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -526,7 +495,7 @@
       <configuration_31>
         <option name="CONFIGURATION" value="Shipping Server" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGameServer-LinuxArm64-Shipping" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;N:\Unreal\ExtractionGame\ExtractionGame\ExtractionGame.uproject&quot;" />
@@ -539,7 +508,7 @@
       <configuration_32>
         <option name="CONFIGURATION" value="Shipping" />
         <option name="PLATFORM" value="Linux" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\Linux\ExtractionGame-Linux-Shipping" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -552,7 +521,7 @@
       <configuration_33>
         <option name="CONFIGURATION" value="Shipping" />
         <option name="PLATFORM" value="LinuxArm64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExtractionGame.uproject" />
+        <option name="PROJECT_FILE_PATH" value="" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="N:\Unreal\ExtractionGame\ExtractionGame\Binaries\LinuxArm64\ExtractionGame-LinuxArm64-Shipping" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -571,7 +540,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Native Core Dump Debug.UEMinidump.dmp" />
-        <item itemvalue=".Net Dump.UEMinidump.dmp" />
       </list>
     </recent_temporary>
   </component>
@@ -632,6 +600,7 @@
       <workItem from="1713200427200" duration="676000" />
       <workItem from="1713202709193" duration="12655000" />
       <workItem from="1713235626194" duration="5171000" />
+      <workItem from="1713377871878" duration="1993000" />
     </task>
     <servers />
   </component>
