@@ -131,20 +131,39 @@ private:
 
 
 	//Could not be bothered to move these. Sorry.
+	//UPROPERTY(Transient, Replicated)
 	bool bWantsToLeftFire;
+	//UPROPERTY(Transient, Replicated)
 	bool bWantsToRightFire;
 
+	
+
 public:
+	//There was to be a better way to do this
+	UFUNCTION(Server, Reliable)void SetShootLeft(bool state);
+	UFUNCTION(Server, Reliable)void SetShootRight(bool state);
+	
 	//Needs to be here cus circular depend
 	bool bIsLeftAutomatic;
 	bool bIsRightAutomatic;
+
+
+	UFUNCTION(BlueprintPure, BlueprintCallable)
+	bool WantsToFireLeft() const {return bWantsToLeftFire;}
+	UFUNCTION(BlueprintPure, BlueprintCallable)
+	bool WantsToFireRight() const {return bWantsToRightFire;}
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	//Ideally we pass by ref, but I don't think it was working
+	bool WantsToFireAnyArm(int Arm) const { return Arm == 1 ? bWantsToRightFire : bWantsToLeftFire; }
+
+	
 	
 private:
 	
-	void StartFireLeft() {if(bIsLeftAutomatic)bWantsToLeftFire = true; else LeftAttackPressed(); }
-	void StartFireRight() {if(bIsRightAutomatic)bWantsToRightFire = true; else RightAttackPressed(); }
-	void StopFireLeft() {bWantsToLeftFire = false;}
-	void StopFireRight() { bWantsToRightFire = false; }
+	void StartFireLeft() {bWantsToLeftFire = true;  LeftAttackPressed(); SetShootLeft(true); }
+	void StartFireRight() {bWantsToRightFire = true;  RightAttackPressed(); SetShootRight(true);}
+	void StopFireLeft() {bWantsToLeftFire = false; SetShootLeft(false); }
+	void StopFireRight() { bWantsToRightFire = false; SetShootRight(false);}
 	
 	
 	/*--------------------------------------------------------*/
@@ -208,6 +227,7 @@ public:
 */
 	UFUNCTION(BlueprintImplementableEvent)
 	void RightAttackPressed();
+
 	
 	AExtractionGameCharacter(const FObjectInitializer& ObjectInitializer);
 
