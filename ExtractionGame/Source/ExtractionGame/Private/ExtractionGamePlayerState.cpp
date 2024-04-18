@@ -17,5 +17,6 @@ void AExtractionGamePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProp
 
 	DOREPLIFETIME(AExtractionGamePlayerState, ExtractedEssence);
 	DOREPLIFETIME(AExtractionGamePlayerState, Kills);
+	DOREPLIFETIME(AExtractionGamePlayerState, GooberKills);
 	DOREPLIFETIME(AExtractionGamePlayerState, Deaths);
 }

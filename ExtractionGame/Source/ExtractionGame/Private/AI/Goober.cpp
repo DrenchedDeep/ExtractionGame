@@ -3,10 +3,11 @@
 
 #include "AI/Goober.h"
 
+#include "ExtractionGamePlayerState.h"
 #include "GooberSpawnCluster.h"
 #include "Net/UnrealNetwork.h"
 
-void AGoober::ApplyDamage(float Damage)
+void AGoober::ApplyDamage(float Damage, AController* Killer)
 {
 	if(CurrentHealth == 0 ) return;  
 	CurrentHealth -= Damage;
@@ -16,11 +17,14 @@ void AGoober::ApplyDamage(float Damage)
 		CurrentHealth = 0;
 		bIsDead = true;
 		BP_OnGooberDeadServer();
-
-
 		if(GooberSpawn)
 		{
 			GooberSpawn->UnRegisterGoober(this);
+		}
+
+		if(AExtractionGamePlayerState* InstigatorPlayerState = Killer->GetPlayerState<AExtractionGamePlayerState>())
+		{
+			InstigatorPlayerState->AddKill();
 		}
 	}
 }

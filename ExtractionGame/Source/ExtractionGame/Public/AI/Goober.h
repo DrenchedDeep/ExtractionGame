@@ -42,7 +42,7 @@ public:
 	bool bIsCooked;
 
 	UFUNCTION(BlueprintCallable)
-	void ApplyDamage(float Damage);
+	void ApplyDamage(float Damage, AController* Killer);
 
 	void MoveToGeyser(AActor* Geyser);
 	

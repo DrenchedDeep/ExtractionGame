@@ -295,6 +295,11 @@ void AExtractionGameGameMode::EndGame()
 		GS->SetBlockMovement(true);
 	}
 
+	if(UExtractionGameInstance* GameInstance = GetGameInstance<UExtractionGameInstance>())
+	{
+		GameInstance->StopSession();
+		UE_LOG(LogTemp,Warning,"Match has ended, Disconnecting user from session")
+	}
 	
 	GetWorld()->GetTimerManager().SetTimer(EndGameTimerHandle,
 		this, &AExtractionGameGameMode::EndGameTimer, TimeBeforeEndGame, false);
