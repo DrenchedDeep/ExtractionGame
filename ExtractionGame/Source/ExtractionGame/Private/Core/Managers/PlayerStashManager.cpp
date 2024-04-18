@@ -21,74 +21,28 @@ void APlayerStashManager::BeginPlay()
 	Super::BeginPlay();
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 
-	if(GameInstance->PlayerSessionData.bIsValid)
+	if(GameInstance->SaveData)
 	{
-		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
+		if(!GameInstance->SaveData->GetLoadInventory())
 		{
-			PlayerInventory->TryAddItemByAddItemInfo(Item.Value);
+			InitStartingItems();
+			GameInstance->TotalExtractedEssence = 75;
+			GameInstance->SaveData->SetLoadInventory(true);
+			GameInstance->SaveData->SetExtractedEssence(GameInstance->TotalExtractedEssence);
 		}
-
-		for(auto Item : GameInstance->PlayerSessionData.StashItems)
-		{
-			StashInventory->TryAddItemByAddItemInfo(Item.Value);
-		}
-
-		for(auto Gem : GameInstance->PlayerSessionData.GemItems)
-		{
-			if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
+		else
 			{
-				ItemObject->ItemName = Gem.Value.ItemName;
-				ItemObject->ItemType =  Gem.Value.ItemType;
-				ItemObject->Rarity =  Gem.Value.Rarity;
-				ItemObject->Description =  Gem.Value.Description;
-				ItemObject->GemType =  Gem.Value.GemType;
-				ItemObject->DefaultPolish =  Gem.Value.DefaultPolish;
-				ItemObject->Dimensions =  Gem.Value.Dimensions;
-				ItemObject->Icon =  Gem.Value.Icon;
-				ItemObject->IconRotated =  Gem.Value.IconRotated;
-				ItemObject->RowName =  Gem.Value.RowName;
-				AddGem(ItemObject, Gem.Key);
+		
+			for(auto Item : GameInstance->SaveData->PlayerItems)
+			{
+				PlayerInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
 			}
-		}
 
-		InitGemUI();
-	}
-	
-	//GameInstance->GetFileCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnReadInventory);
-//	GameInstance->UserReadCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnFilesRead);
-	//GameInstance->UserWriteCompleteDelegate.AddDynamic(this, &APlayerStashManager::OnSavedInventory);
+			for(auto Item : GameInstance->SaveData->StashItems)
+			{
+				StashInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
+			}
 
-	//LoadInventory();
-
-	if(!GameInstance->SaveData)
-	{
-		return;
-	}
-	if(!GameInstance->SaveData->GetLoadInventory())
-	{
-		InitStartingItems();
-		GameInstance->TotalExtractedEssence = 75;
-		GameInstance->SaveData->SetLoadInventory(true);
-		GameInstance->SaveData->SetExtractedEssence(GameInstance->TotalExtractedEssence);
-
-	}
-	else
-	{
-		if(!GameInstance->bHasLoadedSaveInventory)
-		{
-		GameInstance->TotalExtractedEssence = GameInstance->SaveData->GetExtractedEssence();
-			
-		for(auto Item : GameInstance->SaveData->PlayerItems)
-		{
-			PlayerInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
-		}
-
-		for(auto Item :GameInstance->SaveData->StashItems)
-		{
-			StashInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
-		}
-
-	
 			for(auto Gem : GameInstance->SaveData->GemItems)
 			{
 				if(UReplicatedItemObject* ItemObject = NewObject<UReplicatedItemObject>(	this,ItemObjectSubclass))
@@ -107,7 +61,7 @@ void APlayerStashManager::BeginPlay()
 				}
 			}
 
-			GameInstance->bHasLoadedSaveInventory = true;
+			InitGemUI();
 		}
 	}
 }
@@ -120,9 +74,6 @@ void APlayerStashManager::SaveInventory()
 	//disable for nowz
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
-	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),
-		StashInventory->GetPlayerInventory() , GetGemInventory());
-
 	OnSave();
 	
 	GameInstance->SaveData->SetGemInventory(GetGemInventory());

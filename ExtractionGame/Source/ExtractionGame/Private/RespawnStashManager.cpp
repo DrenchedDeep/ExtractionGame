@@ -50,14 +50,14 @@ void ARespawnStashManager::BeginPlay()
 
 	if(GameInstance)
 	{
-		for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
+		for(auto Item : GameInstance->SaveData->PlayerItems)
 		{
-			PlayerInventory->TryAddItemByAddItemInfo(Item.Value);
+			PlayerInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
 		}
 
-		for(auto Item : GameInstance->PlayerSessionData.StashItems)
+		for(auto Item : GameInstance->SaveData->StashItems)
 		{
-			StashInventory->TryAddItemByAddItemInfo(Item.Value);
+			StashInventory->TryAddItemByAddItemInfo(Item.ItemInfo);
 		}
 	}
 }
@@ -88,9 +88,10 @@ void ARespawnStashManager::Save()
  {
 	UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance());
 	
-	GameInstance->BuildPlayerSessionData(PlayerInventory->GetPlayerInventory(),
-		StashInventory->GetPlayerInventory(), GetGemInventory());
 
+	GameInstance->SaveData->SetPlayerInventory(PlayerInventory->GetPlayerInventory());
+	GameInstance->SaveData->SetStashInventory(StashInventory->GetPlayerInventory());
+	GameInstance->SaveData->SetGemInventory(GetGemInventory());
 }
 
 

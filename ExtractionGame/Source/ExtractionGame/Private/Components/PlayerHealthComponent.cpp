@@ -165,7 +165,7 @@ void UPlayerHealthComponent::OnRep_IsDead()
 
 			if(UExtractionGameInstance* GI = Cast<UExtractionGameInstance>(GetWorld()->GetGameInstance()))
 			{
-				GI->ResetPlayerAndGemInventory();
+				GI->ResetGemAndPlayerInventory();
 			}
 		}
 		Character->OnDeathEvent();

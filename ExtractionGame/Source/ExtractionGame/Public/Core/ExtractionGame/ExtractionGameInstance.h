@@ -168,9 +168,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	UPlayerSaveData* SaveData;
-
-	UPROPERTY(BlueprintReadOnly)
-	FPlayerSessionData PlayerSessionData;
+	
 	UPROPERTY(BlueprintReadOnly)
 	FPlayerRaidResult PlayerRaidResult;
 	UPROPERTY(BlueprintReadOnly)
@@ -178,20 +176,18 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	float TotalExtractedEssence;
 
+	void ResetGemAndPlayerInventory();
+	void AddToStash(TMap<int32, FAddItemInfo> InItems);
+	void SaveAllInventories(TMap<int32, FAddItemInfo> PlayerItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
 	bool bHasLoadedSaveInventory;
 	UFUNCTION(BlueprintCallable)
 	bool RemoveFromTotalEssence(float AMT);
 	UFUNCTION(BlueprintCallable)
 	bool AddToTotalEssence(float AMT);
-	void BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems, TMap<int32, FAddItemInfo> StashItems,
-		TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems);
-	void BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID);
-	void ResetPlayerAndGemInventory();
 	void OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence);
 
 	void StartSession();
 	void StopSession();
-	void AddToStash(TMap<int32, FAddItemInfo> Items);
 	
 	UFUNCTION(BlueprintCallable) void JoinSession(bool bCreateSession);
 	UFUNCTION(BlueprintCallable) void CreateLobby();

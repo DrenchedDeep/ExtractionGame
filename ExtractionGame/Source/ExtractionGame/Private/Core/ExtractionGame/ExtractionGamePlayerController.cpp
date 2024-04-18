@@ -43,9 +43,8 @@ void AExtractionGamePlayerController::ReturnToLobby()
 
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
-		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(),
-			RespawnManager->StashInventory->GetPlayerInventory(),
-			PlayerCharacter->InventoryComponent->GetGemInventory());
+		GameInstance->SaveAllInventories(PlayerCharacter->InventoryComponent->GetPlayerInventory()
+			,PlayerCharacter->InventoryComponent->GetGemInventory());
 	}
 
 
