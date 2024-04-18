@@ -219,7 +219,7 @@ public:
 	FVector GazeLocation;
 
 	
-	UFUNCTION(Server, Reliable, BlueprintCallable)
+	UFUNCTION(Server, Unreliable)
 	void ServerUpdateGaze(FVector newGaze);
 	/*
 	UFUNCTION(Server, Unreliable, BlueprintCallable)

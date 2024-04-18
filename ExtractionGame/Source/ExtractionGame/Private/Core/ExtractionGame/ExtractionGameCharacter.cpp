@@ -155,7 +155,7 @@ void AExtractionGameCharacter::Tick(float DeltaSeconds)
 	HandleGaze();
 
 	//Warning constant maybe not needed expense
-	//ServerUpdateGazeUnreliable(GazeLocation);
+	ServerUpdateGaze(GazeLocation);
 	
 
 	if(bWantsToLeftFire && bIsLeftAutomatic) LeftAttackPressed();
