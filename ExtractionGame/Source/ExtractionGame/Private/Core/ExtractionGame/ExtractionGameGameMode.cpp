@@ -298,7 +298,7 @@ void AExtractionGameGameMode::EndGame()
 	if(UExtractionGameInstance* GameInstance = GetGameInstance<UExtractionGameInstance>())
 	{
 		GameInstance->StopSession();
-		UE_LOG(LogTemp,Warning,"Match has ended, Disconnecting user from session")
+		UE_LOG(LogTemp,Warning,TEXT("Match has ended, Disconnecting user from session"))
 	}
 	
 	GetWorld()->GetTimerManager().SetTimer(EndGameTimerHandle,
