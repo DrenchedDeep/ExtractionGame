@@ -40,11 +40,15 @@ public:
 	
 	void AddToRespawnStream(AGooberSpawnCluster* Cluster);
 	void OnGeyserOpened(AGeyserSpawnpoint* Geyser);
+	
+	UFUNCTION(BlueprintCallable)
+	void DisableAll();
 protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	void TickGooberRespawnHandle();
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void PlayExplosionEffect(FVector Location);
 	UFUNCTION(BlueprintImplementableEvent)

@@ -301,6 +301,7 @@ void AExtractionGameGameMode::EndGame()
 	if(UExtractionGameInstance* GameInstance = GetGameInstance<UExtractionGameInstance>())
 	{
 		GameInstance->StopSession();
+		GameInstance->DestroySession();
 		UE_LOG(LogTemp,Warning,TEXT("Match has ended, Disconnecting user from session"))
 	}
 	

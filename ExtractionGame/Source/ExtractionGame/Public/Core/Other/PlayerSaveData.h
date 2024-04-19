@@ -25,8 +25,8 @@ UCLASS()
 class EXTRACTIONGAME_API UPlayerSaveData : public USaveGame
 {
 	GENERATED_BODY()
-	UPROPERTY()
-	bool bHasSeenIntroCutscene;
+	UPROPERTY() bool bHasSeenIntroCutscene;
+	UPROPERTY() bool bHasSeenCarlosCutscene;
 	UPROPERTY()
 	bool bTutorialCrashLand; // After the player crash lands for the first time
 	UPROPERTY()
@@ -57,6 +57,7 @@ public:
 	
 
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetSeenCutscene() const { return bHasSeenIntroCutscene;}
+	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetSeenCarlosCutscene() const { return bHasSeenCarlosCutscene;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialCrashLand() const { return bTutorialCrashLand;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialInventory() const { return bTutorialInventory;}
 	UFUNCTION(BlueprintCallable, BlueprintPure) bool GetTutorialExtraction() const { return bTutorialExtraction;}
@@ -73,6 +74,7 @@ public:
 
 	
 	UFUNCTION(BlueprintCallable) void SetSeenCutscene(bool state);
+	UFUNCTION(BlueprintCallable) void SetSeenCarlosCutscene(bool state);
 	UFUNCTION(BlueprintCallable) void SetTutorialCrashLand(bool state);
 	UFUNCTION(BlueprintCallable) void SetTutorialInventory(bool state);
 	UFUNCTION(BlueprintCallable) void SetExtractedEssence(float InExtractedEssence);

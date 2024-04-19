@@ -22,9 +22,12 @@ void AGoober::ApplyDamage(float Damage, AController* Killer)
 			GooberSpawn->UnRegisterGoober(this);
 		}
 
+		if (Killer == nullptr) return;
+
 		if(AExtractionGamePlayerState* InstigatorPlayerState = Killer->GetPlayerState<AExtractionGamePlayerState>())
 		{
-			InstigatorPlayerState->AddKill();
+			InstigatorPlayerState->AddGooberKill();
+			UE_LOG(LogTemp,Warning, TEXT("GOOBER KILLED"))
 		}
 	}
 }

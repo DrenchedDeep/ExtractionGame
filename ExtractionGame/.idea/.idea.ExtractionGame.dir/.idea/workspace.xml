@@ -9,7 +9,33 @@
   <component name="ChangeListManager">
     <list default="true" id="541edb63-937f-49c5-8dd9-c08af903c263" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExtractionGame.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/BP_Goober.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AI/Spawning/BP_GooberManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AI/Spawning/BP_GooberManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_ShipMainMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Core/BP_GameInstance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Core/BP_GameInstance.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/EndGame/WB_EndGame.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/EndGame/WB_EndGame.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Core/BP_ExtractionGameState.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Pawns/BP_FirstPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GesyerSpawnPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GesyerSpawnPoint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GeyserController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gesyers/BP_GeyserController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Cinematics/LVLSQMaster_Monster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/LVLSQMaster_Monster.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Cinematics/LVLSQ_TheVillage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/LVLSQ_TheVillage.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Cinematics/Space/LVLSQ_IntroMeteor2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Cinematics/Space/LVLSQ_IntroMeteor2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Desert_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBurst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeBurst.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeOnly.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ParticleSystems/NS_SmokeOnly.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/Goober.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/AI/GooberManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Components/PlayerHealthComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/ExtractionGame/ExtractionGameGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Other/PlayerSaveData.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/Core/Other/PlayerSaveData.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserSpawnpoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Private/GeyserSpawnpoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/AI/GooberManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Other/PlayerSaveData.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/Core/Other/PlayerSaveData.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserSpawnpoint.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ExtractionGame/Public/GeyserSpawnpoint.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -576,6 +602,7 @@
       <workItem from="1713377871878" duration="4878000" />
       <workItem from="1713472910184" duration="517000" />
       <workItem from="1713473485496" duration="761000" />
+      <workItem from="1713499080948" duration="3923000" />
     </task>
     <servers />
   </component>

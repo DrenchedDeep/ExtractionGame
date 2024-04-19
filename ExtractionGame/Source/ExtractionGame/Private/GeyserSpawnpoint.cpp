@@ -6,6 +6,13 @@
 #include "Net/UnrealNetwork.h"
 
 
+void AGeyserSpawnpoint::Disable()
+{
+	GetWorld()->GetTimerManager().ClearTimer(GeyserTimer);
+	SetActorTickEnabled(false);
+	Destroy();
+}
+
 void AGeyserSpawnpoint::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

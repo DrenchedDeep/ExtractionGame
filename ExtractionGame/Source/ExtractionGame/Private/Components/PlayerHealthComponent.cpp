@@ -44,7 +44,7 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 		}
 		if(AExtractionGamePlayerState* InstigatorPlayerState = Instigator->GetPlayerState<AExtractionGamePlayerState>())
 		{
-			InstigatorPlayerState->AddKill();
+			InstigatorPlayerState->AddGooberKill();
 		}
 	}
 }
@@ -229,13 +229,16 @@ bool UPlayerHealthComponent::ApplyDamage(float Damage, AController* Instigator)
 	{
 		Client_ApplyDamage(Instigator->GetPawn()->GetActorLocation());
 	}
-
-	if(AExtractionGameState* GS = GetWorld()->GetGameState<AExtractionGameState>())
+	const float h = GetHealth()  - Damage;
+	if(h <= 0)
 	{
-		GS->UpdateTotalPlayerKills();
+		if(AExtractionGameState* GS = GetWorld()->GetGameState<AExtractionGameState>())
+		{
+			GS->UpdateTotalPlayerKills();
+		}
 	}
 	
-	SetHealth(GetHealth() - Damage, Instigator);
+	SetHealth(h, Instigator);
 	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), GetHealth());
 	return true;
 }
