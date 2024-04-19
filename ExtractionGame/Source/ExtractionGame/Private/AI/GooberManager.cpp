@@ -117,9 +117,11 @@ void AGooberManager::DisableAll()
 	GooberRespawnHandle.Invalidate();
 	for (auto Element : SpawnClusters)
 	{
+		if (!Element) continue;
 		for(auto Goober : Element->GetAllGoobers())
 		{
-			Goober->Destroy();
+			if (!Goober) continue;
+				Goober->Destroy();
 		}
 		Element->Destroy();
 	}

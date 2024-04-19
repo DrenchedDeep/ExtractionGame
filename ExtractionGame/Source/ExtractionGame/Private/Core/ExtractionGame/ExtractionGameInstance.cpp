@@ -18,6 +18,15 @@ void UExtractionGameInstance::AllowVO()
 	CanTutorialVO = true;
 }
 
+void UExtractionGameInstance::RemoveFromSession()
+{
+	if(!CurrentSession)
+	{
+		return;
+	}
+		Session->UnregisterPlayer(CurrentSession->SessionName, *GetPrimaryPlayerUniqueIdRepl() );
+}
+
 void UExtractionGameInstance::VoiceOverCooldown()
 {
 	CanTutorialVO = false;

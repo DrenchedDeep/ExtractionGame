@@ -146,7 +146,8 @@ protected:
 	
 public:
 	UAbilityHandlerSubSystem* GetAbilityHandlerSubSystem() const {return AbilityHandlerSubSystem;}
-	
+	void RemoveFromSession();
+
 	const int SESSION_PLAYERCOUNT = 4;
 
 
