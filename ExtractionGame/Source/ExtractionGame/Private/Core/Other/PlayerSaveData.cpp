@@ -15,7 +15,14 @@ void UPlayerSaveData::SetSeenCutscene(bool state)
 	bHasSeenIntroCutscene = state;
 	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
 	UE_LOG(LogTemp, Warning, TEXT("Saving data"))
+}
 
+void UPlayerSaveData::SetSeenCarlosCutscene(bool state)
+{
+	if(bHasSeenCarlosCutscene == state) return;
+	bHasSeenCarlosCutscene = state;
+	UGameplayStatics::SaveGameToSlot(this, "Game", 0);
+	UE_LOG(LogTemp, Warning, TEXT("Saving data"))
 }
 
 void UPlayerSaveData::SetTutorialCrashLand(bool state)

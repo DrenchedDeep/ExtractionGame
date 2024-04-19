@@ -43,9 +43,8 @@ void AExtractionGamePlayerController::ReturnToLobby()
 
 	if(const AExtractionGameCharacter* PlayerCharacter =  Cast<AExtractionGameCharacter>(GetPawn()))
 	{
-		GameInstance->BuildPlayerSessionData(PlayerCharacter->InventoryComponent->GetPlayerInventory(),
-			RespawnManager->StashInventory->GetPlayerInventory(),
-			PlayerCharacter->InventoryComponent->GetGemInventory());
+		GameInstance->SaveAllInventories(PlayerCharacter->InventoryComponent->GetPlayerInventory()
+			,PlayerCharacter->InventoryComponent->GetGemInventory());
 	}
 
 
@@ -457,11 +456,7 @@ void AExtractionGamePlayerController::BeginPlay()
 		FPartyInfo PartyInfo = Cast<UExtractionGameInstance>(GetGameInstance())->PartyInfo;
 		StartPlayTime = GetWorld()->GetTimeSeconds();
 
-		if(PartyInfo.bIsValid)
-		{
-			Server_SendPartyInfo(PartyInfo);
-			PartyID = PartyInfo.PartyID;
-		}
+		Server_SendPartyInfo(PartyInfo);
 	}
 
 //	RespawnManager = Cast<ARespawnManager>(UGameplayStatics::GetActorOfClass(GetWorld(), RespawnManagerSubclass));

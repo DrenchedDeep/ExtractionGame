@@ -55,3 +55,16 @@ void AGeyserController::NearlySpawnGeyser()
 	SmokingGeiser = GeyserSpawnpoints[RandomIndex];
 	SmokingGeiser->SetGeyserState(EGeyserStates::Smoking);
 }
+
+
+void AGeyserController::DisableAll()
+{
+	GetWorldTimerManager().ClearTimer(GeyserSpawnTimer);
+	GetWorldTimerManager().ClearTimer(GeyserNearSpawnTimer);
+	for (auto Element : GeyserSpawnpoints)
+	{
+		Element->Disable();
+	}
+	SetActorTickEnabled(false);
+	Destroy();
+}

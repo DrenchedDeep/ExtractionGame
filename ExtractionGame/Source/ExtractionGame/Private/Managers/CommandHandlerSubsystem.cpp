@@ -323,14 +323,6 @@ void UCommandHandlerSubsystem::ClearSaveData() const
 	if(UExtractionGameInstance* GameInstance = Cast<UExtractionGameInstance>(GetGameInstance()))
 	{
 		GameInstance->bLoadedInventoryOnStart = false;
-
-		if(GameInstance->PlayerSessionData.bIsValid)
-		{
-			GameInstance->PlayerSessionData.GemItems.Reset();
-			GameInstance->PlayerSessionData.StashItems.Reset();
-			GameInstance->PlayerSessionData.PlayerItems.Reset();
-
-		}
 	}
 	UGameplayStatics::OpenLevel(GetWorld(), FName("LVL_Entry"));
 }

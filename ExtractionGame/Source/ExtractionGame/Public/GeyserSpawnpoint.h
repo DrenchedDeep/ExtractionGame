@@ -32,6 +32,8 @@ public:
 	UFUNCTION(BlueprintPure)
 	TEnumAsByte<EGeyserStates> GetGeyserState() const { return State; }
 
+	void Disable();
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	UFUNCTION()

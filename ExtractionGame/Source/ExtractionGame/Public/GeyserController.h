@@ -24,6 +24,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController") float GeyserSmokeDuration = 15;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GeyserController") float GeyserActiveDuration = 30;
 
+	UFUNCTION(BlueprintCallable)
+	void DisableAll();
 	
 	static TArray<AGeyserSpawnpoint*> GetGeyserSpawns()
 	{
@@ -47,6 +49,7 @@ private:
 	UFUNCTION()
 	void SpawnGeyser();
 	void NearlySpawnGeyser();
+	
 
 	int32 GeyserSpawnCount;
 

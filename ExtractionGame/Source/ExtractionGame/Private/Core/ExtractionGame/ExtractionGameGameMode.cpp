@@ -24,11 +24,13 @@ AExtractionGameGameMode::AExtractionGameGameMode()
 void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
-	RegisterPlayerEOS(NewPlayer);
+	SpawnedSpaceships++;
+	CheckToStartMatch();
 }
 
 void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPartyInfo PartyInfo)
 {
+	/*/
 	int32 Index;
 	if(HasParty(PartyInfo.PartyID, Index) && AllParties.IsValidIndex(Index))
 	{
@@ -71,6 +73,7 @@ void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPa
 	{
 		GS->UpdateParties(AllParties);
 	}
+	/*/
 }
 
 void AExtractionGameGameMode::SetGameModeState(EGameModeState NewState)
@@ -295,6 +298,13 @@ void AExtractionGameGameMode::EndGame()
 		GS->SetBlockMovement(true);
 	}
 
+	if(UExtractionGameInstance* GameInstance = GetGameInstance<UExtractionGameInstance>())
+	{
+		GameInstance->RemoveFromSession();
+		GameInstance->StopSession();
+		GameInstance->DestroySession();
+		UE_LOG(LogTemp,Warning,TEXT("Match has ended, Disconnecting user from session"))
+	}
 	
 	GetWorld()->GetTimerManager().SetTimer(EndGameTimerHandle,
 		this, &AExtractionGameGameMode::EndGameTimer, TimeBeforeEndGame, false);

@@ -18,6 +18,15 @@ void UExtractionGameInstance::AllowVO()
 	CanTutorialVO = true;
 }
 
+void UExtractionGameInstance::RemoveFromSession()
+{
+	if(!CurrentSession)
+	{
+		return;
+	}
+		Session->UnregisterPlayer(CurrentSession->SessionName, *GetPrimaryPlayerUniqueIdRepl() );
+}
+
 void UExtractionGameInstance::VoiceOverCooldown()
 {
 	CanTutorialVO = false;
@@ -56,6 +65,33 @@ const UMapInfo* UExtractionGameInstance::GetMapInfo()
 }
 
 
+void UExtractionGameInstance::ResetGemAndPlayerInventory()
+{
+	if(SaveData)
+	{
+		const TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems;
+		SaveData->SetGemInventory(GemItems);
+
+		const TMap<int32, FAddItemInfo> PlayerItems;
+		SaveData->SetPlayerInventory(PlayerItems);
+	}
+}
+
+void UExtractionGameInstance::AddToStash(TMap<int32, FAddItemInfo> InItems)
+{
+}
+
+void UExtractionGameInstance::SaveAllInventories(TMap<int32, FAddItemInfo> PlayerItems,
+	TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
+{
+	if(SaveData)
+	{
+		SaveData->SetGemInventory(GemItems);
+	}
+}
+
+
+
 bool UExtractionGameInstance::RemoveFromTotalEssence(float AMT)
 {
 	bool bSuccess = true;
@@ -77,30 +113,6 @@ bool UExtractionGameInstance::AddToTotalEssence(float AMT)
 	SaveData->SetExtractedEssence(TotalExtractedEssence);
 
 	return true;
-}
-
-void UExtractionGameInstance::BuildPlayerSessionData(TMap<int32, FAddItemInfo> PlayerItems,
-                                                     TMap<int32, FAddItemInfo> StashItems, TMap<TEnumAsByte<EBodyPart>, FAddItemInfo> GemItems)
-{
-	const FPlayerSessionData PlayerData(true, PlayerItems, GemItems, StashItems);
-	PlayerSessionData = PlayerData;
-}
-
-void UExtractionGameInstance::BuildPartySessionData(TArray<FString> PlayerNames, int32 TeamID)
-{
-	const FPartyInfo TempPartyInfo(true, TeamID, PlayerNames);
-	PartyInfo = TempPartyInfo;
-}
-
-void UExtractionGameInstance::ResetPlayerAndGemInventory()
-{
-	FPlayerSessionData SessionData;
-	SessionData.bIsValid = true;
-	SessionData.PlayerItems.Reset();
-	SessionData.StashItems = PlayerSessionData.StashItems;
-	SessionData.GemItems.Reset();
-
-	PlayerSessionData = SessionData;
 }
 
 void UExtractionGameInstance::OnRaidOver(bool bSurvived, float PlayTime, float ExtractedEssence)
@@ -128,25 +140,6 @@ void UExtractionGameInstance::StopSession()
 	{
 		Session->EndSession(CurrentSession->SessionName);
 	}
-}
-
-void UExtractionGameInstance::AddToStash(TMap<int32, FAddItemInfo> Items)
-{
-	TMap<int32, FAddItemInfo> NewStash = PlayerSessionData.StashItems;
-
-	for(auto Itm : Items)
-	{
-		NewStash.Add(Itm.Key, Itm.Value);
-	}
-
-
-	FPlayerSessionData SessionData;
-	SessionData.bIsValid = true;
-	SessionData.PlayerItems = PlayerSessionData.PlayerItems;
-	SessionData.StashItems = NewStash;
-	SessionData.GemItems = PlayerSessionData.GemItems;
-
-	PlayerSessionData = SessionData;
 }
 
 

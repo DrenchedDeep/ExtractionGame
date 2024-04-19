@@ -29,14 +29,14 @@ void UPlayerInventoryComponent::InitStartingItems()
 	{
 		if(GameInstance)
 		{
-			for(auto Item : GameInstance->PlayerSessionData.PlayerItems)
+			for(auto Item : GameInstance->SaveData->PlayerItems)
 			{
-				Server_AddItem(Item.Value, Item.Key);
+				Server_AddItem(Item.ItemInfo, Item.Index);
 			}
 
-			for(auto Gem : GameInstance->PlayerSessionData.GemItems)
+			for(auto Gem : GameInstance->SaveData->GemItems)
 			{
-				Server_AddGemRaw(Gem.Value, Gem.Key);
+				Server_AddGemRaw(Gem.ItemInfo, static_cast<EBodyPart>(Gem.Index));
 			}
 
 			PC->bInitStartedItems = true;

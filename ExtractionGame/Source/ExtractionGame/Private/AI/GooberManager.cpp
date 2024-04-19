@@ -110,3 +110,20 @@ void AGooberManager::TickGooberRespawnHandle()
 		SpawnBuffer.RemoveAt(0);
 	}
 }
+
+void AGooberManager::DisableAll()
+{
+	GetWorld()->GetTimerManager().ClearTimer(GooberRespawnHandle);
+	GooberRespawnHandle.Invalidate();
+	for (auto Element : SpawnClusters)
+	{
+		if (!Element) continue;
+		for(auto Goober : Element->GetAllGoobers())
+		{
+			if (!Goober) continue;
+				Goober->Destroy();
+		}
+		Element->Destroy();
+	}
+	Destroy();
+}

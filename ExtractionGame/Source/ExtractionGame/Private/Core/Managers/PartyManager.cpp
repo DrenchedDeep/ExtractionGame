@@ -30,7 +30,7 @@ void APartyManager::OnRep_PartyPlayers()
 			}
 		}
 		
-		GameInstance->BuildPartySessionData(PlayerNames, PartyID);
+		//GameInstance->BuildPartySessionData(PlayerNames, PartyID);
 		UE_LOG(LogTemp, Warning, TEXT("Party ID: %d"), PartyID);
 	}
 }
