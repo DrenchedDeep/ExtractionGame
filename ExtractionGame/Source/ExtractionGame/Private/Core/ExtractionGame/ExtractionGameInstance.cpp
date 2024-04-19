@@ -18,7 +18,7 @@ void UExtractionGameInstance::AllowVO()
 	CanTutorialVO = true;
 }
 
-void UExtractionGameInstance::RemoveFromSession()
+void UExtractionGameInstance::RemoveFromSession() const
 {
 	if(!CurrentSession)
 	{
@@ -692,6 +692,7 @@ void UExtractionGameInstance::DestroySession()
 	}
 
 	Session->DestroySession(CurrentSession->SessionName);
+	
 	bCreatedSession = false;
 	CurrentSession = nullptr;
 }

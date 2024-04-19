@@ -44,7 +44,7 @@ void UPlayerHealthComponent::SetHealth(float Health, const AController* Instigat
 		}
 		if(AExtractionGamePlayerState* InstigatorPlayerState = Instigator->GetPlayerState<AExtractionGamePlayerState>())
 		{
-			InstigatorPlayerState->AddGooberKill();
+			InstigatorPlayerState->AddKill();
 		}
 	}
 }

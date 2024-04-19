@@ -37,7 +37,7 @@ void AExtractionGameCharacter::ToggleControlLocks(bool x)
 
 void AExtractionGameCharacter::ServerUpdateGaze_Implementation(FVector newGaze)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Looking in direction: %s"), *newGaze.ToString())
+	//UE_LOG(LogTemp, Warning, TEXT("Looking in direction: %s"), *newGaze.ToString())
 	GazeLocation = newGaze;
 }
 
