@@ -456,11 +456,7 @@ void AExtractionGamePlayerController::BeginPlay()
 		FPartyInfo PartyInfo = Cast<UExtractionGameInstance>(GetGameInstance())->PartyInfo;
 		StartPlayTime = GetWorld()->GetTimeSeconds();
 
-		if(PartyInfo.bIsValid)
-		{
-			Server_SendPartyInfo(PartyInfo);
-			PartyID = PartyInfo.PartyID;
-		}
+		Server_SendPartyInfo(PartyInfo);
 	}
 
 //	RespawnManager = Cast<ARespawnManager>(UGameplayStatics::GetActorOfClass(GetWorld(), RespawnManagerSubclass));

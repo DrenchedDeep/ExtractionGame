@@ -24,11 +24,13 @@ AExtractionGameGameMode::AExtractionGameGameMode()
 void AExtractionGameGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
-	RegisterPlayerEOS(NewPlayer);
+	SpawnedSpaceships++;
+	CheckToStartMatch();
 }
 
 void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPartyInfo PartyInfo)
 {
+	/*/
 	int32 Index;
 	if(HasParty(PartyInfo.PartyID, Index) && AllParties.IsValidIndex(Index))
 	{
@@ -71,6 +73,7 @@ void AExtractionGameGameMode::OnPartyInfoRecieved(APlayerController* Sender, FPa
 	{
 		GS->UpdateParties(AllParties);
 	}
+	/*/
 }
 
 void AExtractionGameGameMode::SetGameModeState(EGameModeState NewState)
